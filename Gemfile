@@ -62,6 +62,8 @@ gem 'paper_trail', '~> 3.0.6'
 gem 'faraday'
 gem 'faraday_middleware'
 
+gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+
 
 group :development, :test do
   gem "pry"
