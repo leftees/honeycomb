@@ -25,6 +25,10 @@ class ItemDecorator < Draper::Decorator
     image_decorator.render(style_name, options)
   end
 
+  def react_thumbnail()
+    h.react_component 'Thumbnail', image: object.honeypot_image.url
+  end
+
   def render_image_zoom(options = {})
     image_decorator.render_image_zoom(options)
   end

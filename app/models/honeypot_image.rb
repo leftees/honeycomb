@@ -24,6 +24,10 @@ class HoneypotImage < ActiveRecord::Base
     set_values_from_json_response
   end
 
+  def url
+    get_key('href')
+  end
+
   def image_json
     if json_response.present?
       json_response["image"]

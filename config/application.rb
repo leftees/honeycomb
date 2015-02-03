@@ -31,6 +31,6 @@ module ItemAdmin
     # config.i18n.default_locale = :de
 
 
-
+    config.react.addons = true
   end
 end
