@@ -53,7 +53,7 @@
       <div class="panel-body">
         <div class="item-show-image-box">
           <button class="btn btn-default image-zoom-fullscreen" data-target="#itemZoom<%= item.id %>"><span class="glyphicon glyphicon-zoom-in"></span></button>
-          <%= item.thumbnail(:medium, height: '200') %>
+          <%= item.react_thumbnail %>
           <% simple_form_for [@item.collection, @item], html: { :class => "edit-item-dropzone", :multipart => true } do |f| %>
             <div class="row">
               <div class="dropzone">
