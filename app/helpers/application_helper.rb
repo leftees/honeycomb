@@ -74,7 +74,16 @@ module ApplicationHelper
   end
 
   def collection_title(collection, section_title)
-    render partial: '/collections/collection_title', locals: { collection: collection, section_title: section_title }
+    page_title(collection.title, section_title, collection_items_path(collection))
+  end
+
+  def page_title(title, small_title = "", link_href = "")
+    content_for(:page_title) do
+      Waggle::PageTitle.new(title).display do | pt |
+        pt.small_title = small_title
+        pt.link_href = link_href
+      end
+    end
   end
 
 end

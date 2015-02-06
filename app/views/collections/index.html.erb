@@ -1,13 +1,14 @@
 <% breadcrumb :collections %>
 <%- model_class = Collection -%>
-<div class="page-header">
-    <div class="pull-right">
-      <%= link_to t('.new', :default => t("New Collection")),
-              new_collection_path,
-              :class => 'btn btn-primary' %>
-    </div>
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+
+<%= page_title(t('.title', :default => model_class.model_name.human.pluralize.titleize)) %>
+
+<div class="pull-right">
+  <%= link_to t('.new', :default => t("New Collection")),
+          new_collection_path,
+          :class => 'btn btn-primary' %>
 </div>
+
 <table class="table table-striped">
   <thead>
     <tr>
