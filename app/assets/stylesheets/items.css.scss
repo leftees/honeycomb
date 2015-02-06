@@ -1,5 +1,8 @@
-.item-list .hc-thumbnail {
-  max-height: 64px;
+.item-list {
+  .hc-thumbnail {
+    height: 64px;
+    width: 100px;
+  }
 }
 
 .item-show-children {

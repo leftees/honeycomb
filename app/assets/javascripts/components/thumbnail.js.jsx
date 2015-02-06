@@ -24,7 +24,7 @@ var Thumbnail = React.createClass({
     if (this.state.image) {
       return this.state.image['thumbnail/small']['contentUrl'];
     } else {
-      return '/images/ajax-loader.gif';
+      return '/images/blank.png';
     }
   },
 
@@ -39,7 +39,7 @@ var Thumbnail = React.createClass({
 
   render: function() {
     return (
-      <img src={this.thumbnailSrc()} className={this.classes()}/>
+      <span className={this.classes()}><span className="hc-thumbnail-helper"></span><img src={this.thumbnailSrc()} className="hc-thumbnail-image"/></span>
     );
   }
 });
