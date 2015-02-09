@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/ndlib/waggle.git
-  revision: 6bf2a13c9baf0b7d62cc1c7d0a56bb85fa81a640
+  revision: fe349a6d73c320f5c761cb939eecba639afe856d
   specs:
     waggle (0.0.1)
       autoprefixer-rails
@@ -59,7 +59,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    autoprefixer-rails (5.1.3.1)
+    autoprefixer-rails (5.1.5)
       execjs
       json
     bcrypt (3.1.7)

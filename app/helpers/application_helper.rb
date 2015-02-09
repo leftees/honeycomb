@@ -70,7 +70,7 @@ module ApplicationHelper
   end
 
   def collection_nav(collection, active)
-    render partial: '/collections/collection_nav', locals: { collection: collection, active: active }
+    Waggle::SideNav.new(collection).display(active)
   end
 
   def collection_title(collection, section_title)
