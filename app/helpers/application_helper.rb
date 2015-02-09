@@ -58,7 +58,7 @@ module ApplicationHelper
   end
 
   def display_errors(obj)
-    ErrorMessageDecorator.new(obj).display_error
+    Waggle::ErrorMessages.new(obj).display_error
   end
 
   def masquerade
