@@ -75,11 +75,5 @@ RSpec.describe ItemImageDecorator do
         expect(subject.render(:small)).to be_nil
       end
     end
-
-    describe '#render_image_zoom' do
-      it 'returns nil' do
-        expect(subject.render_image_zoom).to be_nil
-      end
-    end
   end
 end
