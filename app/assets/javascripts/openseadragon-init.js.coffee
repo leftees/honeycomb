@@ -21,7 +21,8 @@ jQuery ($) ->
       if event.keyCode == 27
         container = $(button.data('target'))
         viewer = getViewer(container)
-        viewer.setFullPage(false)
+        if viewer
+          viewer.setFullPage(false)
       true
 
   initializeOpenseadragon = (container) ->
@@ -40,7 +41,6 @@ jQuery ($) ->
       options = dziOptions(container)
     else
       options = legacyOptions(container)
-    console.log(options)
     options
 
   baseOptions = (container) ->
