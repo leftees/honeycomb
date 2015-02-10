@@ -55,17 +55,6 @@ RSpec.describe ItemDecorator do
       end
     end
 
-    describe '#render_image_zoom' do
-      it 'calls image_decorator#render_image_zoom with default options' do
-        expect(image_decorator).to receive(:render_image_zoom).with({}).and_return('zoom')
-        expect(subject.render_image_zoom()).to eq('zoom')
-      end
-
-      it 'calls image_decorator#render_image_zoom with the specified options' do
-        expect(image_decorator).to receive(:render_image_zoom).with({test: :test}).and_return('zoom')
-        expect(subject.render_image_zoom({test: :test})).to eq('zoom')
-      end
-    end
   end
 
   describe '#image_decorator' do

@@ -16,22 +16,6 @@ class ItemImageDecorator < Draper::Decorator
     end
   end
 
-  def render_image_zoom(options = {})
-    if object && dzi
-      if Rails.env.development?
-        options = options.merge({
-          'data-target-height' => original_style.height,
-          'data-target-width' => original_style.width
-        })
-        h.image_zoom(original_style.src, options)
-      else
-        h.image_zoom(dzi.src, options)
-      end
-    else
-      nil
-    end
-  end
-
   def style_with_fallback(style_name)
     style(style_name) || original_style
   end

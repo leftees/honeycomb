@@ -20,17 +20,6 @@ RSpec.describe ItemImageDecorator do
       end
     end
 
-    describe '#render_image_zoom' do
-      it 'renders' do
-        expect(subject.render_image_zoom).to eq("<div class=\"image-zoom image-zoom-immediate\" data-target=\"http://localhost:3019/images/test/000/001/000/001/pyramid/1920x1200.tif.dzi\" id=\"imageZoom1\" style=\"width: 100%; height: 100%\"></div>")
-      end
-
-      it 'returns nil if there is no dzi' do
-        allow(subject).to receive(:dzi).and_return(nil)
-        expect(subject.render_image_zoom).to be_nil
-      end
-    end
-
     describe '#style_with_fallback' do
       it 'returns the requested style if it exists' do
         style = subject.style_with_fallback(:small)
