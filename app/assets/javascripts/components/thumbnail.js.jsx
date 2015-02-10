@@ -14,15 +14,19 @@ var Thumbnail = React.createClass({
 
   componentDidMount: function() {
     $.get(this.props.image, function(result) {
+      var imageObject = result['thumbnail/small'];
+      if (!imageObject) {
+        imageObject = result;
+      }
       this.setState({
-        image: result,
+        image: imageObject,
       })
     }.bind(this));
   },
 
   thumbnailSrc: function() {
     if (this.state.image) {
-      return this.state.image['thumbnail/small']['contentUrl'];
+      return this.state.image.contentUrl;
     } else {
       return '/images/blank.png';
     }
