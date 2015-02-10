@@ -1,4 +1,4 @@
-class CollectionJson < Draper::Decorator
+class CollectionJSON < Draper::Decorator
 
   def to_json(options = {})
     to_hash(options).to_json

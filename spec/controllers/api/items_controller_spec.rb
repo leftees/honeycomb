@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Api::ItemsController, :type => :controller do
+RSpec.describe API::ItemsController, :type => :controller do
   let(:item) { instance_double(Item, id: 1, title: 'title', collection: collection) }
   let(:items) { [item] }
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }

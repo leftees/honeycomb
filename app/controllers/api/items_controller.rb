@@ -1,27 +1,28 @@
-class Api::ItemsController < ApiController
+module API
+  class ItemsController < APIController
 
-  helper_method :collection
+    helper_method :collection
 
-  def index
-    @items = collection.items
+    def index
+      @items = collection.items
 
-    respond_to do | format |
-      format.json { render json: GenerateItemJson.new(@items, params) }
+      respond_to do | format |
+        format.json { render json: GenerateItemJson.new(@items, params) }
+      end
     end
+
+    def show
+      @item = collection.items.find(params[:id])
+
+      respond_to do | format |
+        format.json { render json: GenerateItemJson.new(@item, params) }
+      end
+    end
+
+    protected
+
+      def collection
+        @collection ||= Collection.find(params[:collection_id])
+      end
   end
-
-  def show
-    @item = collection.items.find(params[:id])
-
-    respond_to do | format |
-      format.json { render json: GenerateItemJson.new(@item, params) }
-    end
-  end
-
-  protected
-
-    def collection
-      @collection ||= Collection.find(params[:collection_id])
-    end
-
 end
