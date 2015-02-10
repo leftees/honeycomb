@@ -1,4 +1,4 @@
-class ItemJson < Draper::Decorator
+class ItemJSON < Draper::Decorator
 
   def to_json(options = {})
     to_hash(options).to_json

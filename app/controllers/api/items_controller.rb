@@ -7,7 +7,7 @@ module API
       @items = collection.items
 
       respond_to do | format |
-        format.json { render json: GenerateItemJson.new(@items, params) }
+        format.json { render json: GenerateItemJSON.new(@items, params) }
       end
     end
 
@@ -15,7 +15,7 @@ module API
       @item = collection.items.find(params[:id])
 
       respond_to do | format |
-        format.json { render json: GenerateItemJson.new(@item, params) }
+        format.json { render json: GenerateItemJSON.new(@item, params) }
       end
     end
 

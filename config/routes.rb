@@ -36,7 +36,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :collections, only: [:show], defaults: {format: :json}
+      resources :collections, only: [:show], defaults: {format: :json} do
+        resources :items, only: [:index, :show], defaults: {format: :json} do
+      end
+      end
     end
 
     resources :collections, only: [:index, :show], constraints: {format: /json/} do
