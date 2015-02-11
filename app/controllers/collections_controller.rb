@@ -15,7 +15,7 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(params.require(:collection).permit([:title]))
 
-    if @collection.save
+    if @collection.save and AssignUserToCollection.call(@collection, current_user)
       flash[:notice] = t('.success')
       redirect_to collection_items_path(@collection)
     else
