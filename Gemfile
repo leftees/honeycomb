@@ -77,9 +77,9 @@ group :development, :test do
   gem "guard-rails"
   gem "guard-rspec"
   gem "guard-spring"
-  gem "growl"
-  gem "ruby_gntp"
-  gem "growl-rspec"
+#  gem "growl"
+#  gem "ruby_gntp"
+#  gem "growl-rspec"
 
   gem 'coveralls', require: false
 end
