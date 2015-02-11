@@ -1,24 +1,45 @@
 <% breadcrumb :collections %>
 <%- model_class = Collection -%>
 
-<%= page_title(t('.title', :default => model_class.model_name.human.pluralize.titleize)) %>
-
-<div class="pull-right">
-  <%= link_to t('.new', :default => t("New Collection")),
-          new_collection_path,
-          :class => 'btn btn-primary' %>
+<div class="jumbotron">
+    <h1>Collections</h1>
+    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <p>
+      <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new', :default => t("Add a Collection"))}"),
+        new_collection_path,
+        :class => 'btn btn-primary btn-large' %>
+      <%= link_to raw(" Learn More"),
+        new_collection_path,
+        :class => 'btn btn-large' %>
+    </p>
 </div>
+
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th>Collection</th>
+      <th></th>
+      <th></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
     </tr>
   </thead>
   <tbody>
     <% @collections.where("collections.deleted IS NOT TRUE").each do |collection| %>
       <tr>
-        <td><%= link_to collection.title, collection_items_path(collection) %></td>
+        <td>
+          <% if collection.items.size > 0 %>
+            <% item = ItemDecorator.new(collection.items.first) %>
+            <%= link_to item.thumbnail(:small, height: 64), item.show_path %></a>
+          <% end %>
+        <td>
+          <h4 class="media-heading"><%= h link_to collection.title, collection_items_path(collection) %></h4>
+          <%= h collection.description %>
+        </td>
+        <td><span class="badge"><%= collection.items.size %> Items</span></td>
+        <td>
+          <%= collection.updated_at.to_s(:long) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

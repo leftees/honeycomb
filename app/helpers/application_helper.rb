@@ -74,14 +74,16 @@ module ApplicationHelper
   end
 
   def collection_title(collection, section_title)
-    page_title(collection.title, section_title, collection_items_path(collection))
+    right_content = link_to(raw('<i class="glyphicon glyphicon-cog"></i> Settings'), edit_collection_path(collection), class: 'btn btn-sm', role: 'button')
+    page_title(collection.title, section_title, collection_items_path(collection), right_content)
   end
 
-  def page_title(title, small_title = "", link_href = "")
+  def page_title(title, small_title = "", link_href = "", right_content = "")
     content_for(:page_title) do
       Waggle::PageTitle.new(title).display do | pt |
         pt.small_title = small_title
         pt.link_href = link_href
+        pt.right_content = right_content
       end
     end
   end

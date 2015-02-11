@@ -21,8 +21,10 @@
   <body>
 
   <%= Waggle::DisplayHeader.new(controller).display %>
+
   <%= yield(:page_title) %>
   <%= yield %>
+
   <%= Waggle::DisplayFooter.new(controller).display %>
 
   </body>

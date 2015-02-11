@@ -2,7 +2,8 @@ div.dataTables_filter label {
   margin-bottom: 0;
   margin-right: 15px;
   padding-right: 15px;
-  border-right: 1px solid gray ;
+  padding-left: 15px;
+  border-left: 1px solid gray ;
   height: 34px;
 }
 
@@ -10,4 +11,5 @@ div.dataTables_filter {
   padding-top: 7px;
   padding-bottom: 7px;
   padding-left: 19px;
+  float: left;
 }

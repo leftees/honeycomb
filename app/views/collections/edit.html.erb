@@ -60,6 +60,28 @@
     </div>
 
 
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Description</h3>
+      </div>
+      <div class="panel-body">
+        <%= simple_form_for @collection, :html => { :class => 'form-inline' } do |f| %>
+          <%= display_errors(@collection) %>
+          <div class="row">
+            <div class="col-md-9">
+              <%= f.input :description, as: :text, wrapper: :inline_form %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9">
+              <button name="commit" type="submit" class="btn btn-default"><span class="text-primary">Change</span></button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
     <%= Waggle::DeleteSection.new(@collection).display do | ds |
       ds.message = "Procede with caution. This will also remove all items, exhibits, and showcases."
     end

@@ -65,6 +65,8 @@ class ItemDataTable
   setupFilters: ->
     object = @
     #@filterContainer.addClass('well').addClass('well-small')
+    $('.dataTables_filter').append $('.table-filter').html()
+
 
   infoCallback: (settings, start, end, max, total, pre) ->
     if end == 0
