@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/ndlib/waggle.git
-  revision: c76881586617a8b0a4933ab29e30ec9720161ab3
+  revision: 07a92e5598d4d8707b27ec69d9887fae7e4e5c90
   specs:
     waggle (0.0.1)
       autoprefixer-rails
