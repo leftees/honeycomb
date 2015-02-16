@@ -23,7 +23,7 @@
       <div class="panel-heading">
         <div class="pull-right">
           <div class="btn-group">
-            <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_collection_item_child_path(collection, @item), class: 'btn btn-primary btn-xs' %>
+            <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_collection_item_child_path(collection, @item), class: 'btn btn-default btn-xs' %>
             </div>
         </div>
         <h3 class="panel-title"><%= t('.children.title') %></h3>
@@ -46,27 +46,26 @@
     <div class="panel panel-default">
       <div class="panel-heading"><strong>Media</strong></div>
       <div class="panel-body">
-
-    <div class="item-show-image-box">
-      <button class="btn btn-default image-zoom-fullscreen" data-target="#itemZoom<%= item.id %>"><span class="glyphicon glyphicon-zoom-in"></span></button>
-      <%= item.thumbnail(:medium, height: '200') %>
-      <% simple_form_for [@item.collection, @item], html: { :class => "edit-item-dropzone", :multipart => true } do |f| %>
-        <div class="row">
-          <div class="dropzone">
-            <div class="dropzone-previews"></div>
-            <div class="dz-message"><span>Drop image here to upload.</span></div>
-          </div>
-          <div class="fallback">
-            <%= f.file_field :image %>
-          </div>
+        <div class="item-show-image-box">
+          <button class="btn btn-default image-zoom-fullscreen" data-target="#itemZoom<%= item.id %>"><span class="glyphicon glyphicon-zoom-in"></span></button>
+          <%= item.thumbnail(:medium, height: '200') %>
+          <% simple_form_for [@item.collection, @item], html: { :class => "edit-item-dropzone", :multipart => true } do |f| %>
+            <div class="row">
+              <div class="dropzone">
+                <div class="dropzone-previews"></div>
+                <div class="dz-message"><span>Drop image here to upload.</span></div>
+              </div>
+              <div class="fallback">
+                <%= f.file_field :image %>
+              </div>
+            </div>
+            <div style="width: 100%; text-align: center; background-color: gray; color: white; padding: 8px;">
+              <%= f.button :submit, "Replace Image", class: 'btn btn-primary' %>
+              <a href="#" style="color: white;"><i class="glyphicon glyphicon-refresh"></i> Replace</a>
+            </div>
+          <% end %>
         </div>
-        <div style="width: 100%; text-align: center; background-color: gray; color: white; padding: 8px;">
-          <%= f.button :submit, "Replace Image", class: 'btn btn-primary' %>
-          <a href="#" style="color: white;"><i class="glyphicon glyphicon-refresh"></i> Replace</a>
-        </div>
-      <% end %>
-    </div>
-    <%= item.render_image_zoom(id: "itemZoom#{item.id}") %>
+        <%= item.render_image_zoom(id: "itemZoom#{item.id}") %>
       </div>
     </div>
 
