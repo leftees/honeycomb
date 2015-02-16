@@ -6,25 +6,6 @@
 
 <%= render partial: "show", locals: { item: @item } %>
 
-<% if @item.is_parent? %>
-  <div class="item-show-children clearfix">
-    <hr>
-    <div class="menu-bar">
-      <div class="btn-group">
-          <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_collection_item_child_path(collection, @item), class: 'btn btn-primary' %>
-      </div>
-    </div>
-    <% if @item.recent_children.count > 0 %>
-
-      <%= render partial: 'list_small', locals: { items: @item.recent_children } %>
-    <% else %>
-      <div class="well">
-        <p>There are no addtional resources associated with this item</p>
-        <p>Additional eesources are intended to be items that provide context to the main item.  Examples might be a portrait of the creator or a map of where the item was created at. </p>
-      </div>
-    <% end %>
-  </div>
-<% end %>
 
 <%= Waggle::DeleteSection.new(@item).display do | ds |
   ds.name = "Item"
