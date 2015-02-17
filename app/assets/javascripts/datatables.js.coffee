@@ -61,10 +61,14 @@ class ItemDataTable
 
     @container = @tableElement.parent()
     @filterContainer = @container.find('.dataTables_filter')
+    object.setupFilters()
 
   setupFilters: ->
     object = @
     #@filterContainer.addClass('well').addClass('well-small')
+    #$('.table-filter').append $('.dataTables_filter').html()
+    #$('.dataTables_filter').remove()
+
 
   infoCallback: (settings, start, end, max, total, pre) ->
     if end == 0

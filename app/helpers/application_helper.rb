@@ -73,15 +73,21 @@ module ApplicationHelper
     Waggle::SideNav.new(collection).display(active)
   end
 
-  def collection_title(collection, section_title)
-    page_title(collection.title, section_title, collection_items_path(collection))
+  def collection_title(collection,  section_title = nil)
+    page_title(collection.title, collection_items_path(collection), section_title, nil, edit_collection_path(collection))
   end
 
-  def page_title(title, small_title = "", link_href = "")
+  def item_title(item)
+    page_title(item.collection.title, collection_items_path(collection), item.title, collection_item_path(item.collection,item), edit_collection_path(item.collection))
+  end
+
+  def page_title(title, title_href = "", small_title = "", small_title_href = "", settings_href = "")
     content_for(:page_title) do
       Waggle::PageTitle.new(title).display do | pt |
         pt.small_title = small_title
-        pt.link_href = link_href
+        pt.title_href = title_href
+        pt.small_title_href = small_title_href
+        pt.settings_href = settings_href
       end
     end
   end

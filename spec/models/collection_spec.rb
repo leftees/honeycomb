@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Collection do
-  [:title, :items].each do | field |
+  [:title, :items, :description].each do | field |
 
     it "has field, #{field}" do
       expect(subject).to respond_to(field)

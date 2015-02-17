@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th></th>
+      <th></th>
       <th>Item</th>
       <th>Last Modified</th>
       <th>Last Modified Timestamp</th>
@@ -12,6 +13,9 @@
   <tbody>
     <% items.each do |item| %>
       <tr>
+        <td>
+          <input type="checkbox" class="show-selected-menu" />
+        </td>
         <td>
           <%= link_to item.thumbnail(:small, height: 64), item.show_path, class: "pull-left" %></a>
         </td>

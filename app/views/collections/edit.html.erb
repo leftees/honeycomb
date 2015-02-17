@@ -1,10 +1,22 @@
 <%- model_class = Collection -%>
-<%= collection_title(@collection, 'Settings') %>
+<%= collection_title(@collection) %>
 
 <div class="row">
+  <div class="col-md-3">
+
+    <div class="list-group">
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item active"><i class="glyphicon glyphicon-cog"></i> Settings</i></a>
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-user"></i> Curators </i></a>
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-tasks"></i> Metadata </i></a>
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-th-large"></i> Exhibit </i></a>
+
+    </div>
+
+  </div>
+
   <div class="col-md-9">
 
-    <div class="panel panel-default">
+    <!-- div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Curators</h3>
       </div>
@@ -23,7 +35,6 @@
       </table>
 
       <div class="panel-footer">
-        <!-- User search tool -->
         <form action="<%= set_curator_path %>" method="post" id="set_curator_form" class="form-inline" role="form">
           <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
           <input type="hidden" name="curator_id" id="curator_id" value=""/>
@@ -41,23 +52,27 @@
           <input type="hidden" name="curator_id" id="remove_curator_id" value=""/>
           <input type="hidden" name="collection_id" value="<%= @collection.id %>"/>
         </form>
-        <!-- End User search tool -->
       </div>
-    </div>
+    </div -->
 
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Rename Collection</h3>
+        <h3 class="panel-title">Settings</h3>
       </div>
-      <div class="panel-body">
-        <%= simple_form_for @collection, :html => { :class => 'form-inline' } do |f| %>
-          <%= display_errors(@collection) %>
-          <%= f.input :title, wrapper: :inline_form %>
-          <button name="commit" type="submit" class="btn btn-default"><span class="text-primary">Rename</span></button>
-        <% end %>
-      </div>
+      <%= simple_form_for @collection do |f| %>
+
+        <div class="panel-body">
+            <%= display_errors(@collection) %>
+            <%= f.input :title, label: 'Collection Name', required: false %>
+            <%= f.input :description, as: :text, label: 'Collection Description' %>
+        </div>
+        <div class="panel-footer">
+          <button name="commit" type="submit" class="btn btn-default"><span class="text-primary">Update</span></button>
+        </div>
+      <% end %>
     </div>
+
 
 
     <%= Waggle::DeleteSection.new(@collection).display do | ds |
@@ -65,9 +80,6 @@
     end
     %>
 
-  </div>
-  <div class="col-md-3">
-    <%= collection_nav(@collection, :settings) %>
   </div>
 </div>
 

@@ -22,6 +22,18 @@
 
 <%= f.input :manuscript_url, as: :string %>
 
-<%= f.button :submit, "Save", class: 'btn btn-primary'%>
-<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-        collection_item_path(@item.collection, @item), :class => 'btn btn-default' %>
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <i class="glyphicon glyphicon-plus"></i> Add a new field
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">Transcript</a></li>
+    <li><a href="#">Location</a></li>
+    <li><a href="#">Location Created</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Create a New Field</a></li>
+  </ul>
+</div>
+

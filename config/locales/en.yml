@@ -34,10 +34,10 @@ en:
       title: "Item"
       children:
         title: "Additional Resources"
-        manage_link: "Add Additional Resources"
+        manage_link: "Add"
     index:
       title: "Items"
-      new: "Add Items"
+      new: "Add New Items"
     create:
       success: "Item created"
     update:
