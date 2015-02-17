@@ -1,7 +1,28 @@
 <%= collection_title(@collection) %>
 
 <div class="row">
-  <div class="col-md-9">
+
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong>Items</strong></div>
+      <div class="panel-body">
+        <p>Exhibits are sites dedicated to displaying your collection.</p>
+        <p><%= link_to "Goto Exhibit", "#{Waggle::DetermineDomain.call(:beehive)}collections/#{collection.id}" %></p>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong>Exhibit</strong></div>
+      <div class="panel-body">
+        <p>Exhibits are sites dedicated to displaying your collection.</p>
+        <p><%= link_to "Goto Exhibit", "#{Waggle::DetermineDomain.call(:beehive)}collections/#{collection.id}" %></p>
+      </div>
+    </div>
+
+    <%= link_to raw('<i class="glyphicon glyphicon-cog"></i> Settings'), "#", class: 'btn btn-default', role: 'button' %>
+
+  </div>
+  <div class="col-md-10">
     <div class="menu-bar default pull-left">
       <div class="btn-group">
         <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('items.index.new')}"),
@@ -42,15 +63,5 @@
     <%= render partial: "list", locals: { items: @items } %>
   </div>
 
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading"><strong>Exhibit</strong></div>
-      <div class="panel-body">
-        <p>Exhibits are sites dedicated to displaying your collection.</p>
-        <p><%= link_to "Goto Exhibit", "#{Waggle::DetermineDomain.call(:beehive)}collections/#{collection.id}" %></p>
-      </div>
-    </div>
-
-  </div>
 
 </div>
