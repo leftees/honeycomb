@@ -10,7 +10,11 @@ class ItemDecorator < Draper::Decorator
   end
 
   def image_title
-    image_decorator.title
+    if object.honeypot_image
+      object.honeypot_image.title
+    else
+      nil
+    end
   end
 
   def back_path
@@ -19,10 +23,6 @@ class ItemDecorator < Draper::Decorator
     else
       h.collection_item_children_path(object.collection_id, object.parent_id)
     end
-  end
-
-  def thumbnail(style_name = :small, options = {})
-    image_decorator.render(style_name, options)
   end
 
   def react_thumbnail()
@@ -53,9 +53,5 @@ class ItemDecorator < Draper::Decorator
 
   def children_query
     @children_query ||= ItemQuery.new(object.children)
-  end
-
-  def image_decorator
-    @image_decorator ||= ItemImageDecorator.new(object.honeypot_image)
   end
 end

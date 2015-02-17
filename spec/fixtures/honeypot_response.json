@@ -1,38 +1,31 @@
 {
-  "image":{
-    "title":"1920x1200.jpeg",
-    "href":"http://localhost:3019/api/images/test/000/001/000/001/1920x1200.jpeg",
-    "links":{
-      "styles":[
-        {
-          "id":"original",
-          "width":1920,
-          "height":1200,
-          "type":"jpeg",
-          "src":"http://localhost:3019/images/test/000/001/000/001/1920x1200.jpeg"
-        },
-        {
-          "id":"medium",
-          "width":1280,
-          "height":800,
-          "type":"jpeg",
-          "src":"http://localhost:3019/images/test/000/001/000/001/medium/1920x1200.jpeg"
-        },
-        {
-          "id":"small",
-          "width":320,
-          "height":200,
-          "type":"jpeg",
-          "src":"http://localhost:3019/images/test/000/001/000/001/small/1920x1200.jpeg"
-        }
-      ],
-      "dzi":{
-        "id":"dzi",
-        "width":1920,
-        "height":1200,
-        "type":"dzi",
-        "src":"http://localhost:3019/images/test/000/001/000/001/pyramid/1920x1200.tif.dzi"
-      }
-    }
+  "@context":"http://schema.org",
+  "@type":"ImageObject",
+  "@id":"http://localhost:3019/api/v1/images/test/000/001/000/001/1920x1200.jpeg",
+  "width":"1920 px",
+  "height":"1200 px",
+  "encodingFormat":"jpeg",
+  "contentUrl":"http://localhost:3019/images/test/000/001/000/001/1920x1200.jpeg",
+  "name":"1920x1200.jpeg",
+  "thumbnail/medium":{
+    "@type":"ImageObject",
+    "width":"1280 px",
+    "height":"800 px",
+    "encodingFormat":"jpeg",
+    "contentUrl":"http://localhost:3019/images/test/000/001/000/001/medium/1920x1200.jpeg"
+  },
+  "thumbnail/dzi":{
+    "@type":"ImageObject",
+    "width":"1920 px",
+    "height":"1200 px",
+    "encodingFormat":"dzi",
+    "contentUrl":"http://localhost:3019/images/test/000/001/000/001/pyramid/1920x1200.tif.dzi"
+  },
+  "thumbnail/small":{
+    "@type":"ImageObject",
+    "width":"320 px",
+    "height":"200 px",
+    "encodingFormat":"jpeg",
+    "contentUrl":"http://localhost:3019/images/test/000/001/000/001/small/1920x1200.jpeg"
   }
 }
