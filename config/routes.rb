@@ -24,6 +24,14 @@ Rails.application.routes.draw do
       end
       resources :children, controller: 'item_children', only: [:index, :new, :create]
     end
+
+    resources :exhibits do
+      resources :showcases do
+        resources :sections
+      end
+
+      resources :items, only: [:index, :show], defaults: {format: :json}
+    end    
   end
 
   namespace :api do
