@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/ndlib/hesburgh_api.git
-  revision: 52d63facf7d0b854f5659d3cabaf406609f74868
+  revision: 7e65d334a0e3262ad51c02670792da44aaa98c3b
   specs:
     hesburgh_api (0.0.3)
       excon
@@ -118,13 +118,13 @@ GEM
       activesupport (>= 3.0)
       request_store (~> 1.0)
     erubis (2.7.0)
-    ethon (0.7.1)
+    ethon (0.7.2)
       ffi (>= 1.3.0)
-    excon (0.42.0)
+    excon (0.44.2)
     execjs (2.3.0)
     faker (1.4.3)
       i18n (~> 0.5)
-    faraday (0.9.0)
+    faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
@@ -310,7 +310,7 @@ GEM
     tins (1.3.3)
     turbolinks (2.4.0)
       coffee-rails
-    typhoeus (0.6.9)
+    typhoeus (0.7.1)
       ethon (>= 0.7.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
