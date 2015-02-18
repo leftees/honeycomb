@@ -2,7 +2,7 @@ require 'error_helper'
 class ApplicationController < ActionController::Base
   include ErrorHelper
 
-  before_action :redirect_to_sign_in, unless: :user_signed_in?, :except => [:catch_500, :catch_404]
+  #before_action :redirect_to_sign_in, unless: :user_signed_in?, :except => [:catch_500, :catch_404]
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= react_component('ImageCaptionEditor', {image: f.object.image, fieldName: "section[caption]", caption: f.object.caption}, {prerender: false}) %>
+  </div>
+  <div class="col-md-6">
+    <%= f.input :title %>
+
+    <p><%= link_to "Add Intro" %> </p>
+
+    <%= f.input :description, as: :text %>
+
+  </div>
+
+  <%= f.hidden_field :display_type, value: 'text'%>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <button class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</div>
+
