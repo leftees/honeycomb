@@ -1,0 +1,15 @@
+
+<div class="row">
+  <div class="col-md-9">
+
+    <%= react_component 'ShowcaseEditor', {
+              itemsJSONPath: collection_exhibit_items_path(@sections.exhibit.collection, @sections.exhibit, :json),
+              sectionsPath: collection_exhibit_showcase_sections_path(@sections.exhibit.collection, @sections.exhibit, @sections.showcase),
+              sectionsJSONPath: collection_exhibit_showcase_sections_path(@sections.exhibit.collection, @sections.exhibit, @sections.showcase, :json) },
+             {prerender: false }
+    %>
+  </div>
+
+  <div class="col-md-3">
+  </div>
+</div>

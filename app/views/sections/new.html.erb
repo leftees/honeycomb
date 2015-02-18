@@ -1,0 +1,15 @@
+<h2><%= @section_form.title %></h2>
+
+<div class="row">
+  <div class="col-md-9">
+    <h2>New Section</h2>
+
+    <%= simple_form_for @section_form.form_url do | f | %>
+      <%= render partial: @section_form.form_partial, locals: { f: f } %>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <%= exhibit_nav(@section_form.section.showcase.exhibit, :showcases) %>
+  </div>
+
+</div>
