@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(version: 20150210191116) do
     t.text     "description"
   end
 
+  create_table "exhibits", force: true do |t|
+    t.text    "title"
+    t.text    "description"
+    t.integer "collection_id"
+  end
+
   create_table "honeypot_images", force: true do |t|
     t.integer  "item_id"
     t.string   "title"
@@ -58,6 +64,26 @@ ActiveRecord::Schema.define(version: 20150210191116) do
 
   add_index "items", ["collection_id"], name: "index_items_on_collection_id", using: :btree
   add_index "items", ["parent_id"], name: "index_items_on_parent_id", using: :btree
+
+  create_table "sections", force: true do |t|
+    t.string  "title"
+    t.text    "description"
+    t.string  "image"
+    t.integer "item_id"
+    t.integer "order"
+    t.text    "caption"
+    t.integer "showcase_id"
+  end
+
+  create_table "showcases", force: true do |t|
+    t.text     "title"
+    t.text     "description"
+    t.integer  "exhibit_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "first_name"
