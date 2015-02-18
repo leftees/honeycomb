@@ -46,7 +46,12 @@ var OpenseadragonViewer = React.createClass({
   },
 
   buildViewer: function(image) {
-    var options = this.legacyOptions(image);
+    var options;
+    if (/^http:\/\/localhost/.test(image.contentUrl)) {
+      options = this.legacyOptions(image);
+    } else {
+      options = this.dziOptions(image);
+    }
     var viewer = OpenSeadragon(options);
     var escapeHandler = function(event) {
       if (event.keyCode === 27) {
