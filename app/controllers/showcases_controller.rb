@@ -13,7 +13,7 @@ class ShowcasesController < ApplicationController
     @showcase = exhibit.showcases.build(save_params)
 
     if @showcase.save
-      redirect_to exhibit_showcases_path(@showcase.exhibit)
+      redirect_to collection_exhibit_showcases_path(@showcase.exhibit.collection, @showcase.exhibit)
     else
       render :new
     end
