@@ -48,7 +48,7 @@ module ApplicationHelper
 
   def page_title(title, title_href = "", small_title = "", small_title_href = "", settings_href = "")
     content_for(:page_title) do
-      Waggle::PageTitle.new(title).display do | pt |
+      PageTitle.new(title).display do | pt |
         pt.small_title = small_title
         pt.title_href = title_href
         pt.small_title_href = small_title_href
