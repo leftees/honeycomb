@@ -1,5 +1,6 @@
 class Exhibit < ActiveRecord::Base
   has_many :showcases
+  belongs_to :collection
 
   validates :title, presence: true
 
