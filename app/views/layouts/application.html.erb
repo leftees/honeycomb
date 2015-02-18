@@ -48,7 +48,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
-      <%= Waggle::DisplayFlashMessage.new(controller.flash).display %>
+      <%= DisplayFlashMessage.new(controller.flash).display %>
 
 
       <%= yield(:page_title) %>
