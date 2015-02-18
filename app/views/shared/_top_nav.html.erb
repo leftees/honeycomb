@@ -1,0 +1,26 @@
+<div class="navbar-header">
+   <a class="navbar-brand" href="<%= root_path %>"><i class="glyphicon glyphicon-home"></i> honeycomb</a>
+</div>
+<div class="navbar-collapse collapse">
+  <ul class="nav navbar-nav">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th"></i> Collections <span class="caret"></span></a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Collections</li>
+        <li><a href="#">Collection #1</a></li>
+        <li><a href="#">Collection #2</a></li>
+        <li><a href="#">Collection #3</a></li>
+        <li class="divider"></li>
+        <li class="dropdown-header">Exhibits</li>
+        <li><a href="#">Exhibit #1</a></li>
+        <li><a href="#">Exhibit #2</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li><%= link_to raw("<i class=\"glyphicon glyphicon-user\"></i> #{nav.current_user_display_name}"), "#" 
+    %></li>
+    <li><a href="<%= users_path %>"><i class="glyphicon glyphicon-cog"></i></a></li>
+    <li><a href="#" title="logout"><i class="glyphicon glyphicon-log-out"></i></a></li>
+  </ul>
+</div>

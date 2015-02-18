@@ -7,7 +7,7 @@
 <%= render partial: "show", locals: { item: @item } %>
 
 
-<%= Waggle::DeleteSection.new(@item).display do | ds |
+<%= DeleteSection.new(@item).display do | ds |
   ds.name = "Item"
   ds.path = [@item.collection, @item]
 end %>
