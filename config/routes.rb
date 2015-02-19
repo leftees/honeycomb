@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :collections, only: [:index, :new, :create, :edit, :update, :destroy] do
 
-    resources :items do
+    resources :items, only: [:index, :new, :create] do
       collection do
         get :all, defaults: {format: :json}
       end
@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :show], defaults: {format: :json}
     end
   end
+
+  resources :items, only: [ :edit, :update, :destroy ]
 
   namespace :api do
     namespace :v1 do
