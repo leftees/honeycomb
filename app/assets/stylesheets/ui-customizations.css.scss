@@ -1,6 +1,10 @@
 $gold :#d9a300;
 $grey :#525252;
 
+h1, h2, h3, h4, h5, h6 {
+	margin-top:0;
+}
+
 
 * { box-sizing: border-box }
 
@@ -55,6 +59,25 @@ $grey :#525252;
 	p {
 		font-size: 28px;
 	}
+}
+
+.page-header {
+	margin-top: 0;
+}
+
+
+div.dataTables_filter {
+	padding:0;
+	label {
+		border: none;
+		height:auto;
+		padding:0;
+		margin:0;
+		input {
+			margin-left:5px;
+		}
+	}
+
 }
 
 #footer {
