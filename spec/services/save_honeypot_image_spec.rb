@@ -58,10 +58,8 @@ RSpec.describe SaveHoneypotImage do
         expect(subject.title).to eq("1920x1200.jpeg")
       end
 
-      it "creates a style" do
-        original = subject.style(:original)
-        expect(original.width).to eq(1920)
-        expect(original.height).to eq(1200)
+      it "returns a valid url" do
+        expect(subject.url).to eq("http://localhost:3019/api/v1/images/test/000/001/000/001/1920x1200.jpeg")
       end
 
       it "returns false when the honeypot_image does not save" do

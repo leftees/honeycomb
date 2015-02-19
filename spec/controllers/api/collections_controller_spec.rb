@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Api::CollectionsController, :type => :controller do
+RSpec.describe API::CollectionsController, :type => :controller do
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }
   let(:collections) { [collection] }
 
@@ -14,7 +14,7 @@ RSpec.describe Api::CollectionsController, :type => :controller do
     end
 
     it "returns json" do
-      expect_any_instance_of(CollectionJson).to receive(:to_hash).and_return({test: 'collection'})
+      expect_any_instance_of(CollectionJSON).to receive(:to_hash).and_return({test: 'collection'})
       get :index, format: :json
 
       expect(response).to be_success
@@ -32,7 +32,7 @@ RSpec.describe Api::CollectionsController, :type => :controller do
     end
 
     it "returns json" do
-      expect_any_instance_of(CollectionJson).to receive(:to_hash).and_return({test: 'collection'})
+      expect_any_instance_of(CollectionJSON).to receive(:to_hash).and_return({test: 'collection'})
       get :show, id: collection.id, format: :json
 
       expect(response).to be_success

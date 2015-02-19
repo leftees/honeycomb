@@ -1,4 +1,4 @@
-class GenerateItemJson
+class GenerateItemJSON
   attr_reader :items, :options
 
   def self.call(items, options = {})
@@ -22,7 +22,7 @@ class GenerateItemJson
     end
 
     def singular_hash(item)
-      ItemJson.new(item).to_hash(options)
+      ItemJSON.new(item).to_hash(options)
     end
 
     def plural?

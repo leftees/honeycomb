@@ -1,4 +1,4 @@
-<table class="table table-striped datatable">
+<table class="table table-striped datatable item-list">
   <thead>
     <tr>
       <th></th>
@@ -17,7 +17,7 @@
           <input type="checkbox" class="show-selected-menu" />
         </td>
         <td>
-          <%= link_to item.thumbnail(:small, height: 64), item.show_path, class: "pull-left" %></a>
+          <%= link_to item.react_thumbnail, item.show_path %>
         </td>
         <td>
           <h4 class="media-heading"><%= h link_to item.title, item.show_path %></h4>

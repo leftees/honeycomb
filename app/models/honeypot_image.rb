@@ -7,26 +7,18 @@ class HoneypotImage < ActiveRecord::Base
 
   before_validation :set_values_from_json_response
 
-  def style(style_name)
-    styles[style_name.to_s]
-  end
-
-  def styles
-    @styles ||= build_styles
-  end
-
-  def dzi
-    @dzi ||= build_dzi
-  end
-
   def json_response=(*args)
     super(*args)
     set_values_from_json_response
   end
 
+  def url
+    get_key('@id') || get_key('href')
+  end
+
   def image_json
     if json_response.present?
-      json_response["image"]
+      json_response["image"] || json_response
     else
       {}
     end
@@ -38,35 +30,7 @@ class HoneypotImage < ActiveRecord::Base
       image_json[key]
     end
 
-    def links_data
-      get_key("links") || {}
-    end
-
-    def get_link(key)
-      links_data[key]
-    end
-
-    def styles_data
-      get_link("styles") || []
-    end
-
-    def build_styles
-      {}.with_indifferent_access.tap do |hash|
-        styles_data.each do |data|
-          hash[data['id']] = HoneypotImageStyle.new(data)
-        end
-      end
-    end
-
-    def build_dzi
-      if data = get_link('dzi')
-        HoneypotImageStyle.new(data)
-      else
-        nil
-      end
-    end
-
     def set_values_from_json_response
-      self.title = get_key("title")
+      self.title = get_key("name")
     end
 end

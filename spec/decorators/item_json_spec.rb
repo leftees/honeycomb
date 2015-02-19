@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ItemJson do
+RSpec.describe ItemJSON do
   let(:item) { instance_double(Item, title: "title", description: "description", manuscript_url: "http://example.com/manuscript", updated_at: "2014-11-06 11:45:52 -0500", id: 1, collection: collection, honeypot_image: honeypot_image, parent_id: nil, child_ids: [])}
   let(:collection) { instance_double(Collection, id: 2, title: 'title')}
   let(:honeypot_image) { instance_double(HoneypotImage, image_json: {image: "image"}) }

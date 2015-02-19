@@ -7,7 +7,7 @@ class ItemChildrenController < ApplicationController
     @items = ItemsDecorator.new(parent.children)
 
     respond_to do | format |
-      format.json { render json: GenerateItemJson.new(@items, params) }
+      format.json { render json: GenerateItemJSON.new(@items, params) }
       format.any { render action: 'index' }
     end
   end

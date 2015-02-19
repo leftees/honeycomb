@@ -10,7 +10,11 @@ class ItemDecorator < Draper::Decorator
   end
 
   def image_title
-    image_decorator.title
+    if object.honeypot_image
+      object.honeypot_image.title
+    else
+      nil
+    end
   end
 
   def back_path
@@ -21,12 +25,12 @@ class ItemDecorator < Draper::Decorator
     end
   end
 
-  def thumbnail(style_name = :small, options = {})
-    image_decorator.render(style_name, options)
+  def react_thumbnail()
+    h.react_component 'Thumbnail', image: object.honeypot_image.url
   end
 
-  def render_image_zoom(options = {})
-    image_decorator.render_image_zoom(options)
+  def show_image_box
+    h.react_component 'ItemShowImageBox', image: object.honeypot_image.url, itemID: object.id.to_s
   end
 
   def edit_path
@@ -49,9 +53,5 @@ class ItemDecorator < Draper::Decorator
 
   def children_query
     @children_query ||= ItemQuery.new(object.children)
-  end
-
-  def image_decorator
-    @image_decorator ||= ItemImageDecorator.new(object.honeypot_image)
   end
 end

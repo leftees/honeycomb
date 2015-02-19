@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CollectionJson do
+RSpec.describe CollectionJSON do
   let(:collection) { instance_double(Collection, id: 2, title: 'title')}
 
   let(:options) { {} }

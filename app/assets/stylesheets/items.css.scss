@@ -1,3 +1,21 @@
+.item-list {
+  .hc-thumbnail {
+    height: 64px;
+    width: 100px;
+  }
+
+  .hc-thumbnail-image {
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
 .item-show-children {
   margin-bottom: 10px;
 }
@@ -12,6 +30,11 @@
   text-align: center;
   border: 1px solid gray;
   position: relative;
+
+  .hc-thumbnail {
+    height: 200px;
+    width: 200px;
+  }
 
   .image-zoom-fullscreen {
     position: absolute;

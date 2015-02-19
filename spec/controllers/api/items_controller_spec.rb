@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Api::ItemsController, :type => :controller do
+RSpec.describe API::ItemsController, :type => :controller do
   let(:item) { instance_double(Item, id: 1, title: 'title', collection: collection) }
   let(:items) { [item] }
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }
@@ -18,7 +18,7 @@ RSpec.describe Api::ItemsController, :type => :controller do
     end
 
     it "returns json" do
-      expect_any_instance_of(ItemJson).to receive(:to_hash).and_return({item: 'item'})
+      expect_any_instance_of(ItemJSON).to receive(:to_hash).and_return({item: 'item'})
       get :index, collection_id: collection.id, format: :json
 
       expect(response).to be_success
@@ -37,7 +37,7 @@ RSpec.describe Api::ItemsController, :type => :controller do
     end
 
     it "returns json" do
-      expect_any_instance_of(ItemJson).to receive(:to_hash).and_return({item: 'item'})
+      expect_any_instance_of(ItemJSON).to receive(:to_hash).and_return({item: 'item'})
       get :show, collection_id: collection.id, id: item.id, format: :json
 
       expect(response).to be_success

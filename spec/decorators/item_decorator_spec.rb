@@ -29,51 +29,28 @@ RSpec.describe ItemDecorator do
     end
   end
 
-  describe 'mock image_decorator' do
-    let(:image_decorator) { instance_double(ItemImageDecorator) }
-
+  describe 'honeypot image' do
+    let(:honeypot_image) { instance_double(HoneypotImage, title: 'Image Title', url: 'http://example.com/image') }
     before do
-      allow(subject).to receive(:image_decorator).and_return(image_decorator)
+      allow(item).to receive(:honeypot_image).and_return(honeypot_image)
     end
 
     describe '#image_title' do
-      it 'calls image_decorator#title' do
-        expect(image_decorator).to receive(:title).and_return('title')
-        expect(subject.image_title()).to eq('title')
+      it 'is the image title' do
+        expect(subject.image_title).to eq('Image Title')
       end
     end
 
-    describe '#thumbnail' do
-      it 'calls image_decorator#render with default options' do
-        expect(image_decorator).to receive(:render).with(:small, {}).and_return('thumbnail')
-        expect(subject.thumbnail()).to eq('thumbnail')
-      end
-
-      it 'calls image_decorator#render with the specified options' do
-        expect(image_decorator).to receive(:render).with(:style, {test: :test}).and_return('thumbnail')
-        expect(subject.thumbnail(:style, {test: :test})).to eq('thumbnail')
+    describe '#react_thumbnail' do
+      it 'renders a react component' do
+        expect(subject.react_thumbnail).to match("<div data-react-class=\"Thumbnail\"")
       end
     end
 
-    describe '#render_image_zoom' do
-      it 'calls image_decorator#render_image_zoom with default options' do
-        expect(image_decorator).to receive(:render_image_zoom).with({}).and_return('zoom')
-        expect(subject.render_image_zoom()).to eq('zoom')
+    describe '#show_image_box' do
+      it 'renders a react component' do
+        expect(subject.show_image_box).to match("<div data-react-class=\"ItemShowImageBox\"")
       end
-
-      it 'calls image_decorator#render_image_zoom with the specified options' do
-        expect(image_decorator).to receive(:render_image_zoom).with({test: :test}).and_return('zoom')
-        expect(subject.render_image_zoom({test: :test})).to eq('zoom')
-      end
-    end
-  end
-
-  describe '#image_decorator' do
-    let(:honeypot_image) { instance_double(HoneypotImage) }
-    it 'returns a ItemImageDecorator' do
-      expect(item).to receive(:honeypot_image).and_return(honeypot_image)
-      expect(ItemImageDecorator).to receive(:new).with(honeypot_image).and_return('decorated')
-      expect(subject.send(:image_decorator)).to eq('decorated')
     end
   end
 
