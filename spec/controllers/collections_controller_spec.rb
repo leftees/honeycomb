@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe CollectionsController, :type => :controller do
   let(:collection) { instance_double(Collection, id: 1, title: "COLLECTION", destroy: true ) }
 
-  let(:collections) { [collection] }
   let(:create_params) { { collection: {title: "TITLE!!" }} }
   let(:update_params) { { id: '1', collection: {title: "TITLE!!" }} }
 
@@ -29,6 +28,7 @@ RSpec.describe CollectionsController, :type => :controller do
     it "is a success" do
       get :index
       expect(response).to be_success
+      expect(response).to render_template("index")
     end
   end
 

@@ -44,12 +44,10 @@ class CollectionsController < ApplicationController
     check_admin_or_admin_masquerading_permission!
 
     @collection = CollectionQuery.new.find(params[:id])
-    if @collection.destroy
-      flash[:notice] = @collection.title + " has been deleted."
-      redirect_to collections_path
-    else
-      raise "Unable to delete a colleciton"
-    end
+    @collection.destroy!
+
+    flash[:notice] = @collection.title + " has been deleted."
+    redirect_to collections_path
   end
 
   protected
