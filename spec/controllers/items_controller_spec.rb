@@ -203,7 +203,7 @@ RSpec.describe ItemsController, :type => :controller do
     subject { delete :destroy, id: item.id }
 
     it "calls destroy on the item on success, redirects, and flashes " do
-      expect(item).to receive(:destroy).and_return(true)
+      expect(item).to receive(:destroy!).and_return(true)
 
       subject
       expect(response).to be_redirect
