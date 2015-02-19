@@ -25,8 +25,17 @@ describe CollectionQuery do
   describe "find" do
 
     it "finds the collection" do
-      expect(Collection).to receive(:find).with(1)
+      expect(relation).to receive(:find).with(1)
       subject.find(1)
+    end
+  end
+
+
+  describe "build" do
+
+    it "builds a collection off of the relation" do
+      expect(relation).to receive(:build)
+      subject.build
     end
   end
 end

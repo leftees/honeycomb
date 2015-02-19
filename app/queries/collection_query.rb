@@ -1,23 +1,23 @@
 class CollectionQuery
-  attr_reader :search
+  attr_reader :relation
 
   def initialize(relation = Collection.all)
-    @search = relation
+    @relation = relation
   end
 
   def for_curator(user)
     if UserIsAdmin.call(user)
-      search.all
+      relation.all
     else
       user.collections
     end
   end
 
   def find(id)
-    Collection.find(id)
+    relation.find(id)
   end
 
   def build
-    Collection.new
+    relation.build
   end
 end
