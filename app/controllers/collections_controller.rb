@@ -40,22 +40,16 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def soft_delete
+  def destroy
     check_admin_or_admin_masquerading_permission!
 
-    @collection = Collection.find(params[:collection_id])
-    SoftDeleteCollection.call(@collection)
-    flash[:notice] = @collection.title + " has been deleted."
-    redirect_to collections_path
-  end
-
-  def restore
-    check_admin_or_admin_masquerading_permission!
-
-    @collection = Collection.find(params[:collection_id])
-    RestoreCollection.call(@collection)
-    flash[:notice] = @collection.title + " has been restored."
-    redirect_to collections_path
+    @collection = CollectionQuery.new.find(params[:id])
+    if @collection.destroy
+      flash[:notice] = @collection.title + " has been deleted."
+      redirect_to collections_path
+    else
+      raise "Unable to delete a colleciton"
+    end
   end
 
   protected

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CollectionsController, :type => :controller do
-  let(:collection) { instance_double(Collection, id: 1 ) }
+  let(:collection) { instance_double(Collection, id: 1, title: "COLLECTION", destroy: true ) }
 
   let(:collections) { [collection] }
   let(:create_params) { { collection: {title: "TITLE!!" }} }
@@ -148,6 +148,34 @@ RSpec.describe CollectionsController, :type => :controller do
 
       put :update, update_params
       expect(response).to render_template(:edit)
+    end
+  end
+
+
+  describe "destroy" do
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+    end
+
+    it "checks admin permissions" do
+      expect_any_instance_of(described_class).to receive(:check_admin_or_admin_masquerading_permission!)
+
+      delete :destroy, id: "1"
+    end
+
+    it "uses collection query to get the colletion" do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection)
+      delete :destroy, id: "1"
+    end
+
+    it "redirects on success " do
+      delete :destroy, id: "1"
+      expect(response).to be_redirect
+    end
+
+    it "raises an error on failure" do
+      collection.stub(:destroy).and_return(false)
+      expect{ delete :destroy, id: "1" }.to raise_error
     end
   end
 end
