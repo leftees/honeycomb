@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def item_title(item)
-    page_title(item.collection.title, collection_items_path(collection), item.title, collection_item_path(item.collection,item), edit_collection_path(item.collection))
+    page_title(item.collection.title, collection_items_path(item.collection), item.title, edit_item_path(item), edit_collection_path(item.collection))
   end
 
   def page_title(title, title_href = "", small_title = "", small_title_href = "", settings_href = "")

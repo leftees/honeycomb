@@ -79,7 +79,7 @@ class ItemsController < ApplicationController
       if params[:action] == 'create'
         redirect_to collection_items_path(collection)
       else
-        redirect_to edit_item_path(collection, item)
+        redirect_to edit_item_path(item)
       end
     end
 

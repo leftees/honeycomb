@@ -1,15 +1,12 @@
-<%- model_class = Item -%>
-<%= collection_title(@item.collection, 'Items') %>
+<% if @item.parent %>
+  <%= item_title(@item.parent) %>
+<% else %>
+  <%= item_title(@item) %>
+<% end %>
 
-<%= @item.page_title %>
+<%= render partial: "show", locals: { item: @item } %>
 
-<div class="row">
-  <div class="col-md-8">
-    <%= simple_form_for [@item.collection, @item], html: { :class => "item edit-item-dropzone", id: 'edit-item' } do |f| %>
-      <%= render :partial => 'form', locals: { f: f } %>
-    <% end %>
-  </div>
-  <div class="col-md-4">
-  </div>
-</div>
-
+<%= DeleteSection.new(@item).display do | ds |
+  ds.name = "Item"
+  ds.path = @item
+end %>
