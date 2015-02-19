@@ -1,171 +1,230 @@
 require "rails_helper"
 
 RSpec.describe ItemsController, :type => :controller do
-  let(:item) { instance_double(Item, id: 1, title: 'title', collection: collection) }
-  let(:items) { [item] }
-  let(:collection) { instance_double(Collection, id: 1, title: 'title') }
+  let(:item) { instance_double(Item, id: 1, title: 'title', collection: collection, destroy!: true) }
+  let(:collection) { instance_double(Collection, id: 1, title: 'title', items: relation) }
   let(:relation) { Item.all }
+  let(:create_params) { {collection_id: collection.id, item: { title: 'title' }} }
+  let(:update_params) { {id: item.id, item: { title: 'title' }} }
+
+  let(:user) {
+    u = User.new(username: 'jhartzler', admin: true)
+    u.save!
+
+    u
+  }
 
   before(:each) do
-    allow(collection).to receive(:items).and_return(items)
-    allow(Collection).to receive(:find).and_return(collection)
+    sign_in user
 
-    @user = User.new(username: 'jhartzle')
-    @user.save!
-
-    sign_in @user
+    allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+    allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
+    allow(SaveItem).to receive(:call).and_return(true)
   end
 
   describe "GET #index" do
+    subject { get :index, collection_id: collection.id }
 
     it "returns a 200" do
-      expect(collection).to receive(:items).and_return(Item.all)
-      get :index, collection_id: collection.id
+      subject
 
       expect(response).to be_success
-      expect(response).to have_http_status(200)
       expect(response).to render_template("index")
     end
 
-    it "gets all the items to pass to the view" do
-      expect(collection).to receive(:items).and_return(Item.all)
-      get :index, collection_id: collection.id
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "users the item query to get items" do
+      expect_any_instance_of(ItemQuery).to receive(:parent_items)
+      subject
+    end
+
+    it "assigns an item decorator to items" do
+      subject
+      assigns(:items)
+      expect(assigns(:items)).to be_a(ItemsDecorator)
     end
   end
 
 
   describe "GET #new" do
+    subject { get :new, collection_id: collection.id }
 
     it "returns a 200" do
-      allow(collection.items).to receive(:build).and_return(item)
+      subject
 
-      get :new, collection_id: collection.id
       expect(response).to be_success
-      expect(response).to have_http_status(200)
       expect(response).to render_template("new")
     end
 
-    it "creates a new item " do
-      expect(collection.items).to receive(:build).and_return(item)
-      get :new, collection_id: collection.id
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses item query " do
+      expect_any_instance_of(ItemQuery).to receive(:build).and_return(item)
+      subject
+    end
+
+    it "assigns and item and it is an item decorator" do
+      subject
+
+      assigns(:item)
+      expect(assigns(:item)).to be_a(Item)
     end
   end
 
 
   describe "POST #create" do
-    let(:valid_params) { {collection_id: collection.id, item: { title: 'title' }} }
+    subject { post :create, create_params }
 
     before(:each) do
-      expect(collection.items).to receive(:build).and_return(item)
+      allow(SaveItem).to receive(:call).and_return(true)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses item query " do
+      expect_any_instance_of(ItemQuery).to receive(:build).and_return(item)
+      subject
     end
 
     it "redirects on success" do
-      expect(SaveItem).to receive(:call).and_return(true)
+      subject
 
-      post :create, valid_params
       expect(response).to be_redirect
       expect(flash[:notice]).to_not be_nil
     end
 
     it "renders new on failure" do
-      expect(SaveItem).to receive(:call).and_return(false)
+      allow(SaveItem).to receive(:call).and_return(false)
 
-      post :create, valid_params
-
+      subject
       expect(response).to render_template("new")
     end
 
-    it "creates a blank new item" do
+    it "assigns and item" do
+      subject
+
+      assigns(:item)
+      expect(assigns(:item)).to be_a(Item)
+    end
+
+    it "uses the save item service" do
       expect(SaveItem).to receive(:call).and_return(true)
 
-      post :create, valid_params
+      subject
     end
   end
-
-  describe "GET #show" do
-
-    it "returns a 200" do
-      get :show, id: 1, collection_id: collection.id
-      expect(response).to be_success
-      expect(response).to have_http_status(200)
-      expect(response).to render_template("show")
-    end
-
-    it "finds an existing item " do
-      expect(collection.items).to receive(:find).with("1").and_return(item)
-      get :show, id: 1, collection_id: collection.id
-    end
-  end
-
 
   describe "GET #edit" do
+    subject { get :edit, id: 1 }
 
     it "returns a 200" do
-      get :edit, id: 1, collection_id: collection.id
+      subject
+
       expect(response).to be_success
-      expect(response).to have_http_status(200)
       expect(response).to render_template("edit")
     end
 
-    it "finds an existing item " do
-      expect(collection.items).to receive(:find).with("1").and_return(item)
-      get :edit, id: 1, collection_id: collection.id
+    it "uses item query" do
+      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      subject
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "assigns and item and it is an item decorator" do
+      subject
+
+      assigns(:item)
+      expect(assigns(:item)).to be_a(ItemDecorator)
     end
   end
 
 
   describe "PUT #update" do
-    let(:valid_params) { {id: 1, collection_id: collection.id, item: { title: 'title' }} }
+    subject { put :update, update_params }
 
     before(:each) do
-      expect(collection.items).to receive(:find).and_return(item)
+      allow(SaveItem).to receive(:call).and_return(true)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses item query " do
+      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      subject
     end
 
     it "redirects on success" do
-      expect(SaveItem).to receive(:call).and_return(true)
+      subject
 
-      put :update, valid_params
       expect(response).to be_redirect
       expect(flash[:notice]).to_not be_nil
     end
 
     it "renders new on failure" do
-      expect(SaveItem).to receive(:call).and_return(false)
+      allow(SaveItem).to receive(:call).and_return(false)
 
-      put :update, valid_params
-
+      subject
       expect(response).to render_template("edit")
     end
 
-    it "creates a blank new item" do
+    it "assigns and item" do
+      subject
+
+      assigns(:item)
+      expect(assigns(:item)).to eq(item)
+    end
+
+    it "uses the save item service" do
       expect(SaveItem).to receive(:call).and_return(true)
 
-      put :update, valid_params
+      subject
     end
   end
 
 
   describe "DELETE #destroy" do
-
-    before(:each) do
-      expect(collection.items).to receive(:find).and_return(item)
-    end
+    subject { delete :destroy, id: item.id }
 
     it "calls destroy on the item on success, redirects, and flashes " do
       expect(item).to receive(:destroy).and_return(true)
 
-      delete :destroy, id: 1, collection_id: collection.id
+      subject
       expect(response).to be_redirect
       expect(flash[:notice]).to_not be_nil
     end
 
-    it "calls destroy on the item on failure, redirects, and flashes " do
-      expect(item).to receive(:destroy).and_return(false)
+    it "assigns and item" do
+      subject
 
-      delete :destroy, id: 1, collection_id: collection.id
-      expect(response).to be_redirect
-      expect(flash[:error]).to_not be_nil
+      assigns(:item)
+      expect(assigns(:item)).to eq(item)
     end
 
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses item query " do
+      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      subject
+    end
   end
 end
