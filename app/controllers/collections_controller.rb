@@ -7,15 +7,15 @@ class CollectionsController < ApplicationController
   def new
     check_admin_or_admin_masquerading_permission!
 
-    @collection = Collection.new
+    @collection = CollectionQuery.new.build
   end
 
   def create
     check_admin_or_admin_masquerading_permission!
 
-    @collection = SaveCollection.call(Collection.new, save_params)
+    @collection = CollectionQuery.new.build
 
-    if @collection.valid?
+    if SaveCollection.call(@collection, save_params)
       flash[:notice] = t('.success')
       redirect_to collection_items_path(@collection)
     else
@@ -25,7 +25,6 @@ class CollectionsController < ApplicationController
 
   def edit
     @collection = CollectionQuery.new.find(params[:id])
-
     check_user_curates!(@collection)
   end
 
@@ -37,7 +36,7 @@ class CollectionsController < ApplicationController
       flash[:notice] = t('.success')
       redirect_to edit_collection_path(@collection)
     else
-      false
+      render :edit
     end
   end
 

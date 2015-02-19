@@ -17,4 +17,7 @@ class CollectionQuery
     Collection.find(id)
   end
 
+  def build
+    Collection.new
+  end
 end
