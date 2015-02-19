@@ -1,21 +1,21 @@
 class CollectionsController < ApplicationController
 
   def index
-    @collections = Collection.all
+    @collections = CollectionQuery.new.for_curator(current_user)
   end
 
   def new
-    @collection = Collection.new
-  end
+    check_admin_or_admin_masquerading_permission!
 
-  def edit
-    @collection = Collection.find(params[:id])
+    @collection = CollectionQuery.new.build
   end
 
   def create
-    @collection = Collection.new(params.require(:collection).permit([:title]))
+    check_admin_or_admin_masquerading_permission!
 
-    if @collection.save and AssignUserToCollection.call(@collection, current_user)
+    @collection = CollectionQuery.new.build
+
+    if SaveCollection.call(@collection, save_params)
       flash[:notice] = t('.success')
       redirect_to collection_items_path(@collection)
     else
@@ -23,45 +23,39 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def soft_delete
-    check_admin_or_admin_masquerading_permission!
-
-    @collection = Collection.find(params[:collection_id])
-    SoftDeleteCollection.call(@collection)
-    flash[:notice] = @collection.title + " has been deleted."
-    redirect_to collections_path
-  end
-
-  def restore
-    check_admin_or_admin_masquerading_permission!
-
-    @collection = Collection.find(params[:collection_id])
-    RestoreCollection.call(@collection)
-    flash[:notice] = @collection.title + " has been restored."
-    redirect_to collections_path
-  end
-
-  def show
-    @collection = CollectionDecorator.new(Collection.find(params[:id]))
+  def edit
+    @collection = CollectionQuery.new.find(params[:id])
+    check_user_curates!(@collection)
   end
 
   def update
-    check_admin_or_admin_masquerading_permission!
-    if SaveCollection.call(collection, save_params)
+    @collection = CollectionQuery.new.find(params[:id])
+    check_user_curates!(@collection)
+
+    if SaveCollection.call(@collection, save_params)
       flash[:notice] = t('.success')
-      redirect_to edit_collection_path
+      redirect_to edit_collection_path(@collection)
     else
-      false
+      render :edit
+    end
+  end
+
+  def destroy
+    check_admin_or_admin_masquerading_permission!
+
+    @collection = CollectionQuery.new.find(params[:id])
+    if @collection.destroy
+      flash[:notice] = @collection.title + " has been deleted."
+      redirect_to collections_path
+    else
+      raise "Unable to delete a colleciton"
     end
   end
 
   protected
-  def save_params
-    params.require(:collection).permit(:title, :description, :id)
-  end
 
-  def collection
-    @collection ||= Collection.find(params[:id])
-  end
+    def save_params
+      params.require(:collection).permit(:title, :description, :id)
+    end
 
 end

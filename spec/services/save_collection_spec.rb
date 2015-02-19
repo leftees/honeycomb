@@ -7,7 +7,7 @@ RSpec.describe SaveCollection, type: :model do
 
   it "returns when the collection save is successful" do
     expect(collection).to receive(:save).and_return(true)
-    expect(subject).to be_kind_of(Collection)
+    expect(subject).to be true
   end
 
   it "returns when the collection save is not successful" do

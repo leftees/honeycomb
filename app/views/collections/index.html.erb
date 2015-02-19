@@ -25,7 +25,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @collections.where("collections.deleted IS NOT TRUE").each do |collection| %>
+    <% @collections.each do |collection| %>
       <tr>
         <td>
           <% if collection.items.size > 0 %>

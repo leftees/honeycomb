@@ -12,11 +12,7 @@ class SaveCollection
 
   def save
     collection.attributes = params
-    if collection.save
-      collection
-    else
-      false
-    end
+    collection.save
   end
 
 end

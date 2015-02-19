@@ -6,4 +6,5 @@ class Collection < ActiveRecord::Base
 
   validates :title, presence: true
 
+  has_paper_trail
 end

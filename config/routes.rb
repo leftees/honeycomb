@@ -16,8 +16,8 @@ Rails.application.routes.draw do
 
   resources :errors
 
-  resources :collections do
-    put :soft_delete
+  resources :collections, only: [:index, :new, :create, :edit, :update, :destroy] do
+
     resources :items do
       collection do
         get :all, defaults: {format: :json}
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       end
 
       resources :items, only: [:index, :show], defaults: {format: :json}
-    end    
+    end
   end
 
   namespace :api do

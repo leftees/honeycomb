@@ -12,4 +12,8 @@ RSpec.describe Collection do
   it "requires the title field " do
     expect(subject).to have(1).error_on(:title)
   end
+
+  it "has paper trail" do
+    expect(subject).to respond_to(:versions)
+  end
 end
