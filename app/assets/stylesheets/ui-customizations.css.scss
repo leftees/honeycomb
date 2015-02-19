@@ -33,6 +33,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9a500', end
 	position: absolute;
 	bottom:0;
 	left: 180px;
+
+
 }
 
 .navbar-right {
@@ -134,4 +136,64 @@ div.dataTables_filter {
 
 .dropzone {
 	margin-top: 1em;
+}
+
+/* MENU TESTING */
+
+.wayfinder {
+	left:0px;
+	top:170px;
+	position: fixed;
+}
+
+.navbar-default .title-bar .navbar-nav.wayfinder > li > a {
+	border:solid $grey;
+	border-width: 1px 1px 1px 0;
+	border-radius:0 6px 6px 0;
+	background: #fff;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.176);
+	float: left;
+	z-index: 40;
+	left:-1px;
+	padding:10px;
+}
+
+.wayfinder .caret {
+	display: none;
+}
+
+.wayfinder .dropdown-menu {
+	position: relative;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.176);
+	z-index: 20;
+	max-width: 250px;
+	border-color:$grey;
+	border-radius:0 6px 6px 0;
+	border-width: 1px 1px 1px 0;
+	li a {
+		margin-left: 24px;
+		text-indent: -1em;
+		margin-right:24px;
+
+	}
+	li.dropdown-header {
+		padding-left: 0;
+		margin-left:9px;
+		a {
+			text-indent: 0;
+			margin:0;
+			padding:3px 0;
+		}
+	}
+	a {
+		padding:3px 0;
+	}
+}
+
+.dropdown-menu > li > a {
+	white-space: normal;
+}
+
+.content {
+	padding-left: 60px;
 }

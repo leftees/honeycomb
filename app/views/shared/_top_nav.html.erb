@@ -2,19 +2,26 @@
    <a class="navbar-brand" href="<%= root_path %>"><i class="glyphicon glyphicon-home"></i> honeycomb</a>
 </div>
 <div class="navbar-collapse collapse">
-  <ul class="nav navbar-nav">
+  <ul class="nav navbar-nav wayfinder">
     <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th"></i> Collections <span class="caret"></span></a>
+      
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">Collections</li>
-        <li><a href="#">Collection #1</a></li>
+        <li><a href="#">Collection with a really long title to run to multiple lines #1</a></li>
         <li><a href="#">Collection #2</a></li>
         <li><a href="#">Collection #3</a></li>
         <li class="divider"></li>
         <li class="dropdown-header">Exhibits</li>
         <li><a href="#">Exhibit #1</a></li>
         <li><a href="#">Exhibit #2</a></li>
+        <li class="divider"></li>
+        <li class="dropdown-header"><a href="#collapseExample" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Toggle <i class="glyphicon glyphicon-list pull-right"></i></a></li>
+        <div class="collapse" id="collapseExample">
+        <li><a href="#">Exhibit #1</a></li>
+        <li><a href="#">Exhibit #2</a></li>
+        </div>
       </ul>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th"></i> Nav <span class="caret"></span></a>
     </li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
