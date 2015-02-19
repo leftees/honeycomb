@@ -57,7 +57,7 @@ gem 'gretel'
 # Server monitoring
 gem 'newrelic_rpm'
 
-gem 'paper_trail', '~> 3.0.6'
+gem 'paper_trail', '~> 4.0.0.beta2'
 
 gem 'faraday'
 gem 'faraday_middleware'
