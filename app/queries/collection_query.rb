@@ -1,7 +1,7 @@
 class CollectionQuery
   attr_reader :search
 
-  def initialize(relation = Exhibit.all)
+  def initialize(relation = Collection.all)
     @search = relation
   end
 
