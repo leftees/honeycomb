@@ -2,7 +2,7 @@
 <div class="page-header">
   <div class="pull-right">
     <%= link_to t('.new'),
-            new_collection_item_child_path(collection, parent),
+            new_item_child_path(collection, parent),
             :class => 'btn btn-primary' %>
   </div>
   <h1><%= collection.title.titleize %> » <%= parent.title.titleize %> »
