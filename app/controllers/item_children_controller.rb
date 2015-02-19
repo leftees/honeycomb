@@ -51,7 +51,7 @@ class ItemChildrenController < ApplicationController
 
     def item_save_html_success(item)
       flash[:notice] = t('.success')
-      redirect_to collection_item_path(collection, parent)
+      redirect_to edit_item_path(parent)
     end
 
     def item_save_failure(item)

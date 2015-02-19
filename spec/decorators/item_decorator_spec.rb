@@ -93,10 +93,6 @@ RSpec.describe ItemDecorator do
   end
 
   it 'returns the edit path' do
-    expect(subject.edit_path).to eq('/collections/2/items/1/edit')
-  end
-
-  it 'returns the show path' do
-    expect(subject.show_path).to eq('/collections/2/items/1')
+    expect(subject.edit_path).to eq('/items/1/edit')
   end
 end

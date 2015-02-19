@@ -34,11 +34,7 @@ class ItemDecorator < Draper::Decorator
   end
 
   def edit_path
-    h.edit_collection_item_path(object.collection_id, object.id)
-  end
-
-  def show_path
-    h.collection_item_path(object.collection_id, object.id)
+    h.edit_item_path(object.id)
   end
 
   def page_title

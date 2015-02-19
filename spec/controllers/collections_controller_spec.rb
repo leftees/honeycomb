@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CollectionsController, :type => :controller do
-  let(:collection) { instance_double(Collection, id: 1, title: "COLLECTION", destroy: true ) }
+  let(:collection) { instance_double(Collection, id: 1, title: "COLLECTION", destroy!: true ) }
 
   let(:create_params) { { collection: {title: "TITLE!!" }} }
   let(:update_params) { { id: '1', collection: {title: "TITLE!!" }} }
@@ -171,11 +171,6 @@ RSpec.describe CollectionsController, :type => :controller do
     it "redirects on success " do
       delete :destroy, id: "1"
       expect(response).to be_redirect
-    end
-
-    it "raises an error on failure" do
-      collection.stub(:destroy).and_return(false)
-      expect{ delete :destroy, id: "1" }.to raise_error
     end
   end
 end
