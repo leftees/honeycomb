@@ -121,4 +121,33 @@ RSpec.describe ShowcasesController, :type => :controller do
     end
   end
 
+  describe "DELETE #destroy" do
+    subject { delete :destroy, id: showcase.id }
+
+    it "calls destroy on the item on success, redirects, and flashes " do
+      expect(showcase).to receive(:destroy!).and_return(true)
+
+      subject
+      expect(response).to be_redirect
+      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "assigns and item" do
+      subject
+
+      assigns(:showcase)
+      expect(assigns(:showcase)).to eq(showcase)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses showcase query " do
+      expect_any_instance_of(ShowcaseQuery).to receive(:find).with("1").and_return(showcase)
+      subject
+    end
+  end
+
 end

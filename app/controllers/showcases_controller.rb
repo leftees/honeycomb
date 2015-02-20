@@ -26,15 +26,14 @@ class ShowcasesController < ApplicationController
     redirect_to showcase_sections_path(params[:id])
   end
 
-  def edit
-    @showcase = ShowcaseQuery.new.find(params[:id])
-  end
-
   def destroy
     @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.exhibit.collection)
 
     @showcase.destroy!()
-    redirect_to exhibit_showcases_path(@showcase.exhibit)
+
+    flash[:notice] = t('.success')
+    redirect_to edit_exhibit_path(@showcase.exhibit)
   end
 
   protected

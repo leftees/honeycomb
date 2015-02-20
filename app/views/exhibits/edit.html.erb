@@ -14,7 +14,7 @@
               <%= showcase.title %>
             </td>
             <td>
-              <a class="remove_curator pull-right" curator_id="<%= showcase.id %>">x</button>
+              <%= link_to 'x', showcase_path(showcase), method: :delete, class: "pull-right", data: { confirm:  'Deleting this showcase will remove all the associated sections. Are you sure you want to continue?' }%>
             </td>
           </tr>
         <% end %>
