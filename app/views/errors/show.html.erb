@@ -2,11 +2,6 @@
   <h1>Recent Error</h1>
 <% end %>
 
-<%
-breadcrumb([link_to('Errors', errors_path()), 'Error'])
-%>
-
-
 <dl class="dl-horizontal">
   <dt>Message</dt>
   <dd><%= @error.message %></dd>

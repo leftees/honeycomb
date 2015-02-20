@@ -184,4 +184,26 @@ RSpec.describe CollectionsController, :type => :controller do
       expect(response).to be_redirect
     end
   end
+
+
+  describe "exhibit" do
+    subject { get :exhibit, collection_id: collection.id }
+    let(:exhibit) { instance_double(Exhibit, id: 1)}
+
+    before(:each) do
+      allow(collection).to receive(:exhibit).and_return(exhibit)
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+    end
+
+
+    it "uses collection query" do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection)
+      subject
+    end
+
+    it "ensures the collection has an exhibit" do
+      expect(EnsureCollectionHasExhibit).to receive(:call).with(collection).and_return(exhibit)
+      subject
+    end
+  end
 end

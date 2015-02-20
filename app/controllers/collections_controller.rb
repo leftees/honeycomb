@@ -54,6 +54,13 @@ class CollectionsController < ApplicationController
     redirect_to collections_path
   end
 
+  def exhibit
+    collection = CollectionQuery.new.find(params[:collection_id])
+    exhibit = EnsureCollectionHasExhibit.call(collection)
+
+    redirect_to exhibit_path(exhibit)
+  end
+
   protected
 
     def save_params

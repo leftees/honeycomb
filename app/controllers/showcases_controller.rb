@@ -48,10 +48,7 @@ class ShowcasesController < ApplicationController
     end
 
     def exhibit
-      @exhibit ||= collection.exhibits.find(params[:exhibit_id])
+      @exhibit ||= ExhibitQuery.new.find(params[:exhibit_id])
     end
 
-    def collection
-      @collection ||= Collection.find(params[:collection_id])
-    end
 end

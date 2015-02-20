@@ -1,12 +1,15 @@
 class ExhibitQuery
-  attr_reader :search
+  attr_reader :relation
 
   def initialize(relation = Exhibit.all)
-    @search = relation
+    @relation = relation
   end
 
-  def all_for_user(user)
-    search.all
+  def find(id)
+    relation.find(id)
   end
 
+  def build(args = {})
+    relation.build(args)
+  end
 end
