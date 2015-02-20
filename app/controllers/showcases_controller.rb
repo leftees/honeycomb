@@ -16,17 +16,16 @@ class ShowcasesController < ApplicationController
 
     if SaveShowcase.call(@showcase, save_params)
       flash[:notice] = t('.success')
-      redirect_to exhibit_showcases_path(@showcase.exhibit.id)
+      redirect_to showcase_path(@showcase)
     else
       render :new
     end
   end
 
-
-
-  def edit
-    @showcase = exhibit.showcases.find(params[:id])
+  def show
+    redirect_to showcase_sections_path(params[:id])
   end
+
 
   def update
     @showcase = exhibit.showcases.find(params[:id])

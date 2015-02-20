@@ -1,9 +1,9 @@
-<%= simple_form_for [@showcase.exhibit.collection, @showcase.exhibit, @showcase], :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for [@showcase.exhibit, @showcase], :html => { :class => 'form-horizontal' } do |f| %>
   <%# display_errors(@exhibit) %>
 
   <%= f.input :title, as: :string %>
   <%= f.button :submit, :class => 'btn-primary', value: "Save" %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                collection_exhibit_showcases_path(@showcase.exhibit.collection, @showcase.exhibit), :class => 'btn btn-default' %>
+                exhibit_showcases_path(@showcase.exhibit), :class => 'btn btn-default' %>
 <% end %>
 

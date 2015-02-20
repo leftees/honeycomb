@@ -39,6 +39,11 @@ Rails.application.routes.draw do
     resources :showcases, only: [:index, :new, :create ]
   end
 
+  resources :showcases, only: [ :show, :destroy ] do
+    resources :sections, only: [:index, :new, :create ]
+  end
+
+
   namespace :api do
     namespace :v1 do
       resources :collections, only: [:show], defaults: {format: :json} do
