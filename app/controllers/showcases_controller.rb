@@ -1,44 +1,39 @@
 class ShowcasesController < ApplicationController
 
   def index
-    @showcases = exhibit.showcases
+    check_user_curates!(exhibit.collection)
+    @showcases = ShowcaseQuery.new(exhibit.showcases).all
   end
 
-
   def new
-    @showcase = exhibit.showcases.build
+    check_user_curates!(exhibit.collection)
+    @showcase = ShowcaseQuery.new(exhibit.showcases).build
   end
 
   def create
-    @showcase = exhibit.showcases.build(save_params)
+    check_user_curates!(exhibit.collection)
+    @showcase = ShowcaseQuery.new(exhibit.showcases).build(save_params)
 
-    if @showcase.save
-      redirect_to collection_exhibit_showcases_path(@showcase.exhibit.collection, @showcase.exhibit)
+    if SaveShowcase.call(@showcase, save_params)
+      flash[:notice] = t('.success')
+      redirect_to showcase_path(@showcase)
     else
       render :new
     end
   end
 
-  def edit
-    @showcase = exhibit.showcases.find(params[:id])
-  end
-
-  def update
-    @showcase = exhibit.showcases.find(params[:id])
-
-    if @showcase.update_attributes(save_params)
-      redirect_to exhibit_showcases_path(@showcase.exhibit)
-    else
-      render :edit
-    end
+  def show
+    redirect_to showcase_sections_path(params[:id])
   end
 
   def destroy
-    @showcase = exhibit.showcases.find(params[:id])
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.exhibit.collection)
 
-    if @showcase.destroy()
-      redirect_to exhibit_showcases_path(@showcase.exhibit)
-    end
+    @showcase.destroy!()
+
+    flash[:notice] = t('.success')
+    redirect_to edit_exhibit_path(@showcase.exhibit)
   end
 
   protected
