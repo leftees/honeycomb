@@ -1,23 +1,28 @@
 class ShowcasesController < ApplicationController
 
   def index
-    @showcases = exhibit.showcases
+    check_user_curates!(exhibit.collection)
+    @showcases = ShowcaseQuery.new(exhibit.showcases).all
   end
 
-
   def new
-    @showcase = exhibit.showcases.build
+    check_user_curates!(exhibit.collection)
+    @showcase = ShowcaseQuery.new(exhibit.showcases).build
   end
 
   def create
-    @showcase = exhibit.showcases.build(save_params)
+    check_user_curates!(exhibit.collection)
+    @showcase = ShowcaseQuery.new(exhibit.showcases).build(save_params)
 
-    if @showcase.save
-      redirect_to collection_exhibit_showcases_path(@showcase.exhibit.collection, @showcase.exhibit)
+    if SaveShowcase.call(@showcase, save_params)
+      flash[:notice] = t('.success')
+      redirect_to exhibit_showcases_path(@showcase.exhibit.id)
     else
       render :new
     end
   end
+
+
 
   def edit
     @showcase = exhibit.showcases.find(params[:id])

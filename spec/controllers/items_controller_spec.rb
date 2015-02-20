@@ -82,10 +82,6 @@ RSpec.describe ItemsController, :type => :controller do
   describe "POST #create" do
     subject { post :create, create_params }
 
-    before(:each) do
-      allow(SaveItem).to receive(:call).and_return(true)
-    end
-
     it "checks the curator permissions" do
       expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
       subject
