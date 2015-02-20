@@ -26,6 +26,9 @@ class ShowcasesController < ApplicationController
     redirect_to showcase_sections_path(params[:id])
   end
 
+  def edit
+    @showcase = ShowcaseQuery.new().find(params[:id])
+  end
 
   def update
     @showcase = exhibit.showcases.find(params[:id])
