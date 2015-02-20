@@ -87,7 +87,7 @@ RSpec.describe ItemDecorator do
 
     describe '#back_path' do
       it "is the parent show route" do
-        expect(subject.back_path).to eq("/collections/#{collection.id}/items/#{child_item.parent_id}/children")
+        expect(subject.back_path).to eq("/items/#{child_item.parent_id}/children")
       end
     end
   end

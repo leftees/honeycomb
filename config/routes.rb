@@ -18,12 +18,7 @@ Rails.application.routes.draw do
 
   resources :collections, only: [:index, :new, :create, :edit, :update, :destroy] do
 
-    resources :items, only: [:index, :new, :create] do
-      collection do
-        get :all, defaults: {format: :json}
-      end
-      resources :children, controller: 'item_children', only: [:index, :new, :create]
-    end
+    resources :items, only: [:index, :new, :create]
 
     resources :exhibits do
       resources :showcases do
@@ -34,7 +29,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :items, only: [ :edit, :update, :destroy ]
+  resources :items, only: [ :edit, :update, :destroy ] do
+    resources :children, controller: 'item_children', only: [ :new, :create]
+  end
 
   namespace :api do
     namespace :v1 do

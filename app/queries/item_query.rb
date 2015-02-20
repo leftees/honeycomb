@@ -17,8 +17,8 @@ class ItemQuery
     relation.find(id)
   end
 
-  def build
-    relation.build
+  def build(args = {})
+    relation.build(args)
   end
 
 

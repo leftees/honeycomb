@@ -51,6 +51,11 @@ describe ItemQuery do
       expect(relation).to receive(:build)
       subject.build
     end
+
+    it "accepts default arguments" do
+      item = subject.build(collection_id: 1)
+      expect(item.collection_id).to eq(1)
+    end
   end
 
 end

@@ -1,7 +1,5 @@
 class ItemsController < ApplicationController
 
-  helper_method :collection
-
   def index
     check_user_curates!(collection)
 
@@ -59,7 +57,6 @@ class ItemsController < ApplicationController
     def save_params
       params.require(:item).permit(:title, :description, :image, :manuscript_url)
     end
-
 
     def collection
       @collection ||= CollectionQuery.new.find(params[:collection_id])
