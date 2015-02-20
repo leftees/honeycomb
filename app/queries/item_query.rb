@@ -1,26 +1,25 @@
 class ItemQuery
-  attr_reader :search
+  attr_reader :relation
+
   def initialize(relation = Item.all)
-    @search = extend_relation(relation)
+    @relation = relation
   end
 
   def recent(limit = 5)
-    search.recent(limit)
+    relation.order(updated_at: :desc).limit(limit)
   end
 
-  module Scopes
-    def recent(limit = 5)
-      order(updated_at: :desc).limit(limit)
-    end
-
-    def exclude_children
-      where(parent_id: nil)
-    end
+  def only_top_level
+    relation.where(parent_id: nil)
   end
 
-  private
-
-  def extend_relation(relation)
-    relation.extending(Scopes)
+  def find(id)
+    relation.find(id)
   end
+
+  def build(args = {})
+    relation.build(args)
+  end
+
+
 end

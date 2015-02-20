@@ -65,7 +65,7 @@ RSpec.describe ItemDecorator do
 
     describe '#back_path' do
       it "is the collection items index" do
-        expect(subject.back_path).to eq("/collections/#{collection.id}/items")
+        expect(subject.back_path).to eq("/collections/#{collection.id}")
       end
     end
   end
@@ -87,16 +87,12 @@ RSpec.describe ItemDecorator do
 
     describe '#back_path' do
       it "is the parent show route" do
-        expect(subject.back_path).to eq("/collections/#{collection.id}/items/#{child_item.parent_id}/children")
+        expect(subject.back_path).to eq("/items/#{child_item.parent_id}/children")
       end
     end
   end
 
   it 'returns the edit path' do
-    expect(subject.edit_path).to eq('/collections/2/items/1/edit')
-  end
-
-  it 'returns the show path' do
-    expect(subject.show_path).to eq('/collections/2/items/1')
+    expect(subject.edit_path).to eq('/items/1/edit')
   end
 end

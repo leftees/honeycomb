@@ -1,9 +1,8 @@
 require "rails_helper"
 
 RSpec.describe CollectionsController, :type => :controller do
-  let(:collection) { instance_double(Collection, id: 1, title: "COLLECTION", destroy: true ) }
+  let(:collection) { instance_double(Collection, id: 1, title: "COLLECTION", destroy!: true ) }
 
-  let(:collections) { [collection] }
   let(:create_params) { { collection: {title: "TITLE!!" }} }
   let(:update_params) { { id: '1', collection: {title: "TITLE!!" }} }
 
@@ -19,16 +18,28 @@ RSpec.describe CollectionsController, :type => :controller do
   end
 
   describe "index" do
+    subject { get :index }
 
     it "uses the query object" do
       expect_any_instance_of(CollectionQuery).to receive(:for_curator).with(user)
-      get :index
+      subject
     end
 
 
     it "is a success" do
-      get :index
+      subject
+
       expect(response).to be_success
+      expect(response).to render_template("index")
+    end
+  end
+
+  describe "show" do
+    subject { get :show, id: collection.id }
+    it "redirects to the items page" do
+      subject
+
+      expect(response).to redirect_to collection_items_path(collection.id)
     end
   end
 
@@ -171,11 +182,6 @@ RSpec.describe CollectionsController, :type => :controller do
     it "redirects on success " do
       delete :destroy, id: "1"
       expect(response).to be_redirect
-    end
-
-    it "raises an error on failure" do
-      collection.stub(:destroy).and_return(false)
-      expect{ delete :destroy, id: "1" }.to raise_error
     end
   end
 end

@@ -52,8 +52,6 @@ gem 'devise_cas_authenticatable'
 
 gem 'addressable'
 
-gem 'gretel'
-
 # Server monitoring
 gem 'newrelic_rpm'
 

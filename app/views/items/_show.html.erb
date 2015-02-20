@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-8">
 
-    <%= simple_form_for [@item.collection, @item], html: { :class => "item", id: 'edit-item' } do |f| %>
+    <%= simple_form_for @item, html: { :class => "item", id: 'edit-item' } do |f| %>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Metadata</h3>
@@ -12,7 +12,7 @@
         <div class="panel-footer">
           <%= f.button :submit, "Save", class: 'btn btn-primary'%>
           <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                  collection_item_path(@item.collection, @item), :class => 'btn btn-default' %>
+                  collection_path(@item.collection), :class => 'btn btn-default' %>
 
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div class="panel-heading">
         <div class="pull-right">
           <div class="btn-group">
-            <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_collection_item_child_path(collection, @item), class: 'btn btn-default btn-xs' %>
+            <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_item_child_path(@item), class: 'btn btn-default btn-xs' %>
             </div>
         </div>
         <h3 class="panel-title"><%= t('.children.title') %></h3>
@@ -52,7 +52,7 @@
       </div>
       <div class="panel-body">
         <%= item.show_image_box %>
-        <% simple_form_for [@item.collection, @item], html: { :class => "edit-item-dropzone", :multipart => true } do |f| %>
+        <% simple_form_for @item, html: { :class => "edit-item-dropzone", :multipart => true } do |f| %>
           <div class="row">
             <div class="dropzone">
               <div class="dropzone-previews"></div>

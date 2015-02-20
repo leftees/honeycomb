@@ -19,9 +19,9 @@ class ItemDecorator < Draper::Decorator
 
   def back_path
     if is_parent?
-      h.collection_items_path(object.collection_id)
+      h.collection_path(object.collection_id)
     else
-      h.collection_item_children_path(object.collection_id, object.parent_id)
+      h.item_children_path(object.parent_id)
     end
   end
 
@@ -34,11 +34,7 @@ class ItemDecorator < Draper::Decorator
   end
 
   def edit_path
-    h.edit_collection_item_path(object.collection_id, object.id)
-  end
-
-  def show_path
-    h.collection_item_path(object.collection_id, object.id)
+    h.edit_item_path(object.id)
   end
 
   def page_title

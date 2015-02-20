@@ -1,22 +1,22 @@
 class ItemsController < ApplicationController
 
-  helper_method :collection
-
   def index
-    items = ItemQuery.new(collection.items).search.exclude_children
+    check_user_curates!(collection)
+
+    items = ItemQuery.new(collection.items).only_top_level
     @items = ItemsDecorator.new(items)
   end
 
   def new
-    @item = collection.items.build
-  end
+    check_user_curates!(collection)
 
-  def show
-    @item = ItemDecorator.new(collection.items.find(params[:id]))
+    @item = ItemQuery.new(collection.items).build
   end
 
   def create
-    @item = collection.items.build
+    check_user_curates!(collection)
+
+    @item = ItemQuery.new(collection.items).build
 
     if SaveItem.call(@item, save_params)
       item_save_success(@item)
@@ -26,11 +26,15 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = ItemDecorator.new(collection.items.find(params[:id]))
+    item = ItemQuery.new.find(params[:id])
+    check_user_curates!(item.collection)
+
+    @item = ItemDecorator.new(item)
   end
 
   def update
-    @item = collection.items.find(params[:id])
+    @item = ItemQuery.new.find(params[:id])
+    check_user_curates!(@item.collection)
 
     if SaveItem.call(@item, save_params)
       item_save_success(@item)
@@ -40,15 +44,13 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = collection.items.find(params[:id])
+    @item = ItemQuery.new.find(params[:id])
+    check_user_curates!(@item.collection)
 
-    if @item.destroy
-      flash[:notice] = t('.success')
-    else
-      flash[:error] = t('.failure')
-    end
+    @item.destroy!
+    flash[:notice] = t('.success')
 
-    redirect_to collection_items_path(@item.collection)
+    redirect_to collection_path(@item.collection)
   end
 
   protected
@@ -57,9 +59,8 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:title, :description, :image, :manuscript_url)
     end
 
-
     def collection
-      @collection ||= Collection.find(params[:collection_id])
+      @collection ||= CollectionQuery.new.find(params[:collection_id])
     end
 
     def item_save_success(item)
@@ -74,9 +75,9 @@ class ItemsController < ApplicationController
     def item_save_html_success(item)
       flash[:notice] = t('.success')
       if params[:action] == 'create'
-        redirect_to collection_items_path(collection)
+        redirect_to collection_path(collection)
       else
-        redirect_to collection_item_path(collection, item)
+        redirect_to edit_item_path(item)
       end
     end
 

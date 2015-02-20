@@ -1,12 +1,15 @@
 <% breadcrumb :new_collection_item, @collection %>
-<%= page_title(t('.title', :default => "Upload New Items")) %>
+
+<%= collection_title(@collection) %>
+
+<h2><%= t('.title', :default => "Upload New Items") %></h2>
 
 <div class="container">
 
   <%= simple_form_for [@item.collection, @item], :html => { class: 'new-item-dropzone', :multipart => true, :id => "fileupload"  } do |f| %>
     <div class="row">
       <%= f.button :submit, "Upload Images", class: 'btn btn-primary' %>
-      <%= link_to 'Back to Collection', collection_items_path(@item.collection), class: 'btn btn-large' %>
+      <%= link_to 'Back to Collection', collection_path(@item.collection), class: 'btn btn-large' %>
     </div>
     <div class="row">
       <div class="dropzone">

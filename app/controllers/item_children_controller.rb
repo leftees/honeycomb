@@ -1,23 +1,13 @@
 class ItemChildrenController < ApplicationController
 
-  helper_method :collection
-  helper_method :parent
-
-  def index
-    @items = ItemsDecorator.new(parent.children)
-
-    respond_to do | format |
-      format.json { render json: GenerateItemJSON.new(@items, params) }
-      format.any { render action: 'index' }
-    end
-  end
-
   def new
-    @item = parent.children.build(collection: collection)
+    check_user_curates!(parent.collection)
+    @item = ItemQuery.new(parent.children).build(collection_id: parent.collection.id)
   end
 
   def create
-    @item = parent.children.build(collection: collection)
+    check_user_curates!(parent.collection)
+    @item = ItemQuery.new(parent.children).build(collection_id: parent.collection.id)
 
     if SaveItem.call(@item, save_params)
       item_save_success(@item)
@@ -33,11 +23,7 @@ class ItemChildrenController < ApplicationController
     end
 
     def parent
-      @parent ||= collection.items.find(params[:item_id])
-    end
-
-    def collection
-      @collection ||= Collection.find(params[:collection_id])
+      @parent ||= ItemQuery.new.find(params[:item_id])
     end
 
     def item_save_success(item)
@@ -51,7 +37,7 @@ class ItemChildrenController < ApplicationController
 
     def item_save_html_success(item)
       flash[:notice] = t('.success')
-      redirect_to collection_item_path(collection, parent)
+      redirect_to edit_item_path(parent)
     end
 
     def item_save_failure(item)
