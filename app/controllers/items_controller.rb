@@ -15,6 +15,7 @@ class ItemsController < ApplicationController
 
   def create
     check_user_curates!(collection)
+
     @item = ItemQuery.new(collection.items).build
 
     if SaveItem.call(@item, save_params)
