@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   def index
     check_user_curates!(collection)
 
-    items = ItemQuery.new(collection.items).parent_items
+    items = ItemQuery.new(collection.items).only_top_level
     @items = ItemsDecorator.new(items)
   end
 

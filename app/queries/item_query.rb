@@ -9,7 +9,7 @@ class ItemQuery
     relation.order(updated_at: :desc).limit(limit)
   end
 
-  def parent_items
+  def only_top_level
     relation.where(parent_id: nil)
   end
 

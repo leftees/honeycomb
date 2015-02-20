@@ -38,7 +38,7 @@ RSpec.describe ItemsController, :type => :controller do
     end
 
     it "users the item query to get items" do
-      expect_any_instance_of(ItemQuery).to receive(:parent_items)
+      expect_any_instance_of(ItemQuery).to receive(:only_top_level)
       subject
     end
 

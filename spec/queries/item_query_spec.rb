@@ -27,11 +27,11 @@ describe ItemQuery do
     end
   end
 
-  describe "#parent_items" do
+  describe "#only_top_level" do
 
     it "returns only the items that are parents" do
       expect(relation).to receive(:where).with({:parent_id=>nil})
-      subject.parent_items
+      subject.only_top_level
     end
   end
 
