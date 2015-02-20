@@ -65,7 +65,7 @@ RSpec.describe ItemDecorator do
 
     describe '#back_path' do
       it "is the collection items index" do
-        expect(subject.back_path).to eq("/collections/#{collection.id}/items")
+        expect(subject.back_path).to eq("/collections/#{collection.id}")
       end
     end
   end

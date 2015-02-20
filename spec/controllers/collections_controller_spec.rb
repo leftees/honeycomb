@@ -18,17 +18,28 @@ RSpec.describe CollectionsController, :type => :controller do
   end
 
   describe "index" do
+    subject { get :index }
 
     it "uses the query object" do
       expect_any_instance_of(CollectionQuery).to receive(:for_curator).with(user)
-      get :index
+      subject
     end
 
 
     it "is a success" do
-      get :index
+      subject
+
       expect(response).to be_success
       expect(response).to render_template("index")
+    end
+  end
+
+  describe "show" do
+    subject { get :show, id: collection.id }
+    it "redirects to the items page" do
+      subject
+
+      expect(response).to redirect_to collection_items_path(collection.id)
     end
   end
 

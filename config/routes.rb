@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :errors
 
-  resources :collections, only: [:index, :new, :create, :edit, :update, :destroy] do
+  resources :collections, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
 
     resources :items, only: [:index, :new, :create]
 

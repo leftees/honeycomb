@@ -50,7 +50,7 @@ class ItemsController < ApplicationController
     @item.destroy!
     flash[:notice] = t('.success')
 
-    redirect_to collection_items_path(@item.collection)
+    redirect_to collection_path(@item.collection)
   end
 
   protected
@@ -75,7 +75,7 @@ class ItemsController < ApplicationController
     def item_save_html_success(item)
       flash[:notice] = t('.success')
       if params[:action] == 'create'
-        redirect_to collection_items_path(collection)
+        redirect_to collection_path(collection)
       else
         redirect_to edit_item_path(item)
       end

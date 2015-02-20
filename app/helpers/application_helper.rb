@@ -13,11 +13,11 @@ module ApplicationHelper
   end
 
   def collection_title(collection,  section_title = nil)
-    page_title(collection.title, collection_items_path(collection), section_title, nil, edit_collection_path(collection))
+    page_title(collection.title, collection_path(collection), section_title, nil, edit_collection_path(collection))
   end
 
   def item_title(item)
-    page_title(item.collection.title, collection_items_path(item.collection), item.title, edit_item_path(item), edit_collection_path(item.collection))
+    page_title(item.collection.title, collection_path(item.collection), item.title, edit_item_path(item), edit_collection_path(item.collection))
   end
 
   def page_title(title, title_href = "", small_title = "", small_title_href = "", settings_href = "")

@@ -4,6 +4,10 @@ class CollectionsController < ApplicationController
     @collections = CollectionQuery.new.for_curator(current_user)
   end
 
+  def show
+    redirect_to collection_items_path(params[:id])
+  end
+
   def new
     check_admin_or_admin_masquerading_permission!
 
@@ -17,7 +21,7 @@ class CollectionsController < ApplicationController
 
     if SaveCollection.call(@collection, save_params)
       flash[:notice] = t('.success')
-      redirect_to collection_items_path(@collection)
+      redirect_to collection_path(@collection)
     else
       render :new
     end
