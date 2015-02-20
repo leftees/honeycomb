@@ -1,6 +1,7 @@
-<div class="page-header">
-  <h1><%=t '.title' %></h1>
-</div>
+<%= collection_title(@item.parent.collection) %>
+
+<h2><%=t '.title' %></h2>
+
 <div class="container">
 
   <%= simple_form_for [@item.parent, @item], url: item_children_path(@item.parent), :html => { class: 'new-item-dropzone', :multipart => true, :id => "fileupload"  } do |f| %>
