@@ -17,7 +17,6 @@ RSpec.describe ExhibitsController, :type => :controller do
     allow_any_instance_of(ExhibitQuery).to receive(:find).and_return(exhibit)
   end
 
-
   describe "show" do
     subject { get :show, id: "1" }
     it "redirects to the items page" do

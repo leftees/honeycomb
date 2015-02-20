@@ -27,25 +27,14 @@ class ShowcasesController < ApplicationController
   end
 
   def edit
-    @showcase = ShowcaseQuery.new().find(params[:id])
-  end
-
-  def update
-    @showcase = exhibit.showcases.find(params[:id])
-
-    if @showcase.update_attributes(save_params)
-      redirect_to exhibit_showcases_path(@showcase.exhibit)
-    else
-      render :edit
-    end
+    @showcase = ShowcaseQuery.new.find(params[:id])
   end
 
   def destroy
-    @showcase = exhibit.showcases.find(params[:id])
+    @showcase = ShowcaseQuery.new.find(params[:id])
 
-    if @showcase.destroy()
-      redirect_to exhibit_showcases_path(@showcase.exhibit)
-    end
+    @showcase.destroy!()
+    redirect_to exhibit_showcases_path(@showcase.exhibit)
   end
 
   protected
