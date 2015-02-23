@@ -34,7 +34,13 @@
           <%= render partial: 'list_small', locals: { items: @item.recent_children } %>
         <% else %>
           <p>No addtional resources associated with this item</p>
-          <p>Additional eesources are intended to be items that provide context to the main item.  Examples might be a portrait of the creator or a map of where the item was created at. </p>
+          <p>
+            Additional resources are intended to be items that provide context to the main item.
+            <br>Examples:
+            <ul>
+              <li>A portrait of the creator</li>
+              <li>A map of where the item was created</li>
+            </ul></p>
         <% end %>
       </div>
     </div>

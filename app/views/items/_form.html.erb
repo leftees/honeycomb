@@ -20,11 +20,11 @@
   <%= f.text_area :description, class: 'text optional form-control', rows: '3' %>
 <% end %>
 
-<%= f.input :manuscript_url, as: :string %>
+<%= f.input :manuscript_url, as: :string, placeholder: 'http://', hint: 'Link to externally hosted manuscript viewer.' %>
 
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <i class="glyphicon glyphicon-plus"></i> Add a new field
+    <i class="glyphicon glyphicon-plus"></i> Add a metadata field
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
   </button>
