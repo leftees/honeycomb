@@ -61,6 +61,7 @@ gem 'faraday'
 gem 'faraday_middleware'
 
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+gem 'underscore-rails'
 
 
 group :development, :test do

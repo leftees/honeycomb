@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # person search
   get 'user_search', to: 'users#user_search'
+  get 'curator_search', to: 'users#curator_search'
 
   get '404', to: 'errors#catch_404'
   get '500', to: 'errors#catch_500'
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
 
     resources :items, only: [:index, :new, :create]
 
+    resources :curators, only: [:index, :create, :destroy]
 
 #    resources :exhibits do
 #      resources :showcases do
@@ -57,8 +59,6 @@ Rails.application.routes.draw do
   end
 
   scope '/admin' do
-    post :set_curator, to: 'users#set_curator'
-    post :remove_curator, to: 'users#remove_curator'
     resources :users do
       put :set_admin
       put :revoke_admin

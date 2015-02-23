@@ -15,47 +15,6 @@
   </div>
 
   <div class="col-md-9">
-
-    <!-- div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Curators</h3>
-      </div>
-
-      <table class="table table-hover curator-list">
-        <% @collection.users.each do |curator| %>
-          <tr>
-            <td>
-              <%= curator.name %>
-            </td>
-            <td>
-              <a class="remove_curator pull-right" curator_id="<%= curator.id %>">x</button>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-
-      <div class="panel-footer">
-        <form action="<%= set_curator_path %>" method="post" id="set_curator_form" class="form-inline" role="form">
-          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
-          <input type="hidden" name="curator_id" id="curator_id" value=""/>
-          <input type="hidden" name="collection_id" value="<%= @collection.id %>"/>
-
-          <div id="selected_user" class="form-group">
-            <label for="user_search">Add Curator</label>
-            <input id="user_search" placeholder="enter curator's name">
-            <button class="btn btn-default btn-sm" id="add_curator"><span class="text-primary">Add</span></a></button>
-          </div>
-        </form>
-
-        <form action="<%= remove_curator_path %>" method="post" id="remove_curator_form">
-          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
-          <input type="hidden" name="curator_id" id="remove_curator_id" value=""/>
-          <input type="hidden" name="collection_id" value="<%= @collection.id %>"/>
-        </form>
-      </div>
-    </div -->
-
-
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Settings</h3>

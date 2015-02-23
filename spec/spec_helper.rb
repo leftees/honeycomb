@@ -73,7 +73,13 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     # Preload the fields for ActiveRecord objects to allow use of instance_double
-    [Collection, Item, HoneypotImage].each do |database_model|
+    [
+      Collection,
+      Item,
+      HoneypotImage,
+      User,
+      CollectionUser,
+    ].each do |database_model|
       instance = database_model.new
       # The first attribute is id, which does not cause the methods to be built on the class
       field = instance.attributes.keys[1]
