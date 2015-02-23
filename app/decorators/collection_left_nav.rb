@@ -1,10 +1,10 @@
 require 'draper'
 
 class CollectionLeftNav < Draper::Decorator
-  attr_reader :section
+  attr_reader :left_nav_section
 
-  def display(section)
-    @section = section
+  def display(left_nav_section)
+    @left_nav_section = left_nav_section
     h.render partial: 'shared/collection_left_nav', locals: { nav: self }
   end
 
@@ -13,6 +13,6 @@ class CollectionLeftNav < Draper::Decorator
   end
 
   def active_section_css(test_section)
-    "#{test_section == section ? 'selected' : ''}"
+    "#{test_section == left_nav_section ? 'selected' : ''}"
   end
 end
