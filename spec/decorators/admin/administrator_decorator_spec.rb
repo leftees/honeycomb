@@ -17,6 +17,13 @@ RSpec.describe Admin::AdministratorDecorator do
     end
   end
 
+  describe '#username' do
+    it 'is the user username' do
+      expect(user).to receive(:username).and_return('Username')
+      expect(subject.username).to eq('Username')
+    end
+  end
+
   describe '#destroy_path' do
     it 'is the destroy path' do
       expect(subject.destroy_path).to eq('/admin/administrators/1')

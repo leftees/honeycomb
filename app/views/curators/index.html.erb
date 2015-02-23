@@ -3,8 +3,8 @@
 <div class="row">
 
   <div class="col-md-9">
-    <%= react_component 'CuratorPanel', {
-        initialCurators: @curator_list.curator_hashes,
+    <%= react_component 'UserPanel', {
+        initialUsers: @curator_list.curator_hashes,
         createUrl: collection_curators_path(@collection.id),
         searchUrl: user_search_collection_curators_path(@collection.id),
       },

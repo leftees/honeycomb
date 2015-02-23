@@ -1,15 +1,15 @@
 /** @jsx React.DOM */
 
-var CuratorPanel = React.createClass({
+var UserPanel = React.createClass({
   propTypes: {
-    initialCurators: React.PropTypes.array.isRequired,
+    initialUsers: React.PropTypes.array.isRequired,
   },
   getInitialState: function() {
     return {
-      curators: this.props.initialCurators
+      users: this.props.initialUsers
     };
   },
-  addCurator: function(personId) {
+  addUser: function(personId) {
     $.ajax({
         url: this.props.createUrl,
         dataType: "json",
@@ -20,38 +20,38 @@ var CuratorPanel = React.createClass({
             }
         },
         success: (function(data) {
-          this.curatorAdded(data);
+          this.userAdded(data);
         }).bind(this),
         error: (function(xhr, status, err) {
             console.error(this.props.createUrl, status, err.toString());
         }).bind(this)
     });
   },
-  curatorExists: function(curatorId) {
-    return _.some(this.state.curators, function(curator) {
-      return curator.id == curatorId;
+  userExists: function(userId) {
+    return _.some(this.state.user, function(user) {
+      return user.id == userId;
     });
   },
-  curatorAdded: function(curator) {
-    if (!this.curatorExists(curator.id)) {
-      var newCurators = this.state.curators.concat(curator);
+  userAdded: function(user) {
+    if (!this.userExists(user.id)) {
+      var newUsers = this.state.users.concat([user]);
       this.setState({
-        curators: newCurators
+        users: newUsers
       });
     }
   },
   render: function() {
     return (
-      <div className="curator-panel panel panel-default">
+      <div className="user-panel panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">Curators</h3>
+          <h3 className="panel-title">Users</h3>
         </div>
-        <CuratorList curators={this.state.curators} />
+        <UserList users={this.state.users} />
         <div className="panel-footer">
           <PeopleSearch
             createUrl={this.props.createUrl}
             searchUrl={this.props.searchUrl}
-            selectPerson={this.addCurator} />
+            selectPerson={this.addUser} />
         </div>
       </div>
     );

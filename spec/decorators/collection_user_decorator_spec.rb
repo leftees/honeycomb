@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CollectionUserDecorator do
-  let(:user) { instance_double(User, display_name: 'display_name') }
+  let(:user) { instance_double(User, display_name: 'display_name', username: 'username') }
   let(:collection_user) { instance_double(CollectionUser, user_id: 1, collection_id: 2, user: user)}
   subject{ described_class.new(collection_user)}
 
@@ -18,6 +18,13 @@ RSpec.describe CollectionUserDecorator do
     end
   end
 
+  describe '#username' do
+    it 'is the user username' do
+      expect(user).to receive(:username).and_return('Username')
+      expect(subject.username).to eq('Username')
+    end
+  end
+
   describe '#destroy_path' do
     it 'is the destroy path' do
       expect(subject.destroy_path).to eq('/collections/2/curators/1')
@@ -27,6 +34,7 @@ RSpec.describe CollectionUserDecorator do
   describe '#curator_hash' do
     it 'returns a hash' do
       expect(subject.curator_hash).to be_a_kind_of(Hash)
+      expect(subject.curator_hash).to eq({:id=>1, :name=>"display_name", :username=>"username", :removeUrl=>"/collections/2/curators/1"})
     end
   end
 
