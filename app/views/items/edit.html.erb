@@ -2,7 +2,3 @@
 
 <%= render partial: "show", locals: { item: @item } %>
 
-<%= DeleteSection.new(@item).display do | ds |
-  ds.name = "Item"
-  ds.path = @item
-end %>

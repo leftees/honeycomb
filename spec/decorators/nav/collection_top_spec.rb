@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CollectionTopNav do
+RSpec.describe Nav::CollectionTop do
   subject { described_class.new(collection)}
   let(:collection) { double(Collection, id:  1) }
   let(:user) { double(User, username: 'username')}

@@ -1,6 +1,6 @@
 require 'draper'
 
-class CollectionLeftNav < Draper::Decorator
+class Nav::CollectionLeft < Draper::Decorator
   attr_reader :left_nav_section
 
   def display(left_nav_section)

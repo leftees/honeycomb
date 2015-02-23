@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CollectionLeftNav do
+RSpec.describe Nav::CollectionLeft do
   subject { described_class.new(collection)}
   let(:collection) { double(Collection, id:  1) }
 

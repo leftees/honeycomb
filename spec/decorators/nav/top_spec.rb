@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TopNav do
+RSpec.describe Nav::Top do
   subject { described_class.new(controller)}
   let(:controller) { double(current_user: nil_current_user) }
   let(:nil_current_user) { nil }
