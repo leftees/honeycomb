@@ -30,7 +30,7 @@ en:
     update:
       success: 'Collection updated'
   items:
-    show:
+    edit:
       title: "Item"
       children:
         title: "Additional Resources"
