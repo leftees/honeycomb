@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Admin::AdministratorsController, :type => :controller do
+  let(:user) { instance_double(User, id: 100, username: 'netid') }
 
   before(:each) do
     sign_in_admin
@@ -27,8 +28,7 @@ RSpec.describe Admin::AdministratorsController, :type => :controller do
     end
   end
 
-  describe "#create" do
-    let(:user) { instance_double(User, username: 'netid') }
+  describe "POST #create" do
 
     it 'calls SetAdminOnUser with the user' do
       expect(FindOrCreateUser).to receive(:call).with(user.username).and_return(user)
@@ -43,6 +43,15 @@ RSpec.describe Admin::AdministratorsController, :type => :controller do
       expect(FindOrCreateUser).to receive(:call).with(user.username).and_return(false)
       post :create, user: {username: user.username}, collection_id: 1
       expect(response).to be_error
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'sets the admin to false and redirects to index' do
+      expect_any_instance_of(AdministratorQuery).to receive(:find).with("100").and_return(user)
+      expect(RevokeAdminOnUser).to receive(:call).with(user)
+      delete :destroy, id: user.id
+      expect(response).to be_redirect
     end
   end
 

@@ -22,6 +22,14 @@ module Admin
       end
     end
 
+    def destroy
+      check_admin_or_admin_masquerading_permission!
+
+      user = AdministratorQuery.new.find(params[:id])
+      RevokeAdminOnUser.call(user)
+      redirect_to admin_administrators_path
+    end
+
     def user_search
       check_admin_or_admin_masquerading_permission!
 
