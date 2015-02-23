@@ -17,15 +17,5 @@ module ApplicationHelper
     content_for(:left_nav, CollectionLeftNav.new(collection).display(section))
   end
 
-  def page_title(title, title_href = "", small_title = "", small_title_href = "", settings_href = "")
-    content_for(:page_title) do
-      PageTitle.new(title).display do | pt |
-        pt.small_title = small_title
-        pt.title_href = title_href
-        pt.small_title_href = small_title_href
-        pt.settings_href = settings_href
-      end
-    end
-  end
 
 end
