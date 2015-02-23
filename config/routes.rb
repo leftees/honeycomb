@@ -58,7 +58,11 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '/admin' do
+  namespace :admin do
+    resources :administrators
+  end
+
+  scope '/admin_old' do
     resources :users do
       put :set_admin
       put :revoke_admin

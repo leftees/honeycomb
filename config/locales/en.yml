@@ -62,6 +62,13 @@ en:
     destroy:
       success: User deleted
       failure: There was a problem deleting this user
+  admin:
+    administrators:
+      index:
+        new: "New Administrator"
+        list:
+          name: Name
+          username: NetID
   errors:
     messages:
       invalid_url: "must be a valid URL"

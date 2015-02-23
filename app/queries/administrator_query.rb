@@ -5,6 +5,10 @@ class AdministratorQuery
     @relation = relation.where(admin: true)
   end
 
+  def list
+    relation.order(:last_name, :first_name)
+  end
+
   def find(id)
     relation.find(id)
   end

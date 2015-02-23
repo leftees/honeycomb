@@ -12,7 +12,14 @@ describe AdministratorQuery do
     end
   end
 
-  describe "build" do
+  describe '#list' do
+    it "returns the list sorted by last and first name" do
+      expect(subject.relation).to receive(:order).with(:last_name, :first_name).and_call_original
+      subject.list
+    end
+  end
+
+  describe '#build' do
 
     it "builds a object off of the relation and returns the result" do
       expect(subject.relation).to receive(:build).and_return('build')

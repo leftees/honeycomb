@@ -1,0 +1,20 @@
+<%= link_to new_admin_administrator_path, :class => 'btn btn-primary' do %>
+  <i class="glyphicon glyphicon-plus"></i>
+  <%= t('.new') %>
+<% end %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= t '.list.name' %></th>
+      <th><%= t '.list.username' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @administrators.each do | administrator | %>
+    <tr>
+      <td><%= link_to administrator.display_name, admin_administrator_path(administrator) %></td>
+      <td><%= administrator.username %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
