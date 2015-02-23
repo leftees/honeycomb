@@ -12,8 +12,9 @@ module ApplicationHelper
     @permission ||= SitePermission.new(current_user, self)
   end
 
-  def collection_title(collection)
+  def collection_nav(collection, section)
     content_for(:collection_nav, CollectionTopNav.new(collection).display)
+    content_for(:left_nav, CollectionLeftNav.new(collection).display(section))
   end
 
   def page_title(title, title_href = "", small_title = "", small_title_href = "", settings_href = "")

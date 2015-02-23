@@ -7,7 +7,7 @@ RSpec.describe CollectionTopNav do
 
   it "renders the footer template" do
     expect(subject.h).to receive(:render).with({:partial=>"shared/collection_top_nav", locals: { nav: subject }})
-    subject.display
+    subject.display()
   end
 
   it "returns the object as collection" do
