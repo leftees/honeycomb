@@ -59,7 +59,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :administrators
+    resources :administrators, only: [:index, :create, :destroy] do
+      collection do
+        get :user_search
+      end
+    end
   end
 
   scope '/admin_old' do

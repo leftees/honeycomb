@@ -1,6 +1,6 @@
 require 'rails'
 
-describe AdministratorQuery do
+RSpec.describe AdministratorQuery do
   subject {described_class.new(relation)}
   let(:relation) { User.all }
   let(:modified_relation) { User.all.where(admin: true) }
