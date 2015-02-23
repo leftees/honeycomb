@@ -3,6 +3,14 @@
 var UserPanel = React.createClass({
   propTypes: {
     initialUsers: React.PropTypes.array.isRequired,
+    createUrl: React.PropTypes.string.isRequired,
+    searchUrl: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string
+  },
+  getDefaultProps: function() {
+    return {
+      title: 'Users',
+    }
   },
   getInitialState: function() {
     return {
@@ -44,7 +52,7 @@ var UserPanel = React.createClass({
     return (
       <div className="user-panel panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">Users</h3>
+          <h3 className="panel-title">{this.props.title}</h3>
         </div>
         <UserList users={this.state.users} />
         <div className="panel-footer">
