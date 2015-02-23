@@ -47,16 +47,18 @@
 
 <div class="container-fluid content">
   <div class="row row-fluid">
+    <% if content_for?(:left_nav) %>
+      <div class="col-md-2" id="col1">
+        <%= yield(:left_nav) %>
+      </div>
+      <div class="col-lg-10">
+    <% else %>
+      <div class="col-lg-10">
+        <%= DisplayFlashMessage.new(controller.flash).display %>
 
-    <div class="col-md-2" id="col1">
-      <%= yield(:left_nav) %>
-    </div>
-    <div class="col-lg-10">
-      <%= DisplayFlashMessage.new(controller.flash).display %>
-
-      <%= yield(:page_title) %>
-      <%= yield %>
-
+        <%= yield(:page_title) %>
+        <%= yield %>
+    <% end%>
     </div>
   </div><!--/row-->
 </div> <!-- /container -->
