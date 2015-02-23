@@ -1,22 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe SectionQuery do
+  subject { described_class.new(relation)}
+
+  let(:sections) { double( order: true )}
+  let(:showcase) { double(Showcase, sections: relation) }
+  let(:relation) { Section.all }
 
   describe "#all_for_showcase" do
-    let(:sections) { double( order: true )}
-    let(:showcase) { double(Showcase, sections: sections) }
 
-    it "gets all the sections for a showcase" do
-      expect(showcase).to receive(:sections).and_return(sections)
-      subject.all_in_showcase(showcase)
+    it "orders all the showases" do
+      expect(relation).to receive(:order).with(:order).and_return(relation)
+      subject.all_in_showcase
     end
 
+  end
 
-    it "orders the sections by the order field" do
-      expect(sections).to receive(:order).with(:order)
-      subject.all_in_showcase(showcase)
+
+  describe "find" do
+
+    it "finds the collection" do
+      expect(relation).to receive(:find).with(1)
+      subject.find(1)
     end
+  end
 
 
+  describe "build" do
+
+    it "builds a collection off of the relation" do
+      expect(relation).to receive(:build)
+      subject.build
+    end
   end
 end
