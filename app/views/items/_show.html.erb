@@ -33,7 +33,7 @@
 
           <%= render partial: 'list_small', locals: { items: @item.recent_children } %>
         <% else %>
-          <p>There are no addtional resources associated with this item</p>
+          <p>No addtional resources associated with this item</p>
           <p>Additional eesources are intended to be items that provide context to the main item.  Examples might be a portrait of the creator or a map of where the item was created at. </p>
         <% end %>
       </div>
@@ -41,6 +41,11 @@
   </div>
 <% end %>
     <% end %>
+<%= DeleteSection.new(@item).display do | ds |
+  ds.name = "Item"
+  ds.path = @item
+end %>
+
   </div>
   <div class="col-md-4 item-show-image">
     <div class="panel panel-default">

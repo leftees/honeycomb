@@ -1,48 +1,34 @@
-<div class="navbar-header">
-   <a class="navbar-brand" href="<%= root_path %>"><i class="glyphicon glyphicon-home"></i> honeycomb</a>
-</div>
-<div class="navbar-collapse collapse">
-  <ul class="nav navbar-nav">
-    <li class="">
-        <div class="btn-group collections"><a href="#" class="btn ">Title of Selected Collection &nbsp;</a> <button data-toggle="dropdown" class="btn dropdown-toggle btn-primary" type="button"><span class="caret"></span></button>
-        
-        
-      <ul class="dropdown-menu" role="menu">
-        <li class="dropdown-header">Other Collections</li>
-        <li><a href="#">Collection with a really long title to run to multiple lines #1</a></li>
-        <li><a href="#">Collection #2</a></li>
-        <li><a href="#">Collection #3</a></li>
-        
+<div class="title-bar <%= nav.bar_size_class %>">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="navbar-header">
+         <a class="navbar-brand" href="<%= root_path %>"><i class="glyphicon glyphicon-home"></i> honeycomb</a>
+      </div>
+      <div class="navbar-collapse collapse">
+
+        <%= yield :collection_top_nav %>
+
+        <ul class="nav navbar-nav wayfinder">
+          <li class="dropdown">
+
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#"><i class="glyphicon glyphicon-film"></i> Exhibits</a></li>
+              <li><a href="#"><i class="glyphicon glyphicon-picture"></i> Items</a></li>
+              <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
+              <li><a href="#"><i class="glyphicon glyphicon-user"></i> Currators</a></li>
+            </ul>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th"></i> Nav <span class="caret"></span></a>
+          </li>
+        </ul>
 
 
-      </ul>
-        </div>
-      
-
-     
-    </li>
-  </ul>
-  
-  <ul class="nav navbar-nav wayfinder">
-    <li class="dropdown">
-      
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#"><i class="glyphicon glyphicon-film"></i> Exhibits</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-picture"></i> Items</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-user"></i> Currators</a></li>
-        
-        
-      </ul>
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th"></i> Nav <span class="caret"></span></a>
-    </li>
-  </ul>
-  
-  
-  <ul class="nav navbar-nav navbar-right">
-    <li><%= link_to raw("<i class=\"glyphicon glyphicon-user\"></i> #{nav.current_user_display_name}"), "#" 
-    %></li>
-    <li><a href="<%= users_path %>"><i class="glyphicon glyphicon-cog"></i></a></li>
-    <li><a href="#" title="logout"><i class="glyphicon glyphicon-log-out"></i></a></li>
-  </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to raw("<i class=\"glyphicon glyphicon-user\"></i> #{nav.current_user_display_name}"), "#"
+          %></li>
+          <li><a href="<%= users_path %>"><i class="glyphicon glyphicon-cog"></i></a></li>
+          <li><a href="#" title="logout"><i class="glyphicon glyphicon-log-out"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>

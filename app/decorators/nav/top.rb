@@ -1,6 +1,6 @@
 require 'draper'
 
-class TopNav < Draper::Decorator
+class Nav::Top < Draper::Decorator
 
   def display
     h.render partial: 'shared/top_nav', locals: { nav: self }
@@ -12,6 +12,10 @@ class TopNav < Draper::Decorator
     else
       "no user"
     end
-end
+  end
+
+  def bar_size_class
+    "#{h.request.original_fullpath == h.root_path ? 'large' : 'short'}"
+  end
 
 end

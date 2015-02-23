@@ -1,12 +1,4 @@
-<% if @item.parent %>
-  <%= item_title(@item.parent) %>
-<% else %>
-  <%= item_title(@item) %>
-<% end %>
+<%= collection_nav(@item.collection, :items) %>
 
 <%= render partial: "show", locals: { item: @item } %>
 
-<%= DeleteSection.new(@item).display do | ds |
-  ds.name = "Item"
-  ds.path = @item
-end %>

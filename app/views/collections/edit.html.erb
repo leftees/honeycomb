@@ -1,19 +1,6 @@
-<%- model_class = Collection -%>
-<%= collection_title(@collection) %>
+<%= collection_nav(@collection, :settings) %>
 
 <div class="row">
-  <div class="col-md-3">
-
-    <div class="list-group">
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item active"><i class="glyphicon glyphicon-cog"></i> Settings</i></a>
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-user"></i> Curators </i></a>
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-tasks"></i> Metadata </i></a>
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-th-large"></i> Exhibit </i></a>
-
-    </div>
-
-  </div>
-
   <div class="col-md-9">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -38,6 +25,17 @@
       ds.message = "Procede with caution. This will also remove all items, exhibits, and showcases."
     end
     %>
+
+  </div>
+    <div class="col-md-3">
+
+    <div class="list-group">
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item active"><i class="glyphicon glyphicon-cog"></i> Settings</i></a>
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-user"></i> Curators </i></a>
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-tasks"></i> Metadata </i></a>
+      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-th-large"></i> Exhibit </i></a>
+
+    </div>
 
   </div>
 </div>

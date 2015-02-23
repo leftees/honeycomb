@@ -12,23 +12,12 @@ module ApplicationHelper
     @permission ||= SitePermission.new(current_user, self)
   end
 
-  def collection_title(collection,  section_title = nil)
-    page_title(collection.title, collection_path(collection), section_title, nil, edit_collection_path(collection))
+  def collection_nav(collection, left_nav_section)
+    content_for(:collection_top_nav, Nav::CollectionTop.new(collection).display)
+    content_for(:left_nav, Nav::CollectionLeft.new(collection).display(left_nav_section))
   end
 
-  def item_title(item)
-    page_title(item.collection.title, collection_path(item.collection), item.title, edit_item_path(item), edit_collection_path(item.collection))
+  def learn_more_button(path)
+    link_to raw("<i class=\"glyphicon glyphicon-education\"></i> Learn More"), path, :class => 'btn btn-large btn-hollow'
   end
-
-  def page_title(title, title_href = "", small_title = "", small_title_href = "", settings_href = "")
-    content_for(:page_title) do
-      PageTitle.new(title).display do | pt |
-        pt.small_title = small_title
-        pt.title_href = title_href
-        pt.small_title_href = small_title_href
-        pt.settings_href = settings_href
-      end
-    end
-  end
-
 end
