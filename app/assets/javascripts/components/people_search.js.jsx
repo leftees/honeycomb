@@ -63,6 +63,7 @@ var PeopleSearch = React.createClass({
         }
     },
     render: function() {
+        var hideList = !this.state.currentSearch || this.state.activePersonId;
         return (
             <div>
                 <div className="people_list" >
@@ -75,7 +76,7 @@ var PeopleSearch = React.createClass({
                     <PeopleList
                         people={this.state.peopleList}
                         setActivePerson={this.setActivePerson}
-                        activePersonId={this.state.activePersonId} />
+                        hide={hideList} />
                 </div>
             </div>
         );
@@ -120,7 +121,7 @@ var SearchButton = React.createClass({
 
 var PeopleList = React.createClass({
     listToggle: function() {
-        return { display: (this.props.activePersonId ? 'none' : 'block') }
+        return { display: (this.props.hide ? 'none' : 'block') };
     },
     render: function() {
         var people = [];
