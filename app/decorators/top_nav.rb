@@ -12,6 +12,6 @@ class TopNav < Draper::Decorator
     else
       "no user"
     end
-end
+  end
 
 end
