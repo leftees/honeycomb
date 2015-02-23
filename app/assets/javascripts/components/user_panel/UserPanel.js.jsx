@@ -36,7 +36,7 @@ var UserPanel = React.createClass({
     });
   },
   userExists: function(userId) {
-    return _.some(this.state.user, function(user) {
+    return _.some(this.state.users, function(user) {
       return user.id == userId;
     });
   },
