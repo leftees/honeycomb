@@ -1,4 +1,100 @@
 <%= collection_nav(@item.collection, :items) %>
+<div class="row">
+  <div class="col-md-8">
 
-<%= render partial: "show", locals: { item: @item } %>
+    <%= simple_form_for @item, html: { :class => "item", id: 'edit-item' } do |f| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Metadata</h3>
+        </div>
+        <div class="panel-body">
+            <%= render :partial => 'form', locals: { f: f } %>
+        </div>
+        <div class="panel-footer">
+          <%= f.button :submit, "Save", class: 'btn btn-primary'%>
+        </div>
+      </div>
+    <% end %>
 
+    <% if @item.is_parent? %>
+      <div class="item-show-children clearfix">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="pull-right">
+              <div class="btn-group">
+                <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_item_child_path(@item), class: 'btn btn-default btn-xs' %>
+                </div>
+            </div>
+            <h3 class="panel-title"><%= t('.children.title') %></h3>
+          </div>
+          <div class="panel-body">
+            <% if @item.recent_children.count > 0 %>
+
+              <%= render partial: 'list_small', locals: { items: @item.recent_children } %>
+            <% else %>
+              <p>No addtional resources associated with this item</p>
+              <p>
+                Additional resources are intended to be items that provide context to the main item.
+                <br>Examples:
+                <ul>
+                  <li>A portrait of the creator</li>
+                  <li>A map of where the item was created</li>
+                </ul></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= DeleteSection.new(@item).display do | ds |
+      ds.name = "Item"
+      ds.path = @item
+    end %>
+
+  </div>
+  <div class="col-md-4 item-show-image">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="pull-right">
+          <a href="#" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-refresh"></i> Replace</a>
+        </div>
+        <h3 class="panel-title">Media</h3>
+      </div>
+      <div class="panel-body">
+        <%= @item.show_image_box %>
+        <% simple_form_for @item, html: { :class => "edit-item-dropzone", :multipart => true } do |f| %>
+          <div class="row">
+            <div class="dropzone">
+              <div class="dropzone-previews"></div>
+              <div class="dz-message"><span>Drop image here to upload.</span></div>
+            </div>
+            <div class="fallback">
+              <%= f.file_field :image %>
+            </div>
+          </div>
+          <div style="width: 100%; text-align: center; background-color: gray; color: white; padding: 8px;">
+            <%= f.button :submit, "Replace Image", class: 'btn btn-primary' %>
+            <a href="#" style="color: white;"><i class="glyphicon glyphicon-refresh"></i> Replace</a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong>Publishing Options</strong></div>
+      <div class="panel-body">
+        <p>Choose if this item can be viewed.</p>
+        <p><input type="radio" > Published</p>
+        <p><input type="radio" > Unpublsihed</p>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong>Embed</strong></div>
+      <div class="panel-body">
+        <p>Copy and paste this code into the website where you want to embed this item.</p>
+        <p><textarea> I AM AN EMBED CODE !!! I AM SO AWESOME.  YOUR WEBSITE WILL BE AMAZING WITH ME !</textarea></p>
+      </div>
+    </div>
+  </div>
+</div>
