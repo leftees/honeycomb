@@ -27,6 +27,25 @@ RSpec.describe Admin::AdministratorsController, :type => :controller do
     end
   end
 
+  describe "#create" do
+    let(:user) { instance_double(User, username: 'netid') }
+
+    it 'calls SetAdminOnUser with the user' do
+      expect(FindOrCreateUser).to receive(:call).with(user.username).and_return(user)
+      expect(SetAdminOnUser).to receive(:call).with(user).and_return(true)
+      expect_any_instance_of(Admin::AdministratorDecorator).to receive(:to_hash).and_return({test: :test})
+      post :create, user: {username: user.username}
+      expect(response).to be_success
+      expect(response.body).to eq({test: :test}.to_json)
+    end
+
+    it 'errors if the user is not found' do
+      expect(FindOrCreateUser).to receive(:call).with(user.username).and_return(false)
+      post :create, user: {username: user.username}, collection_id: 1
+      expect(response).to be_error
+    end
+  end
+
   describe 'GET #user_search' do
     let(:query) { 'test' }
     let(:test_results) { [{id: "fake1", label: "Robert Franklin", value: "Robert Franklin"}] }
