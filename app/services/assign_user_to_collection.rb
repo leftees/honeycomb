@@ -2,7 +2,7 @@ class AssignUserToCollection
   attr_reader :collection, :user
 
   def self.call(collection, user)
-    new(collection, user).create!
+    new(collection, user).assign!
   end
 
   def initialize(collection, user)
@@ -10,11 +10,15 @@ class AssignUserToCollection
     @user = user
   end
 
-  def create!
-    collection_user.collection_id = collection.id
-    collection_user.user_id = user.id
-    if collection_user.save
-      collection_user
+  def assign!
+    if collection && user
+      collection_user.collection_id = collection.id
+      collection_user.user_id = user.id
+      if collection_user.save
+        collection_user
+      else
+        false
+      end
     else
       false
     end

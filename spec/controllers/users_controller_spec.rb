@@ -122,47 +122,4 @@ RSpec.describe UsersController, :type => :controller do
     end
   end
 
-  describe "POST #set_curator" do
-    let(:collection) { double(Collection, id: 1) }
-    it 'maps a user to a collection' do
-      expect(FindOrCreateUser).to receive(:call).and_return(user)
-      expect(Collection).to receive(:find).and_return(collection)
-      expect(user).to receive(:name).and_return("name")
-      post :set_curator, user: user, collection: collection
-      expect(flash[:notice]).to_not be_nil
-      expect(response).to be_redirect
-    end
-    it 'redirects back to collection page on error' do
-      expect(FindOrCreateUser).to receive(:call).and_return(false)
-      expect(Collection).to receive(:find).and_return(collection)
-      post :set_curator, user: user, collection: collection
-      expect(flash[:error]).to_not be_nil
-      expect(response).to be_redirect
-    end
-  end
-
-  describe "POST #remove_curator" do
-    let(:collection) { double(Collection, id: 1) }
-    it 'removes a user mapping to a collection' do
-      expect(User).to receive(:find).and_return(user)
-      expect(Collection).to receive(:find).and_return(collection)
-      expect(user).to receive(:blank?).and_return(false)
-      expect(RemoveUserFromCollection).to receive(:call).and_return(true)
-      expect(user).to receive(:name).and_return("name")
-      post :remove_curator, user: user, collection: collection
-      expect(flash[:notice]).to_not be_nil
-      expect(response).to be_redirect
-    end
-
-    it 'flashes an error and redirects if there is an error' do
-      expect(User).to receive(:find).and_return(user)
-      expect(Collection).to receive(:find).and_return(collection)
-      expect(user).to receive(:blank?).and_return(false)
-      expect(RemoveUserFromCollection).to receive(:call).and_return(false)
-      post :remove_curator, user: user, collection: collection
-      expect(flash[:error]).to_not be_nil
-      expect(response).to be_redirect
-    end
-  end
-
 end

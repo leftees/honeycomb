@@ -11,6 +11,10 @@ div#selected_user label {
   margin-left: 5px;
 }
 
+#people_select_list {
+  width: 300px;
+}
+
 .remove_curator {
   color: gray;
   margin-right: 2em;

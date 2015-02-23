@@ -67,39 +67,17 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def set_curator
-    check_admin_or_admin_masquerading_permission!
-    @user =  FindOrCreateUser.call(params[:curator_id])
-    @collection =  Collection.find(params[:collection_id])
-    unless @user.blank?
-      AssignUserToCollection.call(@collection, @user)
-      flash[:notice] = "Granted curator status to " + @user.name
-      redirect_to edit_collection_path(@collection)
-    else
-      flash[:error] = "Could not grant curator status to specified user"
-      redirect_to edit_collection_path(@collection)
-    end
-  end
-
-  def remove_curator
-    check_admin_or_admin_masquerading_permission!
-    @user =  User.find(params[:curator_id])
-    @collection =  Collection.find(params[:collection_id])
-    unless @user.blank?
-      if RemoveUserFromCollection.call(@collection, @user)
-        flash[:notice] = "Removed curator " + @user.name
-        redirect_to edit_collection_path(@collection)
-      else
-        flash[:error] = "Could not remove specified curator"
-        redirect_to edit_collection_path(@collection)
-      end
-    end
-
-  end
-
   def user_search
     check_admin_or_admin_masquerading_permission!
     response_list = format_userlist(UserSearch.search(params[:term]))
+    respond_to do |format|
+      format.any { render json: response_list.to_json, content_type: "application/json" }
+    end
+  end
+
+  def curator_search
+    check_admin_or_admin_masquerading_permission!
+    response_list = format_userlist(CuratorSearch.search(params[:term]))
     respond_to do |format|
       format.any { render json: response_list.to_json, content_type: "application/json" }
     end
@@ -127,12 +105,7 @@ class UsersController < ApplicationController
         }
       end
     else
-      [
-        {
-          label: 'User not found',
-          value: 'not found'
-        }
-      ]
+      []
     end
   end
 
