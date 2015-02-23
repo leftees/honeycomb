@@ -17,7 +17,7 @@ var PeopleSearch = React.createClass({
     loadPeopleFromServer: function() {
         var searchValue = this.state.currentSearch;
         if (searchValue && !this.state.activePersonId && searchValue != this.state.lastSearch) {
-            var searchUrl = this.props.searchUrl + '?term=' + encodeURIComponent(searchValue);
+            var searchUrl = this.props.searchUrl + '?q=' + encodeURIComponent(searchValue);
             $.ajax({
                 url: searchUrl,
                 dataType: "json",
