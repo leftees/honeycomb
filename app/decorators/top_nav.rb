@@ -14,4 +14,8 @@ class TopNav < Draper::Decorator
     end
   end
 
+  def bar_size_class
+    "#{h.request.original_fullpath == h.root_path ? 'large' : 'short'}"
+  end
+
 end

@@ -19,5 +19,15 @@ RSpec.describe TopNav do
 
   it "determins the  display name from the current user if there is no current user" do
   	expect(subject.current_user_display_name).to eq("no user")
-  end  
+  end
+
+  it "determins the css class for the top nav to be large if it is the root_path" do
+    expect(subject.h.request).to receive(:original_fullpath).and_return("/")
+    expect(subject.bar_size_class).to eq("large")
+  end
+
+  it "determins the css class for the top nav to be short if it is not the root_path" do
+    expect(subject.h.request).to receive(:original_fullpath).and_return("/asdfdsaf/")
+    expect(subject.bar_size_class).to eq("short")
+  end
 end
