@@ -71,4 +71,28 @@ RSpec.describe CuratorsController, :type => :controller do
       expect(response).to be_redirect
     end
   end
+
+  describe 'user_search' do
+    let(:query) { 'test' }
+    let(:test_results) { [{id: "fake1", label: "Robert Franklin", value: "Robert Franklin"}] }
+
+    describe 'stubbed search' do
+      before do
+        allow(PersonAPISearch).to receive(:call).and_return([])
+      end
+
+      it "checks the curator permissions" do
+        expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+        get :user_search, collection_id: 1, q: query
+        expect(response).to be_success
+      end
+    end
+
+    it "renders the json results from PersonAPISearch" do
+      expect(PersonAPISearch).to receive(:call).with(query).and_return(test_results)
+      get :user_search, collection_id: 1, q: query
+      expect(response).to be_success
+      expect(response.body).to eq(test_results.to_json)
+    end
+  end
 end
