@@ -3,6 +3,7 @@ class CollectionUserDecorator < Draper::Decorator
     {
       id: id,
       name: name,
+      username: username,
       removeUrl: destroy_path
     }
   end
@@ -17,6 +18,10 @@ class CollectionUserDecorator < Draper::Decorator
 
   def name
     user.display_name
+  end
+
+  def username
+    user.username
   end
 
   def destroy_path

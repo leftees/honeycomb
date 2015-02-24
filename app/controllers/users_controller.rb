@@ -67,22 +67,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def user_search
-    check_admin_or_admin_masquerading_permission!
-    response_list = format_userlist(UserSearch.search(params[:term]))
-    respond_to do |format|
-      format.any { render json: response_list.to_json, content_type: "application/json" }
-    end
-  end
-
-  def curator_search
-    check_admin_or_admin_masquerading_permission!
-    response_list = format_userlist(CuratorSearch.search(params[:term]))
-    respond_to do |format|
-      format.any { render json: response_list.to_json, content_type: "application/json" }
-    end
-  end
-
   protected
 
   def user

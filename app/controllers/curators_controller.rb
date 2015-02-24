@@ -49,6 +49,16 @@ class CuratorsController < ApplicationController
     redirect_to collection_curators_path(@collection.id)
   end
 
+  def user_search
+    @collection = CollectionQuery.new.find(params[:collection_id])
+    check_user_curates!(@collection)
+
+    search_results = PersonAPISearch.call(params[:q])
+    respond_to do |format|
+      format.any { render json: search_results.to_json, content_type: "application/json" }
+    end
+  end
+
   private
 
   def create_params

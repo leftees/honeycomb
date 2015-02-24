@@ -4,10 +4,6 @@ Rails.application.routes.draw do
 
   root :to => 'collections#index'
 
-  # person search
-  get 'user_search', to: 'users#user_search'
-  get 'curator_search', to: 'users#curator_search'
-
   get '404', to: 'errors#catch_404'
   get '500', to: 'errors#catch_500'
 
@@ -22,7 +18,11 @@ Rails.application.routes.draw do
 
     resources :items, only: [:index, :new, :create]
 
-    resources :curators, only: [:index, :create, :destroy]
+    resources :curators, only: [:index, :create, :destroy] do
+      collection do
+        get :user_search
+      end
+    end
 
 #    resources :exhibits do
 #      resources :showcases do
@@ -58,7 +58,15 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '/admin' do
+  namespace :admin do
+    resources :administrators, only: [:index, :create, :destroy] do
+      collection do
+        get :user_search
+      end
+    end
+  end
+
+  scope '/admin_old' do
     resources :users do
       put :set_admin
       put :revoke_admin
