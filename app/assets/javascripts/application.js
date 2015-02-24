@@ -21,5 +21,6 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require bootstrap-material-design
 //= require_tree .
 

@@ -21,8 +21,8 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <div class="pull-right">
-              <div class="btn-group">
-                <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_item_child_path(@item), class: 'btn btn-default btn-xs' %>
+              <div>
+                <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_item_child_path(@item), class: 'btn btn-default btn-xs btn-flat' %>
                 </div>
             </div>
             <h3 class="panel-title"><%= t('.children.title') %></h3>
@@ -32,7 +32,7 @@
 
               <%= render partial: 'list_small', locals: { items: @item.recent_children } %>
             <% else %>
-              <p>No addtional resources associated with this item</p>
+              <p>No additional resources associated with this item</p>
               <p>
                 Additional resources are intended to be items that provide context to the main item.
                 <br>Examples:
@@ -56,7 +56,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="pull-right">
-          <a href="#" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-refresh"></i> Replace</a>
+          <a href="#" class="btn btn-xs btn-default btn-flat"><i class="glyphicon glyphicon-refresh"></i> Replace</a>
         </div>
         <h3 class="panel-title">Media</h3>
       </div>
@@ -73,7 +73,7 @@
             </div>
           </div>
           <div style="width: 100%; text-align: center; background-color: gray; color: white; padding: 8px;">
-            <%= f.button :submit, "Replace Image", class: 'btn btn-primary' %>
+            <%= f.button :submit, "Replace Image", class: 'btn btn-primary btn-flat' %>
             <a href="#" style="color: white;"><i class="glyphicon glyphicon-refresh"></i> Replace</a>
           </div>
         <% end %>
@@ -86,6 +86,12 @@
         <p>Choose if this item can be viewed.</p>
         <p><input type="radio" > Published</p>
         <p><input type="radio" > Unpublsihed</p>
+
+        <div class="togglebutton">
+          <label>
+            Unpublished <input type="checkbox" checked=""><span class="toggle"></span> Published
+          </label>
+        </div>
       </div>
     </div>
 

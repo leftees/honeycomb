@@ -1,5 +1,10 @@
 $gold :#d9a300;
 $grey :#525252;
+$blue :#2c5882;
+
+body {
+	background: #fff;
+}
 
 h1, h2, h3, h4, h5, h6 {
 	margin-top:0;
@@ -183,13 +188,14 @@ div.dataTables_filter {
 		
 	}
 	button {
-		background: #ccc;
+		background: whitesmoke !important;
 		border-top-right-radius: 4px;
 		border-bottom-right-radius: 0px;
 		border:none;
 		font-size: 18px;
-		color:#2c5882;
-		padding-bottom:5px;
+		color:#2c5882 !important;
+
+		border-left:#ccc solid 1px;
 	}
 }
 
@@ -292,8 +298,8 @@ div.dataTables_filter {
 			font-size:16px;
 			padding:2px 5px;
 		}
-		li.selected {
-			background: #ccc;
+		li.selected a {
+			color:#333;
 		}
 		li:last-child {
 			margin-bottom: 0;
@@ -330,3 +336,19 @@ div.dataTables_filter {
 	border-left-width: 1px;
 }
 
+
+.btn-primary:not(.btn-link):not(.btn-flat), .togglebutton label input[type="checkbox"]:first-child:checked + .toggle::after {
+	background: $blue;
+}
+
+
+
+.panel-heading .pull-right .btn {
+
+}
+
+.hc-image-zoom-button-outer .btn {
+	padding:8px;
+}
+
+@import "_material-design-overwrites.scss";
