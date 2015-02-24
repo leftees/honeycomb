@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.describe SectionsController, :type => :controller do
-  let(:showcase) { double(Showcase, id: 1, title: 'title', destroy!: true, sections: relation, exhibit: exhibit) }
+  let(:showcase) { double(Showcase, id: 1, title: 'title', sections: relation, exhibit: exhibit) }
   let(:exhibit) { double(Exhibit, id: 1, title: 'title', showcases: relation, collection: collection) }
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }
-  let(:section) {double(Section, id: 1, showcase: showcase, :order= => true, order: 1)}
+  let(:section) {double(Section, id: 1, destroy!: true, showcase: showcase, :order= => true, order: 1)}
   let(:relation) { Section.all }
   let(:create_params) { {showcase_id: showcase.id, section: { title: 'title', order: 1 }} }
 
-  let(:update_params) { {id: showcase.id, item: { title: 'title' }} }
+  let(:update_params) { {id: section.id, section: { title: 'title' }} }
 
   before(:each) do
     sign_in_admin
@@ -142,6 +142,77 @@ RSpec.describe SectionsController, :type => :controller do
 
       assigns(:section_form)
       expect(assigns(:section_form)).to be_a(SectionForm)
+    end
+  end
+
+  describe "PUT #update" do
+    subject { put :update, update_params }
+
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses item query " do
+      expect_any_instance_of(SectionQuery).to receive(:find).with("1").and_return(section)
+      subject
+    end
+
+    it "redirects on success" do
+      subject
+
+      expect(response).to be_redirect
+      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "renders new on failure" do
+      allow(SaveSection).to receive(:call).and_return(false)
+
+      subject
+      expect(response).to render_template("edit")
+    end
+
+    it "assigns and section" do
+      subject
+
+      expect(assigns(:section)).to eq(section)
+    end
+
+    it "uses the save item service" do
+      expect(SaveSection).to receive(:call).and_return(true)
+
+      subject
+    end
+  end
+
+
+  describe "DELETE #destroy" do
+    subject { delete :destroy, id: section.id }
+
+    it "calls destroy on the section on success, redirects, and flashes " do
+      expect(section).to receive(:destroy!).and_return(true)
+
+      subject
+      expect(response).to be_redirect
+      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "assigns and item" do
+      subject
+
+      assigns(:section)
+      expect(assigns(:section)).to eq(section)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses section query " do
+      expect_any_instance_of(SectionQuery).to receive(:find).with("1").and_return(section)
+      subject
     end
   end
 

@@ -31,11 +31,12 @@ class SectionsController < ApplicationController
   end
 
   def update
-    @section = showcase.sections.find(params[:id])
+    @section = SectionQuery.new.find(params[:id])
+    check_user_curates!(@section.showcase.exhibit.collection)
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
-        format.html { redirect_to exhibit_showcase_sections_path(exhibit.id, showcase.id), notice: 'Section updated.' }
+        format.html { redirect_to showcase_sections_path(@section.showcase.id), notice: 'Section updated.' }
         format.json { render :show, status: :updated, location: @section }
       else
         format.html { render :edit }
@@ -45,16 +46,13 @@ class SectionsController < ApplicationController
   end
 
   def destroy
-    @section = showcase.sections.find(params[:id])
+    @section = SectionQuery.new.find(params[:id])
+    check_user_curates!(@section.showcase.exhibit.collection)
 
-    respond_to do |format|
+    @section.destroy!
 
-      if @section.destroy
-        format.json { render json: 'Section deleted successfully', status: 202 }
-        format.any { redirect_to  exhibit_showcase_sections_path(exhibit.id, showcase.id) }
-      end
-
-    end
+    flash[:notice] = t('.success')
+    redirect_to  showcase_sections_path(@section.showcase.id)
   end
 
   protected
