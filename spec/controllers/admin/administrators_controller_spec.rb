@@ -18,7 +18,7 @@ RSpec.describe Admin::AdministratorsController, :type => :controller do
     end
 
     it "checks the admin permissions" do
-      expect_any_instance_of(described_class).to receive(:check_admin_or_admin_masquerading_permission!)
+      expect_any_instance_of(described_class).to receive(:check_admin_permission!)
       subject
     end
 
@@ -29,6 +29,10 @@ RSpec.describe Admin::AdministratorsController, :type => :controller do
   end
 
   describe "POST #create" do
+    it "checks the admin permissions" do
+      expect_any_instance_of(described_class).to receive(:check_admin_permission!)
+      post :create, user: {username: user.username}
+    end
 
     it 'calls SetAdminOnUser with the user' do
       expect(FindOrCreateUser).to receive(:call).with(user.username).and_return(user)
@@ -47,8 +51,17 @@ RSpec.describe Admin::AdministratorsController, :type => :controller do
   end
 
   describe 'DELETE #destroy' do
+    before do
+      allow_any_instance_of(AdministratorQuery).to receive(:find).with("100").and_return(user)
+    end
+
+    it "checks the admin permissions" do
+      expect_any_instance_of(described_class).to receive(:check_admin_permission!)
+      allow(RevokeAdminOnUser).to receive(:call)
+      delete :destroy, id: user.id
+    end
+
     it 'sets the admin to false and redirects to index' do
-      expect_any_instance_of(AdministratorQuery).to receive(:find).with("100").and_return(user)
       expect(RevokeAdminOnUser).to receive(:call).with(user)
       delete :destroy, id: user.id
       expect(response).to be_redirect
@@ -65,7 +78,7 @@ RSpec.describe Admin::AdministratorsController, :type => :controller do
       end
 
       it "checks the admin permissions" do
-        expect_any_instance_of(described_class).to receive(:check_admin_or_admin_masquerading_permission!)
+        expect_any_instance_of(described_class).to receive(:check_admin_permission!)
         get :user_search, q: query
         expect(response).to be_success
       end

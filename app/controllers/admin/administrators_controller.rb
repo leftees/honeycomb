@@ -1,13 +1,13 @@
 module Admin
   class AdministratorsController < ApplicationController
     def index
-      check_admin_or_admin_masquerading_permission!
+      check_admin_permission!
       administrators = AdministratorQuery.new.list
       @administrators = AdministratorListDecorator.new(administrators)
     end
 
     def create
-      check_admin_or_admin_masquerading_permission!
+      check_admin_permission!
 
       user =  FindOrCreateUser.call(create_params[:username])
       if user && SetAdminOnUser.call(user)
@@ -23,7 +23,7 @@ module Admin
     end
 
     def destroy
-      check_admin_or_admin_masquerading_permission!
+      check_admin_permission!
 
       user = AdministratorQuery.new.find(params[:id])
       RevokeAdminOnUser.call(user)
@@ -31,7 +31,7 @@ module Admin
     end
 
     def user_search
-      check_admin_or_admin_masquerading_permission!
+      check_admin_permission!
 
       search_results = PersonAPISearch.call(params[:q])
       respond_to do |format|
