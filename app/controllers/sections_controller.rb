@@ -1,7 +1,8 @@
 class SectionsController < ApplicationController
 
   def index
-    @sections = ShowcaseList.new(SectionQuery.new.all_in_showcase(showcase), showcase)
+    check_user_curates!(showcase.exhibit.collection)
+    @sections = ShowcaseList.new(SectionQuery.new(showcase.sections).all_in_showcase, showcase)
   end
 
   def new
@@ -59,15 +60,7 @@ class SectionsController < ApplicationController
       params.require(:section).permit(:title, :image, :item_id, :description, :order, :caption)
     end
 
-    def exhibit
-      @exhibit ||= Exhibit.find(params[:exhibit_id])
-    end
-
     def showcase
-      @showcase ||= exhibit.showcases.find(params[:showcase_id])
-    end
-
-    def collection
-      @collection ||= Collection.find(params[:collection_id])
+      @showcase ||= ShowcaseQuery.new.find(params[:showcase_id])
     end
 end
