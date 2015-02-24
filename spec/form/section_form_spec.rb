@@ -60,24 +60,19 @@ describe SectionForm do
 
     context "new_params" do
       before(:each) do
-        allow(Showcase).to receive(:find).with('20').and_return(showcase)
-        allow(sections).to receive(:build).and_return(section)
+        allow_any_instance_of(ShowcaseQuery).to receive(:find).with('20').and_return(showcase)
+        allow_any_instance_of(SectionQuery).to receive(:build).and_return(section)
 
         controller.stub(:params).and_return(new_params)
       end
 
       it "finds the object from showcase" do
-        expect(Showcase).to receive(:find).with('20').and_return(showcase)
+        expect_any_instance_of(ShowcaseQuery).to receive(:find).with('20').and_return(showcase)
         subject
       end
 
       it "builds the section from showcase" do
-        expect(sections).to receive(:build).and_return(section)
-        subject
-      end
-
-      it "sets the order " do
-        expect(section).to receive("order=").with("1")
+        expect_any_instance_of(SectionQuery).to receive(:build).with(order: '1').and_return(section)
         subject
       end
 
@@ -88,13 +83,13 @@ describe SectionForm do
 
     context "edit_params" do
       before(:each) do
-        allow(Section).to receive(:find).with('30').and_return(section)
+        allow_any_instance_of(SectionQuery).to receive(:find).with('30').and_return(section)
 
         controller.stub(:params).and_return(edit_params)
       end
 
       it "finds the obect form the section" do
-        expect(Section).to receive(:find).with('30').and_return(section)
+        expect_any_instance_of(SectionQuery).to receive(:find).with('30').and_return(section)
         subject
       end
 

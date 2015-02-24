@@ -3,11 +3,10 @@ class SectionForm
 
   def self.build_from_params(controller)
     if controller.params[:id]
-      section = Section.find(controller.params[:id])
+      section = SectionQuery.new.find(controller.params[:id])
     else
-      showcase = Showcase.find(controller.params[:showcase_id])
-      section = showcase.sections.build
-      section.order = controller.params[:section][:order]
+      showcase = ShowcaseQuery.new.find(controller.params[:showcase_id])
+      section = SectionQuery.new(showcase.sections).build(controller.params[:section])
     end
 
     new(section)
