@@ -1,20 +1,23 @@
 class SectionsController < ApplicationController
 
   def index
-    @sections = ShowcaseList.new(SectionQuery.new.all_in_showcase(showcase), showcase)
+    check_user_curates!(showcase.exhibit.collection)
+    @sections = ShowcaseList.new(SectionQuery.new(showcase.sections).all_in_showcase, showcase)
   end
 
   def new
+    check_user_curates!(showcase.exhibit.collection)
     @section_form = SectionForm.build_from_params(self)
   end
 
   def create
-    @section = showcase.sections.build
+    check_user_curates!(showcase.exhibit.collection)
+    @section = SectionQuery.new(showcase.sections).build
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
-        format.html { redirect_to exhibit_showcase_sections_path(exhibit.id, showcase.id), notice: 'Section Created' }
-        format.json { render :show, status: :created, location: exhibit_showcase_section_path(exhibit, showcase, @section) }
+        format.html { redirect_to showcase_sections_path(showcase.id), notice: 'Section Created' }
+        format.json { render :show, status: :created, location: showcase_sections_path(showcase, @section) }
       else
         format.html { render :new }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -24,14 +27,16 @@ class SectionsController < ApplicationController
 
   def edit
     @section_form = SectionForm.build_from_params(self)
+    check_user_curates!(@section_form.collection)
   end
 
   def update
-    @section = showcase.sections.find(params[:id])
+    @section = SectionQuery.new.find(params[:id])
+    check_user_curates!(@section.showcase.exhibit.collection)
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
-        format.html { redirect_to exhibit_showcase_sections_path(exhibit.id, showcase.id), notice: 'Section updated.' }
+        format.html { redirect_to showcase_sections_path(@section.showcase.id), notice: 'Section updated.' }
         format.json { render :show, status: :updated, location: @section }
       else
         format.html { render :edit }
@@ -41,16 +46,13 @@ class SectionsController < ApplicationController
   end
 
   def destroy
-    @section = showcase.sections.find(params[:id])
+    @section = SectionQuery.new.find(params[:id])
+    check_user_curates!(@section.showcase.exhibit.collection)
 
-    respond_to do |format|
+    @section.destroy!
 
-      if @section.destroy
-        format.json { render json: 'Section deleted successfully', status: 202 }
-        format.any { redirect_to  exhibit_showcase_sections_path(exhibit.id, showcase.id) }
-      end
-
-    end
+    flash[:notice] = t('.success')
+    redirect_to  showcase_sections_path(@section.showcase.id)
   end
 
   protected
@@ -59,15 +61,7 @@ class SectionsController < ApplicationController
       params.require(:section).permit(:title, :image, :item_id, :description, :order, :caption)
     end
 
-    def exhibit
-      @exhibit ||= Exhibit.find(params[:exhibit_id])
-    end
-
     def showcase
-      @showcase ||= exhibit.showcases.find(params[:showcase_id])
-    end
-
-    def collection
-      @collection ||= Collection.find(params[:collection_id])
+      @showcase ||= ShowcaseQuery.new.find(params[:showcase_id])
     end
 end

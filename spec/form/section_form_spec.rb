@@ -2,7 +2,8 @@ require 'rails_helper'
 
 
 describe SectionForm do
-  let(:exhibit) { double(Exhibit, id: 1) }
+  let(:collection) { double(Collection, id: 1) }
+  let(:exhibit) { double(Exhibit, id: 1, collection: collection) }
   let(:showcase) { double(Showcase, id: 1, exhibit: exhibit, sections: sections) }
   let(:section) {double(Section, id: 1, order: 1, item_id: 1, showcase: showcase, "order=" => true, title: "the section") }
   let(:sections) { double( build: true )}
@@ -17,8 +18,14 @@ describe SectionForm do
   end
 
   describe "#form_url" do
-    it "returns an array with all the path objects" do
-      expect(subject.form_url).to eq( [ exhibit, showcase, section ] )
+    it "returns an array with the new path" do
+      allow(section).to receive(:new_record?).and_return(true)
+      expect(subject.form_url).to eq( [ showcase, section ] )
+    end
+
+    it "returns an array with the edit path" do
+      allow(section).to receive(:new_record?).and_return(false)
+      expect(subject.form_url).to eq( [ section ] )
     end
   end
 
@@ -51,6 +58,12 @@ describe SectionForm do
     end
   end
 
+  describe "#collection" do
+    it "returns the section collection" do
+      expect(subject.collection).to eq(collection)
+    end
+  end
+
 
   describe "build_from_params" do
     let(:controller) { double(ApplicationController, params: {} )}
@@ -60,24 +73,24 @@ describe SectionForm do
 
     context "new_params" do
       before(:each) do
-        allow(Showcase).to receive(:find).with('20').and_return(showcase)
-        allow(sections).to receive(:build).and_return(section)
+        allow_any_instance_of(ShowcaseQuery).to receive(:find).with('20').and_return(showcase)
+        allow_any_instance_of(SectionQuery).to receive(:build).and_return(section)
 
         controller.stub(:params).and_return(new_params)
       end
 
       it "finds the object from showcase" do
-        expect(Showcase).to receive(:find).with('20').and_return(showcase)
+        expect_any_instance_of(ShowcaseQuery).to receive(:find).with('20').and_return(showcase)
         subject
       end
 
       it "builds the section from showcase" do
-        expect(sections).to receive(:build).and_return(section)
+        expect_any_instance_of(SectionQuery).to receive(:build).and_return(section)
         subject
       end
 
-      it "sets the order " do
-        expect(section).to receive("order=").with("1")
+      it "sets the order" do
+        expect(section).to receive(:order=)
         subject
       end
 
@@ -88,13 +101,13 @@ describe SectionForm do
 
     context "edit_params" do
       before(:each) do
-        allow(Section).to receive(:find).with('30').and_return(section)
+        allow_any_instance_of(SectionQuery).to receive(:find).with('30').and_return(section)
 
         controller.stub(:params).and_return(edit_params)
       end
 
       it "finds the obect form the section" do
-        expect(Section).to receive(:find).with('30').and_return(section)
+        expect_any_instance_of(SectionQuery).to receive(:find).with('30').and_return(section)
         subject
       end
 

@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     resources :children, controller: 'item_children', only: [ :new, :create]
   end
 
-  resources :exhibits, only: [ :show, :edit ] do
+  resources :exhibits, only: [ :show, :edit, :update ] do
     resources :showcases, only: [:index, :new, :create ]
   end
 
@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :sections, only: [:index, :new, :create ]
   end
 
+  resources :sections, only: [:edit, :update, :destroy ]
 
   namespace :api do
     namespace :v1 do

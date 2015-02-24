@@ -272,6 +272,9 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    showdown-rails (0.0.4)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
     simple_form (3.1.0.rc2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -363,6 +366,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  showdown-rails
   simple_form (~> 3.1.0rc1)
   sort_alphabetical
   spring

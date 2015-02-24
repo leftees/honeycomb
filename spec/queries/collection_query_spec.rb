@@ -21,11 +21,6 @@ describe CollectionQuery do
       subject.for_top_nav(user, collection)
     end
 
-    it "calls recent with the default options" do
-      expect(relation).to receive(:limit).and_return(relation)
-      subject.for_top_nav(user, collection)
-    end
-
     it "excludes the passed in collection" do
       expect(relation).to receive(:where).with("id != ?", 1).and_return(relation)
       subject.for_top_nav(user, collection)
