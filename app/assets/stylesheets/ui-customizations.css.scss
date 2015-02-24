@@ -341,15 +341,14 @@ div.dataTables_filter {
 	background: $blue;
 }
 
-a, a:hover, a:focus {
-	color:$blue;
-}
 
 
 .panel-heading .pull-right .btn {
-	margin:-10px 10px !important;
+
 }
 
 .hc-image-zoom-button-outer .btn {
 	padding:8px;
 }
+
+@import "_material-design-overwrites.scss";
