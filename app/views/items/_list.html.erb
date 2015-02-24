@@ -4,6 +4,7 @@
       <th></th>
       <th></th>
       <th>Item</th>
+      <th>Published</th>
       <th>Last Modified</th>
       <th>Last Modified Timestamp</th>
       <th>Sortable Title</th>
@@ -22,6 +23,9 @@
         <td>
           <h4 class="media-heading"><%= h link_to item.title, item.edit_path %></h4>
           <%= h item.description %>
+        </td>
+        <td>
+          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> Published</span>
         </td>
         <td>
           <%= item.updated_at.to_s(:long) %>

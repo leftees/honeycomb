@@ -1,10 +1,12 @@
 ItemDataTablesIndexes =
-  image: 0
-  title: 1
-  updatedAt: 2
-  updatedAtTimestamps: 3
-  sortableTitle: 4
-  originalFilename: 5
+  checkbox: 0
+  image: 1
+  title: 2
+  published: 3
+  updatedAt: 4
+  updatedAtTimestamps: 5
+  sortableTitle: 6
+  originalFilename: 7
 
 class ItemDataTable
   constructor: (@tableElement) ->
@@ -32,6 +34,14 @@ class ItemDataTable
       columnDefs: [
         targets: ItemDataTablesIndexes['updatedAt']
         orderData: [ItemDataTablesIndexes['updatedAtTimestamps']]
+      ,
+        targets: ItemDataTablesIndexes['checkbox']
+        sortable: false
+        searchable: false
+      ,
+        targets: ItemDataTablesIndexes['published']
+        sortable: false
+        searchable: true
       ,
         targets: ItemDataTablesIndexes['updatedAtTimestamps']
         sortable: false
