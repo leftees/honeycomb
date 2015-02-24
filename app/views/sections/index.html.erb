@@ -2,7 +2,6 @@
 
 <%= react_component 'ShowcaseEditor', {
           itemsJSONPath: @sections.exhibit.items_json_url,
-          sectionsPath: showcase_sections_path(@sections.showcase),
           sectionsJSONPath: showcase_sections_path(@sections.showcase, :json) },
          {prerender: false }
 %>

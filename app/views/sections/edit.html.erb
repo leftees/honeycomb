@@ -1,19 +1,12 @@
-<h2><%= @section_form.title %></h2>
+<% collection_nav(@section_form.collection, :showcases) %>
 
-<div class="row">
-  <div class="col-md-9">
-    <%= simple_form_for @section_form.form_url do | f | %>
+<%= simple_form_for @section_form.form_url do | f | %>
 
-      <%= render partial: @section_form.form_partial, locals: { f: f } %>
+  <%= render partial: @section_form.form_partial, locals: { f: f } %>
 
-    <% end %>
+<% end %>
 
-    <%= Waggle::DeleteSection.new(@section_form.section).display do | ds |
-      ds.path = @section_form.form_url
-    end
-    %>
-  </div>
-  <div class="col-md-3">
-    <%= exhibit_nav(@section_form.section.showcase.exhibit, :showcases) %>
-  </div>
-</div>
+<%= DeleteSection.new(@section_form.section).display do | ds |
+  ds.path = @section_form.form_url
+end
+%>

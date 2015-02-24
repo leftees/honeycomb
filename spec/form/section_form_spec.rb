@@ -18,8 +18,14 @@ describe SectionForm do
   end
 
   describe "#form_url" do
-    it "returns an array with all the path objects" do
-      expect(subject.form_url).to eq( [ exhibit, showcase, section ] )
+    it "returns an array with the new path" do
+      allow(section).to receive(:new_record?).and_return(true)
+      expect(subject.form_url).to eq( [ showcase, section ] )
+    end
+
+    it "returns an array with the edit path" do
+      allow(section).to receive(:new_record?).and_return(false)
+      expect(subject.form_url).to eq( [ section ] )
     end
   end
 

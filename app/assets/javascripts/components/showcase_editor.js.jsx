@@ -4,7 +4,6 @@ var ShowcaseEditor = React.createClass({
   mixins: [HorizontalScrollMixin],
   propTypes: {
     sectionsJSONPath: React.PropTypes.string.isRequired,
-    sectionsPath: React.PropTypes.string.isRequired,
     itemsJSONPath: React.PropTypes.string.isRequired
   },
   getInitialState: function() {
@@ -114,7 +113,7 @@ var ShowcaseEditor = React.createClass({
     setTimeout(this.loadSectionsFromServer, 8000);
   },
   sectionClick: function(section) {
-    window.location = "" + this.props.sectionsPath + "/" + section.id + "/edit";
+    window.location = "/sections/" + section.id + "/edit";
   },
   render: function() {
     var divclassname;

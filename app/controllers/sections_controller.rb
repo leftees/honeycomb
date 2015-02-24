@@ -6,17 +6,18 @@ class SectionsController < ApplicationController
   end
 
   def new
+    check_user_curates!(showcase.exhibit.collection)
     @section_form = SectionForm.build_from_params(self)
-    check_user_curates!(@section_form.collection)
   end
 
   def create
-    @section = showcase.sections.build
+    check_user_curates!(showcase.exhibit.collection)
+    @section = SectionQuery.new(showcase.sections).build
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
-        format.html { redirect_to exhibit_showcase_sections_path(exhibit.id, showcase.id), notice: 'Section Created' }
-        format.json { render :show, status: :created, location: showcase_section_path(showcase, @section) }
+        format.html { redirect_to showcase_sections_path(showcase.id), notice: 'Section Created' }
+        format.json { render :show, status: :created, location: showcase_sections_path(showcase, @section) }
       else
         format.html { render :new }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -26,6 +27,7 @@ class SectionsController < ApplicationController
 
   def edit
     @section_form = SectionForm.build_from_params(self)
+    check_user_curates!(@section_form.collection)
   end
 
   def update

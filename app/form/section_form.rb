@@ -19,7 +19,11 @@ class SectionForm
   end
 
   def form_url
-    [ section.showcase.exhibit, section.showcase, section ]
+    if section.new_record?
+      [ section.showcase, section ]
+    else
+      [ section ]
+    end
   end
 
   def form_partial
