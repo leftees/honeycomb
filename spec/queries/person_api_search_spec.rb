@@ -52,6 +52,14 @@ RSpec.describe PersonAPISearch do
       end
     end
 
+    describe 'blank search' do
+      let(:query) { nil }
+
+      it 'returns an empty array' do
+        expect(subject.results).to eq([])
+      end
+    end
+
     describe 'multiple results' do
       let(:person_search_results) {
         [

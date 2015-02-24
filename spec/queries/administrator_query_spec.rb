@@ -19,6 +19,13 @@ RSpec.describe AdministratorQuery do
     end
   end
 
+  describe '#find' do
+    it "finds the object" do
+      expect(subject.relation).to receive(:find).with(1)
+      subject.find(1)
+    end
+  end
+
   describe '#build' do
 
     it "builds a object off of the relation and returns the result" do
