@@ -6,7 +6,8 @@ class SectionForm
       section = SectionQuery.new.find(controller.params[:id])
     else
       showcase = ShowcaseQuery.new.find(controller.params[:showcase_id])
-      section = SectionQuery.new(showcase.sections).build(controller.params[:section])
+      section = SectionQuery.new(showcase.sections).build
+      section.order = controller.params[:section][:order]
     end
 
     new(section)
@@ -33,6 +34,10 @@ class SectionForm
 
   def title
     section.title
+  end
+
+  def collection
+    section.showcase.exhibit.collection
   end
 
   private

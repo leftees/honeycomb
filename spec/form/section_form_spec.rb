@@ -2,7 +2,8 @@ require 'rails_helper'
 
 
 describe SectionForm do
-  let(:exhibit) { double(Exhibit, id: 1) }
+  let(:collection) { double(Collection, id: 1) }
+  let(:exhibit) { double(Exhibit, id: 1, collection: collection) }
   let(:showcase) { double(Showcase, id: 1, exhibit: exhibit, sections: sections) }
   let(:section) {double(Section, id: 1, order: 1, item_id: 1, showcase: showcase, "order=" => true, title: "the section") }
   let(:sections) { double( build: true )}
@@ -51,6 +52,12 @@ describe SectionForm do
     end
   end
 
+  describe "#collection" do
+    it "returns the section collection" do
+      expect(subject.collection).to eq(collection)
+    end
+  end
+
 
   describe "build_from_params" do
     let(:controller) { double(ApplicationController, params: {} )}
@@ -72,7 +79,12 @@ describe SectionForm do
       end
 
       it "builds the section from showcase" do
-        expect_any_instance_of(SectionQuery).to receive(:build).with(order: '1').and_return(section)
+        expect_any_instance_of(SectionQuery).to receive(:build).and_return(section)
+        subject
+      end
+
+      it "sets the order" do
+        expect(section).to receive(:order=)
         subject
       end
 

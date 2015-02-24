@@ -7,6 +7,7 @@ class SectionsController < ApplicationController
 
   def new
     @section_form = SectionForm.build_from_params(self)
+    check_user_curates!(@section_form.collection)
   end
 
   def create
@@ -15,7 +16,7 @@ class SectionsController < ApplicationController
     respond_to do |format|
       if SaveSection.call(@section, section_params)
         format.html { redirect_to exhibit_showcase_sections_path(exhibit.id, showcase.id), notice: 'Section Created' }
-        format.json { render :show, status: :created, location: exhibit_showcase_section_path(exhibit, showcase, @section) }
+        format.json { render :show, status: :created, location: showcase_section_path(showcase, @section) }
       else
         format.html { render :new }
         format.json { render json: @section.errors, status: :unprocessable_entity }
