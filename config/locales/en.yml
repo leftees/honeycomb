@@ -21,10 +21,18 @@
 
 en:
   hello: "Hello world"
+  navigation:
+    help: "Learn More"
   collections:
     index:
-      title: "Collections"
-      new: "New Collection"
+      title: "Honeycomb: Collections and Exhibits"
+      page_title: 'Collections'
+      description: "This is a short description of what the application does."
+      new-button: "New Collection"
+      table:
+        title: 'Collection'
+        updated_at: 'Updated At'
+        items_badge: "%{number} Items"
     create:
       success: 'Collection created'
     update:

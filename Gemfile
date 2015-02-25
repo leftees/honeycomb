@@ -63,6 +63,7 @@ gem 'bootstrap-material-design'
 gem 'autoprefixer-rails'
 
 group :development, :test do
+  gem "i18n-debug"
   gem "pry"
   gem "rspec-rails"
   gem "rspec-collection_matchers"

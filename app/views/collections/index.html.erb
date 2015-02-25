@@ -1,10 +1,10 @@
-<%- model_class = Collection -%>
+<% page_title(t('.page_title')) %>
 
 <div class="jumbotron">
-    <h1>Collections</h1>
-    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <h1><%= t('.title') %></h1>
+    <p><%= t('.description') %></p>
     <p>
-      <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new', :default => t("Add a Collection"))}"),
+      <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new-button')}"),
         new_collection_path,
         :class => 'btn btn-primary btn-large' %>
         <%= learn_more_button('#') %>
@@ -15,10 +15,10 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Collection</th>
+      <th><%= t('.table.title') %></th>
       <th></th>
       <th></th>
-      <th><%= model_class.human_attribute_name(:updated_at) %></th>
+      <th><%= t('.updated_at') %></th>
     </tr>
   </thead>
   <tbody>
@@ -30,7 +30,7 @@
           <h4 class="media-heading"><%= h link_to collection.title, collection_path(collection) %></h4>
           <%= h collection.description %>
         </td>
-        <td><span class="badge"><%= collection.items.size %> Items</span></td>
+        <td><span class="badge"><%= t('.table.items_badge', number: collection.items.size) %></span></td>
         <td>
           <%= collection.updated_at.to_s(:long) %>
         </td>
