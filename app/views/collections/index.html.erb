@@ -11,30 +11,4 @@
     </p>
 </div>
 
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= t('.table.title') %></th>
-      <th></th>
-      <th></th>
-      <th><%= t('.updated_at') %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @collections.each do |collection| %>
-      <tr>
-        <td>
-          <%= CollectionImage.new(collection).display %>
-        <td>
-          <h4 class="media-heading"><%= h link_to collection.title, collection_path(collection) %></h4>
-          <%= h collection.description %>
-        </td>
-        <td><span class="badge"><%= t('.table.items_badge', number: collection.items.size) %></span></td>
-        <td>
-          <%= collection.updated_at.to_s(:long) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: 'list', locals: { collections: @collections } %>
