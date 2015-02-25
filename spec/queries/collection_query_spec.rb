@@ -22,7 +22,8 @@ describe CollectionQuery do
     end
 
     it "excludes the passed in collection" do
-      expect(relation).to receive(:where).with("id != ?", 1).and_return(relation)
+      expect(relation).to receive(:where).and_return(relation)
+      expect(relation).to receive(:not).with(id: collection.id).and_return(relation)
       subject.for_top_nav(user, collection)
     end
   end

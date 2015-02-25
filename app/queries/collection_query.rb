@@ -6,7 +6,7 @@ class CollectionQuery
   end
 
   def for_top_nav(user, collection)
-    for_curator(user).order(updated_at: :desc).where('id != ?', collection.id)
+    for_curator(user).order(updated_at: :desc).where.not(id: collection.id)
   end
 
   def for_curator(user)
