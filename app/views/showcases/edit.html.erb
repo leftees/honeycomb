@@ -1,0 +1,7 @@
+<%= collection_nav(@showcase.exhibit.collection, :showcases) %>
+
+<%= react_component 'ShowcaseEditor', {
+          itemsJSONPath: @showcase.exhibit.items_json_url,
+          sectionsJSONPath: showcase_sections_path(@showcase, :json) },
+         {prerender: false }
+%>
