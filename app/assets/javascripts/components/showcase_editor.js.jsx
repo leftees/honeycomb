@@ -141,6 +141,7 @@ var ShowcaseEditor = React.createClass({
       <div id="section-content-editor" className="sections-content"  onMouseMove={this.onMouseMove} onMouseOut={this.onMouseOut} style={this.sectionsContainerStyle()}>
         <ShowcaseEditorTitle />
         <SectionList sections={this.state.sections} onSectionClick={this.sectionClick} currentDragItem={this.state.currentDragItem} onDrop={this.onDrop} onDragStart={this.onDragStart} onDragStop={this.onDragStop} />
+        <div style={{display: 'inline-block', width: '200px'}}></div>
       </div>
       <div className="add-items-content">
         <AddItemsBar onDragStart={this.onDragStart} onDragStop={this.onDragStop} itemsJSONPath={this.props.itemsJSONPath} />
