@@ -58,7 +58,6 @@ en:
     delete_panel:
       heading: Delete this Collection
       message: "Proceed with caution. This will also remove all items, exhibits, and showcases."
-      confirmation: 'Deleting this content will remove it from the site permamently. Are you sure you wish to continue?'
   items:
     index:
       title: "Items"
@@ -79,14 +78,16 @@ en:
       children:
         title: "Additional Resources"
         manage_link: "Add"
-    list:
-
     create:
       success: "Item created"
     update:
       success: "Item updated"
     destroy:
       success: "Item deleted"
+    delete_panel:
+      heading: Delete this Item
+      message: "Proceed with caution. This will also remove all the items information from the site ."
+
   item_children:
     index:
       title: "Additional Resources"
