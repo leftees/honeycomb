@@ -18,6 +18,16 @@ var Section = React.createClass({
       dragging: false
     };
   },
+  outerStyle: function() {
+    return {
+      border: '1px solid lightgrey',
+      display: 'inline-block',
+      position: 'relative',
+      marginLeft: '10px',
+      marginRight: '10px',
+      height: '100%',
+    }
+  },
   style: function() {
     if (this.state.dragging) {
       return {
@@ -107,7 +117,7 @@ var Section = React.createClass({
       dragContent = (<div className="small-text-dragging"><h4>{this.props.section.title}</h4><p>{gibberishTextString}</p></div>);
     }
     return (
-      <div className="section" onMouseDown={this.onMouseDown} >
+      <div className="section" onMouseDown={this.onMouseDown} style={this.outerStyle()}>
         <div className={dragclass} style={this.style()}>{dragContent}</div>
         <SectionImage section={this.props.section} />
         <SectionDescription section={this.props.section} />

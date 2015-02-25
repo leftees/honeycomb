@@ -115,6 +115,20 @@ var ShowcaseEditor = React.createClass({
   sectionClick: function(section) {
     window.location = "/sections/" + section.id + "/edit";
   },
+  sectionsContainerStyle: function() {
+    return {
+      position: 'relative',
+      overflow: 'scroll',
+      // overflowX: 'scroll',
+      whiteSpace: 'nowrap',
+      boxSizing: 'border-box',
+      height: '500px',
+      top: 0,
+      left: 0,
+      border: '1px solid #bed5cd',
+      padding: '10px',
+    }
+  },
   render: function() {
     var divclassname;
     divclassname = "sections";
@@ -124,7 +138,8 @@ var ShowcaseEditor = React.createClass({
     return (
     <div className={this.divclassname}>
       <h2>Sections</h2>
-      <div id="section-content-editor" className="sections-content"  onMouseMove={this.onMouseMove} onMouseOut={this.onMouseOut} >
+      <div id="section-content-editor" className="sections-content"  onMouseMove={this.onMouseMove} onMouseOut={this.onMouseOut} style={this.sectionsContainerStyle()}>
+        <ShowcaseEditorTitle />
         <SectionList sections={this.state.sections} onSectionClick={this.sectionClick} currentDragItem={this.state.currentDragItem} onDrop={this.onDrop} onDragStart={this.onDragStart} onDragStop={this.onDragStop} />
       </div>
       <div className="add-items-content">

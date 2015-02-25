@@ -24,26 +24,6 @@
   }
 }
 
-.sections-content {
-  width: 100%;
-  height: 515px;
-  border: 1px solid #bed5cd;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  margin-bottom: 2em;
-}
-
-.sections-content-inner {
-  width: 100000px;
-}
-
-.section {
-  margin: 10px;
-  border: 1px solid lightgrey;
-  float: left;
-  position: relative;
-}
-
 .section-container {
   float: left;
   height: 476px;
@@ -103,15 +83,6 @@
   z-index: 1;
   overflow: clip;
   padding: 2px;
-}
-
-.section-spacer {
-  height: 440px;
-  width: auto;
-  margin: 25px 0;
-  padding: 0 25px;
-  display: inline;
-  float: left;
 }
 
 .section-spacer-inner {

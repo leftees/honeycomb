@@ -6,6 +6,16 @@ var NewSectionDropzone = React.createClass({
       hover: false
     };
   },
+  style: function() {
+    return {
+      display: 'inline-block',
+      height: '100%',
+    };
+  },
+  innerStyle: function() {
+    return {
+    };
+  },
   classes: function() {
     return ['section-spacer', this.active() ? 'active' : void 0, this.state.hover ? 'hover active' : void 0].join(' ');
   },
@@ -30,8 +40,8 @@ var NewSectionDropzone = React.createClass({
   render: function() {
     url = "sections/new?section[order]=" + this.props.new_index
     return (
-      <div className={this.classes()} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} onMouseUp={this.onDrop}>
-        <div className="section-spacer-inner">
+      <div style={this.style()} className={this.classes()} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} onMouseUp={this.onDrop}>
+        <div className="section-spacer-inner" style={this.innerStyle()}>
           <div className="section-spacer-content center">
             <h4>Add New Section</h4>
             <p><i className="glyphicon glyphicon-picture super-large-icon"></i></p>

@@ -11,15 +11,18 @@ var SectionList = React.createClass({
     var rows, self;
     rows = [];
     self = this
+    rows.push(this.dropzone_tag(0));
     $.each(this.props.sections, function(idx, section) {
       rows.push(self.section_tag(section));
-      rows.push(self.dropzone_tag(section.order))
+      rows.push(self.dropzone_tag(idx + 1))
     });
 
-    if (rows.length === 0) {
-      rows.push(this.dropzone_tag(0));
-    }
     return rows;
+  },
+  style: function() {
+    return {
+      height: '100%',
+    }
   },
   section_tag: function(section) {
     var key = section.id + '-' + section.order
@@ -30,6 +33,6 @@ var SectionList = React.createClass({
     return (<NewSectionDropzone key={key} currentDragItem={this.props.currentDragItem} onDrop={this.props.onDrop} new_index={order + 1} />);
   },
   render: function() {
-    return (<div id="sections-content-inner" className="sections-content-inner">{this.sectionRows()}</div>);
+    return (<div id="sections-content-inner" className="sections-content-inner" style={this.style()}>{this.sectionRows()}</div>);
   }
 });
