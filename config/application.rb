@@ -15,7 +15,7 @@ module ItemAdmin
       Rails.root.join('app', 'decorators'),
       Rails.root.join('app', 'policy'),
       Rails.root.join('app', 'services'),
-      Rails.root.join('app', 'forms'),      
+      Rails.root.join('app', 'forms'),
       ]
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -32,5 +32,7 @@ module ItemAdmin
 
 
     config.react.addons = true
+
+    config.assets.precompile = [ Proc.new{ |path| !File.extname(path).in?(['.js', '.css', '.map', '.gzip', ''] ) }, /(?:\/|\\|\A)application\.(css|js)$/ ]
   end
 end
