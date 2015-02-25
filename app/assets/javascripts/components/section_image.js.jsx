@@ -8,6 +8,8 @@ var SectionImage = React.createClass({
   style: function() {
     return {
       height: '100%',
+      display: 'inline-block',
+      verticalAlign: 'top',
     };
   },
 
