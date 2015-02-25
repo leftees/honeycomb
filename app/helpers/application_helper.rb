@@ -22,6 +22,6 @@ module ApplicationHelper
   end
 
   def learn_more_button(path)
-    link_to raw("<i class=\"glyphicon glyphicon-education\"></i> #{t('navigation.help')}"), path, :class => 'btn btn-large btn-hollow'
+    link_to raw("<i class=\"glyphicon glyphicon-education\"></i> #{t('buttons.help')}"), path, :class => 'btn btn-large btn-hollow'
   end
 end

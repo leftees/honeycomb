@@ -21,7 +21,9 @@
 
 en:
   hello: "Hello world"
-  navigation:
+  buttons:
+    save: 'Save'
+    cancel: 'Cancel'
     help: "Learn More"
   collections:
     index:
@@ -33,6 +35,8 @@ en:
         title: 'Collection'
         updated_at: 'Updated At'
         items_badge: "%{number} Items"
+    new:
+      title: 'New Collection'
     create:
       success: 'Collection created'
     update:

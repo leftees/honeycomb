@@ -1,15 +1,15 @@
-<%- model_class = Collection -%>
+<% page_title(t('.title')) %>
 
 <%= simple_form_for @collection, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">New Collection</h3>
+      <h3 class="panel-title"><%= t('.title') %></h3>
     </div>
     <div class="panel-body">
       <%= render :partial => 'form', locals: { f: f } %>
     </div>
     <div class="panel-footer">
-      <%= f.button :submit, value: "Save", :class => 'btn-primary' %>
+      <%= f.button :submit, value: t('buttons.save'), :class => 'btn-primary' %>
     </div>
   </div>
 <% end %>
