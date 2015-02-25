@@ -85,40 +85,6 @@
   padding: 2px;
 }
 
-.section-spacer-inner {
-  color: rgba(0, 0, 0, 0);
-  border: #333 dashed;
-  height: 100%;
-  width: 40px;
-  @include transition();
-  .section-spacer-content {
-    opacity: 0;
-  }
-}
-
-.section-spacer.active {
-  &.hover {
-    .section-spacer-inner {
-      color: #333;
-      width: 200px;
-      background-color: #ededed;
-      padding: 14px;
-      @include transition();
-    }
-    .section-spacer-content {
-      opacity: 1;
-    }
-  }
-}
-
-.section-spacer-content {
-  display: none;
-}
-
-.section-spacer.active .section-spacer-content {
-  display: block;
-}
-
 .add-items-content {
   width: 100%;
   height: 160px;
