@@ -48,10 +48,7 @@
       </div>
     <% end %>
 
-    <%= DeleteSection.new(@item).display do | ds |
-      ds.name = "Item"
-      ds.path = @item
-    end %>
+    <%= DeletePanel.new(@item).display %>
 
   </div>
   <div class="col-md-4 item-show-image">

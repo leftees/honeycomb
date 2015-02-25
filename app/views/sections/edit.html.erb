@@ -6,7 +6,7 @@
 
 <% end %>
 
-<%= DeleteSection.new(@section_form.section).display do | ds |
+<%= DeletePanel.new(@section_form.section).display do | ds |
   ds.path = @section_form.form_url
 end
 %>
