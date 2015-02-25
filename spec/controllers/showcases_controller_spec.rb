@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ShowcasesController, :type => :controller do
-  let(:showcase) { double(Showcase, id: 1, title: 'title', exhibit: exhibit, destroy!: true) }
+  let(:showcase) { double(Showcase, id: 1, title: 'title', exhibit: exhibit, destroy!: true, collection: collection) }
   let(:exhibit) { double(Exhibit, id: 1, title: 'title', showcases: relation, collection: collection) }
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }
 
@@ -9,15 +9,8 @@ RSpec.describe ShowcasesController, :type => :controller do
   let(:create_params) { {exhibit_id: exhibit.id, showcase: { title: 'title' }} }
   let(:update_params) { {id: showcase.id, item: { title: 'title' }} }
 
-  let(:user) {
-    u = User.new(username: 'jhartzler', admin: true)
-    u.save!
-
-    u
-  }
-
   before(:each) do
-    sign_in user
+    sign_in_admin
 
     allow_any_instance_of(ExhibitQuery).to receive(:find).and_return(exhibit)
     allow_any_instance_of(ShowcaseQuery).to receive(:find).and_return(showcase)
