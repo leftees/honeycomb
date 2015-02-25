@@ -1,0 +1,6 @@
+<%= collection_nav(@collection, :items) %>
+
+<%= render partial: 'action_bar', locals: { collection: @collection } %>
+
+<%= render partial: "list", locals: { items: @items } %>
+
