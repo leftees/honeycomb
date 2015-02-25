@@ -1,17 +1,15 @@
-<%= collection_nav(@collection, :items) %>
-
 <div class="menu-bar default pull-left">
   <div class="btn-group">
-    <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('items.index.new')}"),
-      new_collection_item_path(@collection),
+    <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new')}"),
+      new_collection_item_path(collection),
       :class => 'btn btn-primary' %>
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
+      <span class="sr-only"><%= t('toggle_dropdown') %></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="#">Advanced Import</a></li>
-      <li><a href="#">Export as Csv</a></li>
+      <li><a href="#"><%= t('.import') %></a></li>
+      <li><a href="#"><%= t('.export') %></a></li>
     </ul>
   </div>
   <div class="btn-group">
@@ -20,25 +18,22 @@
 </div>
 <div class="menu-bar selected pull-left">
   <div class="btn-group">
-    1 Item Selected:
+    <%= t('.selected_items', number: '1') %>
   </div>
   <div class="btn-group">
-    <%= link_to raw("<i class=\"glyphicon glyphicon-edit\"></i> #{t('items.index.edit')}"),
+    <%= link_to raw("<i class=\"glyphicon glyphicon-edit\"></i> #{t('.edit')}"),
       '#', :class => 'btn btn-default' %>
   </div>
   <div class="btn-group">
-    <%= link_to raw("<i class=\"glyphicon glyphicon-eye-open\"></i> #{t('items.index.publish')}"),
+    <%= link_to raw("<i class=\"glyphicon glyphicon-eye-open\"></i> #{t('.publish')}"),
       '#', :class => 'btn btn-default' %>
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
+      <span class="sr-only">t('toggle_dropdown') %></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="#">Publish</a></li>
-      <li><a href="#">Unpublish</a></li>
+      <li><a href="#"><%= t('.publish') %></a></li>
+      <li><a href="#"><%= t('.unpublish') %></a></li>
     </ul>
   </div>
 </div>
-
-<%= render partial: "list", locals: { items: @items } %>
-

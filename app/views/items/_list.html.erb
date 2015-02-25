@@ -2,10 +2,10 @@
   <thead>
     <tr>
       <th></th>
+      <th><%= t('.title') %></th>
       <th></th>
-      <th>Item</th>
-      <th>Published</th>
-      <th>Last Modified</th>
+      <th><%= t('.published') %></th>
+      <th><%= t('updated_at') %></th>
       <th>Last Modified Timestamp</th>
       <th>Sortable Title</th>
       <th>Image Name</th>
@@ -25,7 +25,7 @@
           <%= h item.description %>
         </td>
         <td>
-          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> Published</span>
+          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> <%= t('.published') %></span>
         </td>
         <td>
           <%= item.updated_at.to_s(:long) %>

@@ -25,6 +25,7 @@ en:
     save: 'Save'
     cancel: 'Cancel'
     help: "Learn More"
+    toggle_dropdown: 'Toggle Dropdown'
   simple_form:
     labels:
       collection:
@@ -42,7 +43,7 @@ en:
       new-button: "New Collection"
     list:
       title: 'Collection'
-      updated_at: 'Updated At'
+      updated_at: 'Last Modified At'
       items_badge: "%{number} Items"
     new:
       title: 'New Collection'
@@ -52,27 +53,40 @@ en:
       success: 'Collection created'
     update:
       success: 'Collection updated'
+    destroy:
+      success: "Collection deleted"
     delete_panel:
       heading: Delete this Collection
       message: "Proceed with caution. This will also remove all items, exhibits, and showcases."
       confirmation: 'Deleting this content will remove it from the site permamently. Are you sure you wish to continue?'
-
   items:
     index:
       title: "Items"
+    action_bar:
       new: "Add New Items"
+      edit: "Edit"
+      publish: "Publish"
+      unpublish: "Unpublish"
+      import: "Advanded Import"
+      export: Export as CSV
+      selected_items: "%{number} Item(s) Selected"
+    list:
+      title: 'Items'
+      published: Published
+      updated_at: 'Last Modified At'
     edit:
       title: "Item"
       children:
         title: "Additional Resources"
         manage_link: "Add"
+    list:
+
     create:
       success: "Item created"
     update:
       success: "Item updated"
     destroy:
       success: "Item deleted"
-      failure: "There was a problem deleting this item"
   item_children:
     index:
       title: "Additional Resources"

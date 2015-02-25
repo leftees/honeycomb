@@ -50,7 +50,7 @@ class CollectionsController < ApplicationController
     @collection = CollectionQuery.new.find(params[:id])
     @collection.destroy!
 
-    flash[:notice] = @collection.title + " has been deleted."
+    flash[:notice] = t('.success')
     redirect_to collections_path
   end
 
