@@ -35,6 +35,10 @@ en:
         title: 'Collection'
         updated_at: 'Updated At'
         items_badge: "%{number} Items"
+    form:
+      title: Title
+      description: Description
+      description-placeholder: "Description should be a short description of what the collection is.  (100 Words)"
     new:
       title: 'New Collection'
     create:
