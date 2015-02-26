@@ -21,30 +21,73 @@
 
 en:
   hello: "Hello world"
+  buttons:
+    save: 'Save'
+    cancel: 'Cancel'
+    help: "Learn More"
+    toggle_dropdown: 'Toggle Dropdown'
+  simple_form:
+    labels:
+      collection:
+        edit:
+          title: "Rename Collection"
+    hints:
+    placeholders:
+      collection:
+        description: "Description should be a short description of what the collection is.  (100 Words)"
   collections:
     index:
-      title: "Collections"
-      new: "New Collection"
+      title: "Honeycomb: Collections and Exhibits"
+      page_title: 'Collections'
+      description:
+      new-button: "New Collection"
+    list:
+      title: 'Collection'
+      updated_at: 'Last Modified At'
+      items_badge: "%{number} Items"
+    new:
+      title: 'New Collection'
+    edit:
+      title: 'Settings'
     create:
       success: 'Collection created'
     update:
       success: 'Collection updated'
+    destroy:
+      success: "Collection deleted"
+    delete_panel:
+      heading: Delete this Collection
+      message: "Proceed with caution. This will also remove all items, exhibits, and showcases."
   items:
+    index:
+      title: "Items"
+    action_bar:
+      new: "Add New Items"
+      edit: "Edit"
+      publish: "Publish"
+      unpublish: "Unpublish"
+      import: "Advanded Import"
+      export: Export as CSV
+      selected_items: "%{number} Item(s) Selected"
+    list:
+      title: 'Items'
+      published: Published
+      updated_at: 'Last Modified At'
     edit:
       title: "Item"
       children:
         title: "Additional Resources"
         manage_link: "Add"
-    index:
-      title: "Items"
-      new: "Add New Items"
     create:
       success: "Item created"
     update:
       success: "Item updated"
     destroy:
       success: "Item deleted"
-      failure: "There was a problem deleting this item"
+    delete_panel:
+      heading: Delete this Item
+      message: "Proceed with caution. This will also remove all the items information from the site ."
+
   item_children:
     index:
       title: "Additional Resources"
