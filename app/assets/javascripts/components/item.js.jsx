@@ -2,32 +2,28 @@
 
 var Item = React.createClass({
   mixins: [DraggableMixin],
+
   style: function() {
-    if (this.state.dragging) {
-      return {
-        position: 'fixed',
-        left: this.state.left,
-        top: this.state.top,
-        zIndex: '1000',
-      };
-    } else {
-      return {};
-    }
+    return {};
   },
 
   onDragStart: function() {
     this.props.onDragStart(this.props.item, 'new_item');
   },
 
+  onDragStop: function() {
+    this.props.onDragStop();
+  },
+
   render: function() {
     var dragclass, honeypot_image;
-    dragclass = "drag ";
-    if (this.state.dragging) {
-      dragclass = "" + dragclass + " dragging";
-    }
     honeypot_image = this.props.item.links.image;
+    var dragContent = (
+      <HoneypotImage honeypot_image={honeypot_image} style="small" />
+    );
     return (
-      <div className={dragclass} onMouseDown={this.onMouseDown} style={this.style()}>
+      <div className='drag' onMouseDown={this.onMouseDown} style={this.style()}>
+        <DragContent content={dragContent} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
         <HoneypotImage honeypot_image={honeypot_image} style="small" />
       </div>);
   }

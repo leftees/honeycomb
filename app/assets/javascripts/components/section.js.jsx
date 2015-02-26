@@ -7,6 +7,8 @@ LEFT_BUTTON = 0;
 DRAG_THRESHOLD = 3;
 
 var Section = React.createClass({
+  mixins: [DraggableMixin],
+
   propTypes: {
     section: React.PropTypes.object.isRequired,
     onSectionClick: React.PropTypes.func.isRequired
@@ -14,8 +16,6 @@ var Section = React.createClass({
 
   getInitialState: function() {
     return {
-      mouseDown: false,
-      dragging: false,
       hover: false,
     };
   },
@@ -31,16 +31,7 @@ var Section = React.createClass({
     }
   },
   style: function() {
-    if (this.state.dragging) {
-      return {
-        position: 'fixed',
-        left: this.state.left,
-        top: this.state.top,
-        zIndex: '1000',
-      };
-    } else {
-      return {};
-    }
+    return this.draggableStyle();
   },
   editStyle: function() {
     var styles = {
@@ -60,7 +51,8 @@ var Section = React.createClass({
     }
     return styles;
   },
-  onMouseDown: function(event) {
+
+  myOnMouseDown: function(event) {
     var pageOffset;
     if (event.button === LEFT_BUTTON) {
       event.stopPropagation();
@@ -79,47 +71,21 @@ var Section = React.createClass({
 
     }
   },
-  onMouseMove: function(event) {
-    var deltaX, deltaY, distance;
-    deltaX = (event.pageX - document.body.scrollLeft) - this.state.viewportOriginX;
-    deltaY = (event.pageY - document.body.scrollTop) - this.state.viewportOriginY;
-    distance = Math.abs(deltaX) + Math.abs(deltaY);
-    if (!this.state.dragging && distance > DRAG_THRESHOLD) {
-      this.setState({
-        dragging: true
-      });
-      this.props.onDragStart(this.props.section, 'reorder');
-    }
-    if (this.state.dragging) {
-      return this.setState({
-        left: this.state.elementX + deltaX,
-        top: this.state.elementY + deltaY
-      });
-    }
+
+  onDragStart: function() {
+    this.props.onDragStart(this.props.section, 'reorder');
   },
-  onMouseUp: function() {
-    this.removeEvents();
-    if (this.state.dragging) {
-      this.props.onDragStop();
-      return this.setState({
-        dragging: false,
-        mouseDown: false
-      });
-    }
+
+  onDragStop: function() {
+    this.props.onDragStop();
   },
-  addEvents: function() {
-    document.addEventListener('mousemove', this.onMouseMove);
-    return document.addEventListener('mouseup', this.onMouseUp);
-  },
-  removeEvents: function() {
-    document.removeEventListener('mousemove', this.onMouseMove);
-    return document.removeEventListener('mouseup', this.onMouseUp);
-  },
+
   onMouseEnter: function() {
     return this.setState({
       hover: true
     });
   },
+
   onMouseLeave: function() {
     return this.setState({
       hover: false
@@ -147,7 +113,7 @@ var Section = React.createClass({
       dragContent = (<div className="small-text-dragging"><h4>{this.props.section.title}</h4><p>{gibberishTextString}</p></div>);
     }
     return (
-      <div className="section" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
+      <div className="section" onMouseDown={this.myOnMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
         <div className={dragclass} style={this.style()}>{dragContent}</div>
         <SectionImage section={this.props.section} />
         <SectionDescription section={this.props.section} />
