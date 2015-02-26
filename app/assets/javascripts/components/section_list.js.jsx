@@ -23,6 +23,7 @@ var SectionList = React.createClass({
     return {
       height: '100%',
       display: 'inline-block',
+      paddingRight: '175px',
     }
   },
   section_tag: function(section) {
