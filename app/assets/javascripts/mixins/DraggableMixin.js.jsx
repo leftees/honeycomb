@@ -52,6 +52,10 @@ var DraggableMixin = {
         dragging: false,
         mouseDown: false
       });
+    } else {
+      return this.setState({
+        mouseDown: false
+      });
     }
   },
 
