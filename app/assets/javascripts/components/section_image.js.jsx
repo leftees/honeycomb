@@ -10,6 +10,17 @@ var SectionImage = React.createClass({
       height: '100%',
       display: 'inline-block',
       verticalAlign: 'top',
+      position: 'relative',
+    };
+  },
+
+  captionStyle: function() {
+    return {
+      backgroundColor: 'white',
+      position: 'absolute',
+      bottom: '2em',
+      right: '1em',
+      padding: '0.5em',
     };
   },
 
@@ -22,7 +33,7 @@ var SectionImage = React.createClass({
   render: function () {
     var caption = "";
     if (this.props.section.caption) {
-      caption = (<div className="section-caption">{this.props.section.caption}</div>)
+      caption = (<div className="section-caption" style={this.captionStyle()}>{this.props.section.caption}</div>)
     }
 
     return (
