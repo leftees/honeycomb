@@ -127,6 +127,7 @@ var ShowcaseEditor = React.createClass({
       left: 0,
       border: '1px solid #bed5cd',
       padding: '10px',
+      marginBottom: '2em',
     };
   },
 
