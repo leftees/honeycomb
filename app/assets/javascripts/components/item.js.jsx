@@ -13,6 +13,7 @@ var Item = React.createClass({
       marginLeft: '5px',
       marginRight: '5px',
       overflow: 'hidden',
+      display: 'inline-block',
     };
   },
 
@@ -27,12 +28,12 @@ var Item = React.createClass({
   render: function() {
     var honeypot_image = this.props.item.links.image;
     var dragContent = (
-      <HoneypotImage honeypot_image={honeypot_image} style="small" />
+      <HoneypotImage honeypot_image={honeypot_image} style="small" cssStyle={{height: '100px', margin: '5px'}} />
     );
     return (
       <div className='cursor-grab' onMouseDown={this.onMouseDown} style={this.style()}>
         <DragContent content={dragContent} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
-        <HoneypotImage honeypot_image={honeypot_image} style="small" />
+        <HoneypotImage honeypot_image={honeypot_image} style="small" cssStyle={{height: '100px', margin: '5px'}} />
       </div>);
   }
 });

@@ -15,32 +15,6 @@
   display: none;
 }
 
-.add-items-content {
-  width: 100%;
-  height: 160px;
-  border: 1px solid #bed5cd;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  padding: 14px;
-}
-
-.add-items-content-inner {
-  width: 100000px;
-}
-
-.add-items-content-inner div {
-  float: left;
-  display: inline;
-}
-
-.add-items-content img {
-  height: 100px;
-  margin: 5px;
-}
-.add-items-title {
-  margin-right: 5px;
-}
-
 .image-caption-editor-toggle {
   cursor: pointer;
 }

@@ -127,8 +127,9 @@ var ShowcaseEditor = React.createClass({
       left: 0,
       border: '1px solid #bed5cd',
       padding: '10px',
-    }
+    };
   },
+
   render: function() {
     var divclassname;
     divclassname = "sections";
@@ -143,9 +144,7 @@ var ShowcaseEditor = React.createClass({
         <SectionList sections={this.state.sections} onSectionClick={this.sectionClick} currentDragItem={this.state.currentDragItem} onDrop={this.onDrop} onDragStart={this.onDragStart} onDragStop={this.onDragStop} />
         <div style={{display: 'inline-block', width: '200px', height: '100%'}}></div>
       </div>
-      <div className="add-items-content">
-        <AddItemsBar onDragStart={this.onDragStart} onDragStop={this.onDragStop} itemsJSONPath={this.props.itemsJSONPath} />
-      </div>
+      <AddItemsBar onDragStart={this.onDragStart} onDragStop={this.onDragStop} itemsJSONPath={this.props.itemsJSONPath} />
     </div>);
   }
 });
