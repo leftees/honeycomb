@@ -10,6 +10,10 @@ var SectionDescription = React.createClass({
   style: function() {
     return {
       display: 'inline-block',
+      padding: '5px',
+      width: '300px',
+      overflow: 'scroll',
+      height: '100%',
     };
   },
 

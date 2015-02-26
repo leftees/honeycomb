@@ -15,7 +15,8 @@ var Section = React.createClass({
   getInitialState: function() {
     return {
       mouseDown: false,
-      dragging: false
+      dragging: false,
+      hover: false,
     };
   },
   outerStyle: function() {
@@ -40,6 +41,24 @@ var Section = React.createClass({
     } else {
       return {};
     }
+  },
+  editStyle: function() {
+    var styles = {
+      color: 'white',
+      position: 'absolute',
+      display: 'block',
+      bottom: 0,
+      left: 0,
+      background: 'rgba(0, 0, 0, 0.8)',
+      width: '100%',
+      padding: '8px',
+      textAlign: 'center',
+      cursor: 'pointer',
+    }
+    if (!this.state.hover) {
+      styles.visibility = 'hidden';
+    }
+    return styles;
   },
   onMouseDown: function(event) {
     var pageOffset;
@@ -96,6 +115,16 @@ var Section = React.createClass({
     document.removeEventListener('mousemove', this.onMouseMove);
     return document.removeEventListener('mouseup', this.onMouseUp);
   },
+  onMouseEnter: function() {
+    return this.setState({
+      hover: true
+    });
+  },
+  onMouseLeave: function() {
+    return this.setState({
+      hover: false
+    });
+  },
 
   handleClick: function(e) {
     e.preventDefault();
@@ -118,11 +147,11 @@ var Section = React.createClass({
       dragContent = (<div className="small-text-dragging"><h4>{this.props.section.title}</h4><p>{gibberishTextString}</p></div>);
     }
     return (
-      <div className="section" onMouseDown={this.onMouseDown} style={this.outerStyle()}>
+      <div className="section" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
         <div className={dragclass} style={this.style()}>{dragContent}</div>
         <SectionImage section={this.props.section} />
         <SectionDescription section={this.props.section} />
-        <div className="section-edit" onClick={this.handleClick}>Edit</div>
+        <div className="section-edit" onClick={this.handleClick} style={this.editStyle()}>Edit</div>
       </div>
     );
   }
