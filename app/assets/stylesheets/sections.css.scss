@@ -1,11 +1,8 @@
-@mixin grab() {
+.cursor-grab {
+  cursor: move;
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
-}
-
-.section-container {
-  @include grab();
 }
 
 .section-delete {
@@ -42,19 +39,6 @@
 }
 .add-items-title {
   margin-right: 5px;
-}
-
-.drag {
-  border: solid;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.2);
-  cursor: grab;
-  margin-left: 5px;
-  margin-right: 5px;
-  overflow: hidden;
-  @include grab();
 }
 
 .image-caption-editor-toggle {

@@ -76,7 +76,7 @@ var Section = React.createClass({
 
   render: function() {
     return (
-      <div className="section" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
+      <div className="section cursor-grab" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
         <SectionDragContent section={this.props.section} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
         <SectionImage section={this.props.section} />
         <SectionDescription section={this.props.section} />
