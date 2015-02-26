@@ -7,6 +7,8 @@ var DraggableMixin = {
     return {
       mouseDown: false,
       dragging: false,
+      top: 0,
+      left: 0,
     };
   },
 

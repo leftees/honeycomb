@@ -13,7 +13,6 @@ var DragContent = React.createClass({
 
     if (this.state.mounted) {
       var box = this.getDOMNode().getBoundingClientRect();
-      console.log(box);
       top = top - (box.height / 2);
       left = left - (box.width / 2);
     }

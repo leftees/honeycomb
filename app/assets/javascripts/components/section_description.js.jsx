@@ -14,6 +14,7 @@ var SectionDescription = React.createClass({
       width: '300px',
       overflow: 'scroll',
       height: '100%',
+      whiteSpace: 'normal',
     };
   },
 
