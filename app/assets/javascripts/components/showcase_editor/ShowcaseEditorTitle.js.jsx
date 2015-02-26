@@ -11,7 +11,8 @@ var ShowcaseEditorTitle = React.createClass({
   style: function() {
     return {
       border: '1px solid lightgrey',
-      float: 'left',
+      display: 'inline-block',
+      verticalAlign: 'top',
       position: 'relative',
       padding: '5px',
       height: '100%',
