@@ -16,8 +16,7 @@ var Item = React.createClass({
   },
 
   render: function() {
-    var dragclass, honeypot_image;
-    honeypot_image = this.props.item.links.image;
+    var honeypot_image = this.props.item.links.image;
     var dragContent = (
       <HoneypotImage honeypot_image={honeypot_image} style="small" />
     );

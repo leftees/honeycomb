@@ -1,20 +1,7 @@
-@mixin transition() {
-  transition-property: all;
-  transition-duration: .5s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-  overflow: hidden;
-}
-
 @mixin grab() {
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
-}
-
-@mixin grabbing() {
-  cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
-  cursor: grabbing;
 }
 
 .section-container {
@@ -72,13 +59,6 @@
 
 .section .drag {
   height: 115px;
-}
-
-.drag.dragging {
-  z-index: 1;
-  pointer-events: none;
-  @include grabbing();
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 .image-caption-editor-toggle {

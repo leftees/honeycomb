@@ -38,14 +38,8 @@ var DragContent = React.createClass({
   },
 
   render: function() {
-    var dragclass = " drag ";
-    if (this.props.dragging) {
-      dragclass = "" + dragclass + " dragging";
-    } else {
-      dragclass = "" + dragclass + " hidden";
-    }
     return (
-      <div className={dragclass} style={this.style()}>
+      <div style={this.style()}>
         {this.props.content}
       </div>
     );

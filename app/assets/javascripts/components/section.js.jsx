@@ -1,11 +1,5 @@
 /** @jsx React.DOM */
 
-var DRAG_THRESHOLD, Item, LEFT_BUTTON;
-
-LEFT_BUTTON = 0;
-
-DRAG_THRESHOLD = 3;
-
 var Section = React.createClass({
   mixins: [DraggableMixin],
 
@@ -19,6 +13,7 @@ var Section = React.createClass({
       hover: false,
     };
   },
+
   outerStyle: function() {
     return {
       border: '1px solid lightgrey',
@@ -30,9 +25,11 @@ var Section = React.createClass({
       height: '100%',
     }
   },
+
   style: function() {
     return this.draggableStyle();
   },
+
   editStyle: function() {
     var styles = {
       color: 'white',
@@ -50,26 +47,6 @@ var Section = React.createClass({
       styles.visibility = 'hidden';
     }
     return styles;
-  },
-
-  myOnMouseDown: function(event) {
-    var pageOffset;
-    if (event.button === LEFT_BUTTON) {
-      event.stopPropagation();
-      event.preventDefault();
-      this.addEvents();
-      pageOffset = this.getDOMNode().getBoundingClientRect();
-      if (!this.state.mouseDown) {
-        return this.setState({
-          mouseDown: true,
-          viewportOriginX: event.pageX - document.body.scrollLeft,
-          viewportOriginY: event.pageY - document.body.scrollTop,
-          elementX: event.pageX - document.body.scrollLeft - 50,
-          elementY: event.pageY - document.body.scrollTop - 75
-        });
-      }
-
-    }
   },
 
   onDragStart: function() {
@@ -98,13 +75,7 @@ var Section = React.createClass({
   },
 
   render: function() {
-    dragclass = " drag ";
-    if (this.state.dragging) {
-      dragclass = "" + dragclass + " dragging";
-    } else {
-      dragclass = "" + dragclass + " hidden";
-    }
-    dragContent = "";
+    var dragContent;
     if (this.props.section.image) {
       dragContent = (<img src={this.props.section.image} className="small-image-dragging" />);
     } else {
@@ -113,8 +84,8 @@ var Section = React.createClass({
       dragContent = (<div className="small-text-dragging"><h4>{this.props.section.title}</h4><p>{gibberishTextString}</p></div>);
     }
     return (
-      <div className="section" onMouseDown={this.myOnMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
-        <div className={dragclass} style={this.style()}>{dragContent}</div>
+      <div className="section" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
+        <DragContent content={dragContent} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
         <SectionImage section={this.props.section} />
         <SectionDescription section={this.props.section} />
         <div className="section-edit" onClick={this.handleClick} style={this.editStyle()}>Edit</div>
