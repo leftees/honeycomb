@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= title %>
+  </div>
+  <div class="panel-body">
+    <div class="dropzone">
+      <div class="dropzone-previews"></div>
+      <div class="dz-default dz-message"><%= t('.dropzone_message_html') %></div>
+    </div>
+    <div class="fallback">
+      <%= f.file_field :image %>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <%= f.button :submit, t('.upload_button'), class: 'btn btn-primary' %>
+  </div>
+</div>
