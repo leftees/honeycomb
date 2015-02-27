@@ -12,16 +12,24 @@ var Thumbnail = React.createClass({
     };
   },
 
+  setImage: function(image) {
+    var imageObject = image['thumbnail/small'];
+    if (!imageObject) {
+      imageObject = image;
+    }
+    this.setState({
+      image: imageObject,
+    });
+  },
+
   componentDidMount: function() {
-    $.get(this.props.image, function(result) {
-      var imageObject = result['thumbnail/small'];
-      if (!imageObject) {
-        imageObject = result;
-      }
-      this.setState({
-        image: imageObject,
-      })
-    }.bind(this));
+    if (typeof(this.props.image) == 'object') {
+      this.setImage(this.props.image);
+    } else {
+      $.get(this.props.image, function(result) {
+        this.setImage(result);
+      }.bind(this));
+    }
   },
 
   thumbnailSrc: function() {

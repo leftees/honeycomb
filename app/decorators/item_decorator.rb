@@ -26,11 +26,11 @@ class ItemDecorator < Draper::Decorator
   end
 
   def react_thumbnail()
-    h.react_component 'Thumbnail', image: object.honeypot_image.url
+    h.react_component 'Thumbnail', image: image_json
   end
 
   def show_image_box
-    h.react_component 'ItemShowImageBox', image: object.honeypot_image.url, itemID: object.id.to_s
+    h.react_component 'ItemShowImageBox', image: image_json, itemID: object.id.to_s
   end
 
   def edit_path
@@ -42,6 +42,14 @@ class ItemDecorator < Draper::Decorator
   end
 
   private
+
+  def image_json
+    if object.honeypot_image
+      object.honeypot_image.image_json
+    else
+      {}
+    end
+  end
 
   def children_query_recent
     children_query.recent(5)

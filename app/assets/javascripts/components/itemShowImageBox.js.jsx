@@ -13,14 +13,6 @@ var ItemShowImageBox = React.createClass({
     };
   },
 
-  componentDidMount: function() {
-    // $.get(this.props.image, function(result) {
-    //   this.setState({
-    //     image: result,
-    //   })
-    // }.bind(this));
-  },
-
   render: function() {
     return (
       <div className="hc-item-show-image-box">

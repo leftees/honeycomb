@@ -16,9 +16,13 @@ var OpenseadragonViewer = React.createClass({
   },
 
   componentDidMount: function() {
-    $.get(this.props.image, function(result) {
-      this.buildViewer(result);
-    }.bind(this));
+    if (typeof(this.props.image) == 'object') {
+      this.buildViewer(this.props.image);
+    } else {
+      $.get(this.props.image, function(result) {
+        this.buildViewer(result);
+      }.bind(this));
+    }
   },
 
   shouldComponentUpdate: function(nextProps, nextState) {
