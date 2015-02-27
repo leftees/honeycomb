@@ -32,7 +32,7 @@ var SectionList = React.createClass({
   },
   dropzone_tag: function(order) {
     var  key = "spacer-" + order;
-    return (<NewSectionDropzone key={key} currentDragItem={this.props.currentDragItem} onDrop={this.props.onDrop} new_index={order + 1} />);
+    return (<NewSectionDropzone key={key} currentDragItem={this.props.currentDragItem} onDrop={this.props.onDrop} new_index={order} />);
   },
   render: function() {
     return (<div id="sections-content-inner" className="sections-content-inner" style={this.style()}>{this.sectionRows()}</div>);
