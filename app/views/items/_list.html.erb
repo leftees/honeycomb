@@ -1,10 +1,10 @@
 <table class="table table-striped datatable item-list">
   <thead>
     <tr>
-      <th></th>
+      <th><input type="checkbox" class="show-selected-menu select-all" /></th>
       <th><%= t('.title') %></th>
       <th></th>
-      <th><%= t('.published') %></th>
+      <th><%= t('.status') %></th>
       <th><%= t('updated_at') %></th>
       <th>Last Modified Timestamp</th>
       <th>Sortable Title</th>
@@ -14,13 +14,10 @@
   <tbody>
     <% items.each do |item| %>
       <tr>
-        <td>
+        <td class="edit">
           <label><input type="checkbox" class="show-selected-menu" /></label>
-          
-          
-
         </td>
-        <td>
+        <td class="image">
           <%= link_to item.react_thumbnail, item.edit_path %>
         </td>
         <td>

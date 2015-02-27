@@ -1,9 +1,14 @@
 <%= page_title(@item.title) %>
 <%= collection_nav(@item.collection, :items) %>
 
+<% if @item.is_parent? %>
+  <%= back_action_bar(collection_items_path(@item.collection), '#' ) %>
+<% else %>
+  <%= back_action_bar(edit_item_path(@item.parent), '#' ) %>
+<% end %>
+
 <div class="row">
   <div class="col-md-8">
-
     <%= simple_form_for @item, html: { :class => "item", id: 'edit-item' } do |f| %>
       <div class="panel panel-default">
         <div class="panel-heading">

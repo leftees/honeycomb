@@ -1,7 +1,16 @@
 .item-list {
+  td.image {
+    width: 50px;
+    vertical-align: top;
+  }
+  td.edit {
+    width: 25px;
+    text-align: center;
+    vertical-align: middle;
+  }
   .hc-thumbnail {
     height: 64px;
-    width: 100px;
+    width: 50px;
   }
 
   .hc-thumbnail-image {

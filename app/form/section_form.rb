@@ -44,6 +44,10 @@ class SectionForm
     section.showcase.exhibit.collection
   end
 
+  def showcase
+    section.showcase
+  end
+
   private
 
     def section_type

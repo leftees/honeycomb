@@ -1,22 +1,26 @@
-<table class="table table-striped">
+<table class="table table-striped item-list">
   <thead>
     <tr>
       <th><%= t('.title') %></th>
       <th></th>
       <th></th>
+      <th><%= t('.status') %></th>
       <th><%= t('.updated_at') %></th>
     </tr>
   </thead>
   <tbody>
     <% collections.each do |collection| %>
       <tr>
-        <td>
+        <td class="image">
           <%= CollectionImage.new(collection).display %>
         <td>
           <h4 class="media-heading"><%= h link_to collection.title, collection_path(collection) %></h4>
           <%= h collection.description %>
         </td>
         <td><span class="badge"><%= t('.items_badge', number: collection.items.size) %></span></td>
+        <td>
+          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> <%= t('.published') %></span>
+        </td>
         <td>
           <%= collection.updated_at.to_s(:long) %>
         </td>

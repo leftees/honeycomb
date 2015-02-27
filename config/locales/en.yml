@@ -46,10 +46,12 @@ en:
     index:
       title: "Honeycomb: Collections and Exhibits"
       page_title: 'Collections'
-      description:
+      description: Honeycomb is an amazing tool for managing your collections !!
       new-button: "New Collection"
     list:
       title: 'Collection'
+      status: Status
+      published: Published
       updated_at: 'Last Modified At'
       items_badge: "%{number} Items"
     new:
@@ -71,6 +73,7 @@ en:
     action_bar:
       new: "Add New Items"
       edit: "Edit"
+      status: Status
       publish: "Publish"
       unpublish: "Unpublish"
       import: "Advanded Import"
@@ -125,6 +128,17 @@ en:
     destroy:
       success: User deleted
       failure: There was a problem deleting this user
+  showcases:
+    index:
+      title: "Showcases"
+    list:
+      title: "Showcase"
+      status: Status
+      published: Published
+      updated_at: 'Last Modified At'
+  sections:
+    new:
+      title: "New Section"
   errors:
     messages:
       invalid_url: "must be a valid URL"

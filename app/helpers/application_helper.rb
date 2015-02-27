@@ -24,4 +24,13 @@ module ApplicationHelper
   def learn_more_button(path)
     link_to raw("<i class=\"glyphicon glyphicon-education\"></i> #{t('buttons.help')}"), path, :class => 'btn btn-large btn-hollow'
   end
+
+  def back_button(path)
+    link_to(raw("<span class=\"mdi-navigation-arrow-back\"></span>"), path, class: "btn btn-large btn-hollow")
+  end
+
+
+  def back_action_bar(back_path, learn_more_path)
+    render(partial: '/shared/back_action_bar', locals: { back_path: back_path, learn_more_path: learn_more_path })
+  end
 end
