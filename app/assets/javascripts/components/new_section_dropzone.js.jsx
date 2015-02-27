@@ -10,6 +10,8 @@ var NewSectionDropzone = React.createClass({
     return {
       display: 'inline-block',
       height: '100%',
+      verticalAlign: 'top',
+      padding: '40px 20px',
     };
   },
   innerStyle: function() {
@@ -23,7 +25,7 @@ var NewSectionDropzone = React.createClass({
       transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
       overflow: 'hidden',
     };
-    if (this.state.hover) {
+    if (this.expanded()) {
       styles.width = '200px';
       styles.backgroundColor = '#ededed';
       styles.color = '#333';
@@ -33,7 +35,7 @@ var NewSectionDropzone = React.createClass({
   },
   contentStyle: function() {
     return {
-      opacity: (this.state.hover ? 1 : 0),
+      opacity: (this.expanded() ? 1 : 0),
       textAlign: 'center',
       width: '100%',
     };
@@ -50,6 +52,9 @@ var NewSectionDropzone = React.createClass({
     return this.setState({
       hover: false
     });
+  },
+  expanded: function() {
+    return this.state.hover || this.props.expanded;
   },
   active: function() {
     return this.props.currentDragItem;
