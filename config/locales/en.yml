@@ -109,12 +109,15 @@ en:
     delete_panel:
       heading: Delete this Item
       message: "Proceed with caution. This will also remove all the items information from the site ."
-
   item_children:
     new:
       title: "Upload Additional Resources"
     create:
       success: 'Resource created'
+  curators:
+    index:
+      name_of_user_type: 'Editors'
+      title: 'Manage Editors'
   users:
     create:
       success: New user created successfully.

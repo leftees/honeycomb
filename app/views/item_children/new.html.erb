@@ -1,0 +1,6 @@
+<%= collection_nav(@item.parent.collection, :items) %>
+
+<%= simple_form_for [@item.parent, @item], url: item_children_path(@item.parent), :html => { class: 'new-item-dropzone', :multipart => true, :id => "fileupload"  } do | f | %>
+
+  <%= render partial: '/items/new_form', locals: { f: f, title: t('.title') } %>
+<% end %>
