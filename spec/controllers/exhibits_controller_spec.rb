@@ -26,24 +26,4 @@ RSpec.describe ExhibitsController, :type => :controller do
     end
   end
 
-  describe "edit" do
-    subject { get :edit, id: "1" }
-
-    it "returns a 200" do
-      subject
-
-      expect(response).to be_success
-      expect(response).to render_template("edit")
-    end
-
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
-      subject
-    end
-
-    it "users the item query to get items" do
-      expect_any_instance_of(ExhibitQuery).to receive(:find).with("1").and_return(exhibit)
-      subject
-    end
-  end
 end
