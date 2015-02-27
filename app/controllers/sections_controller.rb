@@ -37,7 +37,7 @@ class SectionsController < ApplicationController
     respond_to do |format|
       if SaveSection.call(@section, section_params)
         format.html { redirect_to edit_showcase_path(@section.showcase.id), notice: 'Section updated.' }
-        format.json { render :show, status: :updated, location: @section }
+        format.json { render :show }
       else
         format.html { render :edit }
         format.json { render json: @section.errors, status: :unprocessable_entity }

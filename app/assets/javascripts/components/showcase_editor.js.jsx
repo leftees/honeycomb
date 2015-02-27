@@ -82,7 +82,25 @@ var ShowcaseEditor = React.createClass({
       this.setState({
         sections: splicedSections
       });
+      this.updateSection(newSection);
     }
+  },
+  updateSection: function (section) {
+    $.ajax({
+      url: section.updateUrl,
+      dataType: "json",
+      type: "POST",
+      data: {
+        section: section,
+        "_method": "put"
+      },
+      success: (function(data) {
+        this.loadSectionsFromServer();
+      }).bind(this),
+      error: (function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }).bind(this)
+    });
   },
   onDragStart: function(details, drag_type) {
     return this.setState({
