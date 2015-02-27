@@ -15,7 +15,10 @@
     <% items.each do |item| %>
       <tr>
         <td>
-          <input type="checkbox" class="show-selected-menu" />
+          <label><input type="checkbox" class="show-selected-menu" /></label>
+          
+          
+
         </td>
         <td>
           <%= link_to item.react_thumbnail, item.edit_path %>
