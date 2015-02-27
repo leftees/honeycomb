@@ -1,5 +1,7 @@
 <% page_title(t('.title')) %>
 
+<%= back_action_bar(collections_path, '#' ) %>
+
 <%= simple_form_for @collection, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="panel panel-default">
     <div class="panel-heading">

@@ -46,7 +46,7 @@ en:
     index:
       title: "Honeycomb: Collections and Exhibits"
       page_title: 'Collections'
-      description:
+      description: Honeycomb is an amazing tool for managing your collections !!
       new-button: "New Collection"
     list:
       title: 'Collection'
