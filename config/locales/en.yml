@@ -35,6 +35,13 @@ en:
     placeholders:
       collection:
         description: "Description should be a short description of what the collection is.  (100 Words)"
+  collection_left_nav:
+    items: 'Items'
+    showcases: 'Showcases'
+    settings: 'Settings'
+    website: 'Website'
+  collection_top_nav:
+    recent_collections: 'Collections'
   collections:
     index:
       title: "Honeycomb: Collections and Exhibits"
@@ -75,9 +82,24 @@ en:
       updated_at: 'Last Modified At'
     edit:
       title: "Item"
+      metadata: "Metadata"
+      media: "Media"
+      replace_media: "Replace"
+      publish: "Publish"
+      publish_help: "Choose if this item can be viewed."
+      publish_field: "Published"
+      embed: "Embed"
+      embed_help: "Copy and paste this code into the website where you want to embed this item."
       children:
         title: "Additional Resources"
         manage_link: "Add"
+        empty_message_html: "<p>No additional resources associated with this item</p><p>Additional resources are intended to be items that provide context to the main item.<br>Examples: <ul><li>A portrait of the creator</li><li>A map of where the item was created</li></ul></p>"
+    new:
+     title: "Add New Items"
+    new_form:
+      title: "Add New Items"
+      upload_button: "Upload Images"
+      dropzone_message_html: "To create new items <strong>drop images here</strong> or click to select an image."
     create:
       success: "Item created"
     update:
@@ -87,17 +109,15 @@ en:
     delete_panel:
       heading: Delete this Item
       message: "Proceed with caution. This will also remove all the items information from the site ."
-
   item_children:
-    index:
-      title: "Additional Resources"
-      new: "Add Additional Resources"
     new:
       title: "Upload Additional Resources"
-      upload_button: "Upload Images"
-      back_link: "Back to %{title}"
     create:
       success: 'Resource created'
+  curators:
+    index:
+      name_of_user_type: 'Editors'
+      title: 'Manage Editors'
   users:
     create:
       success: New user created successfully.

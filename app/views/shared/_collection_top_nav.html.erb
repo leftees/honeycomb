@@ -4,7 +4,7 @@
 
 
     <ul class="dropdown-menu" role="menu">
-      <li class="dropdown-header">Recent Collections</li>
+      <li class="dropdown-header"><%= t('collection_top_nav.recent_collections') %></li>
       <% nav.recent_collections.each do | collection | %>
         <li><%= link_to(collection.title, collection_path(collection)) %></li>
       <% end %>

@@ -1,23 +1,6 @@
 <%= collection_nav(@item.parent.collection, :items) %>
 
-<h2><%=t '.title' %></h2>
+<%= simple_form_for [@item.parent, @item], url: item_children_path(@item.parent), :html => { class: 'new-item-dropzone', :multipart => true, :id => "fileupload"  } do | f | %>
 
-<div class="container">
-
-  <%= simple_form_for [@item.parent, @item], url: item_children_path(@item.parent), :html => { class: 'new-item-dropzone', :multipart => true, :id => "fileupload"  } do |f| %>
-    <div class="row">
-      <%= f.button :submit, t('.upload_button'), class: 'btn btn-primary' %>
-      <%= link_to t('.back_link', title: @item.parent.title), edit_item_path(@item.parent), class: 'btn btn-large' %>
-    </div>
-    <div class="row">
-      <div class="dropzone">
-        <div class="dropzone-previews"></div>
-        <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-      </div>
-      <div class="fallback">
-        <%= f.file_field :image %>
-      </div>
-    </div>
-  <% end %>
-
-</div>
+  <%= render partial: '/items/new_form', locals: { f: f, title: t('.title') } %>
+<% end %>
