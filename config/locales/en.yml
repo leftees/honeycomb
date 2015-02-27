@@ -125,6 +125,9 @@ en:
     destroy:
       success: User deleted
       failure: There was a problem deleting this user
+  sections:
+    new:
+      title: "New Section"
   errors:
     messages:
       invalid_url: "must be a valid URL"
