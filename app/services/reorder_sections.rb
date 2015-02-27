@@ -10,8 +10,14 @@ class ReorderSections
     @update_item = update_item
   end
 
+  def original_list
+    @original_list ||= current_items_in_order.to_a.compact.reject{|s| s == update_item}
+  end
+
   def reorder!
-    res = current_items_in_order.to_a.insert(update_item.order, update_item).compact
+    insert_index = original_list.find_index{|section| section.order >= update_item.order}
+    insert_index ||= original_list.count
+    res = original_list.insert(insert_index, update_item).compact
 
     res.each_with_index do |s, index|
       check_and_update_order!(s, index)

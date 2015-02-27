@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     resources :showcases, only: [:index, :new, :create ]
   end
 
-  resources :showcases, only: [ :show, :destroy ] do
+  resources :showcases, only: [ :show, :edit, :destroy ] do
     resources :sections, only: [:index, :new, :create ]
   end
 

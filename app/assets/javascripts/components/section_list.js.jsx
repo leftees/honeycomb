@@ -11,25 +11,37 @@ var SectionList = React.createClass({
     var rows, self;
     rows = [];
     self = this
-    $.each(this.props.sections, function(idx, section) {
-      rows.push(self.section_tag(section));
-      rows.push(self.dropzone_tag(section.order))
-    });
-
-    if (rows.length === 0) {
+    if (this.props.sections.length > 0) {
       rows.push(this.dropzone_tag(0));
+      $.each(this.props.sections, function(idx, section) {
+        rows.push(self.section_tag(section));
+        rows.push(self.dropzone_tag(idx + 1))
+      });
+    } else {
+      rows.push(this.dropzone_tag(0, true));
     }
+
     return rows;
   },
+  style: function() {
+    return {
+      height: '100%',
+      display: 'inline-block',
+      paddingRight: '175px',
+    }
+  },
   section_tag: function(section) {
-    var key = section.id + '-' + section.order
+    var key = section.id + '-' + section.id
     return (<Section  onDragStart={this.props.onDragStart} onDragStop={this.props.onDragStop} section={section} key={key} onSectionClick={this.props.onSectionClick} />)
   },
-  dropzone_tag: function(order) {
+  dropzone_tag: function(order, expanded) {
+    if (!expanded) {
+      expanded = false;
+    }
     var  key = "spacer-" + order;
-    return (<NewSectionDropzone key={key} currentDragItem={this.props.currentDragItem} onDrop={this.props.onDrop} new_index={order + 1} />);
+    return (<NewSectionDropzone key={key} currentDragItem={this.props.currentDragItem} onDrop={this.props.onDrop} new_index={order} expanded={expanded} />);
   },
   render: function() {
-    return (<div id="sections-content-inner" className="sections-content-inner">{this.sectionRows()}</div>);
+    return (<div id="sections-content-inner" className="sections-content-inner" style={this.style()}>{this.sectionRows()}</div>);
   }
 });

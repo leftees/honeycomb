@@ -44,7 +44,7 @@ gem 'faraday_middleware'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
-gem 'underscore-rails'
+gem 'underscore-rails', git: 'https://github.com/hampus-n/underscore-rails.git', branch: 'update-to-1.8.2'
 gem 'showdown-rails'
 gem "therubyracer"
 # Use jquery as the JavaScript library

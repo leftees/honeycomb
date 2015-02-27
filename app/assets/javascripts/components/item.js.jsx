@@ -1,91 +1,39 @@
 /** @jsx React.DOM */
 
-var DRAG_THRESHOLD, Item, LEFT_BUTTON;
+var Item = React.createClass({
+  mixins: [DraggableMixin],
 
-LEFT_BUTTON = 0;
-
-DRAG_THRESHOLD = 3;
-
-Item = React.createClass({
-  getInitialState: function() {
+  style: function() {
     return {
-      mouseDown: false,
-      dragging: false
+      border: 'solid',
+      borderRadius: '10px',
+      fontWeight: 'bold',
+      fontSize: '24px',
+      color: 'rgba(0, 0, 0, 0.2)',
+      marginLeft: '5px',
+      marginRight: '5px',
+      overflow: 'hidden',
+      display: 'inline-block',
     };
   },
-  style: function() {
-    if (this.state.dragging) {
-      return {
-        position: 'fixed',
-        left: this.state.left,
-        top: this.state.top,
-        zIndex: '1000',
-      };
-    } else {
-      return {};
-    }
+
+  onDragStart: function() {
+    this.props.onDragStart(this.props.item, 'new_item');
   },
-  onMouseDown: function(event) {
-    var pageOffset;
-    if (event.button === LEFT_BUTTON) {
-      event.stopPropagation();
-      event.preventDefault();
-      this.addEvents();
-      pageOffset = this.getDOMNode().getBoundingClientRect();
-      return this.setState({
-        mouseDown: true,
-        viewportOriginX: event.pageX - document.body.scrollLeft,
-        viewportOriginY: event.pageY - document.body.scrollTop,
-        elementX: pageOffset.left,
-        elementY: pageOffset.top
-      });
-    }
+
+  onDragStop: function() {
+    this.props.onDragStop();
   },
-  onMouseMove: function(event) {
-    var deltaX, deltaY, distance;
-    deltaX = (event.pageX - document.body.scrollLeft) - this.state.viewportOriginX;
-    deltaY = (event.pageY - document.body.scrollTop) - this.state.viewportOriginY;
-    distance = Math.abs(deltaX) + Math.abs(deltaY);
-    if (!this.state.dragging && distance > DRAG_THRESHOLD) {
-      this.setState({
-        dragging: true
-      });
-      this.props.onDragStart(this.props.item, 'new_item');
-    }
-    if (this.state.dragging) {
-      return this.setState({
-        left: this.state.elementX + deltaX,
-        top: this.state.elementY + deltaY
-      });
-    }
-  },
-  onMouseUp: function() {
-    this.removeEvents();
-    if (this.state.dragging) {
-      this.props.onDragStop();
-      return this.setState({
-        dragging: false
-      });
-    }
-  },
-  addEvents: function() {
-    document.addEventListener('mousemove', this.onMouseMove);
-    return document.addEventListener('mouseup', this.onMouseUp);
-  },
-  removeEvents: function() {
-    document.removeEventListener('mousemove', this.onMouseMove);
-    return document.removeEventListener('mouseup', this.onMouseUp);
-  },
+
   render: function() {
-    var dragclass, honeypot_image;
-    dragclass = "drag ";
-    if (this.state.dragging) {
-      dragclass = "" + dragclass + " dragging";
-    }
-    honeypot_image = this.props.item.links.image;
+    var honeypot_image = this.props.item.links.image;
+    var dragContent = (
+      <HoneypotImage honeypot_image={honeypot_image} style="small" cssStyle={{height: '100px', margin: '5px'}} />
+    );
     return (
-      <div className={dragclass} onMouseDown={this.onMouseDown} style={this.style()}>
-        <HoneypotImage honeypot_image={honeypot_image} style="small" />
+      <div className='cursor-grab' onMouseDown={this.onMouseDown} style={this.style()}>
+        <DragContent content={dragContent} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
+        <HoneypotImage honeypot_image={honeypot_image} style="small" cssStyle={{height: '100px', margin: '5px'}} />
       </div>);
   }
 });

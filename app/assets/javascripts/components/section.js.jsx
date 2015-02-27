@@ -1,12 +1,8 @@
 /** @jsx React.DOM */
 
-var DRAG_THRESHOLD, Item, LEFT_BUTTON;
-
-LEFT_BUTTON = 0;
-
-DRAG_THRESHOLD = 3;
-
 var Section = React.createClass({
+  mixins: [DraggableMixin],
+
   propTypes: {
     section: React.PropTypes.object.isRequired,
     onSectionClick: React.PropTypes.func.isRequired
@@ -14,76 +10,63 @@ var Section = React.createClass({
 
   getInitialState: function() {
     return {
-      mouseDown: false,
-      dragging: false
+      hover: false,
     };
   },
-  style: function() {
-    if (this.state.dragging) {
-      return {
-        position: 'fixed',
-        left: this.state.left,
-        top: this.state.top,
-        zIndex: '1000',
-      };
-    } else {
-      return {};
-    }
-  },
-  onMouseDown: function(event) {
-    var pageOffset;
-    if (event.button === LEFT_BUTTON) {
-      event.stopPropagation();
-      event.preventDefault();
-      this.addEvents();
-      pageOffset = this.getDOMNode().getBoundingClientRect();
-      if (!this.state.mouseDown) {
-        return this.setState({
-          mouseDown: true,
-          viewportOriginX: event.pageX - document.body.scrollLeft,
-          viewportOriginY: event.pageY - document.body.scrollTop,
-          elementX: event.pageX - document.body.scrollLeft - 50,
-          elementY: event.pageY - document.body.scrollTop - 75
-        });
-      }
 
+  outerStyle: function() {
+    return {
+      border: '1px solid lightgrey',
+      display: 'inline-block',
+      verticalAlign: 'top',
+      position: 'relative',
+      marginLeft: '10px',
+      marginRight: '10px',
+      height: '100%',
     }
   },
-  onMouseMove: function(event) {
-    var deltaX, deltaY, distance;
-    deltaX = (event.pageX - document.body.scrollLeft) - this.state.viewportOriginX;
-    deltaY = (event.pageY - document.body.scrollTop) - this.state.viewportOriginY;
-    distance = Math.abs(deltaX) + Math.abs(deltaY);
-    if (!this.state.dragging && distance > DRAG_THRESHOLD) {
-      this.setState({
-        dragging: true
-      });
-      this.props.onDragStart(this.props.section, 'reorder');
-    }
-    if (this.state.dragging) {
-      return this.setState({
-        left: this.state.elementX + deltaX,
-        top: this.state.elementY + deltaY
-      });
-    }
+
+  style: function() {
+    return this.draggableStyle();
   },
-  onMouseUp: function() {
-    this.removeEvents();
-    if (this.state.dragging) {
-      this.props.onDragStop();
-      return this.setState({
-        dragging: false,
-        mouseDown: false
-      });
+
+  editStyle: function() {
+    var styles = {
+      color: 'white',
+      position: 'absolute',
+      display: 'block',
+      bottom: 0,
+      left: 0,
+      background: 'rgba(0, 0, 0, 0.8)',
+      width: '100%',
+      padding: '8px',
+      textAlign: 'center',
+      cursor: 'pointer',
     }
+    if (!this.state.hover) {
+      styles.visibility = 'hidden';
+    }
+    return styles;
   },
-  addEvents: function() {
-    document.addEventListener('mousemove', this.onMouseMove);
-    return document.addEventListener('mouseup', this.onMouseUp);
+
+  onDragStart: function() {
+    this.props.onDragStart(this.props.section, 'reorder');
   },
-  removeEvents: function() {
-    document.removeEventListener('mousemove', this.onMouseMove);
-    return document.removeEventListener('mouseup', this.onMouseUp);
+
+  onDragStop: function() {
+    this.props.onDragStop();
+  },
+
+  onMouseEnter: function() {
+    return this.setState({
+      hover: true
+    });
+  },
+
+  onMouseLeave: function() {
+    return this.setState({
+      hover: false
+    });
   },
 
   handleClick: function(e) {
@@ -92,26 +75,12 @@ var Section = React.createClass({
   },
 
   render: function() {
-    dragclass = " drag ";
-    if (this.state.dragging) {
-      dragclass = "" + dragclass + " dragging";
-    } else {
-      dragclass = "" + dragclass + " hidden";
-    }
-    dragContent = "";
-    if (this.props.section.image) {
-      dragContent = (<img src={this.props.section.image} className="small-image-dragging" />);
-    } else {
-      gibberishTextString = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.";
-
-      dragContent = (<div className="small-text-dragging"><h4>{this.props.section.title}</h4><p>{gibberishTextString}</p></div>);
-    }
     return (
-      <div className="section" onMouseDown={this.onMouseDown} >
-        <div className={dragclass} style={this.style()}>{dragContent}</div>
+      <div className="section cursor-grab" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
+        <SectionDragContent section={this.props.section} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
         <SectionImage section={this.props.section} />
         <SectionDescription section={this.props.section} />
-        <div className="section-edit" onClick={this.handleClick}>Edit</div>
+        <div className="section-edit" onClick={this.handleClick} style={this.editStyle()}>Edit</div>
       </div>
     );
   }

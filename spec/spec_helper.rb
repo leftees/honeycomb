@@ -79,6 +79,8 @@ RSpec.configure do |config|
       HoneypotImage,
       User,
       CollectionUser,
+      Showcase,
+      Section,
     ].each do |database_model|
       instance = database_model.new
       # The first attribute is id, which does not cause the methods to be built on the class

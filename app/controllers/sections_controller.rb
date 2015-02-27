@@ -16,8 +16,8 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
-        format.html { redirect_to showcase_sections_path(showcase.id), notice: 'Section Created' }
-        format.json { render :show, status: :created, location: showcase_sections_path(showcase, @section) }
+        format.html { redirect_to edit_showcase_path(showcase.id), notice: 'Section Created' }
+        format.json { render :show, status: :created, location: edit_showcase_path(showcase.id) }
       else
         format.html { render :new }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -36,8 +36,8 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
-        format.html { redirect_to showcase_sections_path(@section.showcase.id), notice: 'Section updated.' }
-        format.json { render :show, status: :updated, location: @section }
+        format.html { redirect_to edit_showcase_path(@section.showcase.id), notice: 'Section updated.' }
+        format.json { render :show }
       else
         format.html { render :edit }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class SectionsController < ApplicationController
     @section.destroy!
 
     flash[:notice] = t('.success')
-    redirect_to  showcase_sections_path(@section.showcase.id)
+    redirect_to  edit_showcase_path(@section.showcase.id)
   end
 
   protected

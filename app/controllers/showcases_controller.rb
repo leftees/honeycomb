@@ -23,23 +23,32 @@ class ShowcasesController < ApplicationController
   end
 
   def show
-    redirect_to showcase_sections_path(params[:id])
+    redirect_to edit_showcase_path(params[:id])
+  end
+
+  def edit
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.collection)
   end
 
   def destroy
     @showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(@showcase.exhibit.collection)
+    check_user_curates!(@showcase.collection)
 
     @showcase.destroy!()
 
     flash[:notice] = t('.success')
-    redirect_to edit_exhibit_path(@showcase.exhibit)
+    redirect_to exhibit_path(@showcase.exhibit)
   end
 
   protected
 
     def save_params
       params.require(:showcase).permit([:title])
+    end
+
+    def showcase
+      @showcase ||= ShowcaseQuery.new.find(params[:id])
     end
 
     def exhibit
