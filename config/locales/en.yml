@@ -50,6 +50,7 @@ en:
       new-button: "New Collection"
     list:
       title: 'Collection'
+      status: Status
       published: Published
       updated_at: 'Last Modified At'
       items_badge: "%{number} Items"
@@ -72,6 +73,7 @@ en:
     action_bar:
       new: "Add New Items"
       edit: "Edit"
+      status: Status
       publish: "Publish"
       unpublish: "Unpublish"
       import: "Advanded Import"
@@ -131,6 +133,7 @@ en:
       title: "Showcases"
     list:
       title: "Showcase"
+      status: Status
       published: Published
       updated_at: 'Last Modified At'
   sections:
