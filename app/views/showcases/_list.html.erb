@@ -1,17 +1,17 @@
-<%= collection_nav(@exhibit.collection, :showcases) %>
-
-<%= render partial: 'action_bar', locals: { exhibit: @exhibit } %>
-
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Title</th>
+      <th><%= t('title') %></th>
+      <th><%= t('updated_at') %></th>
     </tr>
   </thead>
   <tbody>
-    <% @showcases.each do |showcase| %>
+    <% showcases.each do |showcase| %>
       <tr>
         <td><%= link_to showcase.title, showcase_path(showcase) %></td>
+        <td>
+          <%= showcase.updated_at.to_s(:long) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
