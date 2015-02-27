@@ -64,6 +64,12 @@ describe SectionForm do
     end
   end
 
+  describe "#showcase" do
+    it "returns the section showcase" do
+      expect(subject.showcase).to eq(showcase)
+    end
+  end
+
 
   describe "build_from_params" do
     let(:controller) { double(ApplicationController, params: {} )}
