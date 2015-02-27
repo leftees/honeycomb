@@ -1,9 +1,9 @@
 <%= collection_nav(@item.collection, :items) %>
 
+<%= render partial: 'edit_action_bar' %>
 
 <div class="row">
   <div class="col-md-8">
-
     <%= simple_form_for @item, html: { :class => "item", id: 'edit-item' } do |f| %>
       <div class="panel panel-default">
         <div class="panel-heading">
