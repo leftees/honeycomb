@@ -4,6 +4,7 @@
       <th><%= t('.title') %></th>
       <th></th>
       <th></th>
+      <th><%= t('.published') %></th>
       <th><%= t('.updated_at') %></th>
     </tr>
   </thead>
@@ -17,6 +18,9 @@
           <%= h collection.description %>
         </td>
         <td><span class="badge"><%= t('.items_badge', number: collection.items.size) %></span></td>
+        <td>
+          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> <%= t('.published') %></span>
+        </td>
         <td>
           <%= collection.updated_at.to_s(:long) %>
         </td>

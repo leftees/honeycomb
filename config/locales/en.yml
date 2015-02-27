@@ -50,6 +50,7 @@ en:
       new-button: "New Collection"
     list:
       title: 'Collection'
+      published: Published
       updated_at: 'Last Modified At'
       items_badge: "%{number} Items"
     new:
@@ -130,6 +131,7 @@ en:
       title: "Showcases"
     list:
       title: "Showcase"
+      published: Published
       updated_at: 'Last Modified At'
   sections:
     new:

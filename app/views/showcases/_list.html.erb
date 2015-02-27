@@ -1,14 +1,18 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= t('title') %></th>
-      <th><%= t('updated_at') %></th>
+      <th><%= t('.title') %></th>
+      <th><%= t('.published') %></th>
+      <th><%= t('.updated_at') %></th>
     </tr>
   </thead>
   <tbody>
     <% showcases.each do |showcase| %>
       <tr>
         <td><%= link_to showcase.title, showcase_path(showcase) %></td>
+        <td>
+          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> <%= t('.published') %></span>
+        </td>
         <td>
           <%= showcase.updated_at.to_s(:long) %>
         </td>
