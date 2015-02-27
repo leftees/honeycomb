@@ -1,39 +1,51 @@
 <div class="menu-bar default pull-left">
   <div class="btn-group">
+      <a href="#" class="btn btn-large btn-hollow"><span class="mdi-navigation-arrow-back"></span></a>
+   </div>
+  <div class="btn-group">
     <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new')}"),
-      new_collection_item_path(collection),
+      new_collection_item_path(@collection),
       :class => 'btn btn-primary' %>
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>
-      <span class="sr-only"><%= t('toggle_dropdown') %></span>
+      <span class="sr-only">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu" role="menu">
       <li><a href="#"><%= t('.import') %></a></li>
       <li><a href="#"><%= t('.export') %></a></li>
     </ul>
   </div>
-  <div class="btn-group">
-    <%= learn_more_button('#') %>
+  <div class="input-group menu-bar">
+    <input type="text" class="form-control">
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-hollow btn-flat btn-search"><i class="glyphicon glyphicon-search"></i></button>
+    </span>
   </div>
+
 </div>
 <div class="menu-bar selected pull-left">
-  <div class="btn-group">
+
     <%= t('.selected_items', number: '1') %>
-  </div>
+
   <div class="btn-group">
     <%= link_to raw("<i class=\"glyphicon glyphicon-edit\"></i> #{t('.edit')}"),
-      '#', :class => 'btn btn-default' %>
+      '#', :class => 'btn btn-default btn-hollow' %>
   </div>
-  <div class="btn-group">
+  <div class="btn-group btn-hollow">
     <%= link_to raw("<i class=\"glyphicon glyphicon-eye-open\"></i> #{t('.publish')}"),
-      '#', :class => 'btn btn-default' %>
+      '#', :class => 'btn btn-default ' %>
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>
-      <span class="sr-only">t('toggle_dropdown') %></span>
+      <span class="sr-only"><%= t('toggle_dropdown') %>/span>
     </button>
     <ul class="dropdown-menu" role="menu">
       <li><a href="#"><%= t('.publish') %></a></li>
       <li><a href="#"><%= t('.unpublish') %></a></li>
     </ul>
+  </div>
+</div>
+<div class="pull-right">
+    <div class="btn-group">
+    <%= learn_more_button('#') %>
   </div>
 </div>

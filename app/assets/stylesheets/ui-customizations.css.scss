@@ -171,7 +171,6 @@ div.dataTables_filter {
 		padding-left: 0;
 	}
 	a.btn {
-		padding-right:0px;
 		color:#2c5882;
 		font-size: 18px;
 		font-weight: bold;
@@ -290,7 +289,7 @@ div.dataTables_filter {
 		border:solid 1px;
 		border-color: #e3e3e3;
 		width:calc(100% - 20px);
-		position: absolute;
+		position: relative;
 		left:0;
 		top:0;
 		li {
