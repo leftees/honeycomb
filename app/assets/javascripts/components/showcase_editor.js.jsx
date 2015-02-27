@@ -66,12 +66,23 @@ var ShowcaseEditor = React.createClass({
     });
   },
   handleSectionReorder: function (section, index) {
-    sections = this.state.sections;
-    sections.splice(index, 0, sections.splice(section.order, 1)[0]);
-    //console.log(sections);
-    this.setState({
-      sections: sections
+    var currentIndex = _.findIndex(this.state.sections, function(listSection) {
+      return listSection.id == section.id;
     });
+    // Don't do anything if the section was dragged to the drop area immediately before or after its current location
+    if (index < currentIndex || index > currentIndex + 1) {
+      var update = React.addons.update;
+      var newSection = update(section, {$merge: {order: index}});
+      var splicedSections;
+      if (currentIndex < index) {
+        splicedSections = update(this.state.sections, {$splice: [[newSection.order, 0, newSection], [currentIndex, 1]]});
+      } else {
+        splicedSections = update(this.state.sections, {$splice: [[currentIndex, 1], [newSection.order, 0, newSection]]});
+      }
+      this.setState({
+        sections: splicedSections
+      });
+    }
   },
   onDragStart: function(details, drag_type) {
     return this.setState({
