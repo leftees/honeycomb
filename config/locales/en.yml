@@ -125,6 +125,12 @@ en:
     destroy:
       success: User deleted
       failure: There was a problem deleting this user
+  showcases:
+    index:
+      title: "Showcases"
+    list:
+      title: "Showcase"
+      updated_at: 'Last Modified At'
   sections:
     new:
       title: "New Section"

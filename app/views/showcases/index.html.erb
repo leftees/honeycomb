@@ -1,0 +1,6 @@
+<% page_title(t('.title')) %>
+<%= collection_nav(@exhibit.collection, :showcases) %>
+
+<%= render partial: 'action_bar', locals: { exhibit: @exhibit } %>
+
+<%= render partial: 'list', locals: { showcases: @showcases } %>
