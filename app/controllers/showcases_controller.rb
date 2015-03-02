@@ -23,7 +23,17 @@ class ShowcasesController < ApplicationController
   end
 
   def show
-    redirect_to edit_showcase_path(params[:id])
+    showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(showcase.collection)
+    @showcase = ShowcaseDecorator.new(showcase)
+    if request.xhr?
+      render format: :json
+    else
+      respond_to do |format|
+        format.html { redirect_to edit_showcase_path(showcase.id) }
+        format.json
+      end
+    end
   end
 
   def edit

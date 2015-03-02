@@ -155,6 +155,38 @@ RSpec.describe ShowcasesController, :type => :controller do
     end
   end
 
+  describe "GET #show" do
+    subject { get :show, id: showcase.id }
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses showcase query " do
+      expect_any_instance_of(ShowcaseQuery).to receive(:find).with("1").and_return(showcase)
+      subject
+    end
+
+    it "assigns a showcase decorator" do
+      subject
+
+      expect(assigns(:showcase)).to be_a_kind_of(ShowcaseDecorator)
+    end
+
+    it 'is a redirect' do
+      subject
+
+      expect(response).to be_redirect
+    end
+
+    it 'renders json' do
+      get :show, id: showcase.id, format: :json
+
+      expect(response).to be_success
+    end
+  end
+
   describe "GET #edit" do
     subject { get :edit, id: showcase.id }
 
