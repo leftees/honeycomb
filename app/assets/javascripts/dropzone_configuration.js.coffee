@@ -32,12 +32,15 @@ class MultiNewDropzoneForm
             myDropzone.processQueue()
           return
 
-        # Gets triggered when the form is actually being sent.
-        # Hide the success button or the complete form.
-        @on "successmultiple", (files, response) ->
-          window.location.replace(window.location + '/../')
+        @on "complete", (files, response) ->
+          if myDropzone.getQueuedFiles().length == 0
+            if window.location.href.search(/children/i) != -1
+              window.location.replace(window.location + '/../../edit')
+            else
+              window.location.replace(window.location + '/../')
 
         @on "addedfile", (file) ->
+          $('.edit-upload-button').removeAttr('disabled')
           this.element.classList.add("dz-started")
     )
 
@@ -77,10 +80,11 @@ class EditFormDropzone
 
         # Gets triggered when the form is actually being sent.
         # Hide the success button or the complete form.
-        @on "success", (files, response) ->
-          window.location.href = window.location + '/../../'
+        @on "complete", (files, response) ->
+          window.location.reload()
 
         @on "addedfile", (file) ->
+          $(this.element.children).children('.edit-upload-button').removeAttr('disabled')
           this.element.classList.add("dz-started")
     )
 
