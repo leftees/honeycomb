@@ -23,10 +23,37 @@ class ShowcasesController < ApplicationController
   end
 
   def show
-    redirect_to edit_showcase_path(params[:id])
+    showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(showcase.collection)
+    @showcase = ShowcaseDecorator.new(showcase)
+    if request.xhr?
+      render format: :json
+    else
+      respond_to do |format|
+        format.html { redirect_to edit_showcase_path(showcase.id) }
+        format.json
+      end
+    end
   end
 
   def edit
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.collection)
+  end
+
+  def update
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.collection)
+
+    if SaveShowcase.call(@showcase, save_params)
+      flash[:notice] = t('.success')
+      redirect_to showcase_path(@showcase)
+    else
+      render :edit
+    end
+  end
+
+  def title
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_curates!(@showcase.collection)
   end
@@ -44,7 +71,7 @@ class ShowcasesController < ApplicationController
   protected
 
     def save_params
-      params.require(:showcase).permit([:title])
+      params.require(:showcase).permit([:title, :description])
     end
 
     def showcase

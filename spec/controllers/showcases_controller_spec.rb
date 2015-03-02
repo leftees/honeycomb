@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.describe ShowcasesController, :type => :controller do
-  let(:showcase) { double(Showcase, id: 1, title: 'title', exhibit: exhibit, destroy!: true, collection: collection) }
-  let(:exhibit) { double(Exhibit, id: 1, title: 'title', showcases: relation, collection: collection) }
+  let(:showcase) { instance_double(Showcase, id: 1, title: 'title', exhibit: exhibit, destroy!: true, collection: collection) }
+  let(:exhibit) { instance_double(Exhibit, id: 1, title: 'title', showcases: relation, collection: collection) }
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }
 
   let(:relation) { Showcase.all }
-  let(:create_params) { {exhibit_id: exhibit.id, showcase: { title: 'title' }} }
-  let(:update_params) { {id: showcase.id, item: { title: 'title' }} }
+  let(:create_params) { {exhibit_id: exhibit.id, showcase: { title: 'title', description: 'description' }} }
+  let(:update_params) { {id: showcase.id, showcase: { title: 'title', description: 'description' }} }
 
   before(:each) do
     sign_in_admin
@@ -81,7 +81,7 @@ RSpec.describe ShowcasesController, :type => :controller do
       subject
     end
 
-    it "uses item query " do
+    it "uses showcase query " do
       expect_any_instance_of(ShowcaseQuery).to receive(:build).and_return(showcase)
       subject
     end
@@ -100,17 +100,132 @@ RSpec.describe ShowcasesController, :type => :controller do
       expect(response).to render_template("new")
     end
 
-    it "assigns and item" do
+    it "assigns a showcase" do
       subject
 
       assigns(:showcase)
       expect(assigns(:showcase)).to eq(showcase)
     end
 
-    it "uses the save item service" do
-      expect(SaveShowcase).to receive(:call).and_return(true)
+    it "uses the save showcase service" do
+      expect(SaveShowcase).to receive(:call).with(showcase, update_params[:showcase]).and_return(true)
 
       subject
+    end
+  end
+
+  describe "PUT #update" do
+    subject { put :update, update_params }
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses showcase query " do
+      expect_any_instance_of(ShowcaseQuery).to receive(:find).with("1").and_return(showcase)
+      subject
+    end
+
+    it "redirects on success" do
+      subject
+
+      expect(response).to be_redirect
+      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "renders new on failure" do
+      allow(SaveShowcase).to receive(:call).and_return(false)
+
+      subject
+      expect(response).to render_template("edit")
+    end
+
+    it "assigns a showcase" do
+      subject
+
+      assigns(:showcase)
+      expect(assigns(:showcase)).to eq(showcase)
+    end
+
+    it "uses the save showcase service" do
+      expect(SaveShowcase).to receive(:call).with(showcase, update_params[:showcase]).and_return(true)
+
+      subject
+    end
+  end
+
+  describe "GET #show" do
+    subject { get :show, id: showcase.id }
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses showcase query " do
+      expect_any_instance_of(ShowcaseQuery).to receive(:find).with("1").and_return(showcase)
+      subject
+    end
+
+    it "assigns a showcase decorator" do
+      subject
+
+      expect(assigns(:showcase)).to be_a_kind_of(ShowcaseDecorator)
+    end
+
+    it 'is a redirect' do
+      subject
+
+      expect(response).to be_redirect
+    end
+
+    it 'renders json' do
+      get :show, id: showcase.id, format: :json
+
+      expect(response).to be_success
+    end
+  end
+
+  describe "GET #edit" do
+    subject { get :edit, id: showcase.id }
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses showcase query " do
+      expect_any_instance_of(ShowcaseQuery).to receive(:find).with("1").and_return(showcase)
+      subject
+    end
+
+    it "assigns a showcase" do
+      subject
+
+      assigns(:showcase)
+      expect(assigns(:showcase)).to eq(showcase)
+    end
+  end
+
+  describe "GET #title" do
+    subject { get :title, id: showcase.id }
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses showcase query " do
+      expect_any_instance_of(ShowcaseQuery).to receive(:find).with("1").and_return(showcase)
+      subject
+    end
+
+    it "assigns a showcase" do
+      subject
+
+      assigns(:showcase)
+      expect(assigns(:showcase)).to eq(showcase)
     end
   end
 
