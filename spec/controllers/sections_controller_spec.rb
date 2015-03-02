@@ -21,7 +21,7 @@ RSpec.describe SectionsController, :type => :controller do
   end
 
   describe "GET #index" do
-    subject { get :index, showcase_id: showcase.id }
+    subject { get :index, showcase_id: showcase.id, format: :json }
 
     it "returns a 200" do
       subject
