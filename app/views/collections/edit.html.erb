@@ -1,32 +1,21 @@
+<%= page_title(t('.title')) %>
 <%= collection_nav(@collection, :settings) %>
 
-<div class="row">
-  <div class="col-md-9">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= t('.title') %></h3>
-      </div>
-      <%= simple_form_for @collection do |f| %>
-        <div class="panel-body">
-          <%= render partial: 'form', locals: { f: f } %>
-        </div>
-        <div class="panel-footer">
-          <%= f.button :submit, value: t('buttons.save'), :class => 'btn-primary' %>
-        </div>
-      <% end %>
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Basic Information', edit_collection_path(@collection) %></li>
+  <li><%= link_to 'Editors', collection_curators_path(@collection) %></a></li>
+</ul>
+
+<div class="panel panel-default">
+  <%= simple_form_for @collection do |f| %>
+    <div class="panel-body">
+      <%= render partial: 'form', locals: { f: f } %>
     </div>
-    <%= DeletePanel.new(@collection).display  %>
-
-  </div>
-  <div class="col-md-3">
-
-    <div class="list-group">
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item active"><i class="glyphicon glyphicon-cog"></i> Settings</i></a>
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-user"></i> Curators </i></a>
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-tasks"></i> Metadata </i></a>
-      <a href="<%= edit_collection_path(@collection) %>" class="list-group-item "><i class="glyphicon glyphicon-th-large"></i> Exhibit </i></a>
+    <div class="panel-footer">
+      <%= f.button :submit, value: t('buttons.save'), :class => 'btn-primary' %>
     </div>
-
-  </div>
+  <% end %>
 </div>
 
+
+<%= DeletePanel.new(@collection).display  %>
