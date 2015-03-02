@@ -3,7 +3,9 @@
 <%= back_action_bar(exhibit_showcases_path(@showcase.exhibit), '#' ) %>
 
 <%= react_component 'ShowcaseEditor', {
-          itemsJSONPath: @showcase.exhibit.items_json_url,
-          sectionsJSONPath: showcase_sections_path(@showcase, :json) },
-         {prerender: false }
+      itemsJSONPath: @showcase.exhibit.items_json_url,
+      sectionsCreatePath: showcase_sections_path(@showcase, :json),
+      showcaseJSONPath: showcase_path(@showcase.id, :json),
+    },
+    {prerender: false }
 %>

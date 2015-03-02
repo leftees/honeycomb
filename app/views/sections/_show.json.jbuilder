@@ -5,4 +5,5 @@ json.image section.image
 json.caption section.caption
 json.order section.order
 json.display_type SectionType.new(section).type
+json.editUrl edit_section_path(section.id)
 json.updateUrl section_path(section.id)

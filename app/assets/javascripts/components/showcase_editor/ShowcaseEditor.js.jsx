@@ -3,24 +3,25 @@
 var ShowcaseEditor = React.createClass({
   mixins: [HorizontalScrollMixin],
   propTypes: {
-    sectionsJSONPath: React.PropTypes.string.isRequired,
+    sectionsCreatePath: React.PropTypes.string.isRequired,
+    showcaseJSONPath: React.PropTypes.string.isRequired,
     itemsJSONPath: React.PropTypes.string.isRequired
   },
   getInitialState: function() {
     return {
       currentDragItem: null,
       currentDragType: null,
-      sections: [],
+      showcase: {sections: []},
       scroll: false
     };
   },
   loadSectionsFromServer: function() {
     $.ajax({
-      url: this.props.sectionsJSONPath,
+      url: this.props.showcaseJSONPath,
       dataType: "json",
       success: (function(data) {
         this.setState({
-          sections: data.sections
+          showcase: data
         });
       }).bind(this),
       error: (function(xhr, status, err) {
@@ -44,13 +45,13 @@ var ShowcaseEditor = React.createClass({
       item_id: item.id,
       order: index
     };
-    sections = this.state.sections;
+    sections = this.state.showcase.sections;
     sections.splice(index, 0, section);
     return this.setState({
       sections: sections
     }, function() {
       $.ajax({
-        url: this.props.sectionsJSONPath,
+        url: this.props.sectionsCreatePath,
         dataType: "json",
         type: "POST",
         data: {
@@ -66,7 +67,7 @@ var ShowcaseEditor = React.createClass({
     });
   },
   handleSectionReorder: function (section, index) {
-    var currentIndex = _.findIndex(this.state.sections, function(listSection) {
+    var currentIndex = _.findIndex(this.state.showcase.sections, function(listSection) {
       return listSection.id == section.id;
     });
     // Don't do anything if the section was dragged to the drop area immediately before or after its current location
@@ -75,9 +76,9 @@ var ShowcaseEditor = React.createClass({
       var newSection = update(section, {$merge: {order: index}});
       var splicedSections;
       if (currentIndex < index) {
-        splicedSections = update(this.state.sections, {$splice: [[newSection.order, 0, newSection], [currentIndex, 1]]});
+        splicedSections = update(this.state.showcase.sections, {$splice: [[newSection.order, 0, newSection], [currentIndex, 1]]});
       } else {
-        splicedSections = update(this.state.sections, {$splice: [[currentIndex, 1], [newSection.order, 0, newSection]]});
+        splicedSections = update(this.state.showcase.sections, {$splice: [[currentIndex, 1], [newSection.order, 0, newSection]]});
       }
       this.setState({
         sections: splicedSections
@@ -142,7 +143,7 @@ var ShowcaseEditor = React.createClass({
     setTimeout(this.loadSectionsFromServer, 8000);
   },
   sectionClick: function(section) {
-    window.location = "/sections/" + section.id + "/edit";
+    window.location = section.editUrl;
   },
   sectionsContainerStyle: function() {
     return {
@@ -169,8 +170,8 @@ var ShowcaseEditor = React.createClass({
     return (
     <div className={this.divclassname}>
       <div id="section-content-editor" className="sections-content"  onMouseMove={this.onMouseMove} onMouseOut={this.onMouseOut} style={this.sectionsContainerStyle()}>
-        <ShowcaseEditorTitle />
-        <SectionList sections={this.state.sections} onSectionClick={this.sectionClick} currentDragItem={this.state.currentDragItem} onDrop={this.onDrop} onDragStart={this.onDragStart} onDragStop={this.onDragStop} />
+        <ShowcaseEditorTitle showcase={this.state.showcase} />
+        <SectionList sections={this.state.showcase.sections} onSectionClick={this.sectionClick} currentDragItem={this.state.currentDragItem} onDrop={this.onDrop} onDragStart={this.onDragStart} onDragStop={this.onDragStop} />
       </div>
       <AddItemsBar onDragStart={this.onDragStart} onDragStop={this.onDragStop} itemsJSONPath={this.props.itemsJSONPath} />
     </div>);

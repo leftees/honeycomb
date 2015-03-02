@@ -2,6 +2,7 @@
 
 var ShowcaseEditorTitle = React.createClass({
   propTypes: {
+    showcase: React.PropTypes.object.isRequired,
   },
 
   getInitialState: function() {
@@ -35,14 +36,23 @@ var ShowcaseEditorTitle = React.createClass({
   },
 
   editTitle: function() {
-
+    window.location = this.props.showcase.editUrl;
   },
 
   render: function() {
+    var description;
+    if (this.props.showcase.description) {
+      var splitDescription = this.props.showcase.description.split(/[\n]+/);
+      description = splitDescription.map(function(value, index) {
+        return (
+          <p key={index}>{value}</p>
+        );
+      });
+    }
     return (
       <div className="showcase-title-page" style={this.style()} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-        <h2>Showcase Title</h2>
-        <p>This is the showcase description</p>
+        <h2>{this.props.showcase.title}</h2>
+        {description}
         <EditLink clickHandler={this.editTitle} visible={this.state.hover} />
       </div>
     );
