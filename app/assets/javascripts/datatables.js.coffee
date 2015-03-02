@@ -74,10 +74,9 @@ class ItemDataTable
     object.setupFilters()
 
   setupFilters: ->
-    object = @
-    #@filterContainer.addClass('well').addClass('well-small')
-    #$('.table-filter').append $('.dataTables_filter').html()
-    #$('.dataTables_filter').remove()
+    _this = @
+    $('.item-list-filter').keyup ->
+      _this.table.search($(this).val()).draw()
 
 
   infoCallback: (settings, start, end, max, total, pre) ->
