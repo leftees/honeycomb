@@ -131,11 +131,15 @@ en:
   showcases:
     index:
       title: "Showcases"
+    create:
+      success: "Showcase created"
     list:
       title: "Showcase"
       status: Status
       published: Published
       updated_at: 'Last Modified At'
+    update:
+      success: "Showcase updated"
   sections:
     new:
       title: "New Section"

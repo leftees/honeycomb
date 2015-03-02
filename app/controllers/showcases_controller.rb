@@ -31,6 +31,23 @@ class ShowcasesController < ApplicationController
     check_user_curates!(@showcase.collection)
   end
 
+  def update
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.collection)
+
+    if SaveShowcase.call(@showcase, save_params)
+      flash[:notice] = t('.success')
+      redirect_to showcase_path(@showcase)
+    else
+      render :edit
+    end
+  end
+
+  def title
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.collection)
+  end
+
   def destroy
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_curates!(@showcase.collection)
@@ -44,7 +61,7 @@ class ShowcasesController < ApplicationController
   protected
 
     def save_params
-      params.require(:showcase).permit([:title])
+      params.require(:showcase).permit([:title, :description])
     end
 
     def showcase
