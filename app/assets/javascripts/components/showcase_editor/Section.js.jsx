@@ -14,7 +14,7 @@ var Section = React.createClass({
     };
   },
 
-  outerStyle: function() {
+  style: function() {
     return {
       border: '1px solid lightgrey',
       display: 'inline-block',
@@ -24,29 +24,6 @@ var Section = React.createClass({
       marginRight: '10px',
       height: '100%',
     }
-  },
-
-  style: function() {
-    return this.draggableStyle();
-  },
-
-  editStyle: function() {
-    var styles = {
-      color: 'white',
-      position: 'absolute',
-      display: 'block',
-      bottom: 0,
-      left: 0,
-      background: 'rgba(0, 0, 0, 0.8)',
-      width: '100%',
-      padding: '8px',
-      textAlign: 'center',
-      cursor: 'pointer',
-    }
-    if (!this.state.hover) {
-      styles.visibility = 'hidden';
-    }
-    return styles;
   },
 
   onDragStart: function() {
@@ -69,18 +46,17 @@ var Section = React.createClass({
     });
   },
 
-  handleClick: function(e) {
-    e.preventDefault();
+  editSection: function() {
     this.props.onSectionClick(this.props.section);
   },
 
   render: function() {
     return (
-      <div className="section cursor-grab" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.outerStyle()}>
+      <div className="section cursor-grab" onMouseDown={this.onMouseDown} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} style={this.style()}>
         <SectionDragContent section={this.props.section} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
         <SectionImage section={this.props.section} />
         <SectionDescription section={this.props.section} />
-        <div className="section-edit" onClick={this.handleClick} style={this.editStyle()}>Edit</div>
+        <EditLink clickHandler={this.editSection} visible={this.state.hover} />
       </div>
     );
   }
