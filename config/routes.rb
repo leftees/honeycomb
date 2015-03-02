@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root :to => 'collections#index'
 
+  get 'help', to: 'help#help'
+
   get '404', to: 'errors#catch_404'
   get '500', to: 'errors#catch_500'
 
