@@ -13,7 +13,11 @@ a, a:hover, a:focus {
 }
 
 .btn:not(.btn-link):not(.btn-flat), .btn-default:not(.btn-link):not(.btn-flat) {
-	color:#444;
+	color:$blue;
+}
+
+.btn-danger:not(.btn-link):not(.btn-flat) {
+	color:#fff;
 }
 
 .btn-primary:not(.btn-link):not(.btn-flat) {
@@ -58,4 +62,13 @@ fieldset[disabled] .form-control:not(textarea):not(select), .form-control-wrappe
 
 div.dataTables_filter {
 	display: none;
+}
+
+.panel {
+	clear: both;
+}
+
+.alert-info {
+	background-color:#0f9d58;
+	border-radius: 5px;
 }
