@@ -23,7 +23,7 @@ module ApplicationHelper
 
   def learn_more_button(path)
     if path == '#'
-      link_to raw("<i class=\"glyphicon glyphicon-education\"></i> SUBMIT FEEDBACK"), "https://docs.google.com/a/nd.edu/forms/d/1PH99cRyKzhZ6rV-dCJjrfkzdThA2n1GvoE9PT6kCkSk/viewform?entry.1268925684=#{request.original_url}", :class => 'btn btn-large btn-hollow'
+      link_to raw("<i class=\"glyphicon glyphicon-education\"></i> SUBMIT FEEDBACK"), "https://docs.google.com/a/nd.edu/forms/d/1PH99cRyKzhZ6rV-dCJjrfkzdThA2n1GvoE9PT6kCkSk/viewform?entry.1268925684=#{request.original_url}", :class => 'btn btn-large btn-hollow', target: "blank"
     else
       link_to raw("<i class=\"glyphicon glyphicon-education\"></i> #{t('buttons.help')}"), path, :class => 'btn btn-large btn-hollow'
     end
