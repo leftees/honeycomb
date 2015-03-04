@@ -53,6 +53,16 @@ class ItemsController < ApplicationController
     redirect_to collection_path(@item.collection)
   end
 
+  def publish
+    @item = ItemQuery.new.find(params[:id])
+    check_user_curates!(@item.collection)
+
+    if !Publish.call(@item)
+      raise "Error publishing #{@item.title}"
+    end
+
+  end
+
   protected
 
     def save_params
