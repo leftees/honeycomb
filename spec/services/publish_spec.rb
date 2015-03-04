@@ -22,4 +22,8 @@ describe Publish do
     allow(object).to receive("save").and_return(false)
     expect(subject).to be false
   end
+
+  it "raises an error if the object is not duck typed" do
+    expect { described_class.call(Object.new) }.to raise_error
+  end
 end
