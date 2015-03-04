@@ -2,9 +2,9 @@
 
 var ItemPublishPanel = React.createClass({
   propTypes: {
-    publish_panel_title: React.PropTypes.string.isRequired,
-    publish_panel_help: React.PropTypes.string.isRequired,
-    publish_panel_field_name: React.PropTypes.string.isRequired,
+    publishPanelTitle: React.PropTypes.string.isRequired,
+    publishPanelHelp: React.PropTypes.string.isRequired,
+    publishPanelFieldName: React.PropTypes.string.isRequired,
     published: React.PropTypes.bool.isRequired,
     togglePublished: React.PropTypes.func.isRequired,
   },
@@ -15,12 +15,12 @@ var ItemPublishPanel = React.createClass({
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">{this.props.publish_panel_title}</h3>
+          <h3 className="panel-title">{this.props.publishPanelTitle}</h3>
         </div>
         <div className="panel-body">
-          <p>{this.props.publish_panel_help}</p>
+          <p>{this.props.publishPanelHelp}</p>
           <label>
-            <input type="checkbox" checked={this.props.published} onChange={this.handleClick} /> {this.props.publish_panel_field_name}
+            <input type="checkbox" checked={this.props.published} onChange={this.handleClick} /> {this.props.publishPanelFieldName}
           </label>
         </div>
       </div>

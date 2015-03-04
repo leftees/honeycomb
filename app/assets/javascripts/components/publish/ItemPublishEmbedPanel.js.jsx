@@ -2,11 +2,11 @@
 
 var ItemPublishEmbedPanel = React.createClass({
   propTypes: {
-    publish_panel_title: React.PropTypes.string.isRequired,
-    publish_panel_help: React.PropTypes.string.isRequired,
-    publish_panel_field_name: React.PropTypes.string.isRequired,
-    embed_panel_title: React.PropTypes.string.isRequired,
-    embed_panel_title: React.PropTypes.string.isRequired,
+    publishPanelTitle: React.PropTypes.string.isRequired,
+    publishPanelHelp: React.PropTypes.string.isRequired,
+    publishPanelFieldName: React.PropTypes.string.isRequired,
+    embedPanelTitle: React.PropTypes.string.isRequired,
+    embedPanelHelp: React.PropTypes.string.isRequired,
     published: React.PropTypes.bool.isRequired,
   },
   getInitialState: function() {
@@ -15,7 +15,10 @@ var ItemPublishEmbedPanel = React.createClass({
   embedPanel: function () {
     var embed;
     if (this.state.published) {
-      embed = (<ItemEmbedPanel embed_panel_title={this.props.embed_panel_title} embed_panel_help={this.props.embed_panel_help} />)
+      embed = (<ItemEmbedPanel
+                  embedPanelTitle={this.props.embedPanelTitle}
+                  embedPanelHelp={this.props.embedPanelHelp} />
+              )
     }
     return embed
   },
@@ -30,9 +33,9 @@ var ItemPublishEmbedPanel = React.createClass({
         <ItemPublishPanel
             togglePublished={this.togglePublished}
             published={this.state.published}
-            publish_panel_title={this.props.publish_panel_title}
-            publish_panel_help={this.props.publish_panel_help}
-            publish_panel_field_name={this.props.publish_panel_field_name}
+            publishPanelTitle={this.props.publishPanelTitle}
+            publishPanelHelp={this.props.publishPanelHelp}
+            publishPanelFieldName={this.props.publishPanelFieldName}
           />
 
         {this.embedPanel()}

@@ -18,11 +18,11 @@ class ItemPublishEmbedPanel < Draper::Decorator
 
   def component_parameters
     {
-      publish_panel_title: h.t("#{i18n_key_base}.publish"),
-      publish_panel_help: h.t("#{i18n_key_base}.publish_help"),
-      publish_panel_field_name: h.t("#{i18n_key_base}.publish_field"),
-      embed_panel_title: h.t("#{i18n_key_base}.embed"),
-      embed_panel_help: h.t("#{i18n_key_base}.embed_help"),
+      publishPanelTitle: h.t("#{i18n_key_base}.publish"),
+      publishPanelHelp: h.t("#{i18n_key_base}.publish_help"),
+      publishPanelFieldName: h.t("#{i18n_key_base}.publish_field"),
+      embedPanelTitle: h.t("#{i18n_key_base}.embed"),
+      embedPanelHelp: h.t("#{i18n_key_base}.embed_help"),
       published: !!object.published
     }
   end
