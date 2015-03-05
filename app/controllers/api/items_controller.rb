@@ -4,7 +4,7 @@ module API
     helper_method :collection
 
     def index
-      @items = collection.items
+      @items = ItemQuery.new(collection.items).published
 
       respond_to do | format |
         format.json { render json: GenerateItemJSON.new(@items, params) }
