@@ -86,3 +86,16 @@ div.dataTables_filter {
 	border-radius: 5px;
 }
 
+.nav-edit {
+	background-color: #ececec;
+	a {
+		color:#333;
+	}
+	.active {
+		background: #fff;
+	}
+}
+
+.nav-tabs > li > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+	color:#333 !important;
+}

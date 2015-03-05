@@ -184,7 +184,11 @@ div.dataTables_filter {
 		border-top-left-radius: 4px;
 		border-bottom-left-radius: 0px;
 		border:none;
+		text-transform: none;
 		
+	}
+	a:hover {
+		color:$blue;
 	}
 	button {
 		background: whitesmoke !important;
@@ -297,9 +301,12 @@ div.dataTables_filter {
 			font-size:16px;
 			padding:2px 5px;
 		}
-		li.selected a {
-			color:#333;
-		}
+		li.selected {
+			background: #e3e3e3;
+			a {
+					color:#333;
+				}
+			}
 		li:last-child {
 			margin-bottom: 0;
 		}
