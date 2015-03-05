@@ -18,11 +18,11 @@ RSpec.describe API::ItemsController, :type => :controller do
     end
 
     it "returns json" do
-      expect_any_instance_of(ItemJSON).to receive(:to_hash).and_return({item: 'item'})
+      expect(collection).to receive(:items).and_return(Item.all)
       get :index, collection_id: collection.id, format: :json
 
       expect(response).to be_success
-      expect(response.body).to eq("{\"items\":[{\"item\":\"item\"}]}")
+      expect(response.body).to eq("{\"items\":[]}")
     end
   end
 

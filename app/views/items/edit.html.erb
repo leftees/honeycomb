@@ -50,8 +50,8 @@
     <%= DeletePanel.new(@item.object).display %>
 
   </div>
-  <div class="col-md-4 item-show-image">
-    <div class="panel panel-default">
+  <div class="col-md-4">
+    <div class="panel panel-default item-show-image">
       <div class="panel-heading">
         <div class="pull-right">
           <a href="#" data-toggle="modal" data-target="#replace-image" class="btn btn-xs btn-default btn-flat"><i class="glyphicon glyphicon-refresh"></i> <%= t('.replace_media') %></a>
@@ -63,27 +63,7 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title"><%= t('.publish') %></h3></div>
-      <div class="panel-body">
-        <p><%= t('.publish_help') %></p>
-        <div class="togglebutton">
-          <label>
-            <%= t('.publish_field') %> <input type="checkbox" checked=""><span class="toggle"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= t('.embed') %></h3>
-      </div>
-      <div class="panel-body">
-        <p><%= t('.embed_help') %></p>
-        <p><textarea> I AM AN EMBED CODE !!! I AM SO AWESOME.  YOUR WEBSITE WILL BE AMAZING WITH ME !</textarea></p>
-      </div>
-    </div>
+    <%= ItemPublishEmbedPanel.display(@item.object) %>
   </div>
 </div>
 

@@ -21,5 +21,7 @@ class ItemQuery
     relation.build(args)
   end
 
-
+  def published
+    relation.where(published: true)
+  end
 end

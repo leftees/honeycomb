@@ -6,6 +6,7 @@ RSpec.describe ItemsController, :type => :controller do
   let(:relation) { Item.all }
   let(:create_params) { {collection_id: collection.id, item: { title: 'title' }} }
   let(:update_params) { {id: item.id, item: { title: 'title' }} }
+  let(:publish_params) { {item_id: item.id } }
 
   let(:user) {
     u = User.new(username: 'jhartzler', admin: true)
@@ -223,4 +224,69 @@ RSpec.describe ItemsController, :type => :controller do
       subject
     end
   end
+
+  describe "PUT #publish" do
+    subject { put :publish, publish_params }
+
+    before(:each) do
+      allow(Publish).to receive(:call).and_return(true)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses item query " do
+      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      subject
+    end
+
+    it "redirects on success" do
+      subject
+
+      expect(response).to be_redirect
+      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "uses the save item service" do
+      expect(Publish).to receive(:call).and_return(true)
+
+      subject
+    end
+
+  end
+
+  describe "PUT #unpublish" do
+    subject { put :unpublish, publish_params }
+
+    before(:each) do
+      allow(Unpublish).to receive(:call).and_return(true)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      subject
+    end
+
+    it "uses item query " do
+      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      subject
+    end
+
+    it "redirects on success" do
+      subject
+
+      expect(response).to be_redirect
+      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "uses the save item service" do
+      expect(Unpublish).to receive(:call).and_return(true)
+
+      subject
+    end
+
+  end
+
 end
