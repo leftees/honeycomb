@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   end
 
   resources :items, only: [ :edit, :update, :destroy ] do
+    put :publish
+    put :unpublish
     resources :children, controller: 'item_children', only: [ :new, :create]
   end
 

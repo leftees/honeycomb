@@ -23,7 +23,9 @@ class ItemPublishEmbedPanel < Draper::Decorator
       publishPanelFieldName: h.t("#{i18n_key_base}.publish_field"),
       embedPanelTitle: h.t("#{i18n_key_base}.embed"),
       embedPanelHelp: h.t("#{i18n_key_base}.embed_help"),
-      published: !!object.published
+      published: !!object.published,
+      publishPath: h.item_publish_path(object.id),
+      unpublishPath: h.item_unpublish_path(object.id),
     }
   end
 end

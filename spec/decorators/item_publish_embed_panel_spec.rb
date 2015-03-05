@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe ItemPublishEmbedPanel do
   subject { described_class.new(item) }
-  let(:item) { double(Item, published: true )}
+  let(:item) { double(Item, published: true, id: 1 )}
 
   describe "display" do
     it "renders a react component" do
-      expect(subject.h).to receive(:react_component).with( "ItemPublishEmbedPanel", {:publish_panel_title=>"Publish", :publish_panel_help=>"Choose if this item can be viewed.", :publish_panel_field_name=>"Published", :embed_panel_title=>"Embed", :embed_panel_help=>"Copy and paste this code into the website where you want to embed this item.", :published=>true} )
+      expect(subject.h).to receive(:react_component).with("ItemPublishEmbedPanel", {:publishPanelTitle=>"Publish", :publishPanelHelp=>"Choose if this item can be viewed.", :publishPanelFieldName=>"Published", :embedPanelTitle=>"Embed", :embedPanelHelp=>"Copy and paste this code into the website where you want to embed this item.", :published=>true, :publishPath=>"/items/1/publish", :unpublishPath=>"/items/1/unpublish"})
       subject.display
     end
   end
