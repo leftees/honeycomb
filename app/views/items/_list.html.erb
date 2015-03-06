@@ -5,7 +5,7 @@
       <th><%= t('.title') %></th>
       <th></th>
       <th><%= t('.status') %></th>
-      <th><%= t('updated_at') %></th>
+      <th><%= t('.updated_at') %></th>
       <th>Last Modified Timestamp</th>
       <th>Sortable Title</th>
       <th>Image Name</th>
@@ -28,7 +28,7 @@
           <%= PublishedText.display(item) %>
         </td>
         <td>
-          <%= item.updated_at.to_s(:long) %>
+          <%= ListTime.display(item.updated_at) %>
         </td>
         <td>
           <%= item.updated_at.to_i %>

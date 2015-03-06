@@ -14,7 +14,7 @@
           <%= PublishedText.display(showcase) %>
         </td>
         <td>
-          <%= showcase.updated_at.to_s(:long) %>
+           <%= ListTime.display(showcase.updated_at) %>
         </td>
       </tr>
     <% end %>

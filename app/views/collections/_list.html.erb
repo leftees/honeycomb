@@ -22,7 +22,7 @@
           <span class="text-success"><i class="glyphicon glyphicon-ok"></i> <%= t('.published') %></span>
         </td>
         <td>
-          <%= collection.updated_at.to_s(:long) %>
+           <%= ListTime.display(collection.updated_at) %>
         </td>
       </tr>
     <% end %>

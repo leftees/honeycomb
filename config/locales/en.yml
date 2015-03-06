@@ -20,6 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      list_date: "%b %d %Y"
+      list_time: "%l:%M %p"
   hello: "Hello world"
   published:
     published: 'Published'
