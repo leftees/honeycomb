@@ -12,7 +12,11 @@ module ApplicationHelper
     @permission ||= SitePermission.new(current_user, self)
   end
 
-  def page_title(page_title)
+  def page_title(page_title, collection = false)
+    if collection
+      page_title += " - #{collection.title}"
+    end
+
     content_for(:page_title, page_title)
   end
 
