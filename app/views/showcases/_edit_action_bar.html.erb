@@ -4,16 +4,7 @@
   </div>
 
   <div class="btn-group">
-
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      <i class="glyphicon glyphicon-eye-open"></i>  Published
-      <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <li>Change to </li>
-      <li><a href="#">Unpublished</a></li>
-    </ul>
+    <%= ShowcasePublishAction.display(@showcase) %>
   </div>
 
   <div class="pull-right">

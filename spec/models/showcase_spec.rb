@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Showcase do
 
-  [:title, :description, :image, :exhibit, :sections].each do |field|
+  [:title, :description, :image, :exhibit, :sections, :published].each do |field|
     it "has the field #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")

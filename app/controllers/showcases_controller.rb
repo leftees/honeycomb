@@ -68,6 +68,28 @@ class ShowcasesController < ApplicationController
     redirect_to exhibit_path(@showcase.exhibit)
   end
 
+  def publish
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.collection)
+
+    if !Publish.call(@showcase)
+      raise "Error publishing #{@showcase.title}"
+    end
+
+    showcase_save_success(@showcase)
+  end
+
+  def unpublish
+    @showcase = ShowcaseQuery.new.find(params[:id])
+    check_user_curates!(@showcase.collection)
+
+    if !Unpublish.call(@showcase)
+      raise "Error unpublishing #{@showcase.title}"
+    end
+
+    showcase_save_success(@showcase)
+  end
+
   protected
 
     def save_params
@@ -82,4 +104,34 @@ class ShowcasesController < ApplicationController
       @exhibit ||= ExhibitQuery.new.find(params[:exhibit_id])
     end
 
+    def showcase_save_success(showcase)
+      respond_to do |format|
+        format.json { render json: showcase }
+        format.html do
+          showcase_save_html_success(showcase)
+        end
+      end
+    end
+
+    def showcase_save_html_success(showcase)
+      flash[:notice] = t('.success')
+      if params[:action] == 'create'
+        redirect_to edit_showcase_path(showcase)
+      else
+        redirect_to edit_showcase_path(showcase)
+      end
+    end
+
+    def showcase_save_failure(item)
+      respond_to do |format|
+        format.html do
+          if params[:action] == 'create'
+            render action: 'new'
+          else
+            render action: 'edit'
+          end
+        end
+        format.json { render json: item.errors, status: :unprocessable_entity }
+      end
+    end
 end

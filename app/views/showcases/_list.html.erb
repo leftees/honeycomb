@@ -11,7 +11,7 @@
       <tr>
         <td><%= link_to showcase.title, showcase_path(showcase) %></td>
         <td>
-          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> <%= t('.published') %></span>
+          <%= PublishedText.display(showcase) %>
         </td>
         <td>
           <%= showcase.updated_at.to_s(:long) %>

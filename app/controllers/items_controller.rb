@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
   end
 
   def publish
-    @item = ItemQuery.new.find(params[:item_id])
+    @item = ItemQuery.new.find(params[:id])
     check_user_curates!(@item.collection)
 
     if !Publish.call(@item)
@@ -65,7 +65,7 @@ class ItemsController < ApplicationController
   end
 
   def unpublish
-    @item = ItemQuery.new.find(params[:item_id])
+    @item = ItemQuery.new.find(params[:id])
     check_user_curates!(@item.collection)
 
     if !Unpublish.call(@item)
