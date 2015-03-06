@@ -6,7 +6,7 @@ RSpec.describe ItemsController, :type => :controller do
   let(:relation) { Item.all }
   let(:create_params) { {collection_id: collection.id, item: { title: 'title' }} }
   let(:update_params) { {id: item.id, item: { title: 'title' }} }
-  let(:publish_params) { {item_id: item.id } }
+  let(:publish_params) { {id: item.id } }
 
   let(:user) {
     u = User.new(username: 'jhartzler', admin: true)

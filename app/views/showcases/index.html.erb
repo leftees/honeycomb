@@ -1,4 +1,4 @@
-<% page_title(t('.title')) %>
+<% page_title(t('.title'), @exhibit.collection) %>
 <%= collection_nav(@exhibit.collection, :showcases) %>
 
 <%= render partial: 'action_bar', locals: { exhibit: @exhibit } %>

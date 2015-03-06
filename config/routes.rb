@@ -36,8 +36,10 @@ Rails.application.routes.draw do
   end
 
   resources :items, only: [ :edit, :update, :destroy ] do
-    put :publish
-    put :unpublish
+    member do
+      put :publish
+      put :unpublish
+    end
     resources :children, controller: 'item_children', only: [ :new, :create]
   end
 
@@ -48,6 +50,8 @@ Rails.application.routes.draw do
   resources :showcases, only: [ :show, :edit, :update, :destroy ] do
     member do
       get :title
+      put :publish
+      put :unpublish
     end
     resources :sections, only: [:index, :new, :create ]
   end

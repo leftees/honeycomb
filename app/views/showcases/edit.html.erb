@@ -1,4 +1,5 @@
-<%= collection_nav(@showcase.exhibit.collection, :showcases) %>
+<% page_title(@showcase.title, @showcase.collection) %>
+<%= collection_nav(@showcase.collection, :showcases) %>
 
 <%= render partial: 'edit_action_bar' %>
 

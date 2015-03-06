@@ -136,6 +136,8 @@ en:
       title: "Showcases"
     create:
       success: "Showcase created"
+    new:
+      title: "New Showcase"
     list:
       title: "Showcase"
       status: Status
