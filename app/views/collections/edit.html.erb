@@ -1,12 +1,13 @@
 <%= page_title(t('.title')) %>
 <%= collection_nav(@collection, :settings) %>
 
-<ul class="nav nav-tabs" role="tablist">
-  <li><%= link_to 'Basic Information', edit_collection_path(@collection) %></li>
-  <li><%= link_to 'Editors', collection_curators_path(@collection) %></a></li>
-</ul>
+
 
 <div class="panel panel-default">
+<ul class="nav nav-tabs nav-edit" role="tablist">
+  <li class="active"><%= link_to 'Basic Information', edit_collection_path(@collection) %></li>
+  <li><%= link_to 'Editors', collection_curators_path(@collection) %></a></li>
+</ul>
   <%= simple_form_for @collection do |f| %>
     <div class="panel-body">
       <%= render partial: 'form', locals: { f: f } %>
