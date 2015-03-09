@@ -38,6 +38,24 @@ RSpec.describe SaveItem, type: :model do
     subject
   end
 
+  describe "unique_id" do
+    it "sets a unique_id when it is saved and one does not exist" do
+      expect(item).to receive(:unique_id=)
+      subject
+    end
+
+    it "does not set unique_id when it is saved and one exists" do
+      item.unique_id = '1231232'
+      expect(item).to_not receive(:unique_id=)
+      subject
+    end
+
+    it "uses the class to generate the id" do
+      expect(CreateUniqueId).to receive(:call).with(item)
+      subject
+    end
+  end
+
   describe "update honeypot image" do
     it "calls SaveHoneypotImage if the image was updated" do
       params[:image] = upload_image

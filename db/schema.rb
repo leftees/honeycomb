@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309144044) do
+ActiveRecord::Schema.define(version: 20150309145855) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -64,11 +64,13 @@ ActiveRecord::Schema.define(version: 20150309144044) do
     t.integer  "parent_id"
     t.string   "manuscript_url"
     t.boolean  "published"
+    t.string   "unique_id"
   end
 
   add_index "items", ["collection_id"], name: "index_items_on_collection_id", using: :btree
   add_index "items", ["parent_id"], name: "index_items_on_parent_id", using: :btree
   add_index "items", ["published"], name: "index_items_on_published", using: :btree
+  add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
 
   create_table "sections", force: true do |t|
     t.string  "title"
