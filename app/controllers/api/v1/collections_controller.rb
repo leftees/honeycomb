@@ -3,7 +3,7 @@ module API
     class CollectionsController < APIController
 
       def index
-
+        @collections = CollectionQuery.new.public_collections
       end
 
       def show
@@ -13,4 +13,3 @@ module API
     end
   end
 end
-≈
