@@ -19,4 +19,22 @@ RSpec.describe SaveCollection, type: :model do
     expect(collection).to receive(:attributes=).with(params)
     subject
   end
+
+  describe "unique_id" do
+    it "sets a unique_id when it is saved and one does not exist" do
+      expect(collection).to receive(:unique_id=)
+      subject
+    end
+
+    it "does not set unique_id when it is saved and one exists" do
+      collection.unique_id = '1231232'
+      expect(collection).to_not receive(:unique_id=)
+      subject
+    end
+
+    it "uses the class to generate the id" do
+      expect(CreateUniqueId).to receive(:call).with(collection)
+      subject
+    end
+  end
 end

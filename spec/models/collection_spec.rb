@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Collection do
-  [:title, :items, :description].each do | field |
+  [:title, :items, :description, :unique_id].each do | field |
 
     it "has field, #{field}" do
       expect(subject).to respond_to(field)
@@ -11,6 +11,10 @@ RSpec.describe Collection do
 
   it "requires the title field " do
     expect(subject).to have(1).error_on(:title)
+  end
+
+  it "requires a unique_id" do
+    expect(subject).to have(1).error_on(:unique_id)
   end
 
   it "has paper trail" do
