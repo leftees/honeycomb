@@ -17,6 +17,10 @@ class CollectionQuery
     end
   end
 
+  def public_collections
+    relation.all
+  end
+
   def recent(limit = 5)
     relation.order(updated_at: :desc).limit(limit)
   end

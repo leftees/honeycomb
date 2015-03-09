@@ -28,6 +28,15 @@ describe CollectionQuery do
     end
   end
 
+  describe "public_collections" do
+
+    it "returns all the collections for now !!" do
+      expect(relation).to receive(:all)
+      subject.public_collections
+    end
+  end
+
+
   describe "for_curator" do
 
     it "returns all the collections for an admin" do
