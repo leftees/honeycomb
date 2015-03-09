@@ -7,8 +7,7 @@ module API
       end
 
       def show
-        collection = Collection.find(params[:id])
-        @collection = CollectionJSONDecorator.new(collection)
+        @collection = CollectionQuery.new.public_find(params[:id])
       end
     end
   end
