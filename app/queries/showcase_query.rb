@@ -21,5 +21,8 @@ class ShowcaseQuery
     relation.build(args)
   end
 
+  def public_find(id)
+    relation.find_by!(unique_id: id)
+  end
 
 end

@@ -47,5 +47,16 @@ describe ShowcaseQuery do
     end
   end
 
+  describe "public_find" do
+
+    it "calls public_find!" do
+      expect(relation).to receive(:find_by!).with(unique_id: 'asdf')
+      subject.public_find("asdf")
+    end
+
+    it "raises an error on not found" do
+      expect { subject.public_find("asdf") }.to raise_error ActiveRecord::RecordNotFound
+    end
+  end
 
 end

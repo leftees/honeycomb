@@ -23,6 +23,7 @@ RSpec.describe API::ItemsController, :type => :controller do
 
       expect(response).to be_success
       expect(response.body).to eq("{\"items\":[]}")
+      expect(assigns(:collection)).to be_present
     end
   end
 
@@ -42,6 +43,7 @@ RSpec.describe API::ItemsController, :type => :controller do
 
       expect(response).to be_success
       expect(response.body).to eq("{\"items\":{\"item\":\"item\"}}")
+      expect(assigns(:item)).to be_present
     end
   end
 end

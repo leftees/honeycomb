@@ -7,7 +7,7 @@ module API
       end
 
       def show
-        @item = ShowcaseQuery.new.public_find(params[:id])
+        @showcase = ShowcaseQuery.new.public_find(params[:id])
       end
     end
   end
