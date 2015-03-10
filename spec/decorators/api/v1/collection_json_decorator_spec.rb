@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe API::V1::CollectionJSONDecorator do
   subject {described_class.new(collection)}
 
-  let(:collection) { double(Collection, id: 1, unique_id: "adsf", title: 'title title', items: [] )}
+  let(:collection) { double(Collection, id: 1, unique_id: "adsf", title: 'title title', items: [], showcases: [] )}
   let(:json) { double }
 
   describe "generric fields" do
@@ -44,6 +44,15 @@ RSpec.describe API::V1::CollectionJSONDecorator do
     it "queries for all the published items" do
       expect_any_instance_of(ItemQuery).to receive(:published).and_return(["items"])
       expect(subject.items).to eq(['items'])
+    end
+  end
+
+
+  describe "#showcases" do
+
+    it "queries for all the published showcases" do
+      expect_any_instance_of(ShowcaseQuery).to receive(:published).and_return(["showcases"])
+      expect(subject.showcases).to eq(['showcases'])
     end
   end
 

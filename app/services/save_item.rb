@@ -15,7 +15,7 @@ class SaveItem
 
     item.attributes = params
     pre_process_title
-    check_global_id
+    check_unique_id
 
     if item.save && update_honeypot_image
       item
@@ -51,7 +51,7 @@ class SaveItem
       end
     end
 
-    def check_global_id
+    def check_unique_id
       if item.unique_id.nil?
         item.unique_id = CreateUniqueId.call(item)
       end

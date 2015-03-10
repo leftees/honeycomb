@@ -65,6 +65,7 @@ Rails.application.routes.draw do
         resources :showcases, only: [:index], defaults: {format: :json}
       end
       resources :items, only: [:show], defaults: {format: :json}
+      resources :showcases, only: [:show], defaults: {format: :json}
     end
 
     resources :collections, only: [:index, :show], constraints: {format: /json/} do

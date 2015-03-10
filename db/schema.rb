@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309145855) do
+ActiveRecord::Schema.define(version: 20150310193105) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -93,9 +93,11 @@ ActiveRecord::Schema.define(version: 20150309145855) do
     t.datetime "updated_at"
     t.datetime "created_at"
     t.boolean  "published"
+    t.string   "unique_id"
   end
 
   add_index "showcases", ["published"], name: "index_showcases_on_published", using: :btree
+  add_index "showcases", ["unique_id"], name: "index_showcases_on_unique_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "first_name"

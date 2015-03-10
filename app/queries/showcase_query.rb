@@ -9,6 +9,10 @@ class ShowcaseQuery
     relation
   end
 
+  def published
+    relation.where(published: true)
+  end
+
   def find(id)
     relation.find(id)
   end

@@ -38,4 +38,14 @@ describe ShowcaseQuery do
     end
   end
 
+
+  describe "published" do
+
+    it "gets the published items" do
+      expect(relation).to receive(:where).with(published: true)
+      subject.published
+    end
+  end
+
+
 end
