@@ -1,7 +1,7 @@
 module API
   module V1
     class ItemJSONDecorator < Draper::Decorator
-      delegate :id, :title, :unique_id, :updated_at
+      delegate :id, :title, :collection, :unique_id, :updated_at
 
       METADATA_MAP = [
         ['Title', :title],
@@ -13,7 +13,7 @@ module API
         new(item).display(json)
       end
 
-      def json_ld_id
+      def at_id
         h.api_v1_collection_item_url(object.collection.unique_id, object.unique_id)
       end
 
@@ -21,9 +21,13 @@ module API
         h.api_v1_collection_url(object.collection.unique_id)
       end
 
+      def slug
+        CreateURLSlug.call(object.title)
+      end
+
       def image
         if object.honeypot_image
-          object.honeypot_image.url
+          object.honeypot_image.json_response
         else
           nil
         end

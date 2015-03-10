@@ -6,12 +6,20 @@ RSpec.describe API::V1::CollectionJSONDecorator do
   let(:collection) { double(Collection, id: 1, unique_id: "adsf", title: 'title title', items: [] )}
   let(:json) { double }
 
+  describe "generric fields" do
+    [:id, :title, :description, :unique_id, :image, :updated_at].each do | field |
+      it "responds to #{field}" do
+        expect(subject).to respond_to(field)
+      end
+    end
+  end
+
+
   describe "#at_id" do
 
     it "returns the path to the id" do
       expect(subject.at_id).to eq("http://test.host/api/v1/collections/adsf")
     end
-
   end
 
 
@@ -20,7 +28,6 @@ RSpec.describe API::V1::CollectionJSONDecorator do
     it "returns the path to the items" do
       expect(subject.items_url).to eq("http://test.host/api/v1/collections/adsf/items")
     end
-
   end
 
   describe "#slug" do
@@ -29,7 +36,6 @@ RSpec.describe API::V1::CollectionJSONDecorator do
       expect(CreateURLSlug).to receive(:call).with(collection.title).and_return('slug')
       expect(subject.slug).to eq("slug")
     end
-
   end
 
 
@@ -39,7 +45,6 @@ RSpec.describe API::V1::CollectionJSONDecorator do
       expect_any_instance_of(ItemQuery).to receive(:published).and_return(["items"])
       expect(subject.items).to eq(['items'])
     end
-
   end
 
   describe "#display" do
@@ -48,6 +53,5 @@ RSpec.describe API::V1::CollectionJSONDecorator do
       expect(json).to receive(:partial!).with("api/v1/collections/collection", {:collection_object => collection })
       subject.display(json)
     end
-
   end
 end

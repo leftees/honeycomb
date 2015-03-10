@@ -1,6 +1,6 @@
 json.set! '@context', 'http://schema.org'
 json.set! '@type', 'CreativeWork'
-json.set! '@id', collection_object.json_ld_id
+json.set! '@id', collection_object.at_id
 json.set! 'hasPart/items', collection_object.items_url
 json.id collection_object.unique_id
 json.slug collection_object.slug
