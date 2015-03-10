@@ -14,7 +14,7 @@ module API
       end
 
       def at_id
-        h.api_v1_collection_item_url(object.collection.unique_id, object.unique_id)
+        h.api_v1_item_url(object.unique_id)
       end
 
       def collection_url

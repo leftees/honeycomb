@@ -15,6 +15,10 @@ module API
         h.api_v1_collection_items_url(object.unique_id)
       end
 
+      def showcases_url
+        h.api_v1_collection_showcases_url(object.unique_id)
+      end
+
       def slug
         CreateURLSlug.call(object.title)
       end
