@@ -1,8 +1,9 @@
 json.set! '@context', 'http://schema.org'
 json.set! '@type', 'CreativeWork'
-json.set! '@id', api_v1_collection_url(collection_object.id)
+json.set! '@id', collection_object.json_ld_id
+json.set! 'hasPart/items', collection_object.items_url
 json.id collection_object.unique_id
-json.slug CreateURLSlug.call(collection_object.title)
+json.slug collection_object.slug
 json.title collection_object.title
 json.description collection_object.description
 json.last_updated collection_object.updated_at

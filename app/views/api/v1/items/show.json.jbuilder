@@ -1,1 +1,1 @@
-json.partial! 'item', item: @item
+API::V1::ItemJSONDecorator.display(@item, json)

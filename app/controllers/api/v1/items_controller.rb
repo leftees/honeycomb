@@ -2,23 +2,13 @@ module API
   module V1
     class ItemsController < APIController
 
-      helper_method :collection
-
       def index
-        items = collection.items
-        @items = ItemJSONDecorator.decorate_collection(items)
+        @collection = CollectionJSONDecorator.new(CollectionQuery.new.public_find(params[:collection_id]))
       end
 
       def show
-        item = collection.items.find(params[:id])
-        @item = ItemJSONDecorator.new(item)
+        @item = ItemQuery.new.public_find(params[:id])
       end
-
-      protected
-
-        def collection
-          @collection ||= Collection.find(params[:collection_id])
-        end
     end
   end
 end

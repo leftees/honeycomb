@@ -24,4 +24,8 @@ class ItemQuery
   def published
     relation.where(published: true)
   end
+
+  def public_find(id)
+    relation.find_by!(unique_id: id)
+  end
 end

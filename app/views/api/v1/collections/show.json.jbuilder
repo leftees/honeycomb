@@ -1,1 +1,1 @@
-json.partial! 'collection', collection_object: @collection
+API::V1::CollectionJSONDecorator.display(@collection, json)

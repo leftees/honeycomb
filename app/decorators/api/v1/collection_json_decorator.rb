@@ -1,16 +1,34 @@
 module API
   module V1
     class CollectionJSONDecorator < Draper::Decorator
-      def id
-        h.api_v1_collection_url(object.id)
+      delegate :id, :title, :description, :unique_id, :image, :updated_at
+
+      def self.display(collection, json)
+        new(collection).display(json)
       end
 
-      def name
-        object.title
+      def at_id
+        h.api_v1_collection_url(object.unique_id)
+      end
+
+      def items_url
+        h.api_v1_collection_items_url(object.unique_id)
+      end
+
+      def slug
+        CreateURLSlug.call(object.title)
       end
 
       def items
-        h.api_v1_collection_items_url(object.id)
+        @items ||= ItemQuery.new(object.items).published
+      end
+
+      def showcases
+
+      end
+
+      def display(json, includes = {})
+        json.partial! 'api/v1/collections/collection', collection_object: self
       end
     end
   end

@@ -1,18 +1,24 @@
 module API
   module V1
     class ItemJSONDecorator < Draper::Decorator
+      delegate :id, :title, :unique_id, :updated_at
+
       METADATA_MAP = [
         ['Title', :title],
         ['Description', :description],
         ['Manuscript', :manuscript_url]
       ]
 
-      def id
-        h.api_v1_collection_item_url(object.collection_id, object.id)
+      def self.display(item, json)
+        new(item).display(json)
       end
 
-      def name
-        object.title
+      def json_ld_id
+        h.api_v1_collection_item_url(object.collection.unique_id, object.unique_id)
+      end
+
+      def collection_url
+        h.api_v1_collection_url(object.collection.unique_id)
       end
 
       def image
@@ -21,10 +27,6 @@ module API
         else
           nil
         end
-      end
-
-      def collection
-        h.api_v1_collection_url(object.collection_id)
       end
 
       def metadata
@@ -36,6 +38,10 @@ module API
             end
           end
         end
+      end
+
+      def display(json)
+        json.partial! 'api/v1/items/item', item_object: self
       end
 
       private
