@@ -5,6 +5,7 @@ json.set! 'isPartOf/collection', item_object.collection_url
 json.id item_object.unique_id
 json.slug item_object.slug
 json.title item_object.title
+json.description item_object.description
 json.image item_object.image
 json.metadata item_object.metadata
 json.last_updated item_object.updated_at

@@ -1,6 +1,6 @@
 module V1
   class ItemJSONDecorator < Draper::Decorator
-    delegate :id, :title, :children, :parent, :collection, :unique_id, :updated_at
+    delegate :id, :title, :description, :children, :parent, :collection, :unique_id, :updated_at
 
     METADATA_MAP = [
       ['Title', :title],
