@@ -58,17 +58,18 @@ Rails.application.routes.draw do
 
   resources :sections, only: [:edit, :update, :destroy ]
 
-  namespace :api do
-    namespace :v1 do
-      resources :collections, only: [:show, :index], defaults: {format: :json} do
-        resources :items, only: [:index], defaults: {format: :json}
-        resources :showcases, only: [:index], defaults: {format: :json}
-      end
-      resources :items, only: [:show], defaults: {format: :json}
-      resources :showcases, only: [:show], defaults: {format: :json}
-      resources :sections, only: [:show], defaults: {format: :json}
-    end
 
+  namespace :v1 do
+    resources :collections, only: [:show, :index], defaults: {format: :json} do
+      resources :items, only: [:index], defaults: {format: :json}
+      resources :showcases, only: [:index], defaults: {format: :json}
+    end
+    resources :items, only: [:show], defaults: {format: :json}
+    resources :showcases, only: [:show], defaults: {format: :json}
+    resources :sections, only: [:show], defaults: {format: :json}
+  end
+
+  namespace :api do
     resources :collections, only: [:index, :show], constraints: {format: /json/} do
       resources :items, only: [:index, :show], constraints: {format: /json/}
     end
