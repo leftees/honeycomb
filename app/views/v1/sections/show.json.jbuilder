@@ -6,15 +6,17 @@ json.set! :showcases do
     V1::SectionJSONDecorator.display(@section, json)
 
     json.set! :item do
-      V1::ItemJSONDecorator.display(@section.item, json)
-      json.set! :children do
-        json.array! @section.item.children do |child|
-          V1::ItemJSONDecorator.display(child, json)
+      if @section.item
+        V1::ItemJSONDecorator.display(@section.item, json)
+        json.set! :children do
+          json.array! @section.item.children do |child|
+            V1::ItemJSONDecorator.display(child, json)
+          end
         end
-      end
 
-      json.set! :parent do
-        V1::ItemJSONDecorator.display(@section.item.parent, json)
+        json.set! :parent do
+          V1::ItemJSONDecorator.display(@section.item.parent, json)
+        end
       end
     end
 
@@ -22,7 +24,7 @@ json.set! :showcases do
       V1::SectionJSONDecorator.display(@section.next, json)
     end
     json.set! :previousSection do
-      V1::SectionJSONDecorator.display(@section.next, json)
+      V1::SectionJSONDecorator.display(@section.previous, json)
     end
   end
 end

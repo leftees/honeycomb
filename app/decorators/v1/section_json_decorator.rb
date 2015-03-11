@@ -28,7 +28,7 @@ module V1
     end
 
     def previous
-      SectionQuery.new.next(object)
+      SectionQuery.new.previous(object)
     end
 
     def display(json)
