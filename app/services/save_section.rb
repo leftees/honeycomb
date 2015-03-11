@@ -12,7 +12,8 @@ class SaveSection
 
   def save
     section.attributes = params
-
+    check_unique_id
+    puts section.unique_id
     current_order
     if section.save && fix_order!
       section
@@ -29,5 +30,11 @@ class SaveSection
 
     def fix_order!
       ReorderSections.call(current_order, section)
+    end
+
+    def check_unique_id
+      if section.unique_id.nil?
+        section.unique_id = CreateUniqueId.call(section)
+      end
     end
 end

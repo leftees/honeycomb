@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310193105) do
+ActiveRecord::Schema.define(version: 20150310201607) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -80,7 +80,10 @@ ActiveRecord::Schema.define(version: 20150310193105) do
     t.integer "order"
     t.text    "caption"
     t.integer "showcase_id"
+    t.string  "unique_id"
   end
+
+  add_index "sections", ["unique_id"], name: "index_sections_on_unique_id", using: :btree
 
   create_table "showcases", force: true do |t|
     t.text     "title"

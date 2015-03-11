@@ -77,7 +77,6 @@ RSpec.describe SaveItem, type: :model do
       expect(SaveHoneypotImage).to_not receive(:call)
       expect(subject).to eq(item)
     end
-
   end
 
   context "no title on a new record" do

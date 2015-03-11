@@ -3,4 +3,7 @@ class Section < ActiveRecord::Base
 
   validates :showcase, presence: true
 
+  def updated_at
+    Time.now
+  end
 end

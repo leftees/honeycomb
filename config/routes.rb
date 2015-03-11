@@ -66,6 +66,7 @@ Rails.application.routes.draw do
       end
       resources :items, only: [:show], defaults: {format: :json}
       resources :showcases, only: [:show], defaults: {format: :json}
+      resources :section, only: [:show], defaults: {format: :json}
     end
 
     resources :collections, only: [:index, :show], constraints: {format: /json/} do
