@@ -13,7 +13,7 @@ class SaveSection
   def save
     section.attributes = params
     check_unique_id
-    puts section.unique_id
+
     current_order
     if section.save && fix_order!
       section
