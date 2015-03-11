@@ -1,14 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe V1::ShowcaseJSONDecorator do
-  subject {described_class.new(showcase)}
+RSpec.describe V1::SectionJSONDecorator do
+  subject {described_class.new(section)}
 
   let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'title title') }
-  let(:showcase) { double(Showcase, id: 1, unique_id: "adsf", title: 'title title', collection: collection )}
+  let(:section) { double(Section, id: 1, unique_id: "adsf", caption: 'caption', title: 'title title', collection: collection, showcase: showcase )}
+  let(:showcase) { double(Showcase, id: 1, unique_id: "showadsf", title: 'title title')}
   let(:json) { double }
 
   describe "generic fields" do
-    [:id, :title, :description, :unique_id, :image, :collection, :updated_at].each do | field |
+    [:id, :title, :caption, :unique_id, :item, :updated_at].each do | field |
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end
@@ -19,7 +20,7 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   describe "#at_id" do
 
     it "returns the path to the id" do
-      expect(subject.at_id).to eq("http://test.host/v1/showcases/adsf")
+      expect(subject.at_id).to eq("http://test.host/v1/sections/adsf")
     end
   end
 
@@ -28,6 +29,13 @@ RSpec.describe V1::ShowcaseJSONDecorator do
 
     it "returns the path to the items" do
       expect(subject.collection_url).to eq("http://test.host/v1/collections/colasdf")
+    end
+  end
+
+  describe "#showcase_url" do
+
+    it "returns the path to the items" do
+      expect(subject.showcase_url).to eq("http://test.host/v1/showcases/showadsf")
     end
   end
 
@@ -43,7 +51,7 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   describe "#display" do
 
     it "calls the partial for the display" do
-      expect(json).to receive(:partial!).with("/v1/showcases/showcase", {:showcase_object => showcase })
+      expect(json).to receive(:partial!).with("/v1/sections/section", {:section_object => section })
       subject.display(json)
     end
   end
