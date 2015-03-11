@@ -15,6 +15,10 @@ module V1
       h.v1_collection_url(object.collection.unique_id)
     end
 
+    def description
+      object.description.to_s
+    end
+
     def slug
       CreateURLSlug.call(object.title)
     end

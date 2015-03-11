@@ -4,7 +4,7 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   subject {described_class.new(showcase)}
 
   let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'title title') }
-  let(:showcase) { double(Showcase, id: 1, unique_id: "adsf", title: 'title title', collection: collection )}
+  let(:showcase) { double(Showcase, id: 1, description: nil, unique_id: "adsf", title: 'title title', collection: collection )}
   let(:json) { double }
 
   describe "generic fields" do
@@ -28,6 +28,12 @@ RSpec.describe V1::ShowcaseJSONDecorator do
 
     it "returns the path to the items" do
       expect(subject.collection_url).to eq("http://test.host/v1/collections/colasdf")
+    end
+  end
+
+  describe "#description" do
+    it "converts null to empty string" do
+      expect(subject.description).to eq("")
     end
   end
 

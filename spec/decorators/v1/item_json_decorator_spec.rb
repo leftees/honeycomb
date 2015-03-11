@@ -4,12 +4,12 @@ RSpec.describe V1::ItemJSONDecorator do
   subject {described_class.new(item)}
 
   let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'title title') }
-  let(:item) { double(Item, id: 1, unique_id: "adsf", title: 'title title', collection: collection, honeypot_image: honeypot_image )}
+  let(:item) { double(Item, id: 1, description: nil, unique_id: "adsf", title: 'title title', collection: collection, honeypot_image: honeypot_image )}
   let(:honeypot_image) { double(HoneypotImage, json_response: 'json_response') }
   let(:json) { double }
 
   describe "generic fields" do
-    [:id, :title, :collection, :unique_id, :updated_at].each do | field |
+    [:id, :title, :collection, :unique_id, :description, :updated_at].each do | field |
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end
@@ -30,6 +30,14 @@ RSpec.describe V1::ItemJSONDecorator do
       expect(subject.collection_url).to eq("http://test.host/v1/collections/colasdf")
     end
   end
+
+
+  describe "#description" do
+    it "converts null to empty string" do
+      expect(subject.description).to eq("")
+    end
+  end
+
 
   describe "#slug" do
 

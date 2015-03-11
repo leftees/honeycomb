@@ -4,7 +4,7 @@ RSpec.describe V1::SectionJSONDecorator do
   subject {described_class.new(section)}
 
   let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'title title') }
-  let(:section) { double(Section, id: 1, unique_id: "adsf", caption: 'caption', title: 'title title', collection: collection, showcase: showcase )}
+  let(:section) { double(Section, id: 1, description: nil, unique_id: "adsf", caption: 'caption', title: 'title title', collection: collection, showcase: showcase )}
   let(:showcase) { double(Showcase, id: 1, unique_id: "showadsf", title: 'title title')}
   let(:json) { double }
 
@@ -24,7 +24,6 @@ RSpec.describe V1::SectionJSONDecorator do
     end
   end
 
-
   describe "#collection_url" do
 
     it "returns the path to the items" do
@@ -36,6 +35,12 @@ RSpec.describe V1::SectionJSONDecorator do
 
     it "returns the path to the items" do
       expect(subject.showcase_url).to eq("http://test.host/v1/showcases/showadsf")
+    end
+  end
+
+  describe "#description" do
+    it "converts null to empty string" do
+      expect(subject.description).to eq("")
     end
   end
 

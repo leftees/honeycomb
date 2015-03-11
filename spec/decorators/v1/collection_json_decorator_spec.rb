@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe V1::CollectionJSONDecorator do
   subject {described_class.new(collection)}
 
-  let(:collection) { double(Collection, id: 1, unique_id: "adsf", title: 'title title', items: [], showcases: [] )}
+  let(:collection) { double(Collection, id: 1, description: nil, unique_id: "adsf", title: 'title title', items: [], showcases: [] )}
   let(:json) { double }
 
   describe "generric fields" do
@@ -11,6 +11,12 @@ RSpec.describe V1::CollectionJSONDecorator do
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end
+    end
+  end
+
+  describe "#description" do
+    it "converts null to empty string" do
+      expect(subject.description).to eq("")
     end
   end
 

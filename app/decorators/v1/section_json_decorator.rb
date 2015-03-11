@@ -19,6 +19,10 @@ module V1
       h.v1_showcase_url(object.showcase.unique_id)
     end
 
+    def description
+      object.description.to_s
+    end
+
     def slug
       CreateURLSlug.call(object.title)
     end
