@@ -54,5 +54,9 @@ RSpec.describe API::V1::ItemJSONDecorator do
       expect(json).to receive(:partial!).with("api/v1/items/item", {:item_object => item })
       subject.display(json)
     end
+
+    it "returns nil if the item is nil " do
+      expect(described_class.new(nil).display(json)).to be_nil
+    end
   end
 end

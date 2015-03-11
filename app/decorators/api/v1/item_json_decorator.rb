@@ -1,7 +1,7 @@
 module API
   module V1
     class ItemJSONDecorator < Draper::Decorator
-      delegate :id, :title, :collection, :unique_id, :updated_at
+      delegate :id, :title, :children, :parent, :collection, :unique_id, :updated_at
 
       METADATA_MAP = [
         ['Title', :title],
@@ -45,7 +45,9 @@ module API
       end
 
       def display(json)
-        json.partial! 'api/v1/items/item', item_object: self
+        if self.present?
+          json.partial! 'api/v1/items/item', item_object: self
+        end
       end
 
       private
