@@ -4,8 +4,4 @@ class Section < ActiveRecord::Base
   has_one :collection, through: :showcase
 
   validates :showcase, presence: true
-
-  def updated_at
-    Time.now
-  end
 end

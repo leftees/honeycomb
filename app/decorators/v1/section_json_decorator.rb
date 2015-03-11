@@ -1,7 +1,7 @@
 
 module V1
   class SectionJSONDecorator < Draper::Decorator
-    delegate :id, :title, :description, :collection, :caption, :item, :unique_id, :updated_at
+    delegate :id, :title, :description, :collection, :showcase, :caption, :item, :unique_id, :updated_at
 
     def self.display(section, json)
       new(section).display(json)
@@ -23,8 +23,18 @@ module V1
       CreateURLSlug.call(object.title)
     end
 
+    def next
+      SectionQuery.new.next(object)
+    end
+
+    def previous
+      SectionQuery.new.next(object)
+    end
+
     def display(json)
-      json.partial! '/v1/sections/section', section_object: self
+      if object.present?
+        json.partial! '/v1/sections/section', section_object: self
+      end
     end
 
   end

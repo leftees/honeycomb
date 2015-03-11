@@ -21,4 +21,13 @@ class SectionQuery
     relation.build(args)
   end
 
+
+  def next(section)
+    relation.where(showcase_id: section.showcase_id).where("`#{relation.table_name}`.order > ?", section.order).order(:order).first
+  end
+
+  def previous(section)
+    relation.where(showcase_id: section.showcase_id).where("`#{relation.table_name}`.order < ?", section.order).order(order: :desc).first
+  end
+
 end

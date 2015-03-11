@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310201607) do
+ActiveRecord::Schema.define(version: 20150311171436) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -73,14 +73,16 @@ ActiveRecord::Schema.define(version: 20150310201607) do
   add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
 
   create_table "sections", force: true do |t|
-    t.string  "title"
-    t.text    "description"
-    t.string  "image"
-    t.integer "item_id"
-    t.integer "order"
-    t.text    "caption"
-    t.integer "showcase_id"
-    t.string  "unique_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "item_id"
+    t.integer  "order"
+    t.text     "caption"
+    t.integer  "showcase_id"
+    t.string   "unique_id"
+    t.datetime "updated_at"
+    t.datetime "created_at"
   end
 
   add_index "sections", ["unique_id"], name: "index_sections_on_unique_id", using: :btree

@@ -6,6 +6,7 @@ RSpec.describe SectionQuery do
   let(:sections) { double( order: true )}
   let(:showcase) { double(Showcase, sections: relation) }
   let(:relation) { Section.all }
+  let(:next_section) { double(Section, id: '2', order: 1, showcase_id: '2') }
 
   describe "#all_for_showcase" do
 
@@ -31,6 +32,20 @@ RSpec.describe SectionQuery do
     it "builds a collection off of the relation" do
       expect(relation).to receive(:build)
       subject.build
+    end
+  end
+
+
+  describe "next" do
+
+    it "selects for section id" do
+      expect(relation).to receive(:where).with(showcase_id: next_section.id).and_return(Section.all)
+      subject.next(next_section)
+    end
+
+    it "filters on order" do
+      expect(relation).to receive(:where).with("`sections`.order > ?", 1).and_return(Section.all)
+      #subject.next(next_section)
     end
   end
 end

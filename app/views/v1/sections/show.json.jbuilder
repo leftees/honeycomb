@@ -17,5 +17,12 @@ json.set! :showcases do
         V1::ItemJSONDecorator.display(@section.item.parent, json)
       end
     end
+
+    json.set! :nextSection do
+      V1::SectionJSONDecorator.display(@section.next, json)
+    end
+    json.set! :previousSection do
+      V1::SectionJSONDecorator.display(@section.next, json)
+    end
   end
 end
