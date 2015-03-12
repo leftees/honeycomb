@@ -13,7 +13,7 @@ RSpec.describe CollectionImage do
   it "uses the item decorator to call the image display" do
     allow(collection).to receive(:items).and_return([item_with_image])
 
-    expect_any_instance_of(ItemDecorator).to receive(:react_thumbnail)
+    expect_any_instance_of(HoneypotThumbnail).to receive(:display)
     subject.display
   end
 

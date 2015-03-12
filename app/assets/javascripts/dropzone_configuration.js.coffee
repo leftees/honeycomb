@@ -54,7 +54,7 @@ class EditFormDropzone
     formObject= @dropzoneForm
     @dropzoneForm.dropzone(
       method: "put"
-      autoProcessQueue: false
+      autoProcessQueue: true
       paramName: "item[image]"
       acceptedFiles: "image/*"
       addRemoveLinks: true
