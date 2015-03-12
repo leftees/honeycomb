@@ -41,12 +41,6 @@ RSpec.describe ItemDecorator do
       end
     end
 
-    describe '#react_thumbnail' do
-      it 'renders a react component' do
-        expect(subject.react_thumbnail).to match("<div data-react-class=\"Thumbnail\"")
-      end
-    end
-
     describe '#show_image_box' do
       it 'renders a react component' do
         expect(subject.show_image_box).to match("<div data-react-class=\"ItemShowImageBox\"")

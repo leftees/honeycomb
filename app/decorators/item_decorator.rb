@@ -25,10 +25,6 @@ class ItemDecorator < Draper::Decorator
     end
   end
 
-  def react_thumbnail()
-    h.react_component 'Thumbnail', image: image_json
-  end
-
   def show_image_box
     h.react_component 'ItemShowImageBox', image: image_json, itemID: object.id.to_s
   end
