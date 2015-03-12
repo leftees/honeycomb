@@ -18,7 +18,7 @@
           <label><input type="checkbox" class="show-selected-menu" /></label>
         </td>
         <td class="image">
-          <%= link_to item.react_thumbnail, item.edit_path %>
+          <%= link_to HoneypotThumbnail.display(item.honeypot_image), item.edit_path %>
         </td>
         <td>
           <h4 class="media-heading"><%= h link_to item.title, item.edit_path %></h4>

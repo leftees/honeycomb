@@ -1,12 +1,12 @@
 class SaveHoneypotImage
-  attr_reader :item
+  attr_reader :object
 
-  def self.call(item)
-    new(item).save!
+  def self.call(object)
+    new(object).save!
   end
 
-  def initialize(item)
-    @item = item
+  def initialize(object)
+    @object = object
   end
 
   def save!
@@ -22,7 +22,7 @@ class SaveHoneypotImage
   private
 
     def honeypot_image
-      item.honeypot_image || item.build_honeypot_image
+      object.honeypot_image || object.build_honeypot_image
     end
 
     def update_image_server(request)
@@ -51,23 +51,23 @@ class SaveHoneypotImage
     end
 
     def group_id
-      item.collection_id
+      object.collection.id
     end
 
-    def item_id
-      item.id
+    def object_id
+      object.id
     end
 
-    def item_image
-      item.image
+    def object_image
+      object.image
     end
 
     def upload_image
-      Faraday::UploadIO.new(item_image.path, item_image.content_type)
+      Faraday::UploadIO.new(object_image.path, object_image.content_type)
     end
 
     def post
-      { application_id: "honeycomb", group_id: group_id, item_id: item_id, image: upload_image}
+      { application_id: "honeycomb", group_id: group_id, item_id: object_id, image: upload_image}
     end
 
     def api_url

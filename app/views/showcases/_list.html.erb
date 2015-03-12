@@ -1,7 +1,8 @@
-<table class="table table-striped">
+<table class="table table-striped item-list">
   <thead>
     <tr>
       <th><%= t('.title') %></th>
+      <th></th>
       <th><%= t('.status') %></th>
       <th><%= t('.updated_at') %></th>
     </tr>
@@ -9,7 +10,13 @@
   <tbody>
     <% showcases.each do |showcase| %>
       <tr>
-        <td><%= link_to showcase.title, showcase_path(showcase) %></td>
+        <td class="image" >
+          <%= link_to HoneypotThumbnail.display(showcase.honeypot_image), showcase_path(showcase) %>
+        </td>
+        <td>
+          <h4 class="media-heading"><%= h link_to showcase.title, showcase_path(showcase) %></h4>
+          <%= h showcase.description %>
+        </td>
         <td>
           <%= PublishedText.display(showcase) %>
         </td>

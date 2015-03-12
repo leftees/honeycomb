@@ -15,4 +15,19 @@ RSpec.describe Showcase do
     end
   end
 
+
+  describe "#has honeypot image interface" do
+
+    it "responds to image" do
+      expect(subject).to respond_to(:image)
+    end
+
+    it "responds to honeypot_image" do
+      expect(subject).to respond_to(:honeypot_image)
+    end
+
+    it "responds to collection" do
+      expect(subject).to respond_to(:collection)
+    end
+  end
 end

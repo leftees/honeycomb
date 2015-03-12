@@ -7,8 +7,7 @@ class CollectionImage
 
   def display
     if first_item_with_image
-      item = ItemDecorator.new(first_item_with_image)
-      item.react_thumbnail
+      HoneypotThumbnail.display(first_item_with_image.honeypot_image)
     else
       ""
     end
