@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306155911) do
+ActiveRecord::Schema.define(version: 20150311171436) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -29,7 +29,10 @@ ActiveRecord::Schema.define(version: 20150306155911) do
     t.datetime "updated_at"
     t.boolean  "deleted",     default: false
     t.text     "description"
+    t.string   "unique_id"
   end
+
+  add_index "collections", ["unique_id"], name: "index_collections_on_unique_id", using: :btree
 
   create_table "exhibits", force: true do |t|
     t.text    "title"
@@ -61,21 +64,28 @@ ActiveRecord::Schema.define(version: 20150306155911) do
     t.integer  "parent_id"
     t.string   "manuscript_url"
     t.boolean  "published"
+    t.string   "unique_id"
   end
 
   add_index "items", ["collection_id"], name: "index_items_on_collection_id", using: :btree
   add_index "items", ["parent_id"], name: "index_items_on_parent_id", using: :btree
   add_index "items", ["published"], name: "index_items_on_published", using: :btree
+  add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
 
   create_table "sections", force: true do |t|
-    t.string  "title"
-    t.text    "description"
-    t.string  "image"
-    t.integer "item_id"
-    t.integer "order"
-    t.text    "caption"
-    t.integer "showcase_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "item_id"
+    t.integer  "order"
+    t.text     "caption"
+    t.integer  "showcase_id"
+    t.string   "unique_id"
+    t.datetime "updated_at"
+    t.datetime "created_at"
   end
+
+  add_index "sections", ["unique_id"], name: "index_sections_on_unique_id", using: :btree
 
   create_table "showcases", force: true do |t|
     t.text     "title"
@@ -88,9 +98,11 @@ ActiveRecord::Schema.define(version: 20150306155911) do
     t.datetime "updated_at"
     t.datetime "created_at"
     t.boolean  "published"
+    t.string   "unique_id"
   end
 
   add_index "showcases", ["published"], name: "index_showcases_on_published", using: :btree
+  add_index "showcases", ["unique_id"], name: "index_showcases_on_unique_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "first_name"

@@ -12,8 +12,17 @@ class SaveShowcase
 
   def save
     showcase.attributes = params
+    check_unique_id
     showcase.save
   end
+
+  private
+
+    def check_unique_id
+      if showcase.unique_id.nil?
+        showcase.unique_id = CreateUniqueId.call(showcase)
+      end
+    end
 
 end
 

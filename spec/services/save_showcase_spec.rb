@@ -19,4 +19,23 @@ RSpec.describe SaveShowcase, type: :model do
     expect(showcase).to receive(:attributes=).with(params)
     subject
   end
+
+
+  describe "unique_id" do
+    it "sets a unique_id when it is saved and one does not exist" do
+      expect(showcase).to receive(:unique_id=)
+      subject
+    end
+
+    it "does not set unique_id when it is saved and one exists" do
+      showcase.unique_id = '1231232'
+      expect(showcase).to_not receive(:unique_id=)
+      subject
+    end
+
+    it "uses the class to generate the id" do
+      expect(CreateUniqueId).to receive(:call).with(showcase)
+      subject
+    end
+  end
 end

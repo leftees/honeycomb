@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.7'
+gem 'rails', '4.1.9'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
@@ -27,7 +27,7 @@ gem 'sort_alphabetical'
 
 gem "rb-readline"
 
-gem 'devise'
+gem 'devise', github: 'plataformatec/devise'
 gem 'devise_cas_authenticatable'
 
 gem 'addressable'
@@ -44,7 +44,7 @@ gem 'faraday_middleware'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
-gem 'underscore-rails', git: 'https://github.com/hampus-n/underscore-rails.git', branch: 'update-to-1.8.2'
+gem 'underscore-rails'
 gem 'showdown-rails'
 gem "therubyracer"
 # Use jquery as the JavaScript library

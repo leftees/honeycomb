@@ -9,6 +9,10 @@ class ShowcaseQuery
     relation
   end
 
+  def published
+    relation.where(published: true)
+  end
+
   def find(id)
     relation.find(id)
   end
@@ -17,5 +21,8 @@ class ShowcaseQuery
     relation.build(args)
   end
 
+  def public_find(id)
+    relation.find_by!(unique_id: id)
+  end
 
 end
