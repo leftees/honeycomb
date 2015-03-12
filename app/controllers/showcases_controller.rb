@@ -93,7 +93,7 @@ class ShowcasesController < ApplicationController
   protected
 
     def save_params
-      params.require(:showcase).permit([:title, :description])
+      params.require(:showcase).permit([:title, :description, :image])
     end
 
     def showcase

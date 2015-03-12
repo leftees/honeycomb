@@ -51,7 +51,7 @@ class SaveHoneypotImage
     end
 
     def group_id
-      item.collection_id
+      item.collection.id
     end
 
     def item_id
