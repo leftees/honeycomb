@@ -2,6 +2,7 @@ class HoneypotImage < ActiveRecord::Base
   serialize :json_response, Hash
 
   belongs_to :item
+  belongs_to :showcase
 
   validates :title, :json_response, presence: true
 

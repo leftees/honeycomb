@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311171436) do
+ActiveRecord::Schema.define(version: 20150312141655) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150311171436) do
     t.text     "json_response"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "showcase_id"
   end
 
   add_index "honeypot_images", ["item_id"], name: "index_honeypot_images_on_item_id", using: :btree
