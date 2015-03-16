@@ -6,4 +6,6 @@ json.set! 'isPartOf/collection', section_object.collection_url
 json.id section_object.unique_id
 json.slug section_object.slug
 json.title section_object.title
+json.description section_object.description
+json.caption section_object.caption
 json.last_updated section_object.updated_at
