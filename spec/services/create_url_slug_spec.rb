@@ -9,8 +9,9 @@ describe CreateURLSlug do
   let(:return_title) {"the\rcollection"}
   let(:double_space_title) { "the  collection"}
   let(:nlcr_title) { "the\r\ncollection"}
+  let(:non_alpha_title) { "th.e colle.ct.ion"}
 
-  [:simple_title, :caps_title, :tab_title, :newline_title, :return_title, :double_space_title].each do |test_title|
+  [:simple_title, :caps_title, :tab_title, :newline_title, :return_title, :double_space_title, :non_alpha_title].each do |test_title|
     it "converts #{test_title}" do
       title = eval(test_title.to_s)
       expect(described_class.call(title)).to eq("the-collection")
