@@ -4,7 +4,7 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   subject {described_class.new(showcase)}
 
   let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'title title') }
-  let(:showcase) { double(Showcase, id: 1, description: nil, unique_id: "adsf", title: 'title title', collection: collection, honeypot_image: honeypot_image )}
+  let(:showcase) { double(Showcase, id: 1, sections: [], description: nil, unique_id: "adsf", title: 'title title', collection: collection, honeypot_image: honeypot_image )}
   let(:honeypot_image) { double(HoneypotImage, json_response: 'json_response') }
   let(:json) { double }
 
@@ -51,6 +51,19 @@ RSpec.describe V1::ShowcaseJSONDecorator do
     it "gets the honeypot_image json_response" do
       expect(honeypot_image).to receive(:json_response).and_return('json_response')
       expect(subject.image).to eq("json_response")
+    end
+  end
+
+  describe "#sections" do
+
+    it "uses the section query object all_in_showcase" do
+      expect_any_instance_of(SectionQuery).to receive(:all_in_showcase).and_return(['results'])
+      expect(subject.sections).to eq(['results'])
+    end
+
+    it "filters on just the sections in the showcase" do
+      expect(subject).to receive(:sections).and_return([])
+      subject.sections
     end
   end
 

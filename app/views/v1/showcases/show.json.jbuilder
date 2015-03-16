@@ -1,6 +1,6 @@
 V1::CollectionJSONDecorator.display(@showcase.collection, json)
 json.set! :showcases do
-  V1::ShowcaseJSONDecorator.display(@showcase, json)
+  @showcase.display(json)
 
   json.set! :sections do
     json.array! @showcase.sections do | section |

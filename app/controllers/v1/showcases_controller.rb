@@ -6,7 +6,7 @@ module V1
     end
 
     def show
-      @showcase = ShowcaseQuery.new.public_find(params[:id])
+      @showcase = ShowcaseJSONDecorator.new(ShowcaseQuery.new.public_find(params[:id]))
     end
   end
 end

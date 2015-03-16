@@ -23,6 +23,10 @@ module V1
       CreateURLSlug.call(object.title)
     end
 
+    def sections
+      SectionQuery.new(object.sections).all_in_showcase
+    end
+
     def image
       if object.honeypot_image
         object.honeypot_image.json_response

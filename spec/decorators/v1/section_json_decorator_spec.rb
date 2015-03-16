@@ -9,7 +9,7 @@ RSpec.describe V1::SectionJSONDecorator do
   let(:json) { double }
 
   describe "generic fields" do
-    [:id, :title, :caption, :unique_id, :item, :updated_at].each do | field |
+    [:id, :title, :caption, :unique_id, :item, :updated_at, :order].each do | field |
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end
