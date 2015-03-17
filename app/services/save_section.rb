@@ -33,9 +33,6 @@ class SaveSection
     end
 
     def check_unique_id
-      if section.unique_id.nil?
-        section.unique_id = CreateUniqueId.call(section)
-        section.save
-      end
+      CreateUniqueId.call(section)
     end
 end
