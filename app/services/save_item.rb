@@ -53,9 +53,6 @@ class SaveItem
     end
 
     def check_unique_id
-      if item.unique_id.nil?
-        item.unique_id = CreateUniqueId.call(item)
-        item.save
-      end
+      CreateUniqueId.call(item)
     end
 end

@@ -10,7 +10,7 @@ RSpec.describe SaveShowcase, type: :model do
   end
 
   it "returns when the showcase save is successful" do
-    expect(showcase).to receive(:save).twice.and_return(true)
+    expect(showcase).to receive(:save).and_return(true)
     expect(subject).to be true
   end
 
