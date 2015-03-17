@@ -10,6 +10,10 @@ class CreateURLSlug
   end
 
   def create
-    title.downcase.gsub(/\s+/, '-').gsub(/[^0-9a-z-]/i, '')
+    if title.present?
+      title.downcase.gsub(/\s+/, '-').gsub(/[^0-9a-z-]/i, '')
+    else
+      "title"
+    end
   end
 end

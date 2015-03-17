@@ -17,4 +17,8 @@ describe CreateURLSlug do
       expect(described_class.call(title)).to eq("the-collection")
     end
   end
+
+  it "returns title for a blank title " do
+    expect(described_class.call('')).to eq("title")
+  end
 end
