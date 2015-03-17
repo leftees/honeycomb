@@ -49,5 +49,11 @@ describe SaveSection do
       expect(CreateUniqueId).to receive(:call).with(section)
       subject
     end
+
+    it "does not call create unique_id if the section does not save" do
+      allow(section).to receive(:save).and_return(false)
+      expect(CreateUniqueId).to_not receive(:call).with(section)
+      subject
+    end
   end
 end
