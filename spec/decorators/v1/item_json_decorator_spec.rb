@@ -4,7 +4,7 @@ RSpec.describe V1::ItemJSONDecorator do
   subject {described_class.new(item)}
 
   let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'title title') }
-  let(:item) { double(Item, id: 1, description: nil, unique_id: "adsf", title: 'title title', collection: collection, honeypot_image: honeypot_image )}
+  let(:item) { double(Item, id: 1, manuscript_url: "url", transcription: "transcript", description: "description", unique_id: "adsf", title: 'title title', collection: collection, honeypot_image: honeypot_image )}
   let(:honeypot_image) { double(HoneypotImage, json_response: 'json_response') }
   let(:json) { double }
 
@@ -31,13 +31,19 @@ RSpec.describe V1::ItemJSONDecorator do
     end
   end
 
-
   describe "#description" do
     it "converts null to empty string" do
+      allow(item).to receive(:description).and_return(nil)
       expect(subject.description).to eq("")
     end
   end
 
+  describe "#transcription" do
+    it "converts null to empty string" do
+      allow(item).to receive(:transcription).and_return(nil)
+      expect(subject.transcription).to eq("")
+    end
+  end
 
   describe "#slug" do
 
@@ -65,6 +71,13 @@ RSpec.describe V1::ItemJSONDecorator do
 
     it "returns nil if the item is nil " do
       expect(described_class.new(nil).display(json)).to be_nil
+    end
+  end
+
+  describe "#metadata" do
+
+    it "creates a metadata hash of all metadata" do
+      expect(subject.metadata).to eq([{:label=>"Title", :value=>"title title"}, {:label=>"Description", :value=>"description"}, {:label=>"Manuscript", :value=>"url"}, {:label=>"Transcript", :value=>"transcript"}])
     end
   end
 end

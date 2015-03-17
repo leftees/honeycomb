@@ -1,11 +1,12 @@
 module V1
   class ItemJSONDecorator < Draper::Decorator
-    delegate :id, :title, :description, :children, :parent, :collection, :unique_id, :updated_at
+    delegate :id, :title, :children, :parent, :collection, :unique_id, :updated_at
 
     METADATA_MAP = [
       ['Title', :title],
       ['Description', :description],
-      ['Manuscript', :manuscript_url]
+      ['Manuscript', :manuscript_url],
+      ['Transcript', :transcription]
     ]
 
     def self.display(item, json)
@@ -22,6 +23,10 @@ module V1
 
     def description
       object.description.to_s
+    end
+
+    def transcription
+      object.transcription.to_s
     end
 
     def slug

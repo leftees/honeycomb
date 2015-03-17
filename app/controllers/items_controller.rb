@@ -78,7 +78,7 @@ class ItemsController < ApplicationController
   protected
 
     def save_params
-      params.require(:item).permit(:title, :description, :image, :manuscript_url)
+      params.require(:item).permit(:title, :description, :image, :manuscript_url, :transcription)
     end
 
     def collection

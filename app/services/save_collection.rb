@@ -21,7 +21,6 @@ class SaveCollection
     end
   end
 
-
   private
 
     def check_unique_id
