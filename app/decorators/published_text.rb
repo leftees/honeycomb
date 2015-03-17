@@ -20,6 +20,11 @@ class PublishedText < Draper::Decorator
         h.t('published.unpublished')
       end
     end
+
+      h.content_tag('span', class: "text-success") do
+        h.content_tag('i', '', class: "glyphicon glyphicon-ok") + " " +
+        h.t('published.published')
+      end
   end
 
   private

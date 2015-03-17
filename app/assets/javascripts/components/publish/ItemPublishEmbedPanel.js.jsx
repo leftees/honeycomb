@@ -16,13 +16,13 @@ var ItemPublishEmbedPanel = React.createClass({
   },
   embedPanel: function () {
     var embed;
-    if (this.state.published) {
+    //if (this.state.published) {
       embed = (
                 <Panel PanelTitle={this.props.embedPanelTitle} PanelHelp={this.props.embedPanelHelp} >
                   <EmbedCode />
                 </Panel>
               )
-    }
+    //}
     return embed
   },
   togglePublished: function () {
@@ -55,6 +55,7 @@ var ItemPublishEmbedPanel = React.createClass({
   render: function () {
     return (
       <div>
+        {/*
         <Panel PanelTitle={this.props.publishPanelTitle} PanelHelp={this.props.publishPanelHelp} >
             <PublishToggle
               togglePublished={this.togglePublished}
@@ -62,6 +63,7 @@ var ItemPublishEmbedPanel = React.createClass({
               publishPanelFieldName={this.props.publishPanelFieldName} />
 
         </Panel>
+      */}
 
         {this.embedPanel()}
       </div>

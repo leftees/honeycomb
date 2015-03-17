@@ -22,7 +22,8 @@ class ItemQuery
   end
 
   def published
-    relation.where(published: true)
+    #relation.where(published: true)
+    relation.all
   end
 
   def public_find(id)

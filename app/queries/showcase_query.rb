@@ -10,7 +10,8 @@ class ShowcaseQuery
   end
 
   def published
-    relation.where(published: true)
+    #relation.where(published: true)
+    relation.all
   end
 
   def find(id)

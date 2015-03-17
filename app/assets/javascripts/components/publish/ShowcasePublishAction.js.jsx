@@ -39,10 +39,14 @@ var ShowcasePublishAction = React.createClass({
   },
   render: function () {
     return (
+      <div>
+      {/*
       <PublishToggle
         togglePublished={this.togglePublished}
         published={this.state.published}
         publishPanelFieldName={this.props.publishPanelFieldName} />
+      */}
+      </div>
     )
   }
 });
