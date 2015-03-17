@@ -24,10 +24,7 @@ class SaveShowcase
   private
 
     def check_unique_id
-      if showcase.unique_id.nil?
-        showcase.unique_id = CreateUniqueId.call(showcase)
-        showcase.save
-      end
+      CreateUniqueId.call(showcase)
     end
 
     def update_honeypot_image
