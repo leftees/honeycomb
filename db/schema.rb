@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312141655) do
+ActiveRecord::Schema.define(version: 20150316195333) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20150312141655) do
     t.string   "manuscript_url"
     t.boolean  "published"
     t.string   "unique_id"
+    t.text     "transcroption"
   end
 
   add_index "items", ["collection_id"], name: "index_items_on_collection_id", using: :btree

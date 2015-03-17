@@ -3,7 +3,7 @@ require 'rails_helper'
 describe SaveSection do
   subject { described_class.call(section, params) }
 
-  let(:section) { double(Section, id: '1', unique_id: 'adad', "unique_id=" => true, "attributes=" => true, save: true, "order=" => true, order: 1, "order=" => true, showcase: showcase) }
+  let(:section) { double(Section, id: '1', title: 'title', unique_id: 'adad', "unique_id=" => true, "attributes=" => true, save: true, "order=" => true, order: 1, "order=" => true, showcase: showcase) }
   let(:params) { { title: 'title', item_id: 1, order: 1, image: 'image', order: 1 } }
   let(:showcase) { double(Showcase, id: 1, sections: double(order: true) )}
 

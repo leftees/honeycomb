@@ -6,7 +6,7 @@ RSpec.describe SaveShowcase, type: :model do
   let(:params) { { title: 'title' } }
 
   it "returns when the showcase save is successful" do
-    expect(showcase).to receive(:save).and_return(true)
+    expect(showcase).to receive(:save).twice.and_return(true)
     expect(subject).to be true
   end
 
@@ -22,6 +22,10 @@ RSpec.describe SaveShowcase, type: :model do
 
 
   describe "unique_id" do
+    before(:each) do
+      allow(showcase).to receive(:save).and_return(true)
+    end
+
     it "sets a unique_id when it is saved and one does not exist" do
       expect(showcase).to receive(:unique_id=)
       subject

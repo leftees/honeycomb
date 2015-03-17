@@ -12,7 +12,7 @@ RSpec.describe SaveItem, type: :model do
   end
 
   it "returns when the item save is successful" do
-    expect(item).to receive(:save).and_return(true)
+    expect(item).to receive(:save).twice.and_return(true)
     expect(subject).to be_kind_of(Item)
   end
 
@@ -39,6 +39,10 @@ RSpec.describe SaveItem, type: :model do
   end
 
   describe "unique_id" do
+    before(:each) do
+      allow(item).to receive(:save).and_return(true)
+    end
+
     it "sets a unique_id when it is saved and one does not exist" do
       expect(item).to receive(:unique_id=)
       subject
@@ -59,7 +63,7 @@ RSpec.describe SaveItem, type: :model do
   describe "update honeypot image" do
     it "calls SaveHoneypotImage if the image was updated" do
       params[:image] = upload_image
-      expect(item).to receive(:save).and_return(true)
+      expect(item).to receive(:save).twice.and_return(true)
       expect(SaveHoneypotImage).to receive(:call).and_return(true)
       expect(subject).to eq(item)
     end
@@ -73,7 +77,7 @@ RSpec.describe SaveItem, type: :model do
 
     it "is not called if the image is not changed" do
       params[:image] = nil
-      expect(item).to receive(:save).and_return(true)
+      expect(item).to receive(:save).twice.and_return(true)
       expect(SaveHoneypotImage).to_not receive(:call)
       expect(subject).to eq(item)
     end
