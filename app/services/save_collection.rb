@@ -25,9 +25,6 @@ class SaveCollection
   private
 
     def check_unique_id
-      if collection.unique_id.nil?
-        collection.unique_id = CreateUniqueId.call(collection)
-        collection.save
-      end
+      CreateUniqueId.call(collection)
     end
 end

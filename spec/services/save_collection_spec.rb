@@ -2,9 +2,12 @@ require "rails_helper"
 
 RSpec.describe SaveCollection, type: :model do
   subject { described_class.call(collection, params) }
-  let(:collection) { double(Collection, id: 'id', "attributes=" => true, save: true, "unique_id=" => true, unique_id: 'uid') }
+  let(:collection) { double(Collection, id: 'id', "attributes=" => true, save: true) }
   let(:params) { { title: 'title' } }
 
+  before(:each) do
+    allow(CreateUniqueId).to receive(:call).and_return(true)
+  end
 
   it "returns when the collection save is successful" do
     expect(collection).to receive(:save).and_return(true)
@@ -24,8 +27,6 @@ RSpec.describe SaveCollection, type: :model do
   describe "unique_id" do
 
     it "uses the class to generate the id" do
-      allow(collection).to receive(:unique_id).and_return(nil)
-
       expect(CreateUniqueId).to receive(:call).with(collection)
       subject
     end
