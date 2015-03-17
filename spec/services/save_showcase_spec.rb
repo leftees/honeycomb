@@ -5,6 +5,10 @@ RSpec.describe SaveShowcase, type: :model do
   let(:showcase) { Showcase.new }
   let(:params) { { title: 'title' } }
 
+  before(:each) do
+    allow(CreateUniqueId).to receive(:call).and_return(true)
+  end
+
   it "returns when the showcase save is successful" do
     expect(showcase).to receive(:save).and_return(true)
     expect(subject).to be true
@@ -22,20 +26,20 @@ RSpec.describe SaveShowcase, type: :model do
 
 
   describe "unique_id" do
-    it "sets a unique_id when it is saved and one does not exist" do
-      expect(showcase).to receive(:unique_id=)
-      subject
-    end
-
-    it "does not set unique_id when it is saved and one exists" do
-      showcase.unique_id = '1231232'
-      expect(showcase).to_not receive(:unique_id=)
-      subject
+    before(:each) do
+      allow(showcase).to receive(:save).and_return(true)
     end
 
     it "uses the class to generate the id" do
       expect(CreateUniqueId).to receive(:call).with(showcase)
       subject
     end
+
+    it "does not call create unique_id if the showcase does not save" do
+      allow(showcase).to receive(:save).and_return(false)
+      expect(CreateUniqueId).to_not receive(:call).with(showcase)
+      subject
+    end
+
   end
 end

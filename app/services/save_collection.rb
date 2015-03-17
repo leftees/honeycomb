@@ -12,16 +12,19 @@ class SaveCollection
 
   def save
     collection.attributes = params
-    check_unique_id
-    collection.save
+
+    if collection.save
+      check_unique_id
+      true
+    else
+      false
+    end
   end
 
 
   private
 
     def check_unique_id
-      if collection.unique_id.nil?
-        collection.unique_id = CreateUniqueId.call(collection)
-      end
+      CreateUniqueId.call(collection)
     end
 end

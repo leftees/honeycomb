@@ -12,10 +12,10 @@ class SaveSection
 
   def save
     section.attributes = params
-    check_unique_id
 
     current_order
     if section.save && fix_order!
+      check_unique_id
       section
     else
       false
@@ -33,8 +33,6 @@ class SaveSection
     end
 
     def check_unique_id
-      if section.unique_id.nil?
-        section.unique_id = CreateUniqueId.call(section)
-      end
+      CreateUniqueId.call(section)
     end
 end

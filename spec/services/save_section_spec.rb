@@ -3,12 +3,13 @@ require 'rails_helper'
 describe SaveSection do
   subject { described_class.call(section, params) }
 
-  let(:section) { double(Section, id: '1', unique_id: 'adad', "unique_id=" => true, "attributes=" => true, save: true, "order=" => true, order: 1, "order=" => true, showcase: showcase) }
+  let(:section) { double(Section, id: '1', title: 'title', "attributes=" => true, save: true, "order=" => true, order: 1, "order=" => true, showcase: showcase) }
   let(:params) { { title: 'title', item_id: 1, order: 1, image: 'image', order: 1 } }
   let(:showcase) { double(Showcase, id: 1, sections: double(order: true) )}
 
   before(:each) do
     allow(ReorderSections).to receive(:call).and_return(true)
+    allow(CreateUniqueId).to receive(:call).and_return(true)
   end
 
   context "successful save" do
@@ -43,20 +44,15 @@ describe SaveSection do
   end
 
   describe "unique_id" do
-    it "sets a unique_id when it is saved and one does not exist" do
-      allow(section).to receive(:unique_id).and_return(nil)
-      expect(section).to receive(:unique_id=)
-      subject
-    end
-
-    it "does not set unique_id when it is saved and one exists" do
-      expect(section).to_not receive(:unique_id=)
-      subject
-    end
 
     it "uses the class to generate the id" do
-      allow(section).to receive(:unique_id).and_return(nil)
       expect(CreateUniqueId).to receive(:call).with(section)
+      subject
+    end
+
+    it "does not call create unique_id if the section does not save" do
+      allow(section).to receive(:save).and_return(false)
+      expect(CreateUniqueId).to_not receive(:call).with(section)
       subject
     end
   end

@@ -12,17 +12,19 @@ class SaveShowcase
 
   def save
     showcase.attributes = params
-    check_unique_id
 
-    (showcase.save && update_honeypot_image)
+    if (showcase.save && update_honeypot_image)
+      check_unique_id
+      true
+    else
+      false
+    end
   end
 
   private
 
     def check_unique_id
-      if showcase.unique_id.nil?
-        showcase.unique_id = CreateUniqueId.call(showcase)
-      end
+      CreateUniqueId.call(showcase)
     end
 
     def update_honeypot_image

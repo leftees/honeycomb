@@ -15,9 +15,10 @@ class SaveItem
 
     item.attributes = params
     pre_process_title
-    check_unique_id
 
     if item.save && update_honeypot_image
+      check_unique_id
+
       item
     else
       false
@@ -52,8 +53,6 @@ class SaveItem
     end
 
     def check_unique_id
-      if item.unique_id.nil?
-        item.unique_id = CreateUniqueId.call(item)
-      end
+      CreateUniqueId.call(item)
     end
 end

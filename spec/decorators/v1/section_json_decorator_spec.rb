@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe V1::SectionJSONDecorator do
   subject {described_class.new(section)}
 
-  let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'title title') }
-  let(:section) { double(Section, id: 1, description: nil, unique_id: "adsf", caption: 'caption', title: 'title title', collection: collection, showcase: showcase )}
+  let(:collection) { double(Collection, id: 1, unique_id: "colasdf", title: 'collection title') }
+  let(:section) { double(Section, id: 1, description: nil, unique_id: "adsf", caption: 'caption', title: 'section title', collection: collection, showcase: showcase )}
   let(:showcase) { double(Showcase, id: 1, unique_id: "showadsf", title: 'title title')}
   let(:json) { double }
 
@@ -47,7 +47,7 @@ RSpec.describe V1::SectionJSONDecorator do
   describe "#slug" do
 
     it "Calls the slug generator" do
-      expect(CreateURLSlug).to receive(:call).with(collection.title).and_return('slug')
+      expect(CreateURLSlug).to receive(:call).with(section.title).and_return('slug')
       expect(subject.slug).to eq("slug")
     end
   end

@@ -9,6 +9,7 @@ RSpec.describe SaveItem, type: :model do
   before(:each) do
     # stub the call to the external service
     allow(SaveHoneypotImage).to receive(:call).and_return(true)
+    allow(CreateUniqueId).to receive(:call).and_return(true)
   end
 
   it "returns when the item save is successful" do
@@ -39,19 +40,18 @@ RSpec.describe SaveItem, type: :model do
   end
 
   describe "unique_id" do
-    it "sets a unique_id when it is saved and one does not exist" do
-      expect(item).to receive(:unique_id=)
-      subject
-    end
-
-    it "does not set unique_id when it is saved and one exists" do
-      item.unique_id = '1231232'
-      expect(item).to_not receive(:unique_id=)
-      subject
+    before(:each) do
+      allow(item).to receive(:save).and_return(true)
     end
 
     it "uses the class to generate the id" do
       expect(CreateUniqueId).to receive(:call).with(item)
+      subject
+    end
+
+    it "does not call create unique_id if the item does not save" do
+      allow(item).to receive(:save).and_return(false)
+      expect(CreateUniqueId).to_not receive(:call).with(item)
       subject
     end
   end
