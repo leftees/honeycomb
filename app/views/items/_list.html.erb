@@ -1,7 +1,7 @@
 <table class="table table-striped datatable item-list">
   <thead>
     <tr>
-      <th><input type="checkbox" class="show-selected-menu select-all" /></th>
+      <th><!-- input type="checkbox" class="show-selected-menu select-all" /--></th>
       <th><%= t('.title') %></th>
       <th></th>
       <th><%= t('.status') %></th>
@@ -14,8 +14,8 @@
   <tbody>
     <% items.each do |item| %>
       <tr>
-        <td class="edit">
-          <label><input type="checkbox" class="show-selected-menu" /></label>
+        <td>
+          <!--label><input type="checkbox" class="show-selected-menu" /></label-->
         </td>
         <td class="image">
           <%= link_to HoneypotThumbnail.display(item.honeypot_image), item.edit_path %>

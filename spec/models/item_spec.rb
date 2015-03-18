@@ -15,10 +15,6 @@ RSpec.describe Item do
     expect(subject).to have(1).error_on(:title)
   end
 
-  it "requires the unique_id field " do
-    expect(subject).to have(1).error_on(:unique_id)
-  end
-
   it "requires the collection field" do
     expect(subject).to have(1).error_on(:collection)
   end
