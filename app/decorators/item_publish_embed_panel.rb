@@ -1,5 +1,6 @@
 require 'draper'
 
+
 class ItemPublishEmbedPanel < Draper::Decorator
 
   def self.display(item)
@@ -18,6 +19,8 @@ class ItemPublishEmbedPanel < Draper::Decorator
 
   def component_parameters
     {
+      item: object,
+      embedBaseUrl: Rails.configuration.settings.beehive_url,
       publishPanelTitle: h.t("#{i18n_key_base}.publish"),
       publishPanelHelp: h.t("#{i18n_key_base}.publish_help"),
       publishPanelFieldName: h.t("#{i18n_key_base}.publish_field"),
