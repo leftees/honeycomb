@@ -13,10 +13,6 @@ RSpec.describe Collection do
     expect(subject).to have(1).error_on(:title)
   end
 
-  it "requires a unique_id" do
-    expect(subject).to have(1).error_on(:unique_id)
-  end
-
   it "has paper trail" do
     expect(subject).to respond_to(:versions)
   end
