@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20150316195333) do
     t.string   "manuscript_url"
     t.boolean  "published"
     t.string   "unique_id"
-    t.text     "transcroption"
+    t.text     "transcription"
   end
 
   add_index "items", ["collection_id"], name: "index_items_on_collection_id", using: :btree

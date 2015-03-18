@@ -2,6 +2,8 @@
 
 var ItemPublishEmbedPanel = React.createClass({
   propTypes: {
+    item: React.PropTypes.object.isRequired,
+    embedBaseUrl: React.PropTypes.string.isRequired,
     publishPanelTitle: React.PropTypes.string.isRequired,
     publishPanelHelp: React.PropTypes.string.isRequired,
     publishPanelFieldName: React.PropTypes.string.isRequired,
@@ -19,7 +21,7 @@ var ItemPublishEmbedPanel = React.createClass({
     //if (this.state.published) {
       embed = (
                 <Panel PanelTitle={this.props.embedPanelTitle} PanelHelp={this.props.embedPanelHelp} >
-                  <EmbedCode />
+                  <EmbedCode item={this.props.item} embedBaseUrl={this.props.embedBaseUrl} />
                 </Panel>
               )
     //}
