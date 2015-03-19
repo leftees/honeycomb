@@ -38,10 +38,19 @@ en:
       collection:
         edit:
           title: "Rename Collection"
+      exhibit:
+        edit:
+          description: "Introduction"
     hints:
+      exhibit:
+        edit:
+          description: "Introduction appears on your website homepage under the title."
     placeholders:
       collection:
         description: "Description should be a short description of what the collection is.  (100 Words)"
+      exhibit:
+        edit:
+          description: "Around 200 characters"
   collection_left_nav:
     items: 'Items'
     showcases: 'Showcases'
@@ -149,6 +158,9 @@ en:
       updated_at: 'Last Modified At'
     update:
       success: "Showcase updated"
+  exhibits:
+    update:
+      success: 'Website updated'
   sections:
     new:
       title: "New Section"

@@ -25,14 +25,6 @@ Rails.application.routes.draw do
         get :user_search
       end
     end
-
-#    resources :exhibits do
-#      resources :showcases do
-#        resources :sections
-#      end
-#
-#      resources :items, only: [:index, :show], defaults: {format: :json}
-#    end
   end
 
   resources :items, only: [ :edit, :update, :destroy ] do

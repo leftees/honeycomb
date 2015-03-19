@@ -1,0 +1,18 @@
+<% page_title(@exhibit.title, @exhibit.collection) %>
+<%= collection_nav(@exhibit.collection, :website) %>
+
+<%= back_action_bar(edit_exhibit_path(@exhibit.id), '#' ) %>
+
+<%= simple_form_for @exhibit do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Website</h3>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'form', locals: { f: f } %>
+    </div>
+    <div class="panel-footer">
+      <%= f.button :submit, "Save", class: 'btn btn-primary'%>
+    </div>
+  </div>
+<% end %>
