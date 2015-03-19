@@ -10,7 +10,11 @@ class HoneypotThumbnail < Draper::Decorator
   end
 
   def display
-    h.react_component('Thumbnail', image: image_json)
+    if honeypot_image
+      h.react_component('Thumbnail', image: image_json)
+    else
+      ""
+    end
   end
 
 

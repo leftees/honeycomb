@@ -16,4 +16,6 @@ RSpec.describe Collection do
   it "has paper trail" do
     expect(subject).to respond_to(:versions)
   end
+
+
 end

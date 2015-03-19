@@ -25,7 +25,6 @@ Rails.application.routes.draw do
         get :user_search
       end
     end
-
   end
 
   resources :items, only: [ :edit, :update, :destroy ] do

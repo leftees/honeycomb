@@ -15,6 +15,7 @@ class SaveCollection
 
     if collection.save
       check_unique_id
+      EnsureCollectionHasExhibit.call(collection)
       true
     else
       false

@@ -4,9 +4,11 @@ RSpec.describe SaveShowcase, type: :model do
   subject { described_class.call(showcase, params) }
   let(:showcase) { Showcase.new }
   let(:params) { { title: 'title' } }
+  let(:image) { File.new(Rails.root.join("spec/fixtures/test.jpg").to_s) }
 
   before(:each) do
     allow(CreateUniqueId).to receive(:call).and_return(true)
+    allow(showcase).to receive(:save).and_return(true)
   end
 
   it "returns when the showcase save is successful" do
@@ -24,6 +26,20 @@ RSpec.describe SaveShowcase, type: :model do
     subject
   end
 
+  describe "update_honeypot_image" do
+
+    it "calls SaveHoneypotImage when there is an image"  do
+      expect(SaveHoneypotImage).to receive(:call).with(showcase)
+      params[:image] = image
+
+      subject
+    end
+
+    it "does not call SaveHoneypotImage when there is not an image " do
+      expect(SaveHoneypotImage).to_not receive(:call)
+      subject
+    end
+  end
 
   describe "unique_id" do
     before(:each) do

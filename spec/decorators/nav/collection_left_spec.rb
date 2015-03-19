@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Nav::CollectionLeft do
   subject { described_class.new(collection)}
-  let(:collection) { double(Collection, id:  1, title: 'Title') }
+  let(:collection) { double(Collection, id:  1, title: 'Title', exhibit: exhibit) }
+  let(:exhibit) { double(Exhibit, id: 1)}
 
   it "renders the correct template" do
     expect(subject.h).to receive(:render).with({:partial=>"shared/collection_left_nav", locals: { nav: subject }})
