@@ -23,6 +23,10 @@ module V1
       object.description.to_s
     end
 
+    def site_intro
+      object.exhibit.description.to_s
+    end
+
     def slug
       CreateURLSlug.call(object.title)
     end
