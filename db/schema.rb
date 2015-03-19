@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150319124651) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "showcase_id"
-    t.integer  "collection_id"
+    t.integer  "exhibit_id"
   end
 
   add_index "honeypot_images", ["item_id"], name: "index_honeypot_images_on_item_id", using: :btree
