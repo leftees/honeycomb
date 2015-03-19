@@ -128,6 +128,9 @@ en:
     index:
       name_of_user_type: 'Editors'
       title: 'Manage Editors'
+    destroy:
+      success: "Removed editor"
+      failure: "Could not remove specified editor"
   users:
     create:
       success: New user created successfully.

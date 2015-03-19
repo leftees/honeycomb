@@ -4,17 +4,6 @@ class EditorsController < ApplicationController
     check_user_edits!(@collection)
     collection_users = @collection.collection_users
     @editor_list = CollectionUserListDecorator.new(collection_users)
-
-    # @current = CollectionUser.where(collection_id: @collection.id).map { |cu|
-    #   cu.user.attributes
-    # }
-    # priority_list = Hash.new
-    # @priority = CollectionUser.all.map { |cu|
-    #   unless priority_list.has_key?(cu.user.username)
-    #     priority_list[cu.user.username] = 1
-    #     cu.user.attributes
-    #   end
-    # }
   end
 
   def create
@@ -41,9 +30,9 @@ class EditorsController < ApplicationController
     @user =  User.find(params[:id])
     if @user.present?
       if RemoveUserFromCollection.call(@collection, @user)
-        flash[:notice] = "Removed editor " + @user.name
+        flash[:notice] = t('.success') + @user.name
       else
-        flash[:error] = "Could not remove specified editor"
+        flash[:error] = t('.failure')
       end
     end
     redirect_to collection_editors_path(@collection.id)
