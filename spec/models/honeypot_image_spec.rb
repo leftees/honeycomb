@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe HoneypotImage, :type => :model do
   let(:honeypot_json) { JSON.parse(File.read(File.join(Rails.root, 'spec/fixtures/honeypot_response.json'))) }
-  [:json_response, :title, :item, :showcase].each do | field |
+  [:json_response, :title, :item, :showcase, :exhibit].each do | field |
     it "has field, #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")

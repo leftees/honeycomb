@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe V1::CollectionJSONDecorator do
   subject {described_class.new(collection)}
 
-  let(:collection) { double(Collection, id: 1, description: nil, unique_id: "adsf", title: 'title title', items: [], showcases: [] )}
+  let(:collection) { double(Collection, id: 1, description: nil, unique_id: "adsf", title: 'title title', items: [], showcases: [], exhibit: exhibit )}
+  let(:exhibit) { double(Exhibit, description: nil, honeypot_image: honeypot_image)}
+  let(:honeypot_image) { double(HoneypotImage, json_response: 'json_response') }
+
   let(:json) { double }
 
   describe "generric fields" do
@@ -20,6 +23,16 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#site_intro" do
+    it "converts null to empty string" do
+      expect(subject.site_intro).to eq("")
+    end
+
+    it "gets the value from the exhibit" do
+      expect(exhibit).to receive(:description).and_return("intro")
+      expect(subject.site_intro).to eq("intro")
+    end
+  end
 
   describe "#at_id" do
 
@@ -59,6 +72,20 @@ RSpec.describe V1::CollectionJSONDecorator do
     it "queries for all the published showcases" do
       expect_any_instance_of(ShowcaseQuery).to receive(:published).and_return(["showcases"])
       expect(subject.showcases).to eq(['showcases'])
+    end
+  end
+
+
+  describe "#image" do
+
+    it "gets the honeypot_image json_response" do
+      expect(honeypot_image).to receive(:json_response).and_return('json_response')
+      expect(subject.image).to eq("json_response")
+    end
+
+    it "gets the honeypot_image from the exhibit" do
+      expect(exhibit).to receive(:honeypot_image).and_return(honeypot_image)
+      subject.image
     end
   end
 

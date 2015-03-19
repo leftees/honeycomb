@@ -23,6 +23,10 @@ module V1
       object.description.to_s
     end
 
+    def site_intro
+      object.exhibit.description.to_s
+    end
+
     def slug
       CreateURLSlug.call(object.title)
     end
@@ -36,30 +40,13 @@ module V1
     end
 
     def image
-      {
-                  width: "1200 px",
-                  height: "1600 px",
-                  contentUrl: "https://placekitten.com/g/1200/1600",
-                  name: "1200x1600.jpg",
-                  "thumbnail/medium" => {
-                      width: "600 px",
-                      height: "800 px",
-                      contentUrl: "https://placekitten.com/g/600/800"
-                  },
-                  "thumbnail/dzi" => {
-                      width: "1200 px",
-                      height: "1600 px",
-                      contentUrl: "https://honeypotpprd.library.nd.edu/images/honeycomb/000/002/000/056/pyramid/1200x1600.tif.dzi"
-                  },
-                  "thumbnail/small" => {
-                      width: "150 px",
-                      height: "200 px",
-                      contentUrl: "https://placekitten.com/g/150/200"
-                  }
-      }
+      if object.exhibit.honeypot_image
+        object.exhibit.honeypot_image.json_response
+      else
+        nil
+      end
     end
-
-    def display(json, includes = {})
+        def display(json, includes = {})
       json.partial! '/v1/collections/collection', collection_object: self
     end
   end

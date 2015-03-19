@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316195333) do
+ActiveRecord::Schema.define(version: 20150319124651) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -35,9 +35,13 @@ ActiveRecord::Schema.define(version: 20150316195333) do
   add_index "collections", ["unique_id"], name: "index_collections_on_unique_id", using: :btree
 
   create_table "exhibits", force: true do |t|
-    t.text    "title"
-    t.text    "description"
-    t.integer "collection_id"
+    t.text     "title"
+    t.text     "description"
+    t.integer  "collection_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "honeypot_images", force: true do |t|
@@ -47,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150316195333) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "showcase_id"
+    t.integer  "exhibit_id"
   end
 
   add_index "honeypot_images", ["item_id"], name: "index_honeypot_images_on_item_id", using: :btree

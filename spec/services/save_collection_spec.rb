@@ -7,6 +7,7 @@ RSpec.describe SaveCollection, type: :model do
 
   before(:each) do
     allow(CreateUniqueId).to receive(:call).and_return(true)
+    allow(EnsureCollectionHasExhibit).to receive(:call).and_return(true)
   end
 
   it "returns when the collection save is successful" do
@@ -34,6 +35,14 @@ RSpec.describe SaveCollection, type: :model do
     it "does not call create unique_id if the collection does not save" do
       allow(collection).to receive(:save).and_return(false)
       expect(CreateUniqueId).to_not receive(:call).with(collection)
+      subject
+    end
+  end
+
+  describe "exhibit" do
+
+    it "calls EnsureCollectionHasExhibit" do
+      expect(EnsureCollectionHasExhibit).to receive(:call).with(collection)
       subject
     end
   end

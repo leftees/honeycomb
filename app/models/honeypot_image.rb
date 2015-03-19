@@ -3,6 +3,7 @@ class HoneypotImage < ActiveRecord::Base
 
   belongs_to :item
   belongs_to :showcase
+  belongs_to :exhibit
 
   validates :title, :json_response, presence: true
 
