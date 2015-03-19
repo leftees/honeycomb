@@ -30,8 +30,8 @@ RSpec.describe SectionsController, :type => :controller do
       expect(response).to render_template("index")
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -57,8 +57,8 @@ RSpec.describe SectionsController, :type => :controller do
       expect(response).to render_template("new")
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -79,8 +79,8 @@ RSpec.describe SectionsController, :type => :controller do
   describe "POST #create" do
     subject { post :create, create_params }
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -132,8 +132,8 @@ RSpec.describe SectionsController, :type => :controller do
       subject
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -149,8 +149,8 @@ RSpec.describe SectionsController, :type => :controller do
     subject { put :update, update_params }
 
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -205,8 +205,8 @@ RSpec.describe SectionsController, :type => :controller do
       expect(assigns(:section)).to eq(section)
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 

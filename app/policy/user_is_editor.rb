@@ -1,7 +1,7 @@
-class UserIsCurator
+class UserIsEditor
 
   def self.call(user, collection)
-    new(user, collection).is_curator?
+    new(user, collection).is_editor?
   end
 
   def initialize(user, collection)
@@ -9,7 +9,7 @@ class UserIsCurator
     @collection = collection
   end
 
-  def is_curator?
+  def is_editor?
     if CollectionUser.where(collection_id: collection.id, user_id: user.id).first
       true
     else

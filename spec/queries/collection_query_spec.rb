@@ -8,11 +8,11 @@ describe CollectionQuery do
 
   describe "for_top_nav" do
     before(:each) do
-      allow(subject).to receive(:for_curator).and_return(relation)
+      allow(subject).to receive(:for_editor).and_return(relation)
     end
 
-    it "calls for_curator with the user" do
-      expect(subject).to receive(:for_curator).with(user)
+    it "calls for_editor with the user" do
+      expect(subject).to receive(:for_editor).with(user)
       subject.for_top_nav(user, collection)
     end
 
@@ -50,20 +50,20 @@ describe CollectionQuery do
   end
 
 
-  describe "for_curator" do
+  describe "for_editor" do
 
     it "returns all the collections for an admin" do
       expect(UserIsAdmin).to receive(:call).and_return(true)
       expect(relation).to receive(:all)
 
-      subject.for_curator(user)
+      subject.for_editor(user)
     end
 
     it "returns just the users for a non admin" do
       expect(UserIsAdmin).to receive(:call).and_return(false)
       expect(user).to receive(:collections)
 
-      subject.for_curator(user)
+      subject.for_editor(user)
     end
   end
 

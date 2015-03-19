@@ -57,9 +57,9 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def check_user_curates!(collection)
-      if !(permission.user_is_admin_in_masquerade? || permission.user_is_administrator? || permission.user_is_curator?(collection))
-        raise_404("User does not currate this collection")
+    def check_user_edits!(collection)
+      if !(permission.user_is_admin_in_masquerade? || permission.user_is_administrator? || permission.user_is_editor?(collection))
+        raise_404("User does not edit this collection")
       end
     end
 

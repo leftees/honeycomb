@@ -1,4 +1,4 @@
-describe UserIsCurator do
+describe UserIsEditor do
   subject {described_class.call(user, collection)}
   let(:user) { double(User, id: "1") }
   let(:collection) { double(Collection, id: "1") }

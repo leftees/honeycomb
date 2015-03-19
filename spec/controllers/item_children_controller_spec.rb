@@ -28,8 +28,8 @@ RSpec.describe ItemChildrenController, :type => :controller do
       expect(response).to render_template("new")
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -54,8 +54,8 @@ RSpec.describe ItemChildrenController, :type => :controller do
       allow(SaveItem).to receive(:call).and_return(true)
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 

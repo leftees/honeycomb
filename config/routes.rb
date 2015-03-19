@@ -20,19 +20,12 @@ Rails.application.routes.draw do
 
     resources :items, only: [:index, :new, :create]
 
-    resources :curators, only: [:index, :create, :destroy] do
+    resources :editors, only: [:index, :create, :destroy] do
       collection do
         get :user_search
       end
     end
 
-#    resources :exhibits do
-#      resources :showcases do
-#        resources :sections
-#      end
-#
-#      resources :items, only: [:index, :show], defaults: {format: :json}
-#    end
   end
 
   resources :items, only: [ :edit, :update, :destroy ] do

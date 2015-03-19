@@ -124,7 +124,7 @@ en:
       title: "Upload Additional Resources"
     create:
       success: 'Resource created'
-  curators:
+  editors:
     index:
       name_of_user_type: 'Editors'
       title: 'Manage Editors'

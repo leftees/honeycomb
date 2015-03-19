@@ -3,7 +3,7 @@ class CollectionUserListDecorator < Draper::CollectionDecorator
     CollectionUserDecorator
   end
 
-  def curator_hashes
-    decorated_collection.collect{|collection_user| collection_user.curator_hash}
+  def editor_hashes
+    decorated_collection.collect{|collection_user| collection_user.editor_hash}
   end
 end

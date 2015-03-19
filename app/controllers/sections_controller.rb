@@ -1,17 +1,17 @@
 class SectionsController < ApplicationController
 
   def index
-    check_user_curates!(showcase.exhibit.collection)
+    check_user_edits!(showcase.exhibit.collection)
     @sections = ShowcaseList.new(SectionQuery.new(showcase.sections).all_in_showcase, showcase)
   end
 
   def new
-    check_user_curates!(showcase.exhibit.collection)
+    check_user_edits!(showcase.exhibit.collection)
     @section_form = SectionForm.build_from_params(self)
   end
 
   def create
-    check_user_curates!(showcase.exhibit.collection)
+    check_user_edits!(showcase.exhibit.collection)
     @section = SectionQuery.new(showcase.sections).build
 
     respond_to do |format|
@@ -27,12 +27,12 @@ class SectionsController < ApplicationController
 
   def edit
     @section_form = SectionForm.build_from_params(self)
-    check_user_curates!(@section_form.collection)
+    check_user_edits!(@section_form.collection)
   end
 
   def update
     @section = SectionQuery.new.find(params[:id])
-    check_user_curates!(@section.showcase.exhibit.collection)
+    check_user_edits!(@section.showcase.exhibit.collection)
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
@@ -47,7 +47,7 @@ class SectionsController < ApplicationController
 
   def destroy
     @section = SectionQuery.new.find(params[:id])
-    check_user_curates!(@section.showcase.exhibit.collection)
+    check_user_edits!(@section.showcase.exhibit.collection)
 
     @section.destroy!
 

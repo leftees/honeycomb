@@ -3,13 +3,13 @@
 
 <ul class="nav nav-tabs nav-edit" role="tablist">
   <li><%= link_to 'Basic Information', edit_collection_path(@collection) %></li>
-  <li class="active"><%= link_to 'Editors', collection_curators_path(@collection) %></a></li>
+  <li class="active"><%= link_to 'Editors', collection_editors_path(@collection) %></a></li>
 </ul>
 
 <%= react_component 'UserPanel', {
-    initialUsers: @curator_list.curator_hashes,
-    createUrl: collection_curators_path(@collection.id),
-    searchUrl: user_search_collection_curators_path(@collection.id),
+    initialUsers: @editor_list.editor_hashes,
+    createUrl: collection_editors_path(@collection.id),
+    searchUrl: user_search_collection_editors_path(@collection.id),
     title: t('.name_of_user_type'),
   },
   {prerender: false }

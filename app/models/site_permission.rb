@@ -15,7 +15,7 @@ class SitePermission
     m.masquerading? && UserIsAdmin.call(m.original_user)
   end
 
-  def user_is_curator?(collection)
-    UserIsCurator.call(user, collection)
+  def user_is_editor?(collection)
+    UserIsEditor.call(user, collection)
   end
 end

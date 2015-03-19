@@ -1,12 +1,12 @@
 class ItemChildrenController < ApplicationController
 
   def new
-    check_user_curates!(parent.collection)
+    check_user_edits!(parent.collection)
     @item = ItemQuery.new(parent.children).build(collection_id: parent.collection.id)
   end
 
   def create
-    check_user_curates!(parent.collection)
+    check_user_edits!(parent.collection)
     @item = ItemQuery.new(parent.children).build(collection_id: parent.collection.id)
 
     if SaveItem.call(@item, save_params)

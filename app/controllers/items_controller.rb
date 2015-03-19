@@ -1,20 +1,20 @@
 class ItemsController < ApplicationController
 
   def index
-    check_user_curates!(collection)
+    check_user_edits!(collection)
 
     items = ItemQuery.new(collection.items).only_top_level
     @items = ItemsDecorator.new(items)
   end
 
   def new
-    check_user_curates!(collection)
+    check_user_edits!(collection)
 
     @item = ItemQuery.new(collection.items).build
   end
 
   def create
-    check_user_curates!(collection)
+    check_user_edits!(collection)
 
     @item = ItemQuery.new(collection.items).build
 
@@ -27,14 +27,14 @@ class ItemsController < ApplicationController
 
   def edit
     item = ItemQuery.new.find(params[:id])
-    check_user_curates!(item.collection)
+    check_user_edits!(item.collection)
 
     @item = ItemDecorator.new(item)
   end
 
   def update
     @item = ItemQuery.new.find(params[:id])
-    check_user_curates!(@item.collection)
+    check_user_edits!(@item.collection)
 
     if SaveItem.call(@item, save_params)
       item_save_success(@item)
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = ItemQuery.new.find(params[:id])
-    check_user_curates!(@item.collection)
+    check_user_edits!(@item.collection)
 
     @item.destroy!
     flash[:notice] = t('.success')
@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
 
   def publish
     @item = ItemQuery.new.find(params[:id])
-    check_user_curates!(@item.collection)
+    check_user_edits!(@item.collection)
 
     if !Publish.call(@item)
       raise "Error publishing #{@item.title}"
@@ -66,7 +66,7 @@ class ItemsController < ApplicationController
 
   def unpublish
     @item = ItemQuery.new.find(params[:id])
-    check_user_curates!(@item.collection)
+    check_user_edits!(@item.collection)
 
     if !Unpublish.call(@item)
       raise "Error unpublishing #{@item.title}"
