@@ -6,7 +6,7 @@
 <% else %>
   <%= back_action_bar(edit_item_path(@item.parent), '#' ) %>
 <% end %>
-
+  <%= link_to("PREVIEW", @item.beehive_url, class: "btn btn-large btn-hollow", :target => "_blank") %>
 <div class="row">
   <div class="col-md-8">
     <%= simple_form_for @item, html: { :class => "item", id: 'edit-item' } do |f| %>

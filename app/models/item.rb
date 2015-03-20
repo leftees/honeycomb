@@ -16,6 +16,10 @@ class Item < ActiveRecord::Base
 
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
+  def beehive_url
+    CreateBeehiveURL.call(self)
+  end
+
   private
 
   def manuscript_url_is_valid_uri
