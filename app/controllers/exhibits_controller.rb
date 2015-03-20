@@ -6,12 +6,12 @@ class ExhibitsController < ApplicationController
 
   def edit
     @exhibit = ExhibitQuery.new.find(params[:id])
-    check_user_curates!(@exhibit.collection)
+    check_user_edits!(@exhibit.collection)
   end
 
   def update
     @exhibit = ExhibitQuery.new.find(params[:id])
-    check_user_curates!(@exhibit.collection)
+    check_user_edits!(@exhibit.collection)
 
     if SaveExhibit.call(@exhibit, save_params)
       flash[:notice] = t('.success')

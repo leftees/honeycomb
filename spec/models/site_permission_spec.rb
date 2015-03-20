@@ -26,14 +26,14 @@ describe SitePermission do
     Masquerade.any_instance.stub(:user).and_return(false)
   end
 
-  it "returns true when a user is a curator" do
-    expect(UserIsCurator).to receive(:call).with(user, collection).and_return(true)
-    expect(subject.user_is_curator?(collection)).to be(true)
+  it "returns true when a user is a editor" do
+    expect(UserIsEditor).to receive(:call).with(user, collection).and_return(true)
+    expect(subject.user_is_editor?(collection)).to be(true)
   end
 
-  it "returns false when a user is not a curator" do
-    expect(UserIsCurator).to receive(:call).with(user, collection).and_return(false)
-    expect(subject.user_is_curator?(collection)).to be(false)
+  it "returns false when a user is not a editor" do
+    expect(UserIsEditor).to receive(:call).with(user, collection).and_return(false)
+    expect(subject.user_is_editor?(collection)).to be(false)
   end
 
 end

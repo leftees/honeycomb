@@ -1,5 +1,5 @@
 class CollectionUserDecorator < Draper::Decorator
-  def curator_hash
+  def editor_hash
     {
       id: id,
       name: name,
@@ -8,8 +8,8 @@ class CollectionUserDecorator < Draper::Decorator
     }
   end
 
-  def curator_json
-    curator_hash.to_json
+  def editor_json
+    editor_hash.to_json
   end
 
   def id
@@ -25,7 +25,7 @@ class CollectionUserDecorator < Draper::Decorator
   end
 
   def destroy_path
-    h.collection_curator_path(object.collection_id, object.user_id)
+    h.collection_editor_path(object.collection_id, object.user_id)
   end
 
   private

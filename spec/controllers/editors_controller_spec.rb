@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CuratorsController, :type => :controller do
+RSpec.describe EditorsController, :type => :controller do
   let(:collection) { instance_double(Collection, id: 1, collection_users: [] ) }
   let(:user) { instance_double(User, id: 100, username: 'username', name: 'name') }
   let(:collection_user) { double(CollectionUser, id: 1) }
@@ -12,8 +12,8 @@ RSpec.describe CuratorsController, :type => :controller do
 
   describe "index" do
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       get :index, collection_id: 1
     end
 
@@ -33,7 +33,7 @@ RSpec.describe CuratorsController, :type => :controller do
     it 'maps a user to a collection' do
       expect(FindOrCreateUser).to receive(:call).with(user.username).and_return(user)
       expect(AssignUserToCollection).to receive(:call).with(collection, user).and_return(collection_user)
-      expect_any_instance_of(CollectionUserDecorator).to receive(:curator_hash).and_return({test: :test})
+      expect_any_instance_of(CollectionUserDecorator).to receive(:editor_hash).and_return({test: :test})
       post :create, user: {username: user.username}, collection_id: 1
       expect(response).to be_success
     end
@@ -81,8 +81,8 @@ RSpec.describe CuratorsController, :type => :controller do
         allow(PersonAPISearch).to receive(:call).and_return([])
       end
 
-      it "checks the curator permissions" do
-        expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      it "checks the editor permissions" do
+        expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
         get :user_search, collection_id: 1, q: query
         expect(response).to be_success
       end

@@ -27,22 +27,22 @@ RSpec.describe CollectionUserDecorator do
 
   describe '#destroy_path' do
     it 'is the destroy path' do
-      expect(subject.destroy_path).to eq('/collections/2/curators/1')
+      expect(subject.destroy_path).to eq('/collections/2/editors/1')
     end
   end
 
-  describe '#curator_hash' do
+  describe '#editor_hash' do
     it 'returns a hash' do
-      expect(subject.curator_hash).to be_a_kind_of(Hash)
-      expect(subject.curator_hash).to eq({:id=>1, :name=>"display_name", :username=>"username", :removeUrl=>"/collections/2/curators/1"})
+      expect(subject.editor_hash).to be_a_kind_of(Hash)
+      expect(subject.editor_hash).to eq({:id=>1, :name=>"display_name", :username=>"username", :removeUrl=>"/collections/2/editors/1"})
     end
   end
 
-  describe '#curator_json' do
+  describe '#editor_json' do
     it 'returns JSON' do
       test_hash = {test: :test}
-      expect(subject).to receive(:curator_hash).and_return(test_hash)
-      expect(subject.curator_json).to eq(test_hash.to_json)
+      expect(subject).to receive(:editor_hash).and_return(test_hash)
+      expect(subject.editor_json).to eq(test_hash.to_json)
     end
   end
 end

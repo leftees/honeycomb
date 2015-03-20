@@ -1,31 +1,20 @@
-class CuratorsController < ApplicationController
+class EditorsController < ApplicationController
   def index
     @collection = CollectionQuery.new.find(params[:collection_id])
-    check_user_curates!(@collection)
+    check_user_edits!(@collection)
     collection_users = @collection.collection_users
-    @curator_list = CollectionUserListDecorator.new(collection_users)
-
-    # @current = CollectionUser.where(collection_id: @collection.id).map { |cu|
-    #   cu.user.attributes
-    # }
-    # priority_list = Hash.new
-    # @priority = CollectionUser.all.map { |cu|
-    #   unless priority_list.has_key?(cu.user.username)
-    #     priority_list[cu.user.username] = 1
-    #     cu.user.attributes
-    #   end
-    # }
+    @editor_list = CollectionUserListDecorator.new(collection_users)
   end
 
   def create
     collection = CollectionQuery.new.find(params[:collection_id])
-    check_user_curates!(collection)
+    check_user_edits!(collection)
 
     user =  FindOrCreateUser.call(create_params[:username])
     if collection_user = AssignUserToCollection.call(collection, user)
       @collection_user = CollectionUserDecorator.new(collection_user)
       respond_to do |format|
-        format.any { render json: @collection_user.curator_hash, status: 200 }
+        format.any { render json: @collection_user.editor_hash, status: 200 }
       end
     else
       respond_to do |format|
@@ -36,22 +25,22 @@ class CuratorsController < ApplicationController
 
   def destroy
     @collection = CollectionQuery.new.find(params[:collection_id])
-    check_user_curates!(@collection)
+    check_user_edits!(@collection)
 
     @user =  User.find(params[:id])
     if @user.present?
       if RemoveUserFromCollection.call(@collection, @user)
-        flash[:notice] = "Removed curator " + @user.name
+        flash[:notice] = t('.success') + @user.name
       else
-        flash[:error] = "Could not remove specified curator"
+        flash[:error] = t('.failure')
       end
     end
-    redirect_to collection_curators_path(@collection.id)
+    redirect_to collection_editors_path(@collection.id)
   end
 
   def user_search
     @collection = CollectionQuery.new.find(params[:collection_id])
-    check_user_curates!(@collection)
+    check_user_edits!(@collection)
 
     search_results = PersonAPISearch.call(params[:q])
     respond_to do |format|

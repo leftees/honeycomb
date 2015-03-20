@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
     resources :items, only: [:index, :new, :create]
 
-    resources :curators, only: [:index, :create, :destroy] do
+    resources :editors, only: [:index, :create, :destroy] do
       collection do
         get :user_search
       end

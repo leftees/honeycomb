@@ -27,7 +27,7 @@ RSpec.describe ExhibitsController, :type => :controller do
     subject { get :edit, id: exhibit.id }
 
     it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -48,7 +48,7 @@ RSpec.describe ExhibitsController, :type => :controller do
     subject { put :update, update_params }
 
     it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 

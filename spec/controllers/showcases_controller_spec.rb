@@ -28,8 +28,8 @@ RSpec.describe ShowcasesController, :type => :controller do
       expect(response).to render_template("index")
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -55,8 +55,8 @@ RSpec.describe ShowcasesController, :type => :controller do
       expect(response).to render_template("new")
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -76,8 +76,8 @@ RSpec.describe ShowcasesController, :type => :controller do
   describe "POST #create" do
     subject { post :create, create_params }
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -117,8 +117,8 @@ RSpec.describe ShowcasesController, :type => :controller do
   describe "PUT #update" do
     subject { put :update, update_params }
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -158,8 +158,8 @@ RSpec.describe ShowcasesController, :type => :controller do
   describe "GET #show" do
     subject { get :show, id: showcase.id }
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -190,8 +190,8 @@ RSpec.describe ShowcasesController, :type => :controller do
   describe "GET #edit" do
     subject { get :edit, id: showcase.id }
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -211,8 +211,8 @@ RSpec.describe ShowcasesController, :type => :controller do
   describe "GET #title" do
     subject { get :title, id: showcase.id }
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 
@@ -247,8 +247,8 @@ RSpec.describe ShowcasesController, :type => :controller do
       expect(assigns(:showcase)).to eq(showcase)
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       subject
     end
 

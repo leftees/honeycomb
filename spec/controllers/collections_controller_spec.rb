@@ -21,7 +21,7 @@ RSpec.describe CollectionsController, :type => :controller do
     subject { get :index }
 
     it "uses the query object" do
-      expect_any_instance_of(CollectionQuery).to receive(:for_curator).with(user)
+      expect_any_instance_of(CollectionQuery).to receive(:for_editor).with(user)
       subject
     end
 
@@ -110,8 +110,8 @@ RSpec.describe CollectionsController, :type => :controller do
       allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       get :edit, id: 1
     end
 
@@ -132,8 +132,8 @@ RSpec.describe CollectionsController, :type => :controller do
       allow(SaveCollection).to receive(:call).and_return(true)
     end
 
-    it "checks the curator permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_curates!).with(collection)
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
       put :update, update_params
     end
 

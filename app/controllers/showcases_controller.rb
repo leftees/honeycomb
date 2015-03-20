@@ -1,17 +1,17 @@
 class ShowcasesController < ApplicationController
 
   def index
-    check_user_curates!(exhibit.collection)
+    check_user_edits!(exhibit.collection)
     @showcases = ShowcaseQuery.new(exhibit.showcases).all
   end
 
   def new
-    check_user_curates!(exhibit.collection)
+    check_user_edits!(exhibit.collection)
     @showcase = ShowcaseQuery.new(exhibit.showcases).build
   end
 
   def create
-    check_user_curates!(exhibit.collection)
+    check_user_edits!(exhibit.collection)
     @showcase = ShowcaseQuery.new(exhibit.showcases).build(save_params)
 
     if SaveShowcase.call(@showcase, save_params)
@@ -24,7 +24,7 @@ class ShowcasesController < ApplicationController
 
   def show
     showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(showcase.collection)
+    check_user_edits!(showcase.collection)
     @showcase = ShowcaseDecorator.new(showcase)
     if request.xhr?
       render format: :json
@@ -38,12 +38,12 @@ class ShowcasesController < ApplicationController
 
   def edit
     @showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(@showcase.collection)
+    check_user_edits!(@showcase.collection)
   end
 
   def update
     @showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(@showcase.collection)
+    check_user_edits!(@showcase.collection)
 
     if SaveShowcase.call(@showcase, save_params)
       flash[:notice] = t('.success')
@@ -55,12 +55,12 @@ class ShowcasesController < ApplicationController
 
   def title
     @showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(@showcase.collection)
+    check_user_edits!(@showcase.collection)
   end
 
   def destroy
     @showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(@showcase.collection)
+    check_user_edits!(@showcase.collection)
 
     @showcase.destroy!()
 
@@ -70,7 +70,7 @@ class ShowcasesController < ApplicationController
 
   def publish
     @showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(@showcase.collection)
+    check_user_edits!(@showcase.collection)
 
     if !Publish.call(@showcase)
       raise "Error publishing #{@showcase.title}"
@@ -81,7 +81,7 @@ class ShowcasesController < ApplicationController
 
   def unpublish
     @showcase = ShowcaseQuery.new.find(params[:id])
-    check_user_curates!(@showcase.collection)
+    check_user_edits!(@showcase.collection)
 
     if !Unpublish.call(@showcase)
       raise "Error unpublishing #{@showcase.title}"

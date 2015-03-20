@@ -7,7 +7,7 @@ div#selected_user label {
   vertical-align: middle;
 }
 
-#add_curator {
+#add_editor {
   margin-left: 5px;
 }
 
@@ -15,7 +15,7 @@ div#selected_user label {
   width: 300px;
 }
 
-.remove_curator {
+.remove_editor {
   color: gray;
   margin-right: 2em;
 }
@@ -28,7 +28,7 @@ div.collection_info {
   padding: 20px;
 }
 
-table.curator-list tr td {
+table.editor-list tr td {
   padding-top: 1em;
   padding-bottom: 1em;
 }

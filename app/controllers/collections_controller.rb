@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
 
   def index
-    @collections = CollectionQuery.new.for_curator(current_user)
+    @collections = CollectionQuery.new.for_editor(current_user)
   end
 
   def show
@@ -29,12 +29,12 @@ class CollectionsController < ApplicationController
 
   def edit
     @collection = CollectionQuery.new.find(params[:id])
-    check_user_curates!(@collection)
+    check_user_edits!(@collection)
   end
 
   def update
     @collection = CollectionQuery.new.find(params[:id])
-    check_user_curates!(@collection)
+    check_user_edits!(@collection)
 
     if SaveCollection.call(@collection, save_params)
       flash[:notice] = t('.success')
