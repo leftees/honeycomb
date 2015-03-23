@@ -15,6 +15,9 @@ RSpec.describe Showcase do
     end
   end
 
+  it "has paper trail" do
+    expect(subject).to respond_to(:versions)
+  end
 
   describe "#has honeypot image interface" do
 
