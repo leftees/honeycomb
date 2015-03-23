@@ -1,29 +1,21 @@
 require "rails_helper"
 
 RSpec.describe ItemsController, :type => :controller do
-  let(:item) { instance_double(Item, id: 1, title: 'title', collection: collection, destroy!: true) }
-  let(:collection) { instance_double(Collection, id: 1, title: 'title', items: relation) }
   let(:relation) { Item.all }
-  let(:create_params) { {collection_id: collection.id, item: { title: 'title' }} }
-  let(:update_params) { {id: item.id, item: { title: 'title' }} }
+
   let(:publish_params) { {id: item.id } }
 
-  let(:user) {
-    u = User.new(username: 'jhartzler', admin: true)
-    u.save!
-
-    u
-  }
-
   before(:each) do
-    sign_in user
-
-    allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
-    allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
-    allow(SaveItem).to receive(:call).and_return(true)
+    sign_in_admin
   end
 
   describe "GET #index" do
+    let(:collection) { double(Collection, id: 1, items: relation) }
+
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+    end
+
     subject { get :index, collection_id: collection.id }
 
     it "returns a 200" do
@@ -50,8 +42,15 @@ RSpec.describe ItemsController, :type => :controller do
     end
   end
 
-
   describe "GET #new" do
+    let(:collection) { double(Collection, id: 1, items: relation) }
+    let(:item) { double(Item, id: "1", collection: collection) }
+
+    before(:each) do
+      allow_any_instance_of(ItemQuery).to receive(:build).and_return(item)
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+    end
+
     subject { get :new, collection_id: collection.id }
 
     it "returns a 200" do
@@ -75,12 +74,20 @@ RSpec.describe ItemsController, :type => :controller do
       subject
 
       assigns(:item)
-      expect(assigns(:item)).to be_a(Item)
+      expect(assigns(:item)).to eq(item)
     end
   end
 
-
   describe "POST #create" do
+    let(:collection) { double(Collection, id: 1, items: relation) }
+    let(:create_params) { {collection_id: collection.id, item: { title: 'title' }} }
+    let(:item) { double(Item, id: 1, parent: nil, collection: collection) }
+
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+      allow(SaveItem).to receive(:call).and_return(true)
+    end
+
     subject { post :create, create_params }
 
     it "checks the editor permissions" do
@@ -94,6 +101,8 @@ RSpec.describe ItemsController, :type => :controller do
     end
 
     it "redirects on success" do
+      expect_any_instance_of(described_class).to receive(:item_save_success).and_call_original
+
       subject
 
       expect(response).to be_redirect
@@ -122,7 +131,14 @@ RSpec.describe ItemsController, :type => :controller do
   end
 
   describe "GET #edit" do
-    subject { get :edit, id: 1 }
+    let(:collection) { double(Collection, id: "1")}
+    let(:item) { double(Item, id: "1", collection: collection) }
+
+    before(:each) do
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
+    end
+
+    subject { get :edit, id: item.id }
 
     it "returns a 200" do
       subject
@@ -151,9 +167,14 @@ RSpec.describe ItemsController, :type => :controller do
 
 
   describe "PUT #update" do
+    let(:collection) { double(Collection, id: "1")}
+    let(:item) { double(Item, id: 1, parent: nil, collection: collection) }
+    let(:update_params) { {id: item.id, item: { title: 'title' }} }
+
     subject { put :update, update_params }
 
     before(:each) do
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
       allow(SaveItem).to receive(:call).and_return(true)
     end
 
@@ -168,6 +189,8 @@ RSpec.describe ItemsController, :type => :controller do
     end
 
     it "redirects on success" do
+      expect_any_instance_of(described_class).to receive(:item_save_success).and_call_original
+
       subject
 
       expect(response).to be_redirect
@@ -197,7 +220,14 @@ RSpec.describe ItemsController, :type => :controller do
 
 
   describe "DELETE #destroy" do
+    let(:collection) { double(Collection, id: "1")}
+    let(:item) { double(Item, id: 1, collection: collection, destroy!: true) }
+
     subject { delete :destroy, id: item.id }
+
+    before(:each) do
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
+    end
 
     it "calls destroy on the item on success, redirects, and flashes " do
       expect(item).to receive(:destroy!).and_return(true)
@@ -226,11 +256,16 @@ RSpec.describe ItemsController, :type => :controller do
   end
 
   describe "PUT #publish" do
-    subject { put :publish, publish_params }
+    let(:collection) { double(Collection, id: "1")}
+    let(:item) { double(Item, id: 1, collection: collection, "published=" => true, parent: nil) }
 
     before(:each) do
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
       allow(Publish).to receive(:call).and_return(true)
     end
+
+    subject { put :publish, publish_params }
+
 
     it "checks the editor permissions" do
       expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
@@ -243,6 +278,7 @@ RSpec.describe ItemsController, :type => :controller do
     end
 
     it "redirects on success" do
+      expect_any_instance_of(described_class).to receive(:item_save_success).and_call_original
       subject
 
       expect(response).to be_redirect
@@ -258,11 +294,15 @@ RSpec.describe ItemsController, :type => :controller do
   end
 
   describe "PUT #unpublish" do
-    subject { put :unpublish, publish_params }
+    let(:collection) { double(Collection, id: "1")}
+    let(:item) { double(Item, id: 1, collection: collection, "published=" => true, parent: nil) }
 
     before(:each) do
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
       allow(Unpublish).to receive(:call).and_return(true)
     end
+
+    subject { put :unpublish, publish_params }
 
     it "checks the editor permissions" do
       expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
@@ -275,6 +315,7 @@ RSpec.describe ItemsController, :type => :controller do
     end
 
     it "redirects on success" do
+      expect_any_instance_of(described_class).to receive(:item_save_success).and_call_original
       subject
 
       expect(response).to be_redirect

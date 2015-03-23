@@ -96,10 +96,10 @@ class ItemsController < ApplicationController
 
     def item_save_html_success(item)
       flash[:notice] = t('.success')
-      if params[:action] == 'create'
-        redirect_to collection_path(collection)
+      if item.parent
+        redirect_to edit_item_path(item.parent)
       else
-        redirect_to edit_item_path(item)
+        redirect_to collections_path(item.collection)
       end
     end
 
