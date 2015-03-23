@@ -12,5 +12,8 @@ class Showcase < ActiveRecord::Base
 
   has_paper_trail
 
+  def beehive_url
+    CreateBeehiveURL.call(self)
+  end
 end
 

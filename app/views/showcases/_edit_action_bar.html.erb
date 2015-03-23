@@ -1,7 +1,9 @@
 <div class="menu-bar default">
   <div class="btn-group">
     <%= back_button(exhibit_showcases_path(@showcase.exhibit)) %>
+
   </div>
+      <%= link_to("PREVIEW", @showcase.beehive_url, class: "btn btn-large btn-hollow", :target => "_blank") %>
 
   <div class="btn-group">
     <%= ShowcasePublishAction.display(@showcase) %>
