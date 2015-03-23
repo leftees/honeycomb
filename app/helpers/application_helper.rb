@@ -41,4 +41,9 @@ module ApplicationHelper
   def back_action_bar(back_path, learn_more_path)
     render(partial: '/shared/back_action_bar', locals: { back_path: back_path, learn_more_path: learn_more_path })
   end
+
+  def no_back_action_bar(learn_more_path)
+    render(partial: '/shared/no_back_action_bar', locals: { learn_more_path: learn_more_path })
+  end
+
 end
