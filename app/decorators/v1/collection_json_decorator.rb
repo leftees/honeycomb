@@ -1,7 +1,7 @@
 
 module V1
   class CollectionJSONDecorator < Draper::Decorator
-    delegate :id, :title, :description, :unique_id, :updated_at
+    delegate :id, :title, :unique_id, :updated_at
 
     def self.display(collection, json)
       new(collection).display(json)

@@ -3,35 +3,13 @@ require 'rails_helper'
 RSpec.describe V1::CollectionJSONDecorator do
   subject { V1::CollectionJSONDecorator.new(collection) }
 
-  honeypot_image_double = nil
-  exhibit_double = nil
-  collection_double = nil
-  before(:each) do
-    honeypot_image_double = double(HoneypotImage,
-                                   json_response: 'json_response')
-    exhibit_double = double(Exhibit,
-                            description: nil,
-                            honeypot_image: honeypot_image)
-    collection_double = double(Collection,
-                               id: 1,
-                               description: nil,
-                               unique_id: 'adsf',
-                               title: 'title title',
-                               items: [],
-                               showcases: [],
-                               exhibit: exhibit)
-  end
-  let(:honeypot_image) { honeypot_image_double }
-  let(:exhibit) { exhibit_double }
-  let(:collection) { collection_double }
+  let(:collection) { double(Collection)}
   let(:json) { double }
 
-  describe 'generric fields' do
+  describe 'generic fields' do
     [:id,
      :title,
-     :description,
      :unique_id,
-     :image,
      :updated_at].each do | field |
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
@@ -40,12 +18,23 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe '#description' do
+    let(:collection) { double(Collection, description: nil )}
+
     it 'converts null to empty string' do
       expect(subject.description).to eq('')
     end
+
+    it "delegates to collection" do
+      expect(collection).to receive(:description).and_return('desc')
+      expect(subject.description).to eq('desc')
+    end
+
   end
 
   describe '#site_intro' do
+    let(:exhibit) { double(Exhibit, description: nil)}
+    let(:collection) { double(Collection, exhibit: exhibit )}
+
     it 'converts null to empty string' do
       expect(subject.site_intro).to eq('')
     end
@@ -57,42 +46,60 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe '#at_id' do
+    let(:collection) { double(Collection, unique_id: 'adsf' )}
+
     it 'returns the path to the id' do
       expect(subject.at_id).to eq('http://test.host/v1/collections/adsf')
     end
   end
 
   describe '#items_url' do
+    let(:collection) { double(Collection, unique_id: 'adsf' )}
+
     it 'returns the path to the items' do
       expect(subject.items_url).to eq('http://test.host/v1/collections/adsf/items')
     end
   end
 
   describe '#slug' do
+    let(:collection) { double(Collection, title: 'title')}
+
     it 'calls the slug generator' do
       expect(CreateURLSlug).to receive(:call)
         .with(collection.title).and_return('slug')
+
       expect(subject.slug).to eq('slug')
     end
   end
 
   describe '#items' do
+    let(:collection) { double(Collection, items: [])}
+
     it 'queries for all the published items' do
       expect_any_instance_of(ItemQuery).to receive(:only_top_level)
         .and_return(['items'])
+
       expect(subject.items).to eq(['items'])
     end
   end
 
   describe '#showcases' do
+    let(:collection) { double(Collection, showcases: [])}
+
     it 'queries for all the published showcases' do
       expect_any_instance_of(ShowcaseQuery).to receive(:published)
         .and_return(['showcases'])
+
       expect(subject.showcases).to eq(['showcases'])
     end
   end
 
   describe '#image' do
+    let(:exhibit) { double(Exhibit, honeypot_image: honeypot_image)}
+    let(:collection) { double(Collection, exhibit: exhibit )}
+    let(:honeypot_image) { double(HoneypotImage, json_response: 'json_response')}
+
+
     it 'gets the honeypot_image json_response' do
       expect(honeypot_image).to receive(:json_response)
         .and_return('json_response')
@@ -106,6 +113,9 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe '#display' do
+
+
+
     it 'calls the partial for the display' do
       expect(json).to receive(:partial!)
         .with('/v1/collections/collection', collection_object: collection)
