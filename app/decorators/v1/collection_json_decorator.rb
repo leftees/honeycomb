@@ -32,7 +32,7 @@ module V1
     end
 
     def items
-      @items ||= ItemQuery.new(object.items).published
+      @items ||= ItemQuery.new(object.items).only_top_level
     end
 
     def showcases
