@@ -1,16 +1,18 @@
 <%= page_title(t('.title')) %>
-<%= collection_nav(@collection, :settings) %>
+<%= collection_nav(@collection, :editors) %>
 
-<ul class="nav nav-tabs nav-edit" role="tablist">
-  <li><%= link_to 'Basic Information', edit_collection_path(@collection) %></li>
-  <li class="active"><%= link_to 'Editors', collection_editors_path(@collection) %></a></li>
-</ul>
-
-<%= react_component 'UserPanel', {
-    initialUsers: @editor_list.editor_hashes,
-    createUrl: collection_editors_path(@collection.id),
-    searchUrl: user_search_collection_editors_path(@collection.id),
-    title: t('.name_of_user_type'),
-  },
-  {prerender: false }
-%>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= t('.title') %>
+  </div>
+  <div class="panel-body">
+    <%= react_component 'UserPanel', {
+        initialUsers: @editor_list.editor_hashes,
+        createUrl: collection_editors_path(@collection.id),
+        searchUrl: user_search_collection_editors_path(@collection.id),
+        title: t('.name_of_user_type'),
+      },
+      {prerender: false }
+    %>
+  </div>
+</div>

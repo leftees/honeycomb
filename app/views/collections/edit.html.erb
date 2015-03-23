@@ -1,21 +1,21 @@
 <%= page_title(t('.title')) %>
 <%= collection_nav(@collection, :settings) %>
 
-
-
 <div class="panel panel-default">
-<ul class="nav nav-tabs nav-edit" role="tablist">
-  <li class="active"><%= link_to 'Basic Information', edit_collection_path(@collection) %></li>
-  <li><%= link_to 'Editors', collection_editors_path(@collection) %></a></li>
-</ul>
-  <%= simple_form_for @collection do |f| %>
-    <div class="panel-body">
-      <%= render partial: 'form', locals: { f: f } %>
-    </div>
-    <div class="panel-footer">
-      <%= f.button :submit, value: t('buttons.save'), :class => 'btn-primary' %>
-    </div>
-  <% end %>
+  <div class="panel-heading">
+    <%= t('.title') %>
+  </div>
+  <div class="panel-body">
+
+    <%= simple_form_for @collection do |f| %>
+      <div class="panel-body">
+        <%= render partial: 'form', locals: { f: f } %>
+      </div>
+      <div class="panel-footer">
+        <%= f.button :submit, value: t('buttons.save'), :class => 'btn-primary' %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 

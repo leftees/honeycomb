@@ -8,7 +8,8 @@
     <li class="header" role="presentation">Settings</li>
 
     <li class="<%= nav.active_section_css(:website) %>"><a href="<%= edit_exhibit_path(nav.collection.exhibit) %>"><i class="glyphicon mdi-av-web"></i> <%= t('collection_left_nav.website') %></a></li>
-    <li class="<%= nav.active_section_css(:settings) %>"><a href="<%= edit_collection_path(nav.collection) %>"><i class="glyphicon glyphicon-list-alt"></i> Collection <% t('collection_left_nav.settings') %></a></li>
+    <li class="<%= nav.active_section_css(:editors) %>"><a href="<%= collection_editors_path(nav.collection) %>"><i class="glyphicon glyphicon-user"></i> <%= t('collection_left_nav.editors') %></a></li>
+    <li class="<%= nav.active_section_css(:settings) %>"><a href="<%= edit_collection_path(nav.collection) %>"><i class="glyphicon glyphicon-list-alt"></i> <%= t('collection_left_nav.settings') %></a></li>
   </ul>
   &nbsp;
   <a href="#" id="trig"><span id="switch" class="glyphicon glyphicon-chevron-left"></span></a>

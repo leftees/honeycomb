@@ -54,8 +54,9 @@ en:
   collection_left_nav:
     items: 'Items'
     showcases: 'Showcases'
-    settings: 'Settings'
-    website: 'Website'
+    settings: 'Collection'
+    website: 'Site Setup'
+    editors: 'Editors'
   collection_top_nav:
     recent_collections: 'Collections'
   collections:
