@@ -33,11 +33,6 @@ class MultiNewDropzoneForm
           return
 
         @on "complete", (files, response) ->
-          if myDropzone.getQueuedFiles().length == 0
-            if window.location.href.search(/children/i) != -1
-              window.location.replace(window.location + '/../../edit')
-            else
-              window.location.replace(window.location + '/../')
 
         @on "addedfile", (file) ->
           $('.edit-upload-button').removeAttr('disabled')
@@ -81,7 +76,6 @@ class EditFormDropzone
         # Gets triggered when the form is actually being sent.
         # Hide the success button or the complete form.
         @on "complete", (files, response) ->
-          window.location.reload()
 
         @on "addedfile", (file) ->
           $(this.element.children).children('.edit-upload-button').removeAttr('disabled')
