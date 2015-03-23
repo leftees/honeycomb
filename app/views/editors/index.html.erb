@@ -5,14 +5,12 @@
   <div class="panel-heading">
     <%= t('.title') %>
   </div>
-  <div class="panel-body">
-    <%= react_component 'UserPanel', {
-        initialUsers: @editor_list.editor_hashes,
-        createUrl: collection_editors_path(@collection.id),
-        searchUrl: user_search_collection_editors_path(@collection.id),
-        title: t('.name_of_user_type'),
-      },
-      {prerender: false }
-    %>
-  </div>
+  <%= react_component 'UserPanel', {
+      initialUsers: @editor_list.editor_hashes,
+      createUrl: collection_editors_path(@collection.id),
+      searchUrl: user_search_collection_editors_path(@collection.id),
+      title: t('.name_of_user_type'),
+    },
+    {prerender: false }
+  %>
 </div>

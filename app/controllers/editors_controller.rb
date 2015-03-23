@@ -30,7 +30,7 @@ class EditorsController < ApplicationController
     @user =  User.find(params[:id])
     if @user.present?
       if RemoveUserFromCollection.call(@collection, @user)
-        flash[:notice] = t('.success') + @user.name
+        flash[:notice] = t('.success')
       else
         flash[:error] = t('.failure')
       end
