@@ -9,4 +9,8 @@ class Showcase < ActiveRecord::Base
 
   validates :title, :exhibit, presence: true
 #  validates :image, attachment_presence: true
+
+  def beehive_url
+    CreateBeehiveURL.call(self)
+  end
 end

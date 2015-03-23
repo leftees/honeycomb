@@ -17,5 +17,11 @@ RSpec.describe Collection do
     expect(subject).to respond_to(:versions)
   end
 
+  describe '#beehive_url' do
+    it 'is a url to the beehive server' do
+      expect(subject.beehive_url).to include(Rails.configuration.settings.beehive_url)
+    end
+  end
+
 
 end
