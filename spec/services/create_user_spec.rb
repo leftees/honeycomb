@@ -4,7 +4,7 @@ describe CreateUser do
 
   let(:user) { double(User, username: 'username', 'first_name=' => true, 'last_name=' => true, 'display_name=' => true, 'email=' => true) }
   let(:params) { { 'first_name=' => 'first_name', 'last_name=' => 'last_name', 'display_name=' => 'display_name', 'email=' => 'email' } }
-  subject { CreateUser.call(user, params)}
+  subject { described_class.call(user, params)}
 
  it "responds to first_name with the first_name from params" do
     expect(user).to respond_to("first_name=")

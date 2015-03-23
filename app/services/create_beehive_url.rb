@@ -11,8 +11,8 @@ class CreateBeehiveURL
   end
 
   def create
-    if object.class.name == "Collection"
-      collection_url(object)
+    if @object.is_a?(Collection)
+      collection_url(@object)
     else
       object_url
     end
