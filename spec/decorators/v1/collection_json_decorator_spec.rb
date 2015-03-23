@@ -113,9 +113,6 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe '#display' do
-
-
-
     it 'calls the partial for the display' do
       expect(json).to receive(:partial!)
         .with('/v1/collections/collection', collection_object: collection)
