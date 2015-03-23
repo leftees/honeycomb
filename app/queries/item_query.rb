@@ -22,7 +22,6 @@ class ItemQuery
   end
 
   def published
-    #relation.where(published: true)
     relation.all
   end
 
