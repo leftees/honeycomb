@@ -4,10 +4,12 @@
     <h1><%= t('.title') %></h1>
     <p><%= t('.description') %></p>
     <p>
-      <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new-button')}"),
-        new_collection_path,
-        :class => 'btn btn-primary btn-large' %>
-        <%= learn_more_button(help_path) %>
+      <% admin_or_admin_masquerading_only do %>
+        <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new-button')}"),
+          new_collection_path,
+          :class => 'btn btn-primary btn-large' %>
+      <% end %>
+      <%= learn_more_button(help_path) %>
     </p>
 </div>
 

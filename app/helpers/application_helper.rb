@@ -46,4 +46,27 @@ module ApplicationHelper
     render(partial: '/shared/no_back_action_bar', locals: { learn_more_path: learn_more_path })
   end
 
+  def permission
+    @permission ||= SitePermission.new(current_user, self)
+  end
+
+  def admin_only
+    if permission.user_is_administrator?
+      yield
+    end
+  end
+
+  def admin_or_admin_masquerading_only
+    if permission.user_is_admin_in_masquerade? || permission.user_is_administrator?
+      yield
+    end
+  end
+
+  def user_edits(collection)
+    if permission.user_is_admin_in_masquerade? || permission.user_is_administrator? || permission.user_is_editor?(collection)
+      yield
+    end
+  end
+
+
 end
