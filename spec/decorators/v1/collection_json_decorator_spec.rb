@@ -4,7 +4,6 @@ RSpec.describe V1::CollectionJSONDecorator do
   subject { V1::CollectionJSONDecorator.new(collection) }
 
   let(:collection) { double(Collection)}
-  let(:json) { double }
 
   describe 'generic fields' do
     [:id,
@@ -113,6 +112,8 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe '#display' do
+    let(:json) { double }
+
     it 'calls the partial for the display' do
       expect(json).to receive(:partial!)
         .with('/v1/collections/collection', collection_object: collection)
