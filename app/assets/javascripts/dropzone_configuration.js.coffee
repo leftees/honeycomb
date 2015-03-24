@@ -63,19 +63,11 @@ class EditFormDropzone
       init: ->
         myDropzone = this
 
-        # First change the button to actually tell Dropzone to process the queue.
-        formObject.find("input[type=submit]").get(0).addEventListener "click", (e) ->
-
-          # Make sure that the form isn't actually being sent.
-          if myDropzone.getQueuedFiles().length
-            e.preventDefault()
-            e.stopPropagation()
-            myDropzone.processQueue()
-          return
-
         # Gets triggered when the form is actually being sent.
         # Hide the success button or the complete form.
         @on "complete", (files, response) ->
+          debugger
+          window.location.reload()
 
         @on "addedfile", (file) ->
           $(this.element.children).children('.edit-upload-button').removeAttr('disabled')
