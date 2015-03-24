@@ -6,6 +6,7 @@ var Modal = React.createClass({
   propTypes: {
     id: React.PropTypes.string.isRequired,
     children: React.PropTypes.object.isRequired,
+    title: React.PropTypes.string,
   },
 
   render: function () {
@@ -14,6 +15,7 @@ var Modal = React.createClass({
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
+              <h4 class="modal-title">{this.props.title}</h4>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div className="modal-body">
