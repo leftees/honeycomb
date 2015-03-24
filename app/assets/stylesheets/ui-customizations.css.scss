@@ -159,6 +159,14 @@ div.dataTables_filter {
 	margin-top: 1em;
 }
 
+.modal-header {
+	button.close {
+		z-index: 200;
+		position: absolute;
+		right:12px;
+	}
+}
+
 /* MENU TESTING */
 
 .page-header {
@@ -167,7 +175,7 @@ div.dataTables_filter {
 
 .collections {
 	button {
-		
+
 		padding-left: 0;
 	}
 	a.btn {
@@ -185,7 +193,7 @@ div.dataTables_filter {
 		border-bottom-left-radius: 0px;
 		border:none;
 		text-transform: none;
-		
+
 	}
 	a:hover {
 		color:$blue;

@@ -1,11 +1,11 @@
+//app/assets/javascripts/components/OpenseadragonViewer.jsx
+
 var OpenseadragonViewer = React.createClass({
   propTypes: {
-    image: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.object,
-    ]),
+    image: React.PropTypes.object,
     containerID: React.PropTypes.string.isRequired,
     fullPage: React.PropTypes.bool,
+    height: React.PropTypes.number,
   },
 
   getInitialState: function() {
@@ -16,13 +16,7 @@ var OpenseadragonViewer = React.createClass({
   },
 
   componentDidMount: function() {
-    if (typeof(this.props.image) == 'object') {
-      this.buildViewer(this.props.image);
-    } else {
-      $.get(this.props.image, function(result) {
-        this.buildViewer(result);
-      }.bind(this));
-    }
+    this.buildViewer(this.props.image);
   },
 
   shouldComponentUpdate: function(nextProps, nextState) {
@@ -71,6 +65,7 @@ var OpenseadragonViewer = React.createClass({
   },
 
   baseOptions: function() {
+    console.log(this.props.containerID);
     return {
       id: this.props.containerID,
       element: this.getDOMNode(),
@@ -98,9 +93,11 @@ var OpenseadragonViewer = React.createClass({
   },
 
   legacyOptions: function(image) {
+    console.log(image);
     var options;
     options = this.baseOptions();
     options.tileSources = {
+      id: image.id,
       type: 'legacy-image-pyramid',
       levels: [
         {
@@ -113,9 +110,17 @@ var OpenseadragonViewer = React.createClass({
     return options;
   },
 
+  style: function() {
+    return {
+      height: "" + this.props.height + "px",
+    };
+  },
+
   render: function() {
     return (
-      <div className="hc-openseadragon-viewer" id={this.props.containerID}></div>
+      <div className="hc-openseadragon-viewer" id={this.props.containerID} style={this.style()}></div>
     );
   }
 });
+
+// each file will export exactly one component

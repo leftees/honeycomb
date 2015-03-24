@@ -25,10 +25,11 @@ var ItemImageZoomButton = React.createClass({
     var fullPage = !!this.state.zoomClicked;
     return (
       <div className="hc-image-zoom-button-outer">
-        <button style={{backgroundColor: 'white'}} className="btn btn-default btn-raised hc-image-zoom-button" data-target={zoomID} onClick={this.handleClick}><span className="glyphicon glyphicon-zoom-in"></span></button>
-        <div className="hc-image-zoom-button-inner">
-          <OpenseadragonViewer image={this.props.image} containerID={zoomID} fullPage={fullPage} />
-        </div>
+          <a style={{backgroundColor: 'white'}} href="#" data-toggle="modal" data-target="#hc-image-zoom-modal" className="btn btn-default btn-raised hc-image-zoom-button"><span className="glyphicon glyphicon-zoom-in"></span></a>
+          <Modal id="hc-image-zoom-modal">
+            <OpenseadragonViewer image={this.props.image} containerID={zoomID} height="600" />
+          </Modal>
+
       </div>
     );
   }
