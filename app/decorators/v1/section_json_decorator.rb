@@ -1,10 +1,20 @@
 
 module V1
   class SectionJSONDecorator < Draper::Decorator
-    delegate :id, :title, :description, :collection, :showcase, :caption, :item, :unique_id, :updated_at, :order
+    delegate :id, :description, :collection, :showcase, :caption, :item, :unique_id, :updated_at, :order
 
     def self.display(section, json)
       new(section).display(json)
+    end
+
+    def title
+      if object.title.present?
+        object.title
+      elsif object.item.title.present?
+        object.item.title
+      else
+        ""
+      end
     end
 
     def at_id
