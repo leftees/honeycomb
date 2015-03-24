@@ -14,7 +14,7 @@ class RedactorField
 jQuery ->
 
   setupRedactor = () ->
-    field = $("#section_description")
+    field = $(".honeycomb_redactor")
     if field.size() > 0
       new RedactorField(field)
 
