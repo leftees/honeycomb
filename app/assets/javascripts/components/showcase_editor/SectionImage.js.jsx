@@ -33,7 +33,7 @@ var SectionImage = React.createClass({
   render: function () {
     var caption = "";
     if (this.props.section.caption) {
-      caption = (<div className="section-caption" style={this.captionStyle()}>{this.props.section.caption}</div>)
+      caption = (<div className="section-caption" style={this.captionStyle()} dangerouslySetInnerHTML={{__html: this.props.section.caption}}/>)
     }
 
     return (

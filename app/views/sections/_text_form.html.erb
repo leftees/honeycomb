@@ -2,7 +2,7 @@
 
 <%= f.input :title %>
 
-<%= f.input :description, as: :text %>
+<%= f.input :description, input_html: { class: 'honeycomb_redactor' }, as: :text %>
 
 <%= f.hidden_field :display_type, value: 'text'%>
 <%= f.hidden_field :order %>
