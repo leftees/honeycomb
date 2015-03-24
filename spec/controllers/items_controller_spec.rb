@@ -85,6 +85,7 @@ RSpec.describe ItemsController, :type => :controller do
 
     before(:each) do
       allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+      allow_any_instance_of(ItemQuery).to receive(:build).and_return(item)
       allow(SaveItem).to receive(:call).and_return(true)
     end
 
@@ -120,7 +121,7 @@ RSpec.describe ItemsController, :type => :controller do
       subject
 
       assigns(:item)
-      expect(assigns(:item)).to be_a(Item)
+      expect(assigns(:item)).to eq(item)
     end
 
     it "uses the save item service" do

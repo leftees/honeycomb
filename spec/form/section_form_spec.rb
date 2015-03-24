@@ -53,8 +53,9 @@ describe SectionForm do
 
 
   describe "#title" do
-    it "returns the title of the section" do
-      expect(subject.title).to eq("the section")
+    it "calls the section title service" do
+      expect(SectionTitle).to receive(:call).with(section)
+      subject.title
     end
   end
 

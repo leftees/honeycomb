@@ -22,20 +22,9 @@ RSpec.describe V1::SectionJSONDecorator do
     let(:section) { double(Section, title: 'section_title', item: item) }
     let(:item) { double(Item, title: 'item_title') }
 
-    it "chooses the item title if the section title is nil" do
-      expect(section).to receive(:title).and_return(nil)
-      expect(subject.title).to eq("item_title")
-    end
-
-    it "chooses the section title even if there is an item title" do
-      expect(subject.title).to eq("section_title")
-    end
-
-    it "sends empty string if both are nil" do
-      expect(section).to receive(:title).and_return(nil)
-      expect(item).to receive(:title).and_return(nil)
-
-      expect(subject.title).to eq("")
+    it "calls SectionTitle to determine the title" do
+      expect(SectionTitle).to receive(:call)
+      subject.title
     end
   end
 

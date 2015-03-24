@@ -37,7 +37,7 @@ class SectionForm
   end
 
   def title
-    section.title
+    SectionTitle.call(section)
   end
 
   def collection

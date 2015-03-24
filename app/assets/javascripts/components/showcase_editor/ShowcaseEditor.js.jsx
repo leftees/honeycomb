@@ -40,7 +40,6 @@ var ShowcaseEditor = React.createClass({
 
     section = {
       id: 'new',
-      title: item.title,
       image: image,
       item_id: item.id,
       order: index

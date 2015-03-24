@@ -8,13 +8,7 @@ module V1
     end
 
     def title
-      if object.title.present?
-        object.title
-      elsif object.item.title.present?
-        object.item.title
-      else
-        ""
-      end
+      SectionTitle.call(object)
     end
 
     def at_id
