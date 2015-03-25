@@ -40,19 +40,19 @@ var ShowcaseEditorTitle = React.createClass({
   },
   titleStyle: function() {
     return {
-      position: 'absolute',
+
       display: 'block',
-      top: 50,
-      left: 10,
+
+      padding: '0 10px',
       color: 'white',
     }
   },
   descriptionStyle: function() {
     return {
-      position: 'absolute',
+
       display: 'block',
-      top: 100,
-      left: 10,
+      padding: '0 10px',
+
       color: 'white',
     }
   },

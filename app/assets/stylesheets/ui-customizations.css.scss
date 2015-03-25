@@ -370,4 +370,24 @@ div.dataTables_filter {
 	margin-right: 0;
 }
 
+#section-content-editor {
+	.showcase-title-page {
+		min-width: 300px;
+		max-width: 400px;
+		background:#333;
+		img[src="[object Object]"] {
+			display: none;
+		}
+		h2, div {
+		
+			white-space: normal !important;
+		}
+	}
+	.cursor-grab {
+		min-width: 300px;
+		overflow-x: none;
+	}
+
+}
+
 @import "_material-design-overwrites.scss";
