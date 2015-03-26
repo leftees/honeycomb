@@ -75,7 +75,7 @@ var ShowcaseEditorTitle = React.createClass({
       <div className="showcase-title-page" style={this.style()} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
         <img src={this.props.showcase.image } style={ this.imageStyle() } />
         <h2 style={this.titleStyle()}>{this.props.showcase.title}</h2>
-        <div style={this.descriptionStyle()}>
+        <div className="description" style={this.descriptionStyle()}>
           {description}
         </div>
         <EditLink clickHandler={this.editTitle} visible={this.state.hover} />

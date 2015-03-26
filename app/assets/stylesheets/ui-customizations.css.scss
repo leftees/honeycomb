@@ -375,12 +375,22 @@ div.dataTables_filter {
 		min-width: 300px;
 		max-width: 400px;
 		background:#333;
+		overflow:hidden;
 		img[src="[object Object]"] {
 			display: none;
 		}
-		h2, div {
-		
+		img {
+			position:relative;
+		}
+		h2, div.description {
+			position: absolute;
 			white-space: normal !important;
+		}
+		h2 {
+			top:10%;
+		}
+		div.description {
+			bottom:5%;
 		}
 	}
 	.cursor-grab {
