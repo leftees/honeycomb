@@ -57,6 +57,7 @@ en:
     settings: 'Collection'
     website: 'Site Setup'
     editors: 'Editors'
+    live_site: 'Live Site'
   collection_top_nav:
     recent_collections: 'Collections'
   collections:
@@ -158,7 +159,7 @@ en:
     list:
       title: "Showcase"
       status: Status
-      url: "Public URL"
+      url: "Live Showcase Site"
       published: Published
       updated_at: 'Last Modified At'
     update:
