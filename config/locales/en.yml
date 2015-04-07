@@ -41,7 +41,12 @@ en:
       exhibit:
         edit:
           description: "Introduction"
+      showcase:
+        description: "Subtitle"
+        image: "Background Image"
     hints:
+      showcase:
+        image: "This image will appear tiled in the background of your showcase"
       exhibit:
         edit:
           description: "Introduction appears on your website homepage under the title."
