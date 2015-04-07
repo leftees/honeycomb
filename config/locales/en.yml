@@ -92,6 +92,7 @@ en:
   items:
     index:
       title: "Items"
+      add_new_items: "Add New Items"
     action_bar:
       new: "Add New Items"
       edit: "Edit"
@@ -115,6 +116,7 @@ en:
       publish_field: "Published"
       embed: "Embed"
       embed_help: "Copy and paste this code into the website where you want to embed this item."
+      replace_item_image_title: "Replace the Image"
       children:
         title: "Additional Resources"
         manage_link: "Add"
