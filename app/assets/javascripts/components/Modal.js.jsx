@@ -7,6 +7,13 @@ var Modal = React.createClass({
     id: React.PropTypes.string.isRequired,
     children: React.PropTypes.object.isRequired,
     title: React.PropTypes.string,
+    closeText: React.PropTypes.string,
+  },
+
+  getDefaultProps: function() {
+    return {
+      closeText: "Close",
+    };
   },
 
   componentDidMount: function() {
@@ -30,7 +37,7 @@ var Modal = React.createClass({
               {this.props.children}
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-default" data-dismiss="modal">{this.props.closeText}</button>
             </div>
           </div>
         </div>

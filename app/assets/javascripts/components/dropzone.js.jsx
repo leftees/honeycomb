@@ -6,12 +6,13 @@ var ReactDropzone = React.createClass({
     authenticityToken: React.PropTypes.string.isRequired,
     multifileUpload: React.PropTypes.bool,
     modalTitle: React.PropTypes.string.isRequired,
-
+    closeText: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
     return {
       multifileUpload: true,
+      closeText: 'Close',
     };
   },
 
@@ -104,7 +105,7 @@ var ReactDropzone = React.createClass({
   render: function() {
 
     return (
-      <Modal title={this.props.modalTitle} id="add-items" closeCallback={this.closeCallback} >
+      <Modal title={this.props.modalTitle} id="add-items" closeCallback={this.closeCallback} closeText={this.props.closeText} >
         { this.dropzoneForm() }
         { this.spinner() }
       </Modal>);
