@@ -1,8 +1,10 @@
 <div class="items-menu-bar menu-bar default pull-left">
   <div class="btn-group">
     <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.new')}"),
-      new_collection_item_path(@collection),
-      :class => 'btn btn-primary' %>
+      '#',
+      :class => 'btn btn-primary',
+      'data-toggle' => "modal",
+      'data-target' => '#add-items'  %>
     <!--button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span>
