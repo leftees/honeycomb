@@ -79,7 +79,7 @@ var ReactDropzone = React.createClass({
           <div>
             <input name="utf8" type="hidden" value="✓" />
             <input name="authenticity_token" type="hidden" value={this.props.authenticityToken} />
-            <input name="_method" type="hidden" value="put" />
+            { this.formMethod() }
           </div>
           <div className="dz-clickable">
             <div className="dropzone-previews"></div>
@@ -93,7 +93,14 @@ var ReactDropzone = React.createClass({
       return null;
     }
   },
+  formMethod: function() {
+    if (!this.props.multifileUpload) {
+      return (<input name="_method" type="hidden" value="put" />)
+    } else {
+      return null
+    }
 
+  },
   render: function() {
 
     return (
