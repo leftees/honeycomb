@@ -18,22 +18,34 @@ jQuery ->
 
   window.onbeforeunload = ->
     msg = "You haven't saved your changes."
-    isDirty = false
+    msg  if isDirty() is true
+
+
+  isDirty = () ->
+    dirty = false
     $(".form-group > input").each ->
-      if $(this).data("initialValue") isnt $(this).val() and 
+      if $(this).data("initialValue") isnt $(this).val() and
         typeof $(this).val() isnt "undefined" and
         save_clicked is "false"
-          isDirty = true 
+          dirty = true
     $(".form-group > textarea").each ->
-      if $(this).data("initialValue") isnt $(this).val() and 
+      if $(this).data("initialValue") isnt $(this).val() and
         typeof $(this).val() isnt "undefined" and
         save_clicked is "false"
-          isDirty = true 
+          dirty = true
     $(".redactor-editor").each ->
-      if $(this).data("initialValue") isnt $(this).html() and 
+      if $(this).data("initialValue") isnt $(this).html() and
         typeof $(this).html() isnt "undefined" and
         save_clicked is "false"
-          isDirty = true 
+          dirty = true
 
+    dirty
 
-    msg  if isDirty is true
+  $(".check-is-dirty").on "click", (event) ->
+    if isDirty() is true
+      if !confirm("Replacing the image will result in the loss of any changes you have made to this page.  Press cancel and save any changes you wish to keep.  Press ok to continue replacing the image.")
+        event.preventDefault()
+        event.stopPropagation()
+        false
+
+    true
