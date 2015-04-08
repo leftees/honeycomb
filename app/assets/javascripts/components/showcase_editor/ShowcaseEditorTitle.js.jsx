@@ -51,7 +51,6 @@ var ShowcaseEditorTitle = React.createClass({
   },
   descriptionStyle: function() {
     return {
-
       display: 'block',
       top: 100,
       left: 10,
@@ -78,7 +77,6 @@ var ShowcaseEditorTitle = React.createClass({
         <div>
           <h4>Background Image</h4>
           <img src={this.props.showcase.image } style={ this.imageStyle() } />
-
         </div>
         <EditLink clickHandler={this.editTitle} visible={this.state.hover} />
       </div>
