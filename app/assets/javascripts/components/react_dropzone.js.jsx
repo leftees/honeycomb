@@ -1,4 +1,6 @@
 /** @jsx React.DOM */
+Dropzone.autoDiscover = false;
+
 
 var ReactDropzone = React.createClass({
   propTypes: {
@@ -21,8 +23,9 @@ var ReactDropzone = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log(this.options());
-    this.dropzone = new Dropzone(this.refs.uploadForm.getDOMNode(), this.options());
+    if (!this.dropzone) {
+      this.dropzone = new Dropzone(this.refs.uploadForm.getDOMNode(), this.options());
+    }
   },
 
   componentWillUnmount: function() {

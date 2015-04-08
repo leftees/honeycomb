@@ -19,6 +19,7 @@
 //= require showdown
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require dropzone
 //= require react
 //= require react_ujs
 //= require components
