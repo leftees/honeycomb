@@ -5,3 +5,11 @@
 
 <%= render partial: "list", locals: { items: @items } %>
 
+
+<%= react_component('ReactDropzone', {
+                formUrl: url_for([@collection, Item.new ]),
+                authenticityToken: form_authenticity_token,
+                modalTitle: t('.add_new_items'),
+                closeText: t('.add_new_items_close_text'),
+          }) %>
+

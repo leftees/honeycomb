@@ -54,7 +54,7 @@
     <div class="panel panel-default item-show-image">
       <div class="panel-heading">
         <div class="pull-right">
-          <a href="#" data-toggle="modal" data-target="#replace-image" class="btn btn-xs btn-default btn-flat"><i class="glyphicon glyphicon-refresh"></i> <%= t('.replace_media') %></a>
+          <a href="#" data-toggle="modal" data-target="#add-items" class="check-is-dirty btn btn-xs btn-default btn-flat"><i class="glyphicon glyphicon-refresh"></i> <%= t('.replace_media') %></a>
         </div>
         <h3 class="panel-title"><%= t('.media') %></h3>
       </div>
@@ -68,33 +68,11 @@
   </div>
 </div>
 
-<div class="modal" id="replace-image">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <%= simple_form_for @item, html: { :class => "edit-item-dropzone", :multipart => true } do |f| %>
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Replace Image</h4>
-        </div>
-        <div class="modal-body">
-          <div class="dropzone">
-            <div class="dropzone-previews"></div>
-            <div class="dz-message">
-              <ol>
-                <li>Drop image here to upload.</li>
-                <li>Then click "upload image".</li>
-              </ol>
-            </div>
-          </div>
-          <div class="fallback">
-            <%= f.file_field :image %>
-          </div>
-        </div>
-        <div class="modal-footer" >
-          <% f.button :submit, "Upload Image", class: 'btn btn-primary edit-upload-button', disabled: 'disabled' %>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
+
+<%= react_component('ReactDropzone', {
+        formUrl: url_for( @item ),
+        authenticityToken: form_authenticity_token,
+        modalTitle: t('.replace_item_image_title'),
+        multifileUpload: false,
+
+  }) %>

@@ -31,29 +31,30 @@ var ShowcaseEditorTitle = React.createClass({
       position: 'relative',
       height: '100%',
       marginRight: '10px',
+      width: '300px',
+
     };
   },
   imageStyle: function() {
     return {
-      height: '100%',
+      height: '100',
     };
   },
   titleStyle: function() {
     return {
-
       display: 'block',
-
-      padding: '0 10px',
-      color: 'white',
+      top: 50,
+      left: 10,
+      color: 'black',
+      whiteSpace: 'normal',
     }
   },
   descriptionStyle: function() {
     return {
-
       display: 'block',
-      padding: '0 10px',
-
-      color: 'white',
+      top: 100,
+      left: 10,
+      color: 'black',
     }
   },
   editTitle: function() {
@@ -70,13 +71,12 @@ var ShowcaseEditorTitle = React.createClass({
         );
       });
     }
-    console.log(this.props.showcase.image);
     return (
       <div className="showcase-title-page" style={this.style()} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-        <img src={this.props.showcase.image } style={ this.imageStyle() } />
-        <h2 style={this.titleStyle()}>{this.props.showcase.title}</h2>
-        <div className="description" style={this.descriptionStyle()}>
-          {description}
+        <h2 style={this.titleStyle()}>{this.props.showcase.title} <small>{description}</small></h2>
+        <div>
+          <h4>Background Image</h4>
+          <img src={this.props.showcase.image } style={ this.imageStyle() } />
         </div>
         <EditLink clickHandler={this.editTitle} visible={this.state.hover} />
       </div>

@@ -374,16 +374,12 @@ div.dataTables_filter {
 	.showcase-title-page {
 		min-width: 300px;
 		max-width: 400px;
-		background:#333;
+		background:#DDD;
 		overflow:hidden;
 		img[src="[object Object]"] {
 			display: none;
 		}
-		img {
-			position:relative;
-		}
 		h2, div.description {
-			position: absolute;
 			white-space: normal !important;
 		}
 		h2 {
@@ -398,6 +394,10 @@ div.dataTables_filter {
 		overflow-x: none;
 	}
 
+}
+
+.section-caption {
+	white-space: normal;
 }
 
 @import "_material-design-overwrites.scss";

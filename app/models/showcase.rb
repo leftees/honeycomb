@@ -8,7 +8,7 @@ class Showcase < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   validates :title, :exhibit, presence: true
-#  validates :image, attachment_presence: true
+  validates :image, attachment_presence: true
 
   has_paper_trail
 

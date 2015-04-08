@@ -41,7 +41,12 @@ en:
       exhibit:
         edit:
           description: "Introduction"
+      showcase:
+        description: "Subtitle"
+        image: "Background Image"
     hints:
+      showcase:
+        image: "This image will appear tiled in the background of your showcase"
       exhibit:
         edit:
           description: "Introduction appears on your website homepage under the title."
@@ -88,6 +93,8 @@ en:
   items:
     index:
       title: "Items"
+      add_new_items: "Add New Items"
+      add_new_items_close_text: 'I am Finished'
     action_bar:
       new: "Add New Items"
       edit: "Edit"
@@ -111,6 +118,7 @@ en:
       publish_field: "Published"
       embed: "Embed"
       embed_help: "Copy and paste this code into the website where you want to embed this item."
+      replace_item_image_title: "Replace the Image"
       children:
         title: "Additional Resources"
         manage_link: "Add"
