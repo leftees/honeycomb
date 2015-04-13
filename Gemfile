@@ -39,6 +39,9 @@ gem 'paper_trail', '~> 4.0.0.beta2'
 gem 'faraday'
 gem 'faraday_middleware'
 
+# For Errbit
+gem 'airbrake'
+
 # Javascript assets
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
