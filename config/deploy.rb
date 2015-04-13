@@ -7,7 +7,7 @@ require 'hesburgh/rails'
 require 'hesburgh/rails_db'
 require 'hesburgh/jenkins'
 require 'hesburgh/prompt_branch'
-# require 'hesburgh/whenever'
+require 'airbrake/capistrano'
 
 set :application, 'honeycomb'
 set :repository, 'https://github.com/ndlib/honeycomb.git'
