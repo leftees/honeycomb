@@ -36,7 +36,7 @@ module V1
     end
 
     def showcases
-      @showcases ||= ShowcaseQuery.new(object.showcases).published
+      @showcases ||= ShowcaseQuery.new(object.showcases).public_api_list
     end
 
     def image

@@ -34,7 +34,7 @@ RSpec.describe ShowcasesController, type: :controller do
     end
 
     it 'users the item query to get items' do
-      expect_any_instance_of(ShowcaseQuery).to receive(:all)
+      expect_any_instance_of(ShowcaseQuery).to receive(:admin_list)
       subject
     end
 

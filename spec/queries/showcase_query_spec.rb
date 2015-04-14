@@ -16,6 +16,20 @@ describe ShowcaseQuery do
     end
   end
 
+  describe 'public_api_list' do
+    it "orders the result" do
+      expect(relation).to receive(:order).with(:order, :title).and_return(relation)
+      subject.public_api_list
+    end
+  end
+
+  describe 'admin_list' do
+    it "orders the result" do
+      expect(relation).to receive(:order).with(:order, :title).and_return(relation)
+      subject.admin_list
+    end
+  end
+
   describe 'find' do
     it 'finds the object' do
       expect(relation).to receive(:find).with(1)
@@ -35,12 +49,6 @@ describe ShowcaseQuery do
     end
   end
 
-  describe 'published' do
-    it 'gets the published items' do
-      # expect(relation).to receive(:where).with(published: true)
-      subject.published
-    end
-  end
 
   describe 'public_find' do
     it 'calls public_find!' do
