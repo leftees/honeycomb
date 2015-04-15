@@ -3,10 +3,10 @@ module V1
     delegate :id, :title, :children, :parent, :collection, :unique_id, :updated_at
 
     METADATA_MAP = [
-      ['Title', :title],
-      ['Description', :description],
-      ['Manuscript', :manuscript_url],
-      ['Transcription', :transcription]
+      ["Title", :title],
+      ["Description", :description],
+      ["Manuscript", :manuscript_url],
+      ["Transcription", :transcription]
     ]
 
     def self.display(item, json)
@@ -54,7 +54,7 @@ module V1
 
     def display(json)
       if self.present?
-        json.partial! '/v1/items/item', item_object: self
+        json.partial! "/v1/items/item", item_object: self
       end
     end
 
