@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe ShowcaseList do
   subject { described_class.new(showcase) }
@@ -12,7 +12,7 @@ describe ShowcaseList do
       allow_any_instance_of(SectionQuery).to receive(:ordered).and_return(sections)
     end
 
-    it 'Uses the section query' do
+    it "Uses the section query" do
       expect_any_instance_of(SectionQuery).to receive(:ordered)
       expect(subject.sections).to be(sections)
     end
@@ -23,11 +23,11 @@ describe ShowcaseList do
     end
   end
 
-  it 'returns the showcase' do
+  it "returns the showcase" do
     expect(subject.showcase).to be(showcase)
   end
 
-  it 'returns the exhibit' do
+  it "returns the exhibit" do
     expect(subject.exhibit).to be(exhibit)
   end
 end
