@@ -30,7 +30,7 @@ RSpec.describe ShowcaseDecorator do
       sections = [instance_double(Section)]
       expect(showcase).to receive(:sections).and_return(sections)
       expect(SectionQuery).to receive(:new).with(sections).and_call_original
-      expect_any_instance_of(SectionQuery).to receive(:all_in_showcase).and_return(['sections'])
+      expect_any_instance_of(SectionQuery).to receive(:ordered).and_return(['sections'])
       expect(subject.sections).to eq(['sections'])
     end
   end

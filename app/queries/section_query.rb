@@ -9,6 +9,10 @@ class SectionQuery
     relation.order(:order)
   end
 
+  def ordered
+    relation.order(:order)
+  end
+
   def public_find(id)
     relation.find_by!(unique_id: id)
   end

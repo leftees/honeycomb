@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   def index
     check_user_edits!(showcase.exhibit.collection)
-    @sections = ShowcaseList.new(SectionQuery.new(showcase.sections).all_in_showcase, showcase)
+    @sections = ShowcaseList.new(SectionQuery.new(showcase.sections).ordered, showcase)
   end
 
   def new

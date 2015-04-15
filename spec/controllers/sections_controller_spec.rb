@@ -36,7 +36,7 @@ RSpec.describe SectionsController, type: :controller do
     end
 
     it 'users the item query to get items' do
-      expect_any_instance_of(SectionQuery).to receive(:all_in_showcase)
+      expect_any_instance_of(SectionQuery).to receive(:ordered)
       subject
     end
 
