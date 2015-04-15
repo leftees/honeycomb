@@ -5,7 +5,7 @@ class SectionQuery
     @relation = relation
   end
 
-  def all_in_showcase
+  def ordered
     relation.order(:order)
   end
 

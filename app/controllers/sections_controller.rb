@@ -1,7 +1,8 @@
 class SectionsController < ApplicationController
   def index
-    check_user_edits!(showcase.exhibit.collection)
-    @sections = ShowcaseList.new(SectionQuery.new(showcase.sections).all_in_showcase, showcase)
+    ### TODO: API ONLY remove in favor of the actual api.
+    @section_list = ShowcaseList.new(showcase)
+    check_user_edits!(@section_list.collection)
   end
 
   def new

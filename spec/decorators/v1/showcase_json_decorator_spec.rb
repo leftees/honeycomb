@@ -49,8 +49,8 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   end
 
   describe '#sections' do
-    it 'uses the section query object all_in_showcase' do
-      expect_any_instance_of(SectionQuery).to receive(:all_in_showcase).and_return(['results'])
+    it 'uses the section query object ordered' do
+      expect_any_instance_of(SectionQuery).to receive(:ordered).and_return(['results'])
       expect(subject.sections).to eq(['results'])
     end
 

@@ -85,7 +85,7 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { double(Collection, showcases: []) }
 
     it 'queries for all the published showcases' do
-      expect_any_instance_of(ShowcaseQuery).to receive(:published)
+      expect_any_instance_of(ShowcaseQuery).to receive(:public_api_list)
         .and_return(['showcases'])
 
       expect(subject.showcases).to eq(['showcases'])

@@ -35,15 +35,10 @@ RSpec.describe SectionsController, type: :controller do
       subject
     end
 
-    it 'users the item query to get items' do
-      expect_any_instance_of(SectionQuery).to receive(:all_in_showcase)
-      subject
-    end
-
     it 'assigns an item decorator to items' do
       subject
-      assigns(:sections)
-      expect(assigns(:sections)).to be_a(ShowcaseList)
+      assigns(:section_list)
+      expect(assigns(:section_list)).to be_a(ShowcaseList)
     end
   end
 

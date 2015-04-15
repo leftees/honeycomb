@@ -11,7 +11,7 @@ RSpec.describe SectionQuery do
   describe '#all_for_showcase' do
     it 'orders all the showases' do
       expect(relation).to receive(:order).with(:order).and_return(relation)
-      subject.all_in_showcase
+      subject.ordered
     end
   end
 

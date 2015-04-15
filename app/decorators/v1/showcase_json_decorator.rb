@@ -24,7 +24,7 @@ module V1
     end
 
     def sections
-      SectionQuery.new(object.sections).all_in_showcase
+      SectionQuery.new(object.sections).ordered
     end
 
     def image

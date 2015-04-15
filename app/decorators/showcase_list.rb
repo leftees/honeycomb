@@ -1,12 +1,16 @@
 class ShowcaseList
-  attr_reader :sections
+  attr_reader :showcase
+  delegate :exhibit, to: :showcase
 
-  def initialize(sections, showcase)
-    @sections = sections
+  def initialize(showcase)
     @showcase = showcase
   end
 
-  delegate :exhibit, to: :showcase
+  def sections
+    SectionQuery.new(showcase.sections).ordered
+  end
 
-  attr_reader :showcase
+  def collection
+    exhibit.collection
+  end
 end

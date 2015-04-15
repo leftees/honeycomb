@@ -9,9 +9,12 @@ class ShowcaseQuery
     relation
   end
 
-  def published
-    # relation.where(published: true)
-    relation.all
+  def admin_list
+    relation.order(:order, :title)
+  end
+
+  def public_api_list
+    relation.order(:order, :title)
   end
 
   delegate :find, to: :relation
@@ -24,3 +27,6 @@ class ShowcaseQuery
     relation.find_by!(unique_id: id)
   end
 end
+
+
+

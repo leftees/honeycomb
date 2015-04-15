@@ -1,7 +1,7 @@
 class ShowcasesController < ApplicationController
   def index
     check_user_edits!(exhibit.collection)
-    @showcases = ShowcaseQuery.new(exhibit.showcases).all
+    @showcases = ShowcaseQuery.new(exhibit.showcases).admin_list
   end
 
   def new
@@ -92,7 +92,7 @@ class ShowcasesController < ApplicationController
   protected
 
   def save_params
-    params.require(:showcase).permit([:title, :description, :image])
+    params.require(:showcase).permit([:title, :description, :image, :order])
   end
 
   def showcase
