@@ -35,11 +35,6 @@ RSpec.describe SectionsController, type: :controller do
       subject
     end
 
-    it 'users the item query to get items' do
-      expect_any_instance_of(SectionQuery).to receive(:ordered)
-      subject
-    end
-
     it 'assigns an item decorator to items' do
       subject
       assigns(:sections)
