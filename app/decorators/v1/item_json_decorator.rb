@@ -6,7 +6,7 @@ module V1
       ['Title', :title],
       ['Description', :description],
       ['Manuscript', :manuscript_url],
-      ['Transcript', :transcription]
+      ['Transcription', :transcription]
     ]
 
     def self.display(item, json)
