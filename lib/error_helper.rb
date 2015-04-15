@@ -9,13 +9,14 @@ module ErrorHelper
 
   def catch_500(exception = nil)
     @masquerading_user = determine_masquerade
-
-    unless exception.nil?
-      # ExceptionNotifier.notify_exception(exception, { :env => request.env })
+    if exception.present?
+      env["airbrake.error_id"] = notify_airbrake(exception)
+      logger.error exception.message
+      logger.error Rails.backtrace_cleaner.clean(exception.backtrace).join("\n")
     end
 
     respond_to do |format|
-      format.html { render template: 'errors/error_404', status: 500 }
+      format.html { render template: 'errors/error_500', status: 500 }
     end
   end
 
