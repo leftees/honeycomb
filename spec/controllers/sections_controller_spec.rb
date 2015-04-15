@@ -37,8 +37,8 @@ RSpec.describe SectionsController, type: :controller do
 
     it 'assigns an item decorator to items' do
       subject
-      assigns(:sections)
-      expect(assigns(:sections)).to be_a(ShowcaseList)
+      assigns(:section_list)
+      expect(assigns(:section_list)).to be_a(ShowcaseList)
     end
   end
 
