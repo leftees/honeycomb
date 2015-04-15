@@ -7,11 +7,13 @@ RSpec.describe V1::ItemJSONDecorator do
   let(:json) { double }
 
   describe 'generic fields' do
+
     [:id, :title, :collection, :unique_id, :description, :updated_at].each do |field|
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end
     end
+
   end
 
   describe '#at_id' do
