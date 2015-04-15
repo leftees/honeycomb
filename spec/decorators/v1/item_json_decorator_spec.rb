@@ -95,7 +95,12 @@ RSpec.describe V1::ItemJSONDecorator do
     let(:item) { double(Item, title: "title", description: "desc", manuscript_url: "url", transcription: "trans") }
 
     it "creates a metadata hash of all metadata" do
-      results = [{ label: "Title", value: "title" }, { label: "Description", value: "desc" }, { label: "Manuscript", value: "url" }, { label: "Transcription", value: "trans" }]
+      results = [
+                  { label: "Title", value: "title" },
+                  { label: "Description", value: "desc" },
+                  { label: "Manuscript", value: "url" },
+                  { label: "Transcription", value: "trans" }
+                ]
 
       expect(subject.metadata).to eq(results)
     end
