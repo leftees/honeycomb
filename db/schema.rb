@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414192659) do
+ActiveRecord::Schema.define(version: 20150416184347) do
 
   create_table "collection_users", force: true do |t|
     t.integer  "user_id",       null: false
@@ -30,8 +30,10 @@ ActiveRecord::Schema.define(version: 20150414192659) do
     t.boolean  "deleted",     default: false
     t.text     "description"
     t.string   "unique_id"
+    t.boolean  "published"
   end
 
+  add_index "collections", ["published"], name: "index_collections_on_published", using: :btree
   add_index "collections", ["unique_id"], name: "index_collections_on_unique_id", using: :btree
 
   create_table "exhibits", force: true do |t|
