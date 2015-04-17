@@ -32,7 +32,4 @@ end
 # Notify New Relic of deployments.
 # This goes out even if the deploy fails, sadly.
 after "deploy",            "newrelic:notice_deployment"
-after "deploy:update",     "newrelic:notice_deployment"
-after "deploy:migrations", "newrelic:notice_deployment"
-after "deploy:cold",       "newrelic:notice_deployment"
 
