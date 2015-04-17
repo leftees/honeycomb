@@ -19,12 +19,12 @@ var SectionDescription = React.createClass({
   },
 
   render: function () {
-    var rawMarkup = false;
+    var rawMarkup;
     if (this.props.section.description) {
       rawMarkup = this.props.section.description.toString();
     }
 
-    if (rawMarkup) {
+    if (rawMarkup || this.props.section.image == null) {
       return (
         <div className="section-container section-container-text" style={this.style()}>
           <h2>{this.props.section.title}</h2>
@@ -32,7 +32,9 @@ var SectionDescription = React.createClass({
         </div>
       );
     } else {
-      return (<div />)
+      return (
+      <div />
+      )
     }
   }
 });
