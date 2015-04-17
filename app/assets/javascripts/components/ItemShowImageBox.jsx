@@ -5,6 +5,7 @@ var ItemShowImageBox = React.createClass({
       React.PropTypes.string,
       React.PropTypes.object,
     ]),
+    thumbnailSrc: React.PropTypes.string,
     itemID: React.PropTypes.string.isRequired,
   },
 
@@ -18,7 +19,7 @@ var ItemShowImageBox = React.createClass({
     return (
       <div className="hc-item-show-image-box">
         <ItemImageZoomButton image={this.props.image} itemID={this.props.itemID} />
-        <Thumbnail image={this.props.image} />
+        <Thumbnail image={this.props.image} thumbnailSrc={this.props.thumbnailSrc} />
       </div>
     );
   }

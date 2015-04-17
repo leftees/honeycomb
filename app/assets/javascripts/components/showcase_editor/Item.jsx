@@ -27,6 +27,10 @@ var Item = React.createClass({
 
   render: function() {
     var honeypot_image = this.props.item.links.image;
+    if (honeypot_image == null) {
+      return null;
+    }
+
     var dragContent = (
       <HoneypotImage honeypot_image={honeypot_image} style="small" cssStyle={{height: '100px', margin: '5px'}} />
     );
@@ -34,7 +38,8 @@ var Item = React.createClass({
       <div className='cursor-grab' onMouseDown={this.onMouseDown} style={this.style()}>
         <DragContent content={dragContent} dragging={this.state.dragging} left={this.state.left} top={this.state.top} />
         <HoneypotImage honeypot_image={honeypot_image} style="small" cssStyle={{height: '100px', margin: '5px'}} />
-      </div>);
+      </div>
+    );
   }
 });
 module.exports = Item;

@@ -3,13 +3,13 @@ source "https://rubygems.org"
 # Don't load all mime types
 gem "mime-types", "~> 2.6.1", require: "mime/types/columnar"
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "~> 4.2.0"
 
 gem "responders", "~> 2.0"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+# gem "therubyracer",  platforms: :ruby
 
 gem "mysql2"
 
@@ -19,9 +19,10 @@ gem "jbuilder", "~> 2.0"
 gem "sdoc", "~> 0.4.0",          group: :doc
 
 gem "paperclip"
+gem "fastimage"
 
-gem "hesburgh_infrastructure", git: "https://github.com/ndlib/hesburgh_infrastructure.git"
-gem "hesburgh_api", git: "https://github.com/ndlib/hesburgh_api.git"
+gem "hesburgh_infrastructure", github: "ndlib/hesburgh_infrastructure"
+gem "hesburgh_api", github: "ndlib/hesburgh_api"
 
 gem "simple_form", "~> 3.1.0"
 
@@ -45,6 +46,9 @@ gem "paper_trail", "~> 4.0.0.beta2"
 
 gem "faraday"
 gem "faraday_middleware"
+
+# Background processing
+gem "sneakers"
 
 # For Errbit
 gem "airbrake"
@@ -76,7 +80,7 @@ gem "autoprefixer-rails"
 group :development, :test do
   gem "rubocop", require: false
 
-  gem "i18n-debug"
+  # gem "i18n-debug"
   gem "pry"
   gem "pry-nav"
   gem "rspec-rails"
@@ -109,10 +113,10 @@ gem "rack-cache"
 gem "dalli"
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# gem "bcrypt", "~> 3.1.7"
 
 # Use unicorn as the app server
-# gem 'unicorn'
+# gem "unicorn"
 
 # Use Capistrano for deployment
 gem "capistrano", "~> 3.1"
@@ -120,4 +124,4 @@ gem "capistrano-rails", "~> 1.1"
 gem "capistrano-npm"
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+# gem "debugger", group: [:development, :test]
