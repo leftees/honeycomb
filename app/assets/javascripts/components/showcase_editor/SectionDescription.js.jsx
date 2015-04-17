@@ -31,12 +31,15 @@ var SectionDescription = React.createClass({
           <div className="section-description" dangerouslySetInnerHTML={{__html: rawMarkup}}  />
         </div>
       );
+    } else if(this.props.section.image == null) {
+      return (
+        <div className="section-container section-container-text" style={this.style()}>
+          <h2>{this.props.section.title}</h2>
+        </div>
+      );
     } else {
       return (
-      <div className="section-container section-container-text" style={this.style()}>
-          <h2>{this.props.section.title}</h2>
-          <div />
-        </div>
+      <div />
       )
     }
   }
