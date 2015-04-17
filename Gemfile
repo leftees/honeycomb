@@ -88,6 +88,8 @@ group :development, :test do
   #  gem "growl-rspec"
 
   gem 'coveralls', require: false
+
+  gem 'web-console', '~> 2.0'
 end
 
 # Use ActiveModel has_secure_password
