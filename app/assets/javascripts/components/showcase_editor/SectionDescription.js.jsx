@@ -19,7 +19,7 @@ var SectionDescription = React.createClass({
   },
 
   render: function () {
-    var rawMarkup = false;
+    var rawMarkup;
     if (this.props.section.description) {
       rawMarkup = this.props.section.description.toString();
     }
