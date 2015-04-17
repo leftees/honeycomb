@@ -9,7 +9,7 @@ class UserIsEditor
   end
 
   def is_editor?
-    if CollectionUser.where(collection_id: collection.id, user_id: user.id).first
+    if collection_user
       true
     else
       false
@@ -17,6 +17,10 @@ class UserIsEditor
   end
 
   private
+
+  def collection_user
+    CollectionUser.where(collection_id: collection.id, user_id: user.id).first
+  end
 
   def collection
     @collection ||= Collection.where(collection.id)

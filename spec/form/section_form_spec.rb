@@ -11,7 +11,7 @@ describe SectionForm do
 
   describe 'validation' do
     it 'raises an error if order is blank' do
-      section.stub(:order).and_return(nil)
+      allow(section).to receive(:order).and_return(nil)
       expect { subject }.to raise_error
     end
   end
@@ -35,17 +35,17 @@ describe SectionForm do
     end
 
     it 'returns a the corect form for image sections' do
-      subject.stub(:section_type).and_return('image')
+      allow(subject).to receive(:section_type).and_return('image')
       expect(subject.form_partial).to eq('image_form')
     end
 
     it 'returns a the corect form for text sections' do
-      subject.stub(:section_type).and_return('text')
+      allow(subject).to receive(:section_type).and_return('text')
       expect(subject.form_partial).to eq('text_form')
     end
 
     it 'raises an error for an incorrect section' do
-      subject.stub(:section_type).and_return('dsfasfasfasafafds')
+      allow(subject).to receive(:section_type).and_return('dsfasfasfasafafds')
       expect { subject.form_partial }.to raise_error
     end
   end
@@ -80,7 +80,7 @@ describe SectionForm do
         allow_any_instance_of(ShowcaseQuery).to receive(:find).with('20').and_return(showcase)
         allow_any_instance_of(SectionQuery).to receive(:build).and_return(section)
 
-        controller.stub(:params).and_return(new_params)
+        allow(controller).to receive(:params).and_return(new_params)
       end
 
       it 'finds the object from showcase' do
@@ -107,7 +107,7 @@ describe SectionForm do
       before(:each) do
         allow_any_instance_of(SectionQuery).to receive(:find).with('30').and_return(section)
 
-        controller.stub(:params).and_return(edit_params)
+        allow(controller).to receive(:params).and_return(edit_params)
       end
 
       it 'finds the obect form the section' do

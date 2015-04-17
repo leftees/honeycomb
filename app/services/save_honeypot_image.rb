@@ -54,7 +54,7 @@ class SaveHoneypotImage
     object.collection.id
   end
 
-  def object_id
+  def item_id
     object.id
   end
 
@@ -67,7 +67,7 @@ class SaveHoneypotImage
   end
 
   def post
-    { application_id: 'honeycomb', group_id: group_id, item_id: object_id, image: upload_image }
+    { application_id: 'honeycomb', group_id: group_id, item_id: item_id, image: upload_image }
   end
 
   def api_url
