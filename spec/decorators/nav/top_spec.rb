@@ -12,7 +12,7 @@ RSpec.describe Nav::Top do
   end
 
   it 'determins the  display name from the current user' do
-    controller.stub(:current_user).and_return(user)
+    allow(controller).to receive(:current_user).and_return(user)
     expect(subject.current_user_display_name).to eq('DisplayName')
   end
 

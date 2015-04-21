@@ -7,7 +7,7 @@ describe MapUserToApi do
 
   before(:each) do
     remove_user_api_stub
-    HesburghAPI::PersonSearch.stub(:find).and_return(api_data)
+    allow(HesburghAPI::PersonSearch).to receive(:find).and_return(api_data)
   end
 
   it 'calls the api for the user data' do

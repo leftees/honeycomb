@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User do
   before(:each) do
-    MapUserToApi.stub(:call).and_return(true)
+    allow(MapUserToApi).to receive(:call).and_return(true)
   end
 
   [:username, :first_name, :last_name, :display_name, :email].each do |field|

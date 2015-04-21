@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.9'
+gem 'rails', '~> 4.2.0'
+
+gem 'responders', '~> 2.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
@@ -26,7 +28,7 @@ gem 'sort_alphabetical'
 
 gem 'rb-readline'
 
-gem 'devise', github: 'plataformatec/devise'
+gem 'devise'
 gem 'devise_cas_authenticatable'
 
 gem 'addressable'
@@ -88,6 +90,8 @@ group :development, :test do
   #  gem "growl-rspec"
 
   gem 'coveralls', require: false
+
+  gem 'web-console', '~> 2.0'
 end
 
 # Use ActiveModel has_secure_password

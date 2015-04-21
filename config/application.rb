@@ -32,5 +32,7 @@ module ItemAdmin
     config.react.addons = true
 
     config.assets.precompile = [proc { |path| !File.extname(path).in?(['.js', '.css', '.map', '.gzip', '']) }, /(?:\/|\\|\A)application\.(css|js)$/]
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end
