@@ -35,20 +35,18 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-
   if ENV['DALLI']
     config.action_controller.perform_caching = true
     client = Dalli::Client.new
     config.action_dispatch.rack_cache = {
-      :metastore    => client,
-      :entitystore  => client
+      metastore:    client,
+      entitystore:  client
     }
 
-
     config.middleware.use Rack::Cache,
-        :verbose => true,
-        :metastore   => client,
-        :entitystore => client
+                          verbose:     true,
+                          metastore:   client,
+                          entitystore: client
 
     config.cache_store = :dalli_store
   end
