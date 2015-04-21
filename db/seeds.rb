@@ -12,3 +12,4 @@ User.new(username: 'rfox2', admin: true).save!
 User.new(username: 'rmallot', admin: true).save!
 User.new(username: 'jkennel', admin: true).save!
 User.new(username: 'awetheri', admin: true).save!
+User.new(username: 'jgondron', admin: true).save!

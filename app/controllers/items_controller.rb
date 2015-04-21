@@ -4,6 +4,8 @@ class ItemsController < ApplicationController
 
     items = ItemQuery.new(collection.items).only_top_level
     @items = ItemsDecorator.new(items)
+
+    fresh_when(@items)
   end
 
   def new

@@ -94,6 +94,10 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 end
 
+# Dalli Caching
+gem 'rack-cache'
+gem 'dalli'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
