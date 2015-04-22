@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe ItemsController, type: :controller do
   let(:relation) { Item.all }
@@ -40,6 +41,8 @@ RSpec.describe ItemsController, type: :controller do
       assigns(:items)
       expect(assigns(:items)).to be_a(ItemsDecorator)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'GET #new' do
@@ -76,6 +79,8 @@ RSpec.describe ItemsController, type: :controller do
       assigns(:item)
       expect(assigns(:item)).to eq(item)
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'POST #create' do
@@ -129,6 +134,8 @@ RSpec.describe ItemsController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'GET #edit' do
@@ -164,6 +171,8 @@ RSpec.describe ItemsController, type: :controller do
       assigns(:item)
       expect(assigns(:item)).to be_a(ItemDecorator)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'PUT #update' do
@@ -216,6 +225,8 @@ RSpec.describe ItemsController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'DELETE #destroy' do
@@ -252,6 +263,8 @@ RSpec.describe ItemsController, type: :controller do
       expect_any_instance_of(ItemQuery).to receive(:find).with('1').and_return(item)
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'PUT #publish' do
@@ -288,6 +301,8 @@ RSpec.describe ItemsController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'PUT #unpublish' do
@@ -324,5 +339,7 @@ RSpec.describe ItemsController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 end
