@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe API::CollectionsController, type: :controller do
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }
@@ -20,6 +21,10 @@ RSpec.describe API::CollectionsController, type: :controller do
       expect(response).to be_success
       expect(response.body).to eq("{\"collections\":[{\"test\":\"collection\"}]}")
     end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :index, format: :json }
+    end
   end
 
   describe 'GET #show' do
@@ -37,6 +42,10 @@ RSpec.describe API::CollectionsController, type: :controller do
 
       expect(response).to be_success
       expect(response.body).to eq("{\"collections\":{\"test\":\"collection\"}}")
+    end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :show, id: collection.id, format: :json }
     end
   end
 end
