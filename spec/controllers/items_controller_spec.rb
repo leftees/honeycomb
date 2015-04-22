@@ -199,6 +199,8 @@ RSpec.describe ItemsController, type: :controller do
         expect(cache_control.match(/public/)).to be(nil)
       end
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'PUT #update' do
