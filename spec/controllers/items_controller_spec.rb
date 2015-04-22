@@ -252,7 +252,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       expect(response.etag).not_to be(nil)
     end
-    
+
     it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
@@ -542,7 +542,7 @@ RSpec.describe ItemsController, type: :controller do
     it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
-      
+
       unless cache_control.nil?
         expect(cache_control.match(/public/)).to be(nil)
       end
