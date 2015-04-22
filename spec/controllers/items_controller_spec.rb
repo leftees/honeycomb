@@ -54,7 +54,7 @@ RSpec.describe ItemsController, type: :controller do
     it 'does not set a max-age other than 0' do
       subject
       cache_control = response.headers["Cache-Control"]
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
@@ -118,7 +118,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       cache_control = response.headers["Cache-Control"]
 
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
@@ -199,7 +199,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       cache_control = response.headers["Cache-Control"]
 
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
@@ -262,7 +262,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       cache_control = response.headers["Cache-Control"]
 
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
@@ -342,7 +342,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       cache_control = response.headers["Cache-Control"]
 
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
@@ -406,7 +406,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       cache_control = response.headers["Cache-Control"]
 
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
@@ -470,7 +470,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       cache_control = response.headers["Cache-Control"]
 
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
@@ -534,7 +534,7 @@ RSpec.describe ItemsController, type: :controller do
       subject
       cache_control = response.headers["Cache-Control"]
 
-      unless cache_control.nil? or cache_control.match(/max-age/).nil?
+      unless cache_control.nil? || cache_control.match(/max-age/).nil?
         expect(cache_control.match(/max-age=0/)).not_to be(nil)
       end
     end
