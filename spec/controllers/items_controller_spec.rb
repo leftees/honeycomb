@@ -172,34 +172,6 @@ RSpec.describe ItemsController, type: :controller do
       expect(assigns(:item)).to be_a(ItemDecorator)
     end
 
-    it "sets the etag" do
-      subject
-      expect(response.etag).not_to be(nil)
-    end
-
-    it "does not set the last modified date" do
-      subject
-      expect(response.last_modified).to be(nil)
-    end
-
-    it "does not set a max-age other than 0" do
-      subject
-      cache_control = response.headers["Cache-Control"]
-
-      unless cache_control.nil? || cache_control.match(/max-age/).nil?
-        expect(cache_control.match(/max-age=0/)).not_to be(nil)
-      end
-    end
-
-    it "does not set cache control to public" do
-      subject
-      cache_control = response.headers["Cache-Control"]
-
-      unless cache_control.nil?
-        expect(cache_control.match(/public/)).to be(nil)
-      end
-    end
-
     it_behaves_like "a private basic custom etag cacher"
   end
 
