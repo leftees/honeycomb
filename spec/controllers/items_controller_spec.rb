@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'cache_spec_helper'
+require "cache_spec_helper"
 
 RSpec.describe ItemsController, type: :controller do
   let(:relation) { Item.all }
