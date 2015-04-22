@@ -41,17 +41,17 @@ RSpec.describe ItemsController, type: :controller do
       expect(assigns(:items)).to be_a(ItemsDecorator)
     end
 
-    it 'sets the etag' do
+    it "sets the etag" do
       subject
       expect(response.etag).not_to be(nil)
     end
 
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
       unless cache_control.nil? || cache_control.match(/max-age/).nil?
@@ -59,7 +59,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -104,17 +104,17 @@ RSpec.describe ItemsController, type: :controller do
       expect(assigns(:item)).to eq(item)
     end
 
-    it 'does not set the etag' do
+    it "does not set the etag" do
       subject
       expect(response.etag).to be(nil)
     end
 
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -123,7 +123,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -185,17 +185,17 @@ RSpec.describe ItemsController, type: :controller do
       subject
     end
 
-    it 'does not set the etag' do
+    it "does not set the etag" do
       subject
       expect(response.etag).to be(nil)
     end
 
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -204,7 +204,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -248,17 +248,17 @@ RSpec.describe ItemsController, type: :controller do
       expect(assigns(:item)).to be_a(ItemDecorator)
     end
 
-    it 'sets the etag' do
+    it "sets the etag" do
       subject
       expect(response.etag).not_to be(nil)
     end
     
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -267,7 +267,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -328,17 +328,17 @@ RSpec.describe ItemsController, type: :controller do
       subject
     end
 
-    it 'does not set the etag' do
+    it "does not set the etag" do
       subject
       expect(response.etag).to be(nil)
     end
 
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -347,7 +347,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -392,17 +392,17 @@ RSpec.describe ItemsController, type: :controller do
       subject
     end
 
-    it 'does not set the etag' do
+    it "does not set the etag" do
       subject
       expect(response.etag).to be(nil)
     end
 
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -411,7 +411,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -456,17 +456,17 @@ RSpec.describe ItemsController, type: :controller do
       subject
     end
 
-    it 'does not set the etag' do
+    it "does not set the etag" do
       subject
       expect(response.etag).to be(nil)
     end
 
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -475,7 +475,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -520,17 +520,17 @@ RSpec.describe ItemsController, type: :controller do
       subject
     end
 
-    it 'does not set the etag' do
+    it "does not set the etag" do
       subject
       expect(response.etag).to be(nil)
     end
 
-    it 'does not set the last modified date' do
+    it "does not set the last modified date" do
       subject
       expect(response.last_modified).to be(nil)
     end
 
-    it 'does not set a max-age other than 0' do
+    it "does not set a max-age other than 0" do
       subject
       cache_control = response.headers["Cache-Control"]
 
@@ -539,7 +539,7 @@ RSpec.describe ItemsController, type: :controller do
       end
     end
 
-    it 'does not set cache control to public' do
+    it "does not set cache control to public" do
       subject
       cache_control = response.headers["Cache-Control"]
       
