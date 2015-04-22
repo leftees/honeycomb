@@ -4,6 +4,8 @@ class ItemsController < ApplicationController
 
     items = ItemQuery.new(collection.items).only_top_level
     @items = ItemsDecorator.new(items)
+
+    fresh_when(@items)
   end
 
   def new
@@ -29,6 +31,7 @@ class ItemsController < ApplicationController
     check_user_edits!(item.collection)
 
     @item = ItemDecorator.new(item)
+    fresh_when(@item)
   end
 
   def update
