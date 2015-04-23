@@ -4,11 +4,11 @@ describe "CollectionIsPublished" do
 
     it "indicates a published status" do
         collection.published = true
-        expect(subject.new(collection).is_published?).to be_truthy
+        expect(subject.new(collection).published?).to be_truthy
     end
 
     it "indicates a unpublished status" do
-        expect(subject.new(collection).is_published?).to be_falsey
+        expect(subject.new(collection).published?).to be_falsey
     end
   
 end

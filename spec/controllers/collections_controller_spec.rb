@@ -194,7 +194,6 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe "publish" do
-
     let(:collection_to_publish) { Collection.new(id: 1) }
 
     before(:each) do
@@ -221,11 +220,9 @@ RSpec.describe CollectionsController, type: :controller do
       put :publish, update_params
       expect(response).to be_redirect
     end
-
   end
 
   describe "unpublish" do
-
     let(:collection_to_unpublish) { Collection.new(id: 1, published: true) }
 
     before(:each) do
