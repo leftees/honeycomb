@@ -213,7 +213,7 @@ RSpec.describe CollectionsController, type: :controller do
 
     it "publishes a collection" do
       put :publish, update_params
-      expect(collection_to_publish.published).to be_truthy 
+      expect(collection_to_publish.published).to be_truthy
     end
 
     it "redirects on success" do
@@ -243,7 +243,7 @@ RSpec.describe CollectionsController, type: :controller do
 
     it "unpublishes a collection" do
       put :unpublish, update_params
-      expect(collection_to_unpublish.published).to be_falsey 
+      expect(collection_to_unpublish.published).to be_falsey
     end
 
     it "redirects on success" do
