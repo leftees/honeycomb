@@ -274,4 +274,24 @@ RSpec.describe ShowcasesController, type: :controller do
 
     it_behaves_like "a private content-based etag cacher"
   end
+
+  describe 'PUT #publish' do
+    subject { put :publish, id: showcase.id }
+
+    it_behaves_like "a private content-based etag cacher" do
+      before do
+        allow(Publish).to receive(:call).and_return true
+      end
+    end
+  end
+
+  describe 'PUT #unpublish' do
+    subject { put :unpublish, id: showcase.id }
+
+    it_behaves_like "a private content-based etag cacher" do
+      before do
+        allow(Unpublish).to receive(:call).and_return true
+      end
+    end
+  end
 end
