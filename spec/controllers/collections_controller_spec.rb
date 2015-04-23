@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe CollectionsController, type: :controller do
   let(:collection) { instance_double(Collection, id: 1, title: 'COLLECTION', destroy!: true) }
@@ -24,6 +25,8 @@ RSpec.describe CollectionsController, type: :controller do
       expect(response).to be_success
       expect(response).to render_template('index')
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'show' do
@@ -33,6 +36,8 @@ RSpec.describe CollectionsController, type: :controller do
 
       expect(response).to redirect_to collection_items_path(collection.id)
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'new' do
@@ -55,6 +60,10 @@ RSpec.describe CollectionsController, type: :controller do
     it 'is a success' do
       get :new
       expect(response).to be_success
+    end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { get :new }
     end
   end
 
@@ -92,6 +101,10 @@ RSpec.describe CollectionsController, type: :controller do
       post :create, create_params
       expect(response).to render_template(:new)
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { post :create, create_params }
+    end
   end
 
   describe 'edit' do
@@ -112,6 +125,10 @@ RSpec.describe CollectionsController, type: :controller do
     it 'is a success' do
       get :edit, id: 1
       expect(response).to be_success
+    end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :edit, id: 1 }
     end
   end
 
@@ -149,6 +166,10 @@ RSpec.describe CollectionsController, type: :controller do
       put :update, update_params
       expect(response).to render_template(:edit)
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { put :update, update_params }
+    end
   end
 
   describe 'destroy' do
@@ -171,6 +192,10 @@ RSpec.describe CollectionsController, type: :controller do
       delete :destroy, id: '1'
       expect(response).to be_redirect
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { delete :destroy, id: '1' }
+    end
   end
 
   describe 'exhibit' do
@@ -191,5 +216,7 @@ RSpec.describe CollectionsController, type: :controller do
       expect(EnsureCollectionHasExhibit).to receive(:call).with(collection).and_return(exhibit)
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 end

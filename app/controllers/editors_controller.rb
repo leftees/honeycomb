@@ -4,6 +4,7 @@ class EditorsController < ApplicationController
     check_user_edits!(@collection)
     collection_users = @collection.collection_users
     @editor_list = CollectionUserListDecorator.new(collection_users)
+    fresh_when([@collection, @editor_list])
   end
 
   def create
@@ -43,8 +44,10 @@ class EditorsController < ApplicationController
     check_user_edits!(@collection)
 
     search_results = PersonAPISearch.call(params[:q])
-    respond_to do |format|
-      format.any { render json: search_results.to_json, content_type: 'application/json' }
+    if stale?(search_results)
+      respond_to do |format|
+        format.any { render json: search_results.to_json, content_type: 'application/json' }
+      end
     end
   end
 

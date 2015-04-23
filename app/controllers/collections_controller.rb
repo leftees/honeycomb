@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   def index
     @collections = CollectionQuery.new.for_editor(current_user)
+    fresh_when(@collections)
   end
 
   def show
@@ -29,6 +30,7 @@ class CollectionsController < ApplicationController
   def edit
     @collection = CollectionQuery.new.find(params[:id])
     check_user_edits!(@collection)
+    fresh_when(@collection)
   end
 
   def update

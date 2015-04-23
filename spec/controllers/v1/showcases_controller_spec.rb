@@ -1,8 +1,9 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe V1::ShowcasesController, type: :controller do
-  let(:collection) { instance_double(Collection, id: '1') }
-  let(:showcase) { instance_double(Showcase, id: '1') }
+  let(:collection) { instance_double(Collection, id: '1', updated_at: nil) }
+  let(:showcase) { instance_double(Showcase, id: '1', updated_at: nil) }
 
   before(:each) do
     allow_any_instance_of(ShowcaseQuery).to receive(:public_find).and_return(showcase)
@@ -24,6 +25,8 @@ RSpec.describe V1::ShowcasesController, type: :controller do
       expect(assigns(:collection)).to be_present
       expect(subject).to render_template('v1/showcases/index')
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe '#show' do
@@ -41,5 +44,7 @@ RSpec.describe V1::ShowcasesController, type: :controller do
       expect(assigns(:showcase)).to be_present
       expect(subject).to render_template('v1/showcases/show')
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 end
