@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe ExhibitsController, type: :controller do
   let(:exhibit) { double(Exhibit, id: 1, title: 'title', collection: collection, save: true, 'attributes=' => true) }
@@ -19,6 +20,8 @@ RSpec.describe ExhibitsController, type: :controller do
 
       expect(response).to redirect_to exhibit_showcases_path('1')
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'edit' do
@@ -40,6 +43,8 @@ RSpec.describe ExhibitsController, type: :controller do
       assigns(:exhibit)
       expect(assigns(:exhibit)).to eq(exhibit)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'update' do
@@ -81,5 +86,7 @@ RSpec.describe ExhibitsController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 end
