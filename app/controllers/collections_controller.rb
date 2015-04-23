@@ -60,6 +60,30 @@ class CollectionsController < ApplicationController
     redirect_to exhibit_path(exhibit)
   end
 
+  def publish
+    collection = CollectionQuery.new.find(params[:id])
+    check_user_edits!(collection)
+
+    if Publish.call(collection)
+      flash[:notice] = t(".success")
+      redirect_to edit_collection_path(collection)
+    else
+      render :edit
+    end
+  end
+
+  def unpublish
+    collection = CollectionQuery.new.find(params[:id])
+    check_user_edits!(collection)
+
+    if Unpublish.call(collection)
+      flash[:notice] = t(".success")
+      redirect_to edit_collection_path(collection)
+    else
+      render :edit
+    end
+  end
+
   protected
 
   def save_params

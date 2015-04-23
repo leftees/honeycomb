@@ -17,6 +17,11 @@ Rails.application.routes.draw do
             only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     get :exhibit
 
+    member do
+      put :publish
+      put :unpublish
+    end
+
     resources :items, only: [:index, :new, :create]
 
     resources :editors, only: [:index, :create, :destroy] do

@@ -10,6 +10,10 @@
 # Ignore direnv config
 /.envrc
 
+# Ignore sublime text files
+honeycomb.sublime-project
+honeycomb.sublime-workspace
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal

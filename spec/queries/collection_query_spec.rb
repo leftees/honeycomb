@@ -29,15 +29,15 @@ describe CollectionQuery do
   end
 
   describe 'public_collections' do
-    it 'returns all the collections for now !!' do
-      expect(relation).to receive(:all)
+    it 'returns all published collections' do
+      expect(relation).to receive(:where).with("published = ?", true)
       subject.public_collections
     end
   end
 
   describe 'public_find' do
     it 'calls public_find!' do
-      expect(relation).to receive(:find_by!).with(unique_id: 'asdf')
+      expect(relation).to receive(:find_by!).with(unique_id: 'asdf', published: true)
       subject.public_find('asdf')
     end
 
