@@ -1,10 +1,12 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe UsersController, type: :controller do
   let(:user) { instance_double(User, id: 100, username: 'username') }
   let(:admin_user) { double(User, id: 99, username: 'dwolfe2', admin?: true) }
   let(:users) { [user] }
   let(:relation) { User.all }
+  let(:create_params) { { user: { id: user.id, username: user.username } } }
 
   before(:each) do
     allow(User).to receive(:find).and_return(user)
@@ -19,7 +21,12 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to have_http_status(200)
       expect(response).to render_template('index')
     end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :index }
+    end
   end
+
   describe 'GET #new' do
     it 'returns a 200' do
       get :new, user_id: user.id
@@ -31,9 +38,16 @@ RSpec.describe UsersController, type: :controller do
     it 'creates a new user ' do
       get :new, user_id: user.id
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { get :new, user_id: user.id }
+    end
   end
 
   describe 'POST #create' do
+    it_behaves_like "a private content-based etag cacher" do
+      subject { post :create, create_params }
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -56,6 +70,13 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to be_redirect
       expect(flash[:error]).to_not be_nil
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before do
+        allow(user).to receive(:destroy).and_return(true)
+      end
+      subject { delete :destroy, id: 100 }
+    end
   end
 
   describe 'GET #edit' do
@@ -70,7 +91,12 @@ RSpec.describe UsersController, type: :controller do
       expect(User).to receive(:find).with('100').and_return(user)
       get :edit, id: 100
     end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :edit, id: 100 }
+    end
   end
+
   describe 'GET #show' do
     it 'returns a 200' do
       get :show, id: 100
@@ -83,7 +109,12 @@ RSpec.describe UsersController, type: :controller do
       expect(User).to receive(:find).with('100').and_return(user)
       get :show, id: 100
     end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :show, id: 100 }
+    end
   end
+
   describe 'PUT #update' do
     before(:each) do
       expect(User).to receive(:find).with('100').and_return(user)
@@ -98,6 +129,10 @@ RSpec.describe UsersController, type: :controller do
     it 'finds an existing user ' do
       put :update, id: 100
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { put :update, id: 100 }
+    end
   end
 
   describe 'PUT #revoke_admin' do
@@ -108,6 +143,13 @@ RSpec.describe UsersController, type: :controller do
       expect(flash[:notice]).to_not be_nil
       expect(response).to be_redirect
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before do
+        allow(RevokeAdminOnUser).to receive(:call).with(user)
+      end
+      subject { put :revoke_admin, user_id: user.id }
+    end
   end
 
   describe 'PUT #set_admin' do
@@ -117,6 +159,14 @@ RSpec.describe UsersController, type: :controller do
       put :set_admin, user_id: user.id
       expect(flash[:notice]).to_not be_nil
       expect(response).to be_redirect
+    end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before do
+        allow(SetAdminOnUser).to receive(:call).with(user)
+      end
+
+      subject { put :set_admin, user_id: user.id }
     end
   end
 end
