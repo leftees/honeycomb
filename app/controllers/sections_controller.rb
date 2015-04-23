@@ -3,6 +3,7 @@ class SectionsController < ApplicationController
     ### TODO: API ONLY remove in favor of the actual api.
     @section_list = ShowcaseList.new(showcase)
     check_user_edits!(@section_list.collection)
+    fresh_when(@section_list)
   end
 
   def new
@@ -28,6 +29,7 @@ class SectionsController < ApplicationController
   def edit
     @section_form = SectionForm.build_from_params(self)
     check_user_edits!(@section_form.collection)
+    fresh_when(@section_form)
   end
 
   def update
