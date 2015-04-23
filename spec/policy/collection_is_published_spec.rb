@@ -10,5 +10,5 @@ describe "CollectionIsPublished" do
   it "indicates a unpublished status" do
     expect(subject.new(collection).published?).to be_falsey
   end
-  
+
 end
