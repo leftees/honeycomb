@@ -4,7 +4,7 @@ RSpec.describe CollectionsController, type: :controller do
   let(:collection) { instance_double(Collection, id: 1, title: 'COLLECTION', destroy!: true) }
 
   let(:create_params) { { collection: { title: 'TITLE!!' } } }
-  let(:update_params) { { id: '1', collection: { title: 'TITLE!!' } } }
+  let(:update_params) { { id: "1", published: true, collection: { title: "TITLE!!" } } }
 
   before(:each) do
     @user = sign_in_admin
@@ -192,4 +192,64 @@ RSpec.describe CollectionsController, type: :controller do
       subject
     end
   end
+
+  describe "publish" do
+    let(:collection_to_publish) { Collection.new(id: 1) }
+
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection_to_publish)
+      allow(collection_to_publish).to receive(:save).and_return(true)
+    end
+
+    it "checks the editor permissions" do
+      expect_any_instance_of(CollectionsController).to receive(:check_user_edits!).with(collection_to_publish)
+      put :publish, update_params
+    end
+
+    it "uses collection query to get the colletion" do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection_to_publish)
+      put :publish, update_params
+    end
+
+    it "publishes a collection" do
+      put :publish, update_params
+      expect(collection_to_publish.published).to be_truthy
+    end
+
+    it "redirects on success" do
+      put :publish, update_params
+      expect(response).to be_redirect
+    end
+  end
+
+  describe "unpublish" do
+    let(:collection_to_unpublish) { Collection.new(id: 1, published: true) }
+
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection_to_unpublish)
+      allow(collection_to_unpublish).to receive(:save).and_return(true)
+      update_params[:published] = false
+    end
+
+    it "checks the editor permissions" do
+      expect_any_instance_of(CollectionsController).to receive(:check_user_edits!).with(collection_to_unpublish)
+      put :unpublish, update_params
+    end
+
+    it "uses collection query to get the colletion" do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection_to_unpublish)
+      put :unpublish, update_params
+    end
+
+    it "unpublishes a collection" do
+      put :unpublish, update_params
+      expect(collection_to_unpublish.published).to be_falsey
+    end
+
+    it "redirects on success" do
+      put :unpublish, update_params
+      expect(response).to be_redirect
+    end
+  end
+
 end

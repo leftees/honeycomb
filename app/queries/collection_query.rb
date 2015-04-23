@@ -18,11 +18,11 @@ class CollectionQuery
   end
 
   def public_collections
-    relation.all
+    relation.where("published = ?", true)
   end
 
   def public_find(id)
-    relation.find_by!(unique_id: id)
+    relation.find_by!(unique_id: id, published: true)
   end
 
   def recent(limit = 5)
