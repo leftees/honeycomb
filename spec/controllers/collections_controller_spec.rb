@@ -201,22 +201,22 @@ RSpec.describe CollectionsController, type: :controller do
       allow(collection_to_publish).to receive(:save).and_return(true)
     end
 
-    it 'checks the editor permissions' do
+    it "checks the editor permissions" do
       expect_any_instance_of(CollectionsController).to receive(:check_user_edits!).with(collection_to_publish)
       put :publish, update_params
     end
 
-    it 'uses collection query to get the colletion' do
-      expect_any_instance_of(CollectionQuery).to receive(:find).with('1').and_return(collection_to_publish)
+    it "uses collection query to get the colletion" do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection_to_publish)
       put :publish, update_params
     end
 
-    it 'publishes a collection' do
+    it "publishes a collection" do
       put :publish, update_params
       expect(collection_to_publish.published).to be_truthy 
     end
 
-    it 'redirects on success' do
+    it "redirects on success" do
       put :publish, update_params
       expect(response).to be_redirect
     end
@@ -231,22 +231,22 @@ RSpec.describe CollectionsController, type: :controller do
       update_params[:published] = false
     end
 
-    it 'checks the editor permissions' do
+    it "checks the editor permissions" do
       expect_any_instance_of(CollectionsController).to receive(:check_user_edits!).with(collection_to_unpublish)
       put :unpublish, update_params
     end
 
-    it 'uses collection query to get the colletion' do
-      expect_any_instance_of(CollectionQuery).to receive(:find).with('1').and_return(collection_to_unpublish)
+    it "uses collection query to get the colletion" do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection_to_unpublish)
       put :unpublish, update_params
     end
 
-    it 'unpublishes a collection' do
+    it "unpublishes a collection" do
       put :unpublish, update_params
       expect(collection_to_unpublish.published).to be_falsey 
     end
 
-    it 'redirects on success' do
+    it "redirects on success" do
       put :unpublish, update_params
       expect(response).to be_redirect
     end
