@@ -4,7 +4,7 @@ RSpec.describe CollectionsController, type: :controller do
   let(:collection) { instance_double(Collection, id: 1, title: 'COLLECTION', destroy!: true) }
 
   let(:create_params) { { collection: { title: 'TITLE!!' } } }
-  let(:update_params) { { id: '1', published: true, collection: { title: 'TITLE!!' } } }
+  let(:update_params) { { id: "1", published: true, collection: { title: "TITLE!!" } } }
 
   before(:each) do
     @user = sign_in_admin
