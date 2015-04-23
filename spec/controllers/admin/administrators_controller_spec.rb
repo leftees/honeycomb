@@ -108,6 +108,9 @@ RSpec.describe Admin::AdministratorsController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher" do
+      before do
+        allow(PersonAPISearch).to receive(:call).and_return([])
+      end
       subject { get :user_search, q: query }
     end
   end
