@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe ShowcasesController, type: :controller do
   let(:showcase) { instance_double(Showcase, id: 1, title: 'title', exhibit: exhibit, destroy!: true, collection: collection) }
@@ -43,6 +44,8 @@ RSpec.describe ShowcasesController, type: :controller do
       assigns(:showcases)
       expect(assigns(:showcases)).to be_a(ActiveRecord::Relation)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'GET #new' do
@@ -71,6 +74,8 @@ RSpec.describe ShowcasesController, type: :controller do
       assigns(:showcase)
       expect(assigns(:showcase)).to eq(showcase)
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'POST #create' do
@@ -112,6 +117,8 @@ RSpec.describe ShowcasesController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'PUT #update' do
@@ -153,6 +160,8 @@ RSpec.describe ShowcasesController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'GET #show' do
@@ -185,6 +194,8 @@ RSpec.describe ShowcasesController, type: :controller do
 
       expect(response).to be_success
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'GET #edit' do
@@ -206,6 +217,8 @@ RSpec.describe ShowcasesController, type: :controller do
       assigns(:showcase)
       expect(assigns(:showcase)).to eq(showcase)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'GET #title' do
@@ -227,6 +240,8 @@ RSpec.describe ShowcasesController, type: :controller do
       assigns(:showcase)
       expect(assigns(:showcase)).to eq(showcase)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'DELETE #destroy' do
@@ -256,5 +271,7 @@ RSpec.describe ShowcasesController, type: :controller do
       expect_any_instance_of(ShowcaseQuery).to receive(:find).with('1').and_return(showcase)
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 end
