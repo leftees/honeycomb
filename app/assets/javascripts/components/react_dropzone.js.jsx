@@ -45,11 +45,11 @@ var ReactDropzone = React.createClass({
       previewsContainer: "#dz-preview-" + this.props.modalId,
       clickable: "#dz-" + this.props.modalId,
       parallelUploads: 100,
-      maxFiles: (this.multifileUpload ? 100 : 1),
+      maxFiles: (this.props.multifileUpload ? 100 : 1),
       dictRemoveFile: "Cancel Upload",
       init: function () {
         this.on('addedfile', function () {
-          this.element.classList.add("dz-started")
+          this.element.classList.add("dz-started");
         });
       },
       complete: this.completeCallback,
