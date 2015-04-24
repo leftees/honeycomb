@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
     check_user_edits!(item.collection)
 
     @item = ItemDecorator.new(item)
-    fresh_when([@item.collection, @item])
+    fresh_when([@item.collection, @item.recent_children, @item])
   end
 
   def update
