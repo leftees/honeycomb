@@ -65,7 +65,6 @@ var OpenseadragonViewer = React.createClass({
   },
 
   baseOptions: function() {
-    console.log(this.props.containerID);
     return {
       id: this.props.containerID,
       element: this.getDOMNode(),
@@ -93,7 +92,6 @@ var OpenseadragonViewer = React.createClass({
   },
 
   legacyOptions: function(image) {
-    console.log(image);
     var options;
     options = this.baseOptions();
     options.tileSources = {

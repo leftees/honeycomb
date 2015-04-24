@@ -5,7 +5,10 @@ var Modal = React.createClass({
 
   propTypes: {
     id: React.PropTypes.string.isRequired,
-    children: React.PropTypes.object.isRequired,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array,
+    ]).isRequired,
     title: React.PropTypes.string,
     closeText: React.PropTypes.string,
   },
@@ -17,10 +20,10 @@ var Modal = React.createClass({
   },
 
   componentDidMount: function() {
-    if (closeCallback = this.props.closeCallback) {
+    if (this.props.closeCallback) {
       $('#' + this.props.id).on('hide.bs.modal', function (e) {
-        closeCallback(e)
-      });
+        this.props.closeCallback(e);
+      }.bind(this));
     }
   },
 

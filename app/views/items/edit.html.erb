@@ -2,24 +2,24 @@
 <%= collection_nav(@item.collection, :items) %>
 
 <% if @item.is_parent? %>
-  <%= back_action_bar(collection_items_path(@item.collection), '#' ) %>
+  <%= back_action_bar(collection_items_path(@item.collection), "#" ) %>
 <% else %>
-  <%= back_action_bar(edit_item_path(@item.parent), '#' ) %>
+  <%= back_action_bar(edit_item_path(@item.parent), "#" ) %>
 <% end %>
   <%= link_to("PREVIEW", @item.beehive_url, class: "btn btn-large btn-hollow", :target => "_blank") %>
 <div class="row">
   <div class="col-md-8">
-    <%= simple_form_for @item, html: { :class => "item", id: 'edit-item' } do |f| %>
+    <%= simple_form_for @item, html: { :class => "item", id: "edit-item" } do |f| %>
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"><%= t('.metadata') %></h3>
+          <h3 class="panel-title"><%= t(".metadata") %></h3>
         </div>
         <div class="panel-body">
-            <%= render :partial => 'form', locals: { f: f } %>
+            <%= render :partial => "form", locals: { f: f } %>
         </div>
         <div class="panel-footer">
-          <%= f.button :submit, "Save", class: 'btn btn-primary'%>
+          <%= f.button :submit, "Save", class: "btn btn-primary"%>
         </div>
       </div>
     <% end %>
@@ -30,17 +30,19 @@
           <div class="panel-heading">
             <div class="pull-right">
               <div>
-                <%= link_to raw("<i class=\"glyphicon glyphicon-plus\"></i> #{t('.children.manage_link')}"), new_item_child_path(@item), class: 'btn btn-default btn-xs btn-flat' %>
-                </div>
+                <%= link_to "#", class: "btn btn-default btn-xs btn-flat", "data-toggle" => "modal", "data-target" => "#add-children-items" do %>
+                  <i class="glyphicon glyphicon-plus"></i> <%= t(".children.manage_link") %>
+                <% end %>
+              </div>
             </div>
-            <h3 class="panel-title"><%= t('.children.title') %></h3>
+            <h3 class="panel-title"><%= t(".children.title") %></h3>
           </div>
           <div class="panel-body">
             <% if @item.recent_children.count > 0 %>
 
-              <%= render partial: 'list', locals: { items: @item.recent_children } %>
+              <%= render partial: "list", locals: { items: @item.recent_children } %>
             <% else %>
-              <%= t('.children.empty_message_html') %>
+              <%= t(".children.empty_message_html") %>
             <% end %>
           </div>
         </div>
@@ -54,9 +56,9 @@
     <div class="panel panel-default item-show-image">
       <div class="panel-heading">
         <div class="pull-right">
-          <a href="#" data-toggle="modal" data-target="#add-items" class="check-is-dirty btn btn-xs btn-default btn-flat"><i class="glyphicon glyphicon-refresh"></i> <%= t('.replace_media') %></a>
+          <a href="#" data-toggle="modal" data-target="#add-items" class="check-is-dirty btn btn-xs btn-default btn-flat"><i class="glyphicon glyphicon-refresh"></i> <%= t(".replace_media") %></a>
         </div>
-        <h3 class="panel-title"><%= t('.media') %></h3>
+        <h3 class="panel-title"><%= t(".media") %></h3>
       </div>
       <div class="panel-body">
         <%= @item.show_image_box %>
@@ -69,10 +71,19 @@
 </div>
 
 
-<%= react_component('ReactDropzone', {
+<%= react_component("ReactDropzone", {
         formUrl: url_for( @item ),
         authenticityToken: form_authenticity_token,
-        modalTitle: t('.replace_item_image_title'),
+        modalTitle: t(".replace_item_image_title"),
         multifileUpload: false,
-
   }) %>
+
+<% if @item.is_parent? %>
+  <%= react_component("ReactDropzone", {
+          modalId: "add-children-items",
+          formUrl: item_children_path(@item),
+          authenticityToken: form_authenticity_token,
+          modalTitle: t(".children.upload_title"),
+          closeText: t(".children.upload_close_text"),
+    }) %>
+<% end %>
