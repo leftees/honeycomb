@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe ItemChildrenController, type: :controller do
   let(:parent) { double(Item, id: 1, children: Item.all, collection: collection) }
@@ -40,6 +41,8 @@ RSpec.describe ItemChildrenController, type: :controller do
       assigns(:item)
       expect(assigns(:item)).to be_a(Item)
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'POST #create' do
@@ -85,5 +88,7 @@ RSpec.describe ItemChildrenController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 end
