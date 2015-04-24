@@ -13,7 +13,6 @@ var EmbedCode = React.createClass({
   },
 
   render: function () {
-    console.log(this.props.item);
     var width = 400;
     var height = 400;
     var embedUrl = this.props.embedBaseUrl + "/embed/items/" + this.props.item.unique_id;

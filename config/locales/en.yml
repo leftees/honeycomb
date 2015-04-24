@@ -122,6 +122,8 @@ en:
       children:
         title: "Additional Resources"
         manage_link: "Add"
+        upload_title: "Add Additional Resources"
+        upload_close_text: "I am finished"
         empty_message_html: "<p>No additional resources associated with this item</p><p>Additional resources are intended to be items that provide context to the main item.<br>Examples: <ul><li>A portrait of the creator</li><li>A map of where the item was created</li></ul></p>"
     new:
      title: "Add New Items"
