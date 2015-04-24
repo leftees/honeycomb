@@ -3,7 +3,7 @@ require "cache_spec_helper"
 
 RSpec.describe V1::SectionsController, type: :controller do
   let(:collection) { instance_double(Collection, id: '1') }
-  let(:section) { instance_double(Section, id: '1', updated_at: nil) }
+  let(:section) { instance_double(Section, id: "1", updated_at: nil) }
 
   before(:each) do
     allow_any_instance_of(SectionQuery).to receive(:public_find).and_return(section)

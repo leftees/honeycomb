@@ -275,7 +275,7 @@ RSpec.describe ShowcasesController, type: :controller do
     it_behaves_like "a private content-based etag cacher"
   end
 
-  describe 'PUT #publish' do
+  describe "PUT #publish" do
     subject { put :publish, id: showcase.id }
 
     it_behaves_like "a private content-based etag cacher" do
@@ -285,7 +285,7 @@ RSpec.describe ShowcasesController, type: :controller do
     end
   end
 
-  describe 'PUT #unpublish' do
+  describe "PUT #unpublish" do
     subject { put :unpublish, id: showcase.id }
 
     it_behaves_like "a private content-based etag cacher" do

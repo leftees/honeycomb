@@ -55,7 +55,7 @@ RSpec.describe API::ItemsController, type: :controller do
 
     it_behaves_like "a private basic custom etag cacher" do
       before do
-        allow_any_instance_of(ItemJSON).to receive(:to_hash).and_return(item: 'item')
+        allow_any_instance_of(ItemJSON).to receive(:to_hash).and_return(item: "item")
       end
       subject { get :show, collection_id: collection.id, id: item.id, format: :json }
     end

@@ -194,7 +194,7 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     it_behaves_like "a private content-based etag cacher" do
-      subject { delete :destroy, id: '1' }
+      subject { delete :destroy, id: "1" }
     end
   end
 
