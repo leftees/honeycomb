@@ -1,13 +1,15 @@
 module V1
   class ShowcasesController < APIController
     def index
-      @collection = CollectionJSONDecorator.new(CollectionQuery.new.public_find(params[:collection_id]))
-      fresh_when(@collection)
+      collection = CollectionQuery.new.public_find(params[:collection_id])
+      @collection = CollectionJSONDecorator.new(collection)
+      fresh_when([collection, collection.showcases])
     end
 
     def show
-      @showcase = ShowcaseJSONDecorator.new(ShowcaseQuery.new.public_find(params[:id]))
-      fresh_when(@showcase)
+      showcase = ShowcaseQuery.new.public_find(params[:id])
+      @showcase = ShowcaseJSONDecorator.new(showcase)
+      fresh_when([showcase, showcase.sections, showcase.items])
     end
   end
 end
