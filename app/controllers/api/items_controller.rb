@@ -4,17 +4,20 @@ module API
 
     def index
       @items = ItemQuery.new(collection.items).published
-
-      respond_to do |format|
-        format.json { render json: GenerateItemJSON.new(@items, params) }
+      if stale?(@items)
+        respond_to do |format|
+          format.json { render json: GenerateItemJSON.new(@items, params) }
+        end
       end
     end
 
     def show
       @item = collection.items.find(params[:id])
 
-      respond_to do |format|
-        format.json { render json: GenerateItemJSON.new(@item, params) }
+      if stale?(@item)
+        respond_to do |format|
+          format.json { render json: GenerateItemJSON.new(@item, params) }
+        end
       end
     end
 

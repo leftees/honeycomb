@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe EditorsController, type: :controller do
   let(:collection) { instance_double(Collection, id: 1, collection_users: []) }
@@ -25,6 +26,10 @@ RSpec.describe EditorsController, type: :controller do
       get :index, collection_id: 1
       expect(response).to be_success
     end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :index, collection_id: 1 }
+    end
   end
 
   describe '#create' do
@@ -48,6 +53,10 @@ RSpec.describe EditorsController, type: :controller do
       post :create, user: { username: user.username }, collection_id: 1
       expect(response).to be_error
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { post :create, user: { username: user.username }, collection_id: 1 }
+    end
   end
 
   describe '#destroy' do
@@ -67,6 +76,13 @@ RSpec.describe EditorsController, type: :controller do
       delete :destroy, id: user.id, collection_id: 1
       expect(flash[:error]).to be_present
       expect(response).to be_redirect
+    end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before do
+        expect(RemoveUserFromCollection).to receive(:call).with(collection, user).and_return(true)
+      end
+      subject { delete :destroy, id: user.id, collection_id: 1 }
     end
   end
 
@@ -91,6 +107,13 @@ RSpec.describe EditorsController, type: :controller do
       get :user_search, collection_id: 1, q: query
       expect(response).to be_success
       expect(response.body).to eq(test_results.to_json)
+    end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      before do
+        allow(PersonAPISearch).to receive(:call).and_return([])
+      end
+      subject { get :user_search, collection_id: 1, q: query }
     end
   end
 end

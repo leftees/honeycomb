@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe SectionsController, type: :controller do
   let(:showcase) { double(Showcase, id: 1, title: 'title', sections: relation, exhibit: exhibit) }
@@ -40,6 +41,8 @@ RSpec.describe SectionsController, type: :controller do
       assigns(:section_list)
       expect(assigns(:section_list)).to be_a(ShowcaseList)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'GET #new' do
@@ -68,6 +71,8 @@ RSpec.describe SectionsController, type: :controller do
       assigns(:section_form)
       expect(assigns(:section_form)).to be_a(SectionForm)
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'POST #create' do
@@ -109,6 +114,8 @@ RSpec.describe SectionsController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'GET #edit' do
@@ -137,6 +144,8 @@ RSpec.describe SectionsController, type: :controller do
       assigns(:section_form)
       expect(assigns(:section_form)).to be_a(SectionForm)
     end
+
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'PUT #update' do
@@ -177,6 +186,8 @@ RSpec.describe SectionsController, type: :controller do
 
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'DELETE #destroy' do
@@ -206,5 +217,7 @@ RSpec.describe SectionsController, type: :controller do
       expect_any_instance_of(SectionQuery).to receive(:find).with('1').and_return(section)
       subject
     end
+
+    it_behaves_like "a private content-based etag cacher"
   end
 end

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe API::ItemsController, type: :controller do
   let(:item) { instance_double(Item, id: 1, title: 'title', collection: collection) }
@@ -24,6 +25,13 @@ RSpec.describe API::ItemsController, type: :controller do
       expect(response.body).to eq("{\"items\":[]}")
       expect(assigns(:collection)).to be_present
     end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      before do
+        allow(collection).to receive(:items).and_return(Item.all)
+      end
+      subject { get :index, collection_id: collection.id, format: :json }
+    end
   end
 
   describe 'GET #show' do
@@ -43,6 +51,13 @@ RSpec.describe API::ItemsController, type: :controller do
       expect(response).to be_success
       expect(response.body).to eq("{\"items\":{\"item\":\"item\"}}")
       expect(assigns(:item)).to be_present
+    end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      before do
+        allow_any_instance_of(ItemJSON).to receive(:to_hash).and_return(item: "item")
+      end
+      subject { get :show, collection_id: collection.id, id: item.id, format: :json }
     end
   end
 end

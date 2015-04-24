@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "cache_spec_helper"
 
 RSpec.describe Admin::AdministratorsController, type: :controller do
   let(:user) { instance_double(User, id: 100, username: 'netid') }
@@ -23,8 +24,12 @@ RSpec.describe Admin::AdministratorsController, type: :controller do
     end
 
     it 'users the administrator query to get the list' do
-      expect_any_instance_of(AdministratorQuery).to receive(:list)
+      expect_any_instance_of(AdministratorQuery).to receive(:list).and_return([])
       subject
+    end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      subject { get :index }
     end
   end
 
@@ -48,6 +53,10 @@ RSpec.describe Admin::AdministratorsController, type: :controller do
       post :create, user: { username: user.username }, collection_id: 1
       expect(response).to be_error
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      subject { post :create, user: { username: user.username } }
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -65,6 +74,13 @@ RSpec.describe Admin::AdministratorsController, type: :controller do
       expect(RevokeAdminOnUser).to receive(:call).with(user)
       delete :destroy, id: user.id
       expect(response).to be_redirect
+    end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before do
+        allow(RevokeAdminOnUser).to receive(:call)
+      end
+      subject { delete :destroy, id: user.id }
     end
   end
 
@@ -89,6 +105,13 @@ RSpec.describe Admin::AdministratorsController, type: :controller do
       get :user_search, q: query
       expect(response).to be_success
       expect(response.body).to eq(test_results.to_json)
+    end
+
+    it_behaves_like "a private basic custom etag cacher" do
+      before do
+        allow(PersonAPISearch).to receive(:call).and_return([])
+      end
+      subject { get :user_search, q: query }
     end
   end
 end

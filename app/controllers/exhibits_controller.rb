@@ -6,6 +6,7 @@ class ExhibitsController < ApplicationController
   def edit
     @exhibit = ExhibitQuery.new.find(params[:id])
     check_user_edits!(@exhibit.collection)
+    fresh_when(@exhibit)
   end
 
   def update

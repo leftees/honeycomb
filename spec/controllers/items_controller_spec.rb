@@ -143,6 +143,7 @@ RSpec.describe ItemsController, type: :controller do
     let(:item) { double(Item, id: '1', collection: collection) }
 
     before(:each) do
+      allow_any_instance_of(ItemDecorator).to receive(:recent_children).and_return(nil)
       allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
     end
 
