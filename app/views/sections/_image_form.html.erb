@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-md-9">
     <%= f.input :caption, input_html: { class: 'honeycomb_redactor' }, as: :text %>
-  </div>
+</div>
 
-  <div class="col-md-3">
-    <%= HoneypotThumbnail.display(f.object.item.honeypot_image) %>
-  </div>
+<div class="col-md-3">
+    <% if f.object.item %>
+      <%= HoneypotThumbnail.display(f.object.item.honeypot_image) %>
+    <% end -%>
+</div>
 </div>
 
 
