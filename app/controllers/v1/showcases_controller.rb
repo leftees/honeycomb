@@ -9,7 +9,7 @@ module V1
     def show
       showcase = ShowcaseQuery.new.public_find(params[:id])
       @showcase = ShowcaseJSONDecorator.new(showcase)
-      fresh_when([showcase, showcase.sections, showcase.items])
+      fresh_when([showcase, showcase.collection, showcase.sections, showcase.items])
     end
   end
 end
