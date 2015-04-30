@@ -26,7 +26,7 @@ RSpec.describe API::ItemsController, type: :controller do
       expect(assigns(:collection)).to be_present
     end
 
-    it_behaves_like "a private basic custom etag cacher" do
+    it_behaves_like "a private content-based etag cacher" do
       before do
         allow(collection).to receive(:items).and_return(Item.all)
       end
@@ -53,7 +53,7 @@ RSpec.describe API::ItemsController, type: :controller do
       expect(assigns(:item)).to be_present
     end
 
-    it_behaves_like "a private basic custom etag cacher" do
+    it_behaves_like "a private content-based etag cacher" do
       before do
         allow_any_instance_of(ItemJSON).to receive(:to_hash).and_return(item: "item")
       end

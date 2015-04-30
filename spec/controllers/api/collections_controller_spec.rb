@@ -22,7 +22,7 @@ RSpec.describe API::CollectionsController, type: :controller do
       expect(response.body).to eq("{\"collections\":[{\"test\":\"collection\"}]}")
     end
 
-    it_behaves_like "a private basic custom etag cacher" do
+    it_behaves_like "a private content-based etag cacher" do
       subject { get :index, format: :json }
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe API::CollectionsController, type: :controller do
       expect(response.body).to eq("{\"collections\":{\"test\":\"collection\"}}")
     end
 
-    it_behaves_like "a private basic custom etag cacher" do
+    it_behaves_like "a private content-based etag cacher" do
       subject { get :show, id: collection.id, format: :json }
     end
   end
