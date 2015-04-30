@@ -22,7 +22,7 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template('index')
     end
 
-    it_behaves_like "a private basic custom etag cacher" do
+    it_behaves_like "a private content-based etag cacher" do
       subject { get :index }
     end
   end
@@ -92,7 +92,7 @@ RSpec.describe UsersController, type: :controller do
       get :edit, id: 100
     end
 
-    it_behaves_like "a private basic custom etag cacher" do
+    it_behaves_like "a private content-based etag cacher" do
       subject { get :edit, id: 100 }
     end
   end
@@ -110,7 +110,7 @@ RSpec.describe UsersController, type: :controller do
       get :show, id: 100
     end
 
-    it_behaves_like "a private basic custom etag cacher" do
+    it_behaves_like "a private content-based etag cacher" do
       subject { get :show, id: 100 }
     end
   end

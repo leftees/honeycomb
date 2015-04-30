@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   def index
     check_admin_or_admin_masquerading_permission!
     @users = User.all
-    fresh_when(@users)
   end
 
   def new
@@ -39,12 +38,10 @@ class UsersController < ApplicationController
   def edit
     check_admin_or_admin_masquerading_permission!
     @user = User.find(params[:id])
-    fresh_when(@user)
   end
 
   def show
     @user = User.find(params[:id])
-    fresh_when(@user)
   end
 
   def update

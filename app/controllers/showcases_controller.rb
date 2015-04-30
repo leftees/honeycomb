@@ -2,7 +2,7 @@ class ShowcasesController < ApplicationController
   def index
     check_user_edits!(exhibit.collection)
     @showcases = ShowcaseQuery.new(exhibit.showcases).admin_list
-    fresh_when(@showcases)
+    fresh_when([@showcases, exhibit.collection])
   end
 
   def new
@@ -39,7 +39,7 @@ class ShowcasesController < ApplicationController
   def edit
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_edits!(@showcase.collection)
-    fresh_when(@showcase)
+    fresh_when([@showcase, @showcase.collection])
   end
 
   def update
@@ -57,7 +57,7 @@ class ShowcasesController < ApplicationController
   def title
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_edits!(@showcase.collection)
-    fresh_when(@showcase)
+    fresh_when([@showcase, @showcase.collection])
   end
 
   def destroy
