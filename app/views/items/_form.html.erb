@@ -3,11 +3,9 @@
 
 <%= f.input :title, as: :string %>
 
-<%= f.input :description, as: :text do %>
-  <%= f.text_area :description, class: 'text optional form-control', rows: '3' %>
-<% end %>
+<%= f.input :description, input_html: { class: 'honeycomb_redactor' } %>
 
-<%= f.input :transcription, as: :text %>
+<%= f.input :transcription, input_html: { class: 'honeycomb_redactor' } %>
 
 <%= f.input :manuscript_url, as: :string, placeholder: 'http://', hint: 'Link to externally hosted manuscript viewer.' %>
 

@@ -22,7 +22,7 @@
         </td>
         <td>
           <h4 class="media-heading"><%= h link_to item.title, item.edit_path %></h4>
-          <%= h item.description %>
+          <%= raw item.description %>
         </td>
         <td>
           <%= PublishedText.display(item) %>
