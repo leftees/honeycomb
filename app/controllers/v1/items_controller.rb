@@ -10,7 +10,7 @@ module V1
 
     def show
       @item = ItemQuery.new.public_find(params[:id])
-      fresh_when(@item)
+      fresh_when([@item, @item.collection, @item.children])
     end
   end
 end
