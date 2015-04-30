@@ -44,7 +44,7 @@ class EditorsController < ApplicationController
     check_user_edits!(@collection)
 
     search_results = PersonAPISearch.call(params[:q])
-    if stale?(search_results)
+    if stale?([search_results, @collection])
       respond_to do |format|
         format.any { render json: search_results.to_json, content_type: "application/json" }
       end
