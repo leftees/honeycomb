@@ -43,6 +43,21 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+
+  describe '#short_intro' do
+    let(:exhibit) { double(Exhibit, short_description: nil) }
+    let(:collection) { double(Collection, exhibit: exhibit) }
+
+    it 'converts null to empty string' do
+      expect(subject.short_intro).to eq('')
+    end
+
+    it 'gets the value from the exhibit' do
+      expect(exhibit).to receive(:short_description).and_return('intro')
+      expect(subject.short_intro).to eq('intro')
+    end
+  end
+
   describe '#at_id' do
     let(:collection) { double(Collection, unique_id: 'adsf') }
 
