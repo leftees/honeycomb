@@ -1,12 +1,8 @@
 <%= display_errors(f.object) %>
 
-<div class="row">
-  <h1><%= f.object.collection.title %></h1>
-  <div class="col-md-9">
-    <%= f.input :description, input_html: { class: 'honeycomb_redactor' } %>
-  </div>
-  <div class="col-md-3">
-    <%= HoneypotThumbnail.display(f.object.honeypot_image) %>
-    <%= f.input :image, as: :file %>
-  </div>
-</div>
+<%= f.input :short_description, input_html: { class: 'honeycomb_redactor'  } %>
+
+<%= f.input :description, input_html: { class: 'honeycomb_redactor'  } %>
+
+<%= HoneypotThumbnail.display(f.object.honeypot_image) %>
+<%= f.input :image, as: :file %>

@@ -40,7 +40,8 @@ en:
           title: "Rename Collection"
       exhibit:
         edit:
-          description: "Introduction"
+          description: "Collection/Exhibit Introduction"
+          short_description: "Site Introduction"
       showcase:
         description: "Subtitle"
         image: "Background Image"
