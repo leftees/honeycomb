@@ -77,8 +77,7 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { double(Collection, title: "title") }
 
     it "calls the slug generator" do
-      expect(CreateURLSlug).to receive(:call)
-        .with(collection.title).and_return("slug")
+      expect(CreateURLSlug).to receive(:call).with(collection.title).and_return("slug")
 
       expect(subject.slug).to eq("slug")
     end
@@ -88,8 +87,7 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { double(Collection, items: []) }
 
     it "queries for all the published items" do
-      expect_any_instance_of(ItemQuery).to receive(:only_top_level)
-        .and_return(["items"])
+      expect_any_instance_of(ItemQuery).to receive(:only_top_level).and_return(["items"])
 
       expect(subject.items).to eq(["items"])
     end
@@ -99,8 +97,7 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { double(Collection, showcases: []) }
 
     it "queries for all the published showcases" do
-      expect_any_instance_of(ShowcaseQuery).to receive(:public_api_list)
-        .and_return(["showcases"])
+      expect_any_instance_of(ShowcaseQuery).to receive(:public_api_list).and_return(["showcases"])
 
       expect(subject.showcases).to eq(["showcases"])
     end
@@ -112,8 +109,7 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:honeypot_image) { double(HoneypotImage, json_response: "json_response") }
 
     it "gets the honeypot_image json_response" do
-      expect(honeypot_image).to receive(:json_response)
-        .and_return("json_response")
+      expect(honeypot_image).to receive(:json_response).and_return("json_response")
       expect(subject.image).to eq("json_response")
     end
 
@@ -127,8 +123,8 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:json) { double }
 
     it "calls the partial for the display" do
-      expect(json).to receive(:partial!)
-        .with("/v1/collections/collection", collection_object: collection)
+      expect(json).to receive(:partial!).with("/v1/collections/collection", collection_object: collection)
+
       subject.display(json)
     end
   end
