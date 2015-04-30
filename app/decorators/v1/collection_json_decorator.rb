@@ -27,6 +27,10 @@ module V1
       object.exhibit.description.to_s
     end
 
+    def short_intro
+      object.exhibit.short_description.to_s
+    end
+
     def slug
       CreateURLSlug.call(object.title)
     end

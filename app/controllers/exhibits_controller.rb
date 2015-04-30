@@ -24,6 +24,6 @@ class ExhibitsController < ApplicationController
   private
 
   def save_params
-    params.require(:exhibit).permit([:description, :image])
+    params.require(:exhibit).permit([:description, :image, :short_description])
   end
 end

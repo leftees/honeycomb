@@ -7,5 +7,6 @@ json.id collection_object.unique_id
 json.slug collection_object.slug
 json.title collection_object.title
 json.description collection_object.site_intro
+json.short_description collection_object.short_intro
 json.image collection_object.image
 json.last_updated collection_object.updated_at
