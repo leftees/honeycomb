@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430164752) do
+ActiveRecord::Schema.define(version: 20150501195915) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150430164752) do
     t.text     "description", limit: 65535
     t.string   "unique_id",   limit: 255
     t.boolean  "published",   limit: 1
+    t.string   "subtitle",    limit: 255
   end
 
   add_index "collections", ["published"], name: "index_collections_on_published", using: :btree
