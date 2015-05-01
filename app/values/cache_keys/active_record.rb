@@ -1,11 +1,7 @@
 module CacheKeys
   class ActiveRecord
-    def initialize(list: list)
-      @list = list.flatten
-    end
-
-    def generate()
-      ActiveSupport::Cache.expand_cache_key(@list)
+    def generate(record:)
+      ActiveSupport::Cache.expand_cache_key(record)
     end
   end
 end
