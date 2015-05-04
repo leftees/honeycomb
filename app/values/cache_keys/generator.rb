@@ -9,7 +9,7 @@ module CacheKeys
 
     def generate(*args)
       key = @generator.send(@action, *args)
-      print @generator.class.name + "." + @action + "='" + key + "'\n"
+      #print @generator.class.name + "." + @action + "='" + key + "'\n"
     end
 
     # Generator for admin/administrators_controller
