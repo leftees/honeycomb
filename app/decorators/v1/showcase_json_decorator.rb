@@ -1,7 +1,7 @@
 
 module V1
   class ShowcaseJSONDecorator < Draper::Decorator
-    delegate :id, :title, :description, :collection, :unique_id, :updated_at
+    delegate :id, :description, :collection, :unique_id, :updated_at
 
     def self.display(showcase, json)
       new(showcase).display(json)
@@ -21,6 +21,22 @@ module V1
 
     def slug
       CreateURLSlug.call(object.title)
+    end
+
+    def title
+      if title_line_2.present?
+        "#{title_line_1} #{title_line_2}"
+      else
+        title_line_1
+      end
+    end
+
+    def title_line_1
+      object.title.to_s
+    end
+
+    def title_line_2
+      object.subtitle.to_s
     end
 
     def sections
