@@ -43,7 +43,9 @@ en:
           description: "Collection/Exhibit Introduction"
           short_description: "Site Introduction"
       showcase:
-        description: "Subtitle"
+        title: 'Title Line 1'
+        subtitle: 'Title Line 2'
+        description: "Short Description "
         image: "Background Image"
     hints:
       showcase:
