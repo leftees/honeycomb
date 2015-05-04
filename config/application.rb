@@ -14,8 +14,8 @@ module ItemAdmin
       Rails.root.join('app', 'decorators'),
       Rails.root.join('app', 'policy'),
       Rails.root.join('app', 'services'),
-      Rails.root.join('app', 'forms'),
-      Rails.root.join('app', 'values')
+      Rails.root.join("app", "forms"),
+      Rails.root.join("app", "values")
     ]
 
     # Settings in config/environments/* take precedence over those specified here.

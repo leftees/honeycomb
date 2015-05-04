@@ -4,8 +4,8 @@ module V1
       @collections = CollectionQuery.new.public_collections
 
       cache_key = CacheKeys::Generator.new(keyGenerator: CacheKeys::Generator::V1Collections,
-                                          action: "index",
-                                          collections: @collections)
+                                           action: "index",
+                                           collections: @collections)
       fresh_when(etag: cache_key.generate)
     end
 
@@ -13,8 +13,8 @@ module V1
       @collection = CollectionQuery.new.public_find(params[:id])
 
       cache_key = CacheKeys::Generator.new(keyGenerator: CacheKeys::Generator::V1Collections,
-                                          action: "show",
-                                          collection: @collection)
+                                           action: "show",
+                                           collection: @collection)
       fresh_when(etag: cache_key.generate)
     end
   end

@@ -9,7 +9,7 @@ module CacheKeys
     end
 
     def generate
-      #print @generator.class.name + "." + @action + "='" + @generator.send(@action, **@args) + "'\n"
+      # print @generator.class.name + "." + @action + "='" + @generator.send(@action, **@args) + "'\n"
       @generator.send(@action, **@args)
     end
 
