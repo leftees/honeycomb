@@ -7,12 +7,51 @@ RSpec.describe V1::CollectionJSONDecorator do
 
   describe "generic fields" do
     [:id,
-     :title,
      :unique_id,
      :updated_at].each do |field|
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end
+    end
+  end
+
+  describe "#title" do
+    it "concatinates title_line_1 and title_line_2 if there is a title_line_2" do
+      expect(subject).to receive(:title_line_1).and_return("title line 1")
+      expect(subject).to receive(:title_line_2).twice.and_return("title line 2")
+
+      expect(subject.title).to eq("title line 1 title line 2")
+    end
+
+    it "does not concatintate title_line_2 if there is no title_line_2" do
+      expect(subject).to receive(:title_line_1).and_return("title line 1")
+      expect(subject).to receive(:title_line_2).and_return(nil)
+
+      expect(subject.title).to eq("title line 1")
+    end
+  end
+
+  describe "#title_line_1" do
+    it "maps to title" do
+      expect(collection).to receive(:title).and_return("super-title")
+      expect(subject.title_line_1).to eq("super-title")
+    end
+
+    it "returns empty string if title is nil " do
+      allow(collection).to receive(:title).and_return(nil)
+      expect(subject.title_line_1).to eq("")
+    end
+  end
+
+  describe "#title_line_2" do
+    it "maps to subtitle" do
+      expect(collection).to receive(:subtitle).and_return("super-title")
+      expect(subject.title_line_2).to eq("super-title")
+    end
+
+    it "returns empty string if subtitle is nil " do
+      expect(collection).to receive(:subtitle).and_return(nil)
+      expect(subject.title_line_2).to eq("")
     end
   end
 

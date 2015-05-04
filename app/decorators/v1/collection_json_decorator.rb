@@ -35,6 +35,22 @@ module V1
       CreateURLSlug.call(object.title)
     end
 
+    def title
+      if title_line_2.present?
+        "#{title_line_1} #{title_line_2}"
+      else
+        title_line_1
+      end
+    end
+
+    def title_line_1
+      object.title.to_s
+    end
+
+    def title_line_2
+      object.subtitle.to_s
+    end
+
     def items
       @items ||= ItemQuery.new(object.items).only_top_level
     end

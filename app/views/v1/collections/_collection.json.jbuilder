@@ -6,6 +6,8 @@ json.set! 'hasPart/showcases', collection_object.showcases_url
 json.id collection_object.unique_id
 json.slug collection_object.slug
 json.title collection_object.title
+json.title_line_1 collection_object.title_line_1
+json.title_line_2 collection_object.title_line_2
 json.description collection_object.site_intro
 json.short_description collection_object.short_intro
 json.image collection_object.image
