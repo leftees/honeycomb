@@ -7,8 +7,7 @@ module Admin
 
       keyGen = CacheKeys::Generator::Administrators.new
       cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "index")
-      print cacheKey.generate(@administrators)
-      fresh_when(etag: cacheKey.generate(@administrators))
+      fresh_when(etag: cacheKey.generate(decoratedAdministrators: @administrators))
     end
 
     def create

@@ -5,12 +5,18 @@ module V1
     def index
       collection = CollectionQuery.new.public_find(params[:collection_id])
       @collection = CollectionJSONDecorator.new(collection)
-      fresh_when([collection, collection.items])
+
+      keyGen = CacheKeys::Generator::V1Items.new
+      cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "index")
+      fresh_when(etag: cacheKey.generate(collection: collection, items: collection.items))
     end
 
     def show
       @item = ItemQuery.new.public_find(params[:id])
-      fresh_when([@item, @item.collection, @item.children])
+
+      keyGen = CacheKeys::Generator::V1Items.new
+      cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "show")
+      fresh_when(etag: cacheKey.generate(item: @item, collection: @item.collection, children: @item.children))
     end
   end
 end

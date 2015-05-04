@@ -5,8 +5,7 @@ module V1
 
       keyGen = CacheKeys::Generator::V1Collections.new
       cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "index")
-      print cacheKey.generate(record: @collections)
-      fresh_when(etag: cacheKey.generate(record: @collections))
+      fresh_when(etag: cacheKey.generate(collections: @collections))
     end
 
     def show
@@ -15,8 +14,7 @@ module V1
 
       keyGen = CacheKeys::Generator::V1Collections.new
       cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "show")
-      print cacheKey.generate(record: @collection)
-      fresh_when(etag: cacheKey.generate(record: @collection))
+      fresh_when(etag: cacheKey.generate(collection: @collection))
     end
   end
 end
