@@ -4,15 +4,10 @@ module V1
       section = SectionQuery.new.public_find(params[:id])
       @section = SectionJSONDecorator.new(section)
 
-      keyGen = CacheKeys::Generator::V1Sections.new
-      cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "show")
-      fresh_when(etag: cacheKey.generate(section: section,
-                                         item: section.item,
-                                         itemChildren: section.item.children,
-                                         nextSection: @section.next,
-                                         previousSection: @section.previous,
-                                         collection: section.collection,
-                                         showcase: section.showcase))
+      cache_key = CacheKeys::Generator.new(keyGenerator: CacheKeys::Generator::V1Sections,
+                                           action: "show",
+                                           decoratedSection: @section)
+      fresh_when(etag: cache_key.generate)
     end
   end
 end

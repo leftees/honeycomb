@@ -2,14 +2,15 @@ module CacheKeys
   # Generator handles routing the cache key generation to a given
   # key generator and action for that generator
   class Generator
-    def initialize(keyGenerator:, action: :generate)
-      @generator = keyGenerator
+    def initialize(keyGenerator:, action: :generate, **args)
+      @generator = keyGenerator.new
       @action = action
+      @args = args
     end
 
-    def generate(*args)
-      key = @generator.send(@action, *args)
-      #print @generator.class.name + "." + @action + "='" + key + "'\n"
+    def generate
+      #print @generator.class.name + "." + @action + "='" + @generator.send(@action, **@args) + "'\n"
+      @generator.send(@action, **@args)
     end
 
     # Generator for admin/administrators_controller
@@ -32,30 +33,36 @@ module CacheKeys
 
     # Generator for v1/items_controller
     class V1Items
-      def index(collection:, items:)
-        CacheKeys::ActiveRecord.new.generate(record: [collection, items])
+      def index(collection:)
+        CacheKeys::ActiveRecord.new.generate(record: [collection, collection.items])
       end
 
-      def show(item:, collection:, children:)
-        CacheKeys::ActiveRecord.new.generate(record: [item, collection, children])
+      def show(item:)
+        CacheKeys::ActiveRecord.new.generate(record: [item, item.collection, item.children])
       end
     end
 
     # Generator for v1/sections_controller
     class V1Sections
-      def show(section:, item:, itemChildren:, nextSection:, previousSection:, collection:, showcase:)
-        CacheKeys::ActiveRecord.new.generate(record: [section, item, itemChildren, nextSection, previousSection, collection, showcase])
+      def show(decoratedSection:)
+        CacheKeys::ActiveRecord.new.generate(record: [decoratedSection.object,
+                                                      decoratedSection.item,
+                                                      decoratedSection.item_children,
+                                                      decoratedSection.next,
+                                                      decoratedSection.previous,
+                                                      decoratedSection.collection,
+                                                      decoratedSection.showcase])
       end
     end
 
     # Generator for v1/showcases_controller
     class V1Showcases
-      def index(collection:, showcases:)
-        CacheKeys::ActiveRecord.new.generate(record: [collection, showcases])
+      def index(collection:)
+        CacheKeys::ActiveRecord.new.generate(record: [collection, collection.showcases])
       end
 
-      def show(showcase:, collection:, sections:, items: )
-        CacheKeys::ActiveRecord.new.generate(record: [showcase, collection, sections, items])
+      def show(showcase:)
+        CacheKeys::ActiveRecord.new.generate(record: [showcase, showcase.collection, showcase.sections, showcase.items])
       end
     end
   end

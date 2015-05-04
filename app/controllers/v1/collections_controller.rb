@@ -3,18 +3,19 @@ module V1
     def index
       @collections = CollectionQuery.new.public_collections
 
-      keyGen = CacheKeys::Generator::V1Collections.new
-      cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "index")
-      fresh_when(etag: cacheKey.generate(collections: @collections))
+      cache_key = CacheKeys::Generator.new(keyGenerator: CacheKeys::Generator::V1Collections,
+                                          action: "index",
+                                          collections: @collections)
+      fresh_when(etag: cache_key.generate)
     end
 
     def show
       @collection = CollectionQuery.new.public_find(params[:id])
-      fresh_when(@collection)
 
-      keyGen = CacheKeys::Generator::V1Collections.new
-      cacheKey = CacheKeys::Generator.new(keyGenerator: keyGen, action: "show")
-      fresh_when(etag: cacheKey.generate(collection: @collection))
+      cache_key = CacheKeys::Generator.new(keyGenerator: CacheKeys::Generator::V1Collections,
+                                          action: "show",
+                                          collection: @collection)
+      fresh_when(etag: cache_key.generate)
     end
   end
 end
