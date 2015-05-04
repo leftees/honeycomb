@@ -110,7 +110,7 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   end
 
   describe "#sections" do
-    let(:showcase) { double(Showcase, sections: [] ) }
+    let(:showcase) { double(Showcase, sections: []) }
 
     it "uses the section query object ordered" do
       expect_any_instance_of(SectionQuery).to receive(:ordered).and_return(["results"])
