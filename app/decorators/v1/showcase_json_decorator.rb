@@ -39,7 +39,6 @@ module V1
       object.subtitle.to_s
     end
 
-
     def sections
       SectionQuery.new(object.sections).ordered
     end

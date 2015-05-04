@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe V1::ShowcaseJSONDecorator do
   subject { described_class.new(showcase) }
 
   let(:showcase) { double(Showcase) }
 
-  describe 'generic fields' do
+  describe "generic fields" do
     [:id, :description, :unique_id, :image, :collection, :updated_at].each do |field|
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
@@ -13,38 +13,38 @@ RSpec.describe V1::ShowcaseJSONDecorator do
     end
   end
 
-  describe '#at_id' do
+  describe "#at_id" do
     let(:showcase) { double(Showcase, unique_id: "showcae_id") }
 
-    it 'returns the path to the id' do
-      expect(subject.at_id).to eq('http://test.host/v1/showcases/showcae_id')
+    it "returns the path to the id" do
+      expect(subject.at_id).to eq("http://test.host/v1/showcases/showcae_id")
     end
   end
 
-  describe '#collection_url' do
+  describe "#collection_url" do
     let(:collection) { double(Collection, unique_id: "collection_id") }
     let(:showcase) { double(Showcase, collection: collection) }
 
-    it 'returns the path to the items' do
-      expect(subject.collection_url).to eq('http://test.host/v1/collections/collection_id')
+    it "returns the path to the items" do
+      expect(subject.collection_url).to eq("http://test.host/v1/collections/collection_id")
     end
   end
 
-  describe '#description' do
-    let(:showcase) { double(Showcase, description: "description")}
+  describe "#description" do
+    let(:showcase) { double(Showcase, description: "description") }
 
     it "passes description to showcase#description" do
       expect(showcase).to receive(:description).and_return("description")
       expect(subject.description).to eq("description")
     end
 
-    it 'converts null to empty string' do
+    it "converts null to empty string" do
       expect(subject.description).to receive(:to_s)
       subject.description
     end
   end
 
-  describe '#slug' do
+  describe "#slug" do
     let(:showcase) { double(Showcase, title: "title") }
 
     it "calls the slug generator" do
@@ -53,7 +53,6 @@ RSpec.describe V1::ShowcaseJSONDecorator do
       expect(subject.slug).to eq("slug")
     end
   end
-
 
   describe "#title" do
     it "concatinates title_line_1 and title_line_2 if there is a title_line_2" do
@@ -110,25 +109,25 @@ RSpec.describe V1::ShowcaseJSONDecorator do
     end
   end
 
-  describe '#sections' do
-    let(:showcase) { double(Showcase, sections: [] )}
+  describe "#sections" do
+    let(:showcase) { double(Showcase, sections: [] ) }
 
-    it 'uses the section query object ordered' do
-      expect_any_instance_of(SectionQuery).to receive(:ordered).and_return(['results'])
-      expect(subject.sections).to eq(['results'])
+    it "uses the section query object ordered" do
+      expect_any_instance_of(SectionQuery).to receive(:ordered).and_return(["results"])
+      expect(subject.sections).to eq(["results"])
     end
 
-    it 'filters on just the sections in the showcase' do
+    it "filters on just the sections in the showcase" do
       expect(subject).to receive(:sections).and_return([])
       subject.sections
     end
   end
 
-  describe '#display' do
+  describe "#display" do
     let(:json) { double }
 
-    it 'calls the partial for the display' do
-      expect(json).to receive(:partial!).with('/v1/showcases/showcase', showcase_object: showcase)
+    it "calls the partial for the display" do
+      expect(json).to receive(:partial!).with("/v1/showcases/showcase", showcase_object: showcase)
       subject.display(json)
     end
   end
