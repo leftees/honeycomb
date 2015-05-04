@@ -3,7 +3,7 @@ require "cache_spec_helper"
 
 RSpec.describe V1::SectionsController, type: :controller do
   let(:collection) { instance_double(Collection, id: '1') }
-  let(:item) { instance_double(Item, id: "1", children: nil)}
+  let(:item) { instance_double(Item, id: "1", children: nil) }
   let(:section) { instance_double(Section, id: "1", updated_at: nil, item: item, collection: nil, showcase: nil) }
 
   before(:each) do
