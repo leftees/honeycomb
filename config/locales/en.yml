@@ -36,8 +36,8 @@ en:
   simple_form:
     labels:
       collection:
-        edit:
-          title: "Rename Collection"
+        title: 'Title Line 1'
+        subtitle: 'Title Line 2'
       exhibit:
         edit:
           description: "Collection/Exhibit Introduction"
