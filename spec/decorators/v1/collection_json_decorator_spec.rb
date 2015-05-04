@@ -33,7 +33,6 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#title_line_1" do
-
     it "maps to title" do
       expect(collection).to receive(:title).and_return("super-title")
       expect(subject.title_line_1).to eq("super-title")
@@ -46,7 +45,6 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#title_line_2" do
-
     it "maps to subtitle" do
       expect(collection).to receive(:subtitle).and_return("super-title")
       expect(subject.title_line_2).to eq("super-title")
@@ -57,7 +55,6 @@ RSpec.describe V1::CollectionJSONDecorator do
       expect(subject.title_line_2).to eq("")
     end
   end
-
 
   describe "#description" do
     let(:collection) { double(Collection, description: nil) }
