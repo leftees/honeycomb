@@ -5,9 +5,9 @@ module Admin
       administrators = AdministratorQuery.new.list
       @administrators = AdministratorListDecorator.new(administrators)
 
-      cache_key = CacheKeys::Generator.new(keyGenerator: CacheKeys::Generator::Administrators,
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Generator::Administrators,
                                            action: "index",
-                                           decoratedAdministrators: @administrators)
+                                           decorated_administrators: @administrators)
       fresh_when(etag: cache_key.generate)
     end
 

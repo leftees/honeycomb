@@ -2,8 +2,8 @@ module CacheKeys
   # Generator handles routing the cache key generation to a given
   # key generator and action for that generator
   class Generator
-    def initialize(keyGenerator:, action: :generate, **args)
-      @generator = keyGenerator.new
+    def initialize(key_generator:, action: :generate, **args)
+      @generator = key_generator.new
       @action = action
       @args = args
     end
@@ -15,8 +15,8 @@ module CacheKeys
 
     # Generator for admin/administrators_controller
     class Administrators
-      def index(decoratedAdministrators:)
-        CacheKeys::DecoratedActiveRecord.new.generate(record: decoratedAdministrators)
+      def index(decorated_administrators:)
+        CacheKeys::DecoratedActiveRecord.new.generate(record: decorated_administrators)
       end
     end
 
@@ -44,14 +44,14 @@ module CacheKeys
 
     # Generator for v1/sections_controller
     class V1Sections
-      def show(decoratedSection:)
-        CacheKeys::ActiveRecord.new.generate(record: [decoratedSection.object,
-                                                      decoratedSection.item,
-                                                      decoratedSection.item_children,
-                                                      decoratedSection.next,
-                                                      decoratedSection.previous,
-                                                      decoratedSection.collection,
-                                                      decoratedSection.showcase])
+      def show(decorated_section:)
+        CacheKeys::ActiveRecord.new.generate(record: [decorated_section.object,
+                                                      decorated_section.item,
+                                                      decorated_section.item_children,
+                                                      decorated_section.next,
+                                                      decorated_section.previous,
+                                                      decorated_section.collection,
+                                                      decorated_section.showcase])
       end
     end
 
