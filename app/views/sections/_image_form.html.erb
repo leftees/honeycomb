@@ -4,8 +4,8 @@
   </div>
 
   <div class="col-md-3">
-    <%= HoneypotThumbnail.display(f.object.item.honeypot_image) %>
+    <% if f.object.item %>
+      <%= HoneypotThumbnail.display(f.object.item.honeypot_image) %>
+    <% end -%>
   </div>
 </div>
-
-
