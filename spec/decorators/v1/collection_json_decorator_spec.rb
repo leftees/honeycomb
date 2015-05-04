@@ -29,7 +29,6 @@ RSpec.describe V1::CollectionJSONDecorator do
 
       expect(subject.title).to eq("title line 1")
     end
-
   end
 
   describe "#title_line_1" do
