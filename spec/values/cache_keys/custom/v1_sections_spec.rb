@@ -10,7 +10,7 @@ RSpec.describe CacheKeys::Custom::V1Sections do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with({ record: ["object", "item", "item_children", "next", "previous", "collection", "showcase"] })
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with( record: ["object", "item", "item_children", "next", "previous", "collection", "showcase"] )
       subject.show(decorated_section: decorated_section)
     end
   end
