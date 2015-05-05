@@ -9,7 +9,7 @@ RSpec.describe CacheKeys::Generator do
   end
 
   it "passes any additional arguments to the chosen generator method" do
-    expect_any_instance_of(Class).to receive(:specificmethod).with({arg1: 1})
+    expect_any_instance_of(Class).to receive(:specificmethod).with(arg1: 1)
     subject.generate
   end
 
