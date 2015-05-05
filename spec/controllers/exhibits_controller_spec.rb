@@ -44,7 +44,7 @@ RSpec.describe ExhibitsController, type: :controller do
       expect(assigns(:exhibit)).to eq(exhibit)
     end
 
-    it_behaves_like "a private content-based etag cacher"
+    it_behaves_like "a private basic custom etag cacher"
   end
 
   describe 'update' do
