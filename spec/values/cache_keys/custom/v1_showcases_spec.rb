@@ -10,7 +10,7 @@ RSpec.describe CacheKeys::Custom::V1Showcases do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with( record: [collection, "showcases"] )
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: [collection, "showcases"])
       subject.index(collection: collection)
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe CacheKeys::Custom::V1Showcases do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with( record: [showcase, "collection", "sections", "items"] )
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: [showcase, "collection", "sections", "items"])
       subject.show(showcase: showcase)
     end
   end

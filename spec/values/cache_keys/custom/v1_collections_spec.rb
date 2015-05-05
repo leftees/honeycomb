@@ -10,7 +10,7 @@ RSpec.describe CacheKeys::Custom::V1Collections do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with( record: collections )
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: collections)
       subject.index(collections: collections)
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe CacheKeys::Custom::V1Collections do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with( record: collection )
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: collection)
       subject.show(collection: collection)
     end
   end
