@@ -8,7 +8,8 @@ json.slug collection_object.slug
 json.title collection_object.title
 json.title_line_1 collection_object.title_line_1
 json.title_line_2 collection_object.title_line_2
-json.description collection_object.site_intro
 json.short_description collection_object.short_intro
+json.description collection_object.site_intro
+json.about collection_object.about
 json.image collection_object.image
 json.last_updated collection_object.updated_at
