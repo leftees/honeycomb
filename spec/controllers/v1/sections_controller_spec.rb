@@ -31,7 +31,7 @@ RSpec.describe V1::SectionsController, type: :controller do
     it_behaves_like "a private basic custom etag cacher"
 
     it "uses the V1Sections#show to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Generator::V1Sections).to receive(:show)
+      expect_any_instance_of(CacheKeys::Custom::V1Sections).to receive(:show)
       subject
     end
   end

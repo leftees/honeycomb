@@ -29,7 +29,7 @@ RSpec.describe V1::CollectionsController, type: :controller do
     it_behaves_like "a private basic custom etag cacher"
 
     it "uses the V1Collections#index to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Generator::V1Collections).to receive(:index)
+      expect_any_instance_of(CacheKeys::Custom::V1Collections).to receive(:index)
       subject
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe V1::CollectionsController, type: :controller do
     it_behaves_like "a private basic custom etag cacher"
 
     it "uses the V1Collections#show to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Generator::V1Collections).to receive(:show)
+      expect_any_instance_of(CacheKeys::Custom::V1Collections).to receive(:show)
       subject
     end
   end

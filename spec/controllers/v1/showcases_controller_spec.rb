@@ -29,7 +29,7 @@ RSpec.describe V1::ShowcasesController, type: :controller do
     it_behaves_like "a private basic custom etag cacher"
 
     it "uses the V1Showcases#index to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Generator::V1Showcases).to receive(:index)
+      expect_any_instance_of(CacheKeys::Custom::V1Showcases).to receive(:index)
       subject
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe V1::ShowcasesController, type: :controller do
     it_behaves_like "a private basic custom etag cacher"
 
     it "uses the V1Showcases#show to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Generator::V1Showcases).to receive(:show)
+      expect_any_instance_of(CacheKeys::Custom::V1Showcases).to receive(:show)
       subject
     end
   end

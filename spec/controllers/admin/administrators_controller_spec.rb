@@ -33,7 +33,7 @@ RSpec.describe Admin::AdministratorsController, type: :controller do
     end
 
     it "uses the Administrators#index to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Generator::Administrators).to receive(:index)
+      expect_any_instance_of(CacheKeys::Custom::Administrators).to receive(:index)
       subject
     end
   end
