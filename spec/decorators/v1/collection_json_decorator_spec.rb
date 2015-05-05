@@ -8,6 +8,7 @@ RSpec.describe V1::CollectionJSONDecorator do
   describe "generic fields" do
     [:id,
      :unique_id,
+     :about,
      :updated_at].each do |field|
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
