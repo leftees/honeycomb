@@ -3,7 +3,13 @@ require "rails_helper"
 RSpec.describe CacheKeys::Custom::V1Sections do
   context "show" do
     let(:decorated_section) do
-      method_stubs = { object: "object", item: "item", item_children: "item_children", next: "next", previous: "previous", collection: "collection", showcase: "showcase" }
+      method_stubs = { object: "object",
+                       item: "item",
+                       item_children: "item_children",
+                       next: "next",
+                       previous: "previous",
+                       collection: "collection",
+                       showcase: "showcase" }
       instance_double(V1::SectionJSONDecorator, method_stubs)
     end
 
