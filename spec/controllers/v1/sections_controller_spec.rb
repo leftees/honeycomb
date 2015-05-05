@@ -3,10 +3,13 @@ require "cache_spec_helper"
 
 RSpec.describe V1::SectionsController, type: :controller do
   let(:collection) { instance_double(Collection, id: '1') }
-  let(:section) { instance_double(Section, id: "1", updated_at: nil, item: nil, collection: nil, showcase: nil) }
+  let(:item) { instance_double(Item, id: "1", children: nil) }
+  let(:section) { instance_double(Section, id: "1", updated_at: nil, item: item, collection: nil, showcase: nil) }
 
   before(:each) do
     allow_any_instance_of(SectionQuery).to receive(:public_find).and_return(section)
+    allow_any_instance_of(SectionQuery).to receive(:previous).and_return(nil)
+    allow_any_instance_of(SectionQuery).to receive(:next).and_return(nil)
   end
 
   describe '#show' do
@@ -26,5 +29,10 @@ RSpec.describe V1::SectionsController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the V1Sections#show to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::V1Sections).to receive(:show)
+      subject
+    end
   end
 end

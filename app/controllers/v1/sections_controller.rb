@@ -1,8 +1,13 @@
 module V1
   class SectionsController < APIController
     def show
-      @section = SectionJSONDecorator.new(SectionQuery.new.public_find(params[:id]))
-      fresh_when([@section, @section.item, @section.collection, @section.showcase])
+      section = SectionQuery.new.public_find(params[:id])
+      @section = SectionJSONDecorator.new(section)
+
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Sections,
+                                           action: "show",
+                                           decorated_section: @section)
+      fresh_when(etag: cache_key.generate)
     end
   end
 end
