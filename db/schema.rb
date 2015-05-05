@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20150505171443) do
     t.datetime "image_updated_at"
     t.text     "short_description",  limit: 65535
     t.text     "about",              limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "honeypot_images", force: :cascade do |t|

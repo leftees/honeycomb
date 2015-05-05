@@ -4,5 +4,7 @@
 
 <%= f.input :description, input_html: { class: 'honeycomb_redactor'  } %>
 
+<%= f.input :about, input_html: { class: 'honeycomb_redactor'  } %>
+
 <%= HoneypotThumbnail.display(f.object.honeypot_image) %>
 <%= f.input :image, as: :file %>
