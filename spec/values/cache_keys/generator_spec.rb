@@ -1,9 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CacheKeys::Generator do
-  let(:subject) { CacheKeys::Generator.new(key_generator: Class,
-                                           action: "specificmethod",
-                                           arg1: 1) }
+  let(:subject) { CacheKeys::Generator.new(key_generator: Class, action: "specificmethod", arg1: 1) }
 
   it "calls the chosen generator method" do
     expect_any_instance_of(Class).to receive(:specificmethod)
