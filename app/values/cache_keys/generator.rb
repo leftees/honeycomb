@@ -12,7 +12,7 @@ module CacheKeys
 
     def generate
       # print generator.class.name + "." + action + "='" + generator.send(action, **@args) + "'\n"
-      generator.send(@action, **@args)
+      generator.send(action, **args)
     end
   end
 end
