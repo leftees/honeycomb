@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe CacheKeys::Custom::V1Showcases do
   context "index" do
-    let(:collection) { instance_double(Collection, showcases: "showcases")}
+    let(:collection) { instance_double(Collection, showcases: "showcases") }
 
     it "uses CacheKeys::ActiveRecord" do
       expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate)
@@ -16,7 +16,7 @@ RSpec.describe CacheKeys::Custom::V1Showcases do
   end
 
   context "show" do
-    let(:showcase) { instance_double(Showcase, collection: "collection", sections: "sections", items: "items")}
+    let(:showcase) { instance_double(Showcase, collection: "collection", sections: "sections", items: "items") }
 
     it "uses CacheKeys::ActiveRecord" do
       expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate)
