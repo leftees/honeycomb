@@ -122,6 +122,7 @@ RSpec.describe EditorsController, type: :controller do
     end
 
     it "uses the Editors#user_search to generate the cache key" do
+      allow(PersonAPISearch).to receive(:call).and_return([])
       expect_any_instance_of(CacheKeys::Custom::Editors).to receive(:user_search)
       get :user_search, collection_id: 1, q: query
     end
