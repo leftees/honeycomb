@@ -60,8 +60,12 @@ Rails.application.routes.draw do
 
   namespace :v1 do
     resources :collections,
-              only: [:show, :index],
-              defaults: { format: :json } do
+    only: [:show, :index],
+    defaults: { format: :json } do
+      # member do
+        put :publish, defaults: { format: :json }
+        put :unpublish, defaults: { format: :json }
+      # end
       resources :items, only: [:index], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
     end
