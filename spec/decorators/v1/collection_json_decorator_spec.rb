@@ -8,6 +8,7 @@ RSpec.describe V1::CollectionJSONDecorator do
   describe "generic fields" do
     [:id,
      :unique_id,
+     :about,
      :updated_at].each do |field|
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
@@ -65,6 +66,20 @@ RSpec.describe V1::CollectionJSONDecorator do
     it "delegates to collection" do
       expect(collection).to receive(:description).and_return("desc")
       expect(subject.description).to eq("desc")
+    end
+  end
+
+  describe "#about" do
+    let(:exhibit) { double(Exhibit, about: nil) }
+    let(:collection) { double(Collection, exhibit: exhibit) }
+
+    it "converts null to empty string" do
+      expect(subject.about).to eq("")
+    end
+
+    it "gets the value from the exhibit" do
+      expect(exhibit).to receive(:about).and_return("about")
+      expect(subject.about).to eq("about")
     end
   end
 

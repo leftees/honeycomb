@@ -22,7 +22,9 @@ gem 'hesburgh_api', git: 'https://github.com/ndlib/hesburgh_api.git'
 
 gem 'simple_form', '~> 3.1.0rc1'
 
+gem 'curly-templates'
 gem 'draper'
+
 # used to normaize the characters in a title sort
 gem 'sort_alphabetical'
 
@@ -43,6 +45,7 @@ gem 'faraday_middleware'
 
 # For Errbit
 gem 'airbrake'
+
 
 # Javascript assets
 # Use Uglifier as compressor for JavaScript assets
