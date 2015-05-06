@@ -60,7 +60,6 @@ RSpec.describe Exhibits::SideNavPresenter do
     end
   end
 
-
   describe "#active_tab_class" do
     let(:context) { double('context') }
     let(:presenter) { described_class.new(context, exhibit: exhibit, form: 'form') }
@@ -77,8 +76,5 @@ RSpec.describe Exhibits::SideNavPresenter do
       presenter = described_class.new(context, exhibit: exhibit, form: nil)
       expect(presenter.active_tab_class(tab: 'edit')).to eq("active")
     end
-
   end
-
-
 end
