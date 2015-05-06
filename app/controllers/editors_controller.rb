@@ -4,7 +4,11 @@ class EditorsController < ApplicationController
     check_user_edits!(@collection)
     collection_users = @collection.collection_users
     @editor_list = CollectionUserListDecorator.new(collection_users)
-    fresh_when([@collection, @editor_list])
+
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Editors,
+                                         action: "index",
+                                         collection: @collection)
+    fresh_when(etag: cache_key.generate)
   end
 
   def create
@@ -44,7 +48,12 @@ class EditorsController < ApplicationController
     check_user_edits!(@collection)
 
     search_results = PersonAPISearch.call(params[:q])
-    if stale?([search_results, @collection])
+
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Editors,
+                                     action: "user_search",
+                                     collection: @collection,
+                                     users: search_results)
+    if stale?(etag: cache_key.generate)
       respond_to do |format|
         format.any { render json: search_results.to_json, content_type: "application/json" }
       end
