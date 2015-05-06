@@ -20,6 +20,6 @@ class Exhibits::SideNavPresenter < Curly::Presenter
   def active_tab_class(tab:)
     return "active" if tab == @form
     return "active" if tab == "edit" && @form.nil?
-    return ""
+    ""
   end
 end
