@@ -2,7 +2,10 @@ class ShowcasesController < ApplicationController
   def index
     check_user_edits!(exhibit.collection)
     @showcases = ShowcaseQuery.new(exhibit.showcases).admin_list
-    fresh_when([@showcases, exhibit.collection])
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Showcases,
+                                         action: "index",
+                                         exhibit: exhibit)
+    fresh_when(etag: cache_key.generate)
   end
 
   def new
@@ -39,7 +42,10 @@ class ShowcasesController < ApplicationController
   def edit
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_edits!(@showcase.collection)
-    fresh_when([@showcase, @showcase.collection])
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Showcases,
+                                         action: "default",
+                                         showcase: @showcase)
+    fresh_when(etag: cache_key.generate)
   end
 
   def update
@@ -57,7 +63,10 @@ class ShowcasesController < ApplicationController
   def title
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_edits!(@showcase.collection)
-    fresh_when([@showcase, @showcase.collection])
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Showcases,
+                                         action: "default",
+                                         showcase: @showcase)
+    fresh_when(etag: cache_key.generate)
   end
 
   def destroy
