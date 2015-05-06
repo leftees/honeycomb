@@ -1,6 +1,6 @@
 module CacheKeys
   module Custom
-    # Generator for collections_controller
+    # Generator for editors_controller
     class Editors
       def index(collection:)
         CacheKeys::ActiveRecord.new.generate(record: [collection, collection.collection_users])
