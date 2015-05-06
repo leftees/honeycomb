@@ -3,7 +3,7 @@
 var CollectionPublishToggle = React.createClass({
   propTypes: {
     collection: React.PropTypes.object.isRequired,
-  }
+  },
   handleClick: function () {
     this.props.togglePublished();
   },
