@@ -45,6 +45,11 @@ RSpec.describe ExhibitsController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Exhibits#edit to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Exhibits).to receive(:edit)
+      subject
+    end
   end
 
   describe 'update' do

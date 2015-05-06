@@ -146,6 +146,11 @@ RSpec.describe SectionsController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Sections#edit to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Sections).to receive(:edit)
+      subject
+    end
   end
 
   describe 'PUT #update' do

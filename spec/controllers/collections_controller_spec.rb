@@ -27,6 +27,11 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Collections#index to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Collections).to receive(:index)
+      subject
+    end
   end
 
   describe 'show' do
@@ -129,6 +134,11 @@ RSpec.describe CollectionsController, type: :controller do
 
     it_behaves_like "a private basic custom etag cacher" do
       subject { get :edit, id: 1 }
+    end
+
+    it "uses the Collections#edit to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Collections).to receive(:edit)
+      get :edit, id: 1
     end
   end
 

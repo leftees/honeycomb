@@ -46,6 +46,11 @@ RSpec.describe ShowcasesController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Showcases#index to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Showcases).to receive(:index)
+      subject
+    end
   end
 
   describe 'GET #new' do
@@ -219,6 +224,11 @@ RSpec.describe ShowcasesController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Showcases#default to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Showcases).to receive(:default)
+      subject
+    end
   end
 
   describe 'GET #title' do
@@ -242,6 +252,11 @@ RSpec.describe ShowcasesController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Showcases#default to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Showcases).to receive(:default)
+      subject
+    end
   end
 
   describe 'DELETE #destroy' do
