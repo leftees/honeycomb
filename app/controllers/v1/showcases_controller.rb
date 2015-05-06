@@ -3,13 +3,21 @@ module V1
     def index
       collection = CollectionQuery.new.public_find(params[:collection_id])
       @collection = CollectionJSONDecorator.new(collection)
-      fresh_when([collection, collection.showcases])
+
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Showcases,
+                                           action: "index",
+                                           collection: collection)
+      fresh_when(etag: cache_key.generate)
     end
 
     def show
       showcase = ShowcaseQuery.new.public_find(params[:id])
       @showcase = ShowcaseJSONDecorator.new(showcase)
-      fresh_when([showcase, showcase.collection, showcase.sections, showcase.items])
+
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Showcases,
+                                           action: "show",
+                                           showcase: showcase)
+      fresh_when(etag: cache_key.generate)
     end
   end
 end

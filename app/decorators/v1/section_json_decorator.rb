@@ -39,6 +39,10 @@ module V1
       SectionQuery.new.previous(object)
     end
 
+    def item_children
+      object.item && object.item.children
+    end
+
     def display(json)
       if object.present?
         json.partial! '/v1/sections/section', section_object: self

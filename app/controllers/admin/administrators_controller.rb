@@ -4,7 +4,11 @@ module Admin
       check_admin_permission!
       administrators = AdministratorQuery.new.list
       @administrators = AdministratorListDecorator.new(administrators)
-      fresh_when(@administrators)
+
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Administrators,
+                                           action: "index",
+                                           decorated_administrators: @administrators)
+      fresh_when(etag: cache_key.generate)
     end
 
     def create

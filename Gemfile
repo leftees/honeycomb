@@ -74,6 +74,7 @@ group :development, :test do
 
   gem 'i18n-debug'
   gem 'pry'
+  gem 'pry-nav'
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'capybara'
