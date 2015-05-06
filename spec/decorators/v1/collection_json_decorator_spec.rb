@@ -69,6 +69,20 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#about" do
+    let(:exhibit) { double(Exhibit, about: nil) }
+    let(:collection) { double(Collection, exhibit: exhibit) }
+
+    it "converts null to empty string" do
+      expect(subject.about).to eq("")
+    end
+
+    it "gets the value from the exhibit" do
+      expect(exhibit).to receive(:about).and_return("about")
+      expect(subject.about).to eq("about")
+    end
+  end
+
   describe "#site_intro" do
     let(:exhibit) { double(Exhibit, description: nil) }
     let(:collection) { double(Collection, exhibit: exhibit) }

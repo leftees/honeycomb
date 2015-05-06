@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Exhibits::SideNavPresenter do
-
   let(:exhibit) { double(Exhibit, id: 1) }
 
   describe "#site_intro_link" do
