@@ -5,7 +5,7 @@ RSpec.describe SectionsController, type: :controller do
   let(:showcase) { double(Showcase, id: 1, title: 'title', sections: relation, exhibit: exhibit) }
   let(:exhibit) { double(Exhibit, id: 1, title: 'title', showcases: relation, collection: collection) }
   let(:collection) { instance_double(Collection, id: 1, title: 'title') }
-  let(:section) { double(Section, id: 1, destroy!: true, showcase: showcase, :order= => true, order: 1) }
+  let(:section) { double(Section, id: 1, destroy!: true, showcase: showcase, :order= => true, order: 1, collection: collection) }
   let(:relation) { Section.all }
   let(:create_params) { { showcase_id: showcase.id, section: { title: 'title', order: 1 } } }
 
@@ -42,7 +42,7 @@ RSpec.describe SectionsController, type: :controller do
       expect(assigns(:section_list)).to be_a(ShowcaseList)
     end
 
-    it_behaves_like "a private basic custom etag cacher"
+    it_behaves_like "a private content-based etag cacher"
   end
 
   describe 'GET #new' do
