@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { cas_sessions: 'simple_cas' }
-  root to: 'collections#index'
+  devise_for :users, controllers: { cas_sessions: "simple_cas" }
+  root to: "collections#index"
 
-  get 'help', to: 'help#help'
+  get "help", to: "help#help"
 
-  get '404', to: 'errors#catch_404'
-  get '500', to: 'errors#catch_500'
+  get "404", to: "errors#catch_404"
+  get "500", to: "errors#catch_500"
 
   resource :masquerades, only: [:new, :create] do
     get :cancel
@@ -36,14 +36,12 @@ Rails.application.routes.draw do
       put :publish
       put :unpublish
     end
-    resources :children, controller: 'item_children', only: [:new, :create]
+    resources :children, controller: "item_children", only: [:new, :create]
   end
 
   resources :exhibits, only: [:show, :edit, :update] do
     member do
-      get 'edit/:form', to: 'exhibits#edit', as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text/ }
-      #get :edit_about, to: 'exhibits#edit', form: :edit_about
-      #get :edit_copyright, to: 'exhibits#edit', form: :edit_copyright
+      get "edit/:form", to: "exhibits#edit", as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text/ }
     end
 
     resources :showcases, only: [:index, :new, :create]
@@ -88,7 +86,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '/admin_old' do
+  scope "/admin_old" do
     resources :users do
       put :set_admin
       put :revoke_admin
@@ -100,6 +98,6 @@ Rails.application.routes.draw do
     # be passed in as query params and not as part of the
     # get string that is not /discovery_test_id/i,adf.adsfwe.adsfsdf
     # but as /discovery_test_id?id=i,adf.adsfwe.adsfsdf
-    get 'discovery_id_test', to: 'discovery_id_test#show'
+    get "discovery_id_test", to: "discovery_id_test#show"
   end
 end

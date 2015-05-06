@@ -27,7 +27,7 @@ RSpec.describe Exhibits::SideNavPresenter do
     end
 
     it "calls the correct path method" do
-      expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, {:form=>"exhibit_introduction"})
+      expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, form: "exhibit_introduction")
       presenter.exhibit_introduction_link
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe Exhibits::SideNavPresenter do
     end
 
     it "calls the correct path method" do
-      expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, {:form=>"about_text"})
+      expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, form: "about_text")
       presenter.about_text_link
     end
   end
@@ -55,7 +55,7 @@ RSpec.describe Exhibits::SideNavPresenter do
     end
 
     it "calls the correct path method" do
-      expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, {:form=>"copyright_text"})
+      expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, form: "copyright_text")
       presenter.copyright_link
     end
   end

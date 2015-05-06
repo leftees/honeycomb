@@ -6,15 +6,15 @@ class Exhibits::SideNavPresenter < Curly::Presenter
   end
 
   def exhibit_introduction_link
-    link_to("Exhibit Introduction", edit_exhibit_form_exhibit_path(@exhibit, form: 'exhibit_introduction'))
+    link_to("Exhibit Introduction", edit_exhibit_form_exhibit_path(@exhibit, form: "exhibit_introduction"))
   end
 
   def about_text_link
-    link_to('About Text', edit_exhibit_form_exhibit_path(@exhibit, form: 'about_text'))
+    link_to("About Text", edit_exhibit_form_exhibit_path(@exhibit, form: "about_text"))
   end
 
   def copyright_link
-    link_to('Copyright Text', edit_exhibit_form_exhibit_path(@exhibit, form: 'copyright_text'))
+    link_to("Copyright Text", edit_exhibit_form_exhibit_path(@exhibit, form: "copyright_text"))
   end
 
   def active_tab_class(tab:)
