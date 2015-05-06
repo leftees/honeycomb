@@ -39,7 +39,10 @@ module Admin
       check_admin_permission!
 
       search_results = PersonAPISearch.call(params[:q])
-      if stale?(search_results)
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Administrators,
+                                           action: "user_search",
+                                           users: search_results)
+      if stale?(etag: cache_key.generate)
         respond_to do |format|
           format.any { render json: search_results.to_json, content_type: "application/json" }
         end
