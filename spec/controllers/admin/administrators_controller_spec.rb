@@ -119,7 +119,6 @@ RSpec.describe Admin::AdministratorsController, type: :controller do
       subject { get :user_search, q: query }
     end
 
-
     it "uses the Administrators#user_search to generate the cache key" do
       allow(PersonAPISearch).to receive(:call).and_return([])
       expect_any_instance_of(CacheKeys::Custom::Administrators).to receive(:user_search)

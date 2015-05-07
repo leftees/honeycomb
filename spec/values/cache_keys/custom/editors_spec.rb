@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe CacheKeys::Custom::Editors do
   context "index" do
-    let(:collection) { instance_double(Collection, collection_users: "collection_users" ) }
+    let(:collection) { instance_double(Collection, collection_users: "collection_users") }
 
     it "uses CacheKeys::ActiveRecord" do
       expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate)
@@ -16,7 +16,7 @@ RSpec.describe CacheKeys::Custom::Editors do
   end
 
   context "user_search" do
-    let(:collection) { instance_double(Collection, collection_users: "collection_users" ) }
+    let(:collection) { instance_double(Collection, collection_users: "collection_users") }
     let(:formatted_users) { [{ id: 1, label: "one", value: "one" }, { id: 2, label: "two", value: "two" }] }
 
     it "uses CacheKeys::ActiveRecord" do

@@ -50,9 +50,9 @@ class EditorsController < ApplicationController
     search_results = PersonAPISearch.call(params[:q])
 
     cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Editors,
-                                     action: "user_search",
-                                     collection: @collection,
-                                     formatted_users: search_results)
+                                         action: "user_search",
+                                         collection: @collection,
+                                         formatted_users: search_results)
     if stale?(etag: cache_key.generate)
       respond_to do |format|
         format.any { render json: search_results.to_json, content_type: "application/json" }
