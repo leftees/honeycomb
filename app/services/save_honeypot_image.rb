@@ -33,7 +33,7 @@ class SaveHoneypotImage
   end
 
   def send_request
-    response = connection.post('/api/images', post)
+    response = connection.post("/api/images", post)
     if response.success?
       response
     else
@@ -46,7 +46,7 @@ class SaveHoneypotImage
       f.request :multipart
       f.request :url_encoded
       f.adapter :net_http
-      f.response :json, content_type: 'application/json'
+      f.response :json, content_type: "application/json"
     end
   end
 
@@ -67,7 +67,7 @@ class SaveHoneypotImage
   end
 
   def post
-    { application_id: 'honeycomb', group_id: group_id, item_id: item_id, image: upload_image }
+    { application_id: "honeycomb", group_id: group_id, item_id: item_id, image: upload_image }
   end
 
   def api_url

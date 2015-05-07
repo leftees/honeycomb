@@ -13,7 +13,7 @@ class MasqueradesController < ApplicationController
 
         flash[:notice] = "Started masquerading as #{m.masquerading_user.name}"
 
-        redirect_to '/'
+        redirect_to "/"
         return
       else
         flash[:error] = "Unable to find a user with username #{params[:username]}"
@@ -30,6 +30,6 @@ class MasqueradesController < ApplicationController
     end
 
     flash[:notice] = "Stopped Masquerading and returned to #{m.original_user.name}"
-    redirect_to '/'
+    redirect_to "/"
   end
 end

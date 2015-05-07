@@ -72,7 +72,7 @@ module V1
     end
 
     def display(json, _includes = {})
-      json.partial! '/v1/collections/collection', collection_object: self
+      json.partial! "/v1/collections/collection", collection_object: self
 end
   end
 end

@@ -12,7 +12,7 @@ class GenerateCollectionJSON
 
   def to_hash
     {
-      'collections' => to_hash_object
+      "collections" => to_hash_object
     }
   end
 

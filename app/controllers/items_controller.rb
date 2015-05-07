@@ -50,7 +50,7 @@ class ItemsController < ApplicationController
     check_user_edits!(@item.collection)
 
     @item.destroy!
-    flash[:notice] = t('.success')
+    flash[:notice] = t(".success")
 
     redirect_to collection_path(@item.collection)
   end
@@ -97,7 +97,7 @@ class ItemsController < ApplicationController
   end
 
   def item_save_html_success(item)
-    flash[:notice] = t('.success')
+    flash[:notice] = t(".success")
     if item.parent.present?
       redirect_to edit_item_path(item.parent)
     else
@@ -108,10 +108,10 @@ class ItemsController < ApplicationController
   def item_save_failure(item)
     respond_to do |format|
       format.html do
-        if params[:action] == 'create'
-          render action: 'new'
+        if params[:action] == "create"
+          render action: "new"
         else
-          render action: 'edit'
+          render action: "edit"
         end
       end
       format.json { render json: item.errors, status: :unprocessable_entity }

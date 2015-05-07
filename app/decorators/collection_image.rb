@@ -9,7 +9,7 @@ class CollectionImage
     if first_item_with_image
       HoneypotThumbnail.display(first_item_with_image.honeypot_image)
     else
-      ''
+      ""
     end
   end
 

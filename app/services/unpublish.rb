@@ -18,8 +18,8 @@ class Unpublish
   private
 
   def validate_interface!
-    return true if object.respond_to?('published=')
+    return true if object.respond_to?("published=")
 
-    fail 'Object passed to publish is not valid'
+    fail "Object passed to publish is not valid"
   end
 end

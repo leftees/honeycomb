@@ -20,7 +20,7 @@ class CollectionsController < ApplicationController
     @collection = CollectionQuery.new.build
 
     if SaveCollection.call(@collection, save_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
       redirect_to collection_path(@collection)
     else
       render :new
@@ -38,7 +38,7 @@ class CollectionsController < ApplicationController
     check_user_edits!(@collection)
 
     if SaveCollection.call(@collection, save_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
       redirect_to edit_collection_path(@collection)
     else
       render :edit
@@ -51,7 +51,7 @@ class CollectionsController < ApplicationController
     @collection = CollectionQuery.new.find(params[:id])
     @collection.destroy!
 
-    flash[:notice] = t('.success')
+    flash[:notice] = t(".success")
     redirect_to collections_path
   end
 

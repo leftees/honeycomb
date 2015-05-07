@@ -35,13 +35,13 @@ class ItemChildrenController < ApplicationController
   end
 
   def item_save_html_success(_item)
-    flash[:notice] = t('.success')
+    flash[:notice] = t(".success")
     redirect_to edit_item_path(parent)
   end
 
   def item_save_failure(item)
     respond_to do |format|
-      format.html { render action: 'new' }
+      format.html { render action: "new" }
       format.json { render json: item.errors, status: :unprocessable_entity }
     end
   end

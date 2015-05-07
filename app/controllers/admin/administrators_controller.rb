@@ -22,7 +22,7 @@ module Admin
         end
       else
         respond_to do |format|
-          format.any { render json: { status: 'error' }, status: 500 }
+          format.any { render json: { status: "error" }, status: 500 }
         end
       end
     end

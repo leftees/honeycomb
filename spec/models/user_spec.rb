@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User do
   before(:each) do
@@ -18,7 +18,7 @@ RSpec.describe User do
     end
   end
 
-  it 'uses MapUserToApi when user saved' do
+  it "uses MapUserToApi when user saved" do
     expect(MapUserToApi).to receive(:call)
     User.new.save
   end

@@ -19,7 +19,7 @@ class EditorsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.any { render json: { status: 'error' }, status: 500 }
+        format.any { render json: { status: "error" }, status: 500 }
       end
     end
   end
@@ -31,9 +31,9 @@ class EditorsController < ApplicationController
     @user =  User.find(params[:id])
     if @user.present?
       if RemoveUserFromCollection.call(@collection, @user)
-        flash[:notice] = t('.success')
+        flash[:notice] = t(".success")
       else
-        flash[:error] = t('.failure')
+        flash[:error] = t(".failure")
       end
     end
     redirect_to collection_editors_path(@collection.id)

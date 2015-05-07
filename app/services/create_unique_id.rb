@@ -1,4 +1,4 @@
-require 'digest/md5'
+require "digest/md5"
 
 class CreateUniqueId
   attr_reader :object
@@ -28,8 +28,8 @@ class CreateUniqueId
   end
 
   def validate_interface!
-    unless object.respond_to?('unique_id=') && object.respond_to?(:unique_id) && object.respond_to?(:save)
-      fail 'Object passed to CreateUniqueId is not valid'
+    unless object.respond_to?("unique_id=") && object.respond_to?(:unique_id) && object.respond_to?(:save)
+      fail "Object passed to CreateUniqueId is not valid"
     end
   end
 end

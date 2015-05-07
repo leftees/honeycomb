@@ -26,7 +26,7 @@ class ItemDecorator < Draper::Decorator
   end
 
   def show_image_box
-    h.react_component 'ItemShowImageBox', image: image_json, itemID: object.id.to_s
+    h.react_component "ItemShowImageBox", image: image_json, itemID: object.id.to_s
   end
 
   def edit_path
@@ -34,7 +34,7 @@ class ItemDecorator < Draper::Decorator
   end
 
   def page_title
-    h.render partial: '/items/item_title', locals: { item: self }
+    h.render partial: "/items/item_title", locals: { item: self }
   end
 
   private

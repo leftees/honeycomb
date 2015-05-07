@@ -4,10 +4,10 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   _cset(:symlink_targets) { recipe_symlinks + application_symlinks }
 
-  after 'deploy:update_code', 'deploy:create_symlink_shared'
+  after "deploy:update_code", "deploy:create_symlink_shared"
 
   namespace :deploy do
-    desc 'Symlink shared configs and folders on each release.'
+    desc "Symlink shared configs and folders on each release."
     task :create_symlink_shared do
       symlink_targets.each do |target|
         if target.is_a?(Hash)

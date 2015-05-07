@@ -20,9 +20,9 @@ class PersonAPISearch
     if raw_results.present?
       raw_results.map do |result|
         {
-          id: result['uid'],
-          label: result['full_name'],
-          value: result['full_name']
+          id: result["uid"],
+          label: result["full_name"],
+          value: result["full_name"]
         }
       end
     else
@@ -38,7 +38,7 @@ class PersonAPISearch
 
   def query_search_string
     if encoded_query.present?
-      encoded_query + '*'
+      encoded_query + "*"
     end
   end
 

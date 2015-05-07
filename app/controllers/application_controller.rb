@@ -1,4 +1,4 @@
-require 'error_helper'
+require "error_helper"
 class ApplicationController < ActionController::Base
   include ErrorHelper
 
@@ -46,23 +46,23 @@ class ApplicationController < ActionController::Base
 
   def check_admin_permission!
     unless permission.user_is_administrator?
-      raise_404('User not an admin')
+      raise_404("User not an admin")
     end
   end
 
   def check_admin_or_admin_masquerading_permission!
     unless permission.user_is_admin_in_masquerade? || permission.user_is_administrator?
-      raise_404('User not a admin or an admin in masquerade')
+      raise_404("User not a admin or an admin in masquerade")
     end
   end
 
   def check_user_edits!(collection)
     unless permission.user_is_admin_in_masquerade? || permission.user_is_administrator? || permission.user_is_editor?(collection)
-      raise_404('User does not edit this collection')
+      raise_404("User does not edit this collection")
     end
   end
 
-  def raise_404(message = 'Not Found')
+  def raise_404(message = "Not Found")
     fail ActionController::RoutingError.new(message)
   end
 

@@ -16,7 +16,7 @@ class ItemJSON < Draper::Decorator
     include_options = []
     if options && options[:include]
       if options[:include].is_a?(String)
-        include_options = options[:include].split(',')
+        include_options = options[:include].split(",")
       elsif options[:include].is_a?(Array)
         include_options = options[:include]
       end

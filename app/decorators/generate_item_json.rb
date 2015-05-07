@@ -12,7 +12,7 @@ class GenerateItemJSON
 
   def to_hash
     {
-      'items' => to_hash_object
+      "items" => to_hash_object
     }
   end
 

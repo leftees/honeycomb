@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Collection do
   [:title, :subtitle, :items, :description, :unique_id, :showcases, :exhibit, :collection_users, :users, :updated_at, :created_at].each do |field|
@@ -8,16 +8,16 @@ RSpec.describe Collection do
     end
   end
 
-  it 'requires the title field ' do
+  it "requires the title field " do
     expect(subject).to have(1).error_on(:title)
   end
 
-  it 'has paper trail' do
+  it "has paper trail" do
     expect(subject).to respond_to(:versions)
   end
 
-  describe '#beehive_url' do
-    it 'is a url to the beehive server' do
+  describe "#beehive_url" do
+    it "is a url to the beehive server" do
       expect(subject.beehive_url).to include(Rails.configuration.settings.beehive_url)
     end
   end

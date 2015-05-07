@@ -1,4 +1,4 @@
-require 'draper'
+require "draper"
 
 class ItemPublishEmbedPanel < Draper::Decorator
   def self.display(item)
@@ -6,13 +6,13 @@ class ItemPublishEmbedPanel < Draper::Decorator
   end
 
   def display
-    h.react_component('ItemPublishEmbedPanel', component_parameters)
+    h.react_component("ItemPublishEmbedPanel", component_parameters)
   end
 
   private
 
   def i18n_key_base
-    @base ||= 'items.edit'
+    @base ||= "items.edit"
   end
 
   def component_parameters
