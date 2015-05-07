@@ -226,7 +226,7 @@ RSpec.describe ShowcasesController, type: :controller do
     it_behaves_like "a private basic custom etag cacher"
 
     it "uses the Showcases#default to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Custom::Showcases).to receive(:default)
+      expect_any_instance_of(CacheKeys::Custom::Showcases).to receive(:edit)
       subject
     end
   end
@@ -254,7 +254,7 @@ RSpec.describe ShowcasesController, type: :controller do
     it_behaves_like "a private basic custom etag cacher"
 
     it "uses the Showcases#default to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Custom::Showcases).to receive(:default)
+      expect_any_instance_of(CacheKeys::Custom::Showcases).to receive(:title)
       subject
     end
   end

@@ -43,7 +43,7 @@ class ShowcasesController < ApplicationController
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_edits!(@showcase.collection)
     cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Showcases,
-                                         action: "default",
+                                         action: "edit",
                                          showcase: @showcase)
     fresh_when(etag: cache_key.generate)
   end
@@ -64,7 +64,7 @@ class ShowcasesController < ApplicationController
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_edits!(@showcase.collection)
     cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Showcases,
-                                         action: "default",
+                                         action: "title",
                                          showcase: @showcase)
     fresh_when(etag: cache_key.generate)
   end
