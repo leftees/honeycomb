@@ -8,9 +8,13 @@
     <li class="header" role="presentation">Settings</li>
     <li>
       <div class="togglebutton">
-        <label>
-        <input type="checkbox"/><span class="toggle"></span><span style="color: #204470">Published</span>
-        </label>
+        <%= react_component 'CollectionPublishToggle', {
+          collection: nav.collection,
+          publishPath: "/v1/collections/#{nav.collection.unique_id}/publish",
+          unpublishPath: "/v1/collections/#{nav.collection.unique_id}/unpublish"
+        },
+        {prerender: false }
+        %>
       </div>
     </li>
     <li class="<%= nav.active_section_css(:website) %>"><a href="<%= edit_exhibit_path(nav.collection.exhibit) %>"><i class="glyphicon mdi-av-web"></i> <%= t('collection_left_nav.website') %></a></li>
