@@ -14,5 +14,4 @@ RSpec.describe CacheKeys::Custom::Sections do
       subject.edit(section: section)
     end
   end
-
 end

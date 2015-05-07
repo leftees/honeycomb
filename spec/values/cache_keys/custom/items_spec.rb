@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe CacheKeys::Custom::Items do
   context "index" do
-    let(:collection) { instance_double(Collection, items: "items" ) }
+    let(:collection) { instance_double(Collection, items: "items") }
 
     it "uses CacheKeys::ActiveRecord" do
       expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate)
@@ -16,7 +16,7 @@ RSpec.describe CacheKeys::Custom::Items do
   end
 
   context "edit" do
-    let(:collection) { instance_double(Collection, items: "items" ) }
+    let(:collection) { instance_double(Collection, items: "items") }
     let(:item) { instance_double(Item, collection: collection) }
     let(:decorated_item) { ItemDecorator.new(item) }
 
@@ -30,7 +30,8 @@ RSpec.describe CacheKeys::Custom::Items do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: [decorated_item.collection, decorated_item.recent_children, decorated_item.object])
+      record = [decorated_item.collection, decorated_item.recent_children, decorated_item.object]
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: record)
       subject.edit(decorated_item: decorated_item)
     end
   end
