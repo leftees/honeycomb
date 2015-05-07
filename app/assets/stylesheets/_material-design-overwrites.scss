@@ -99,3 +99,7 @@ div.dataTables_filter {
 .nav-tabs > li > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
 	color:#333 !important;
 }
+
+.togglebutton label input[type=checkbox]:first-child:checked+.toggle {
+  background-color: rgba(80, 80, 80, 0.7);
+}
