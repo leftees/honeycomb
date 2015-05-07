@@ -7,7 +7,7 @@ module Admin
 
       cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Administrators,
                                            action: "index",
-                                           decorated_administrators: @administrators)
+                                           users: administrators)
       fresh_when(etag: cache_key.generate)
     end
 
@@ -41,7 +41,7 @@ module Admin
       search_results = PersonAPISearch.call(params[:q])
       cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Administrators,
                                            action: "user_search",
-                                           users: search_results)
+                                           formatted_users: search_results)
       if stale?(etag: cache_key.generate)
         respond_to do |format|
           format.any { render json: search_results.to_json, content_type: "application/json" }
