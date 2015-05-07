@@ -73,6 +73,12 @@ RSpec.describe V1::CollectionsController, type: :controller do
       subject
       expect(response.body).to eq("{\"status\":true}")
     end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before(:each) do
+        expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
+      end
+    end
   end
 
   describe "#unpublish" do
@@ -89,6 +95,12 @@ RSpec.describe V1::CollectionsController, type: :controller do
       expect_any_instance_of(Unpublish).to receive(:unpublish!).and_return(true)
       subject
       expect(response.body).to eq("{\"status\":true}")
+    end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before(:each) do
+        expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
+      end
     end
   end
 end
