@@ -30,6 +30,11 @@ RSpec.describe EditorsController, type: :controller do
     it_behaves_like "a private basic custom etag cacher" do
       subject { get :index, collection_id: 1 }
     end
+
+    it "uses the Editors#index to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Editors).to receive(:index)
+      get :index, collection_id: 1
+    end
   end
 
   describe '#create' do
@@ -114,6 +119,12 @@ RSpec.describe EditorsController, type: :controller do
         allow(PersonAPISearch).to receive(:call).and_return([])
       end
       subject { get :user_search, collection_id: 1, q: query }
+    end
+
+    it "uses the Editors#user_search to generate the cache key" do
+      allow(PersonAPISearch).to receive(:call).and_return([])
+      expect_any_instance_of(CacheKeys::Custom::Editors).to receive(:user_search)
+      get :user_search, collection_id: 1, q: query
     end
   end
 end

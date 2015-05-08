@@ -3,7 +3,6 @@ class SectionsController < ApplicationController
     ### TODO: API ONLY remove in favor of the actual api.
     @section_list = ShowcaseList.new(showcase)
     check_user_edits!(@section_list.collection)
-    fresh_when([@section_list, @section_list.collection])
   end
 
   def new
@@ -29,7 +28,10 @@ class SectionsController < ApplicationController
   def edit
     @section_form = SectionForm.build_from_params(self)
     check_user_edits!(@section_form.collection)
-    fresh_when([@section_form, @section_form.collection])
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Sections,
+                                         action: "edit",
+                                         section: @section_form.section)
+    fresh_when(etag: cache_key.generate)
   end
 
   def update

@@ -43,6 +43,11 @@ RSpec.describe ItemsController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Items#index to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Items).to receive(:index)
+      subject
+    end
   end
 
   describe 'GET #new' do
@@ -174,6 +179,11 @@ RSpec.describe ItemsController, type: :controller do
     end
 
     it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Items#edit to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Items).to receive(:edit)
+      subject
+    end
   end
 
   describe 'PUT #update' do

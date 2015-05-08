@@ -1,7 +1,10 @@
 class CollectionsController < ApplicationController
   def index
     @collections = CollectionQuery.new.for_editor(current_user)
-    fresh_when(@collections)
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Collections,
+                                         action: "index",
+                                         collections: @collections)
+    fresh_when(etag: cache_key.generate)
   end
 
   def show
@@ -30,7 +33,11 @@ class CollectionsController < ApplicationController
   def edit
     @collection = CollectionQuery.new.find(params[:id])
     check_user_edits!(@collection)
-    fresh_when(@collection)
+
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Collections,
+                                         action: "edit",
+                                         collection: @collection)
+    fresh_when(etag: cache_key.generate)
   end
 
   def update

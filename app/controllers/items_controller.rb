@@ -5,7 +5,10 @@ class ItemsController < ApplicationController
     items = ItemQuery.new(collection.items).only_top_level
     @items = ItemsDecorator.new(items)
 
-    fresh_when([collection, @items])
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Items,
+                                         action: "index",
+                                         collection: collection)
+    fresh_when(etag: cache_key.generate)
   end
 
   def new
@@ -31,7 +34,11 @@ class ItemsController < ApplicationController
     check_user_edits!(item.collection)
 
     @item = ItemDecorator.new(item)
-    fresh_when([@item.collection, @item.recent_children, @item])
+
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Items,
+                                         action: "edit",
+                                         decorated_item: @item)
+    fresh_when(etag: cache_key.generate)
   end
 
   def update
