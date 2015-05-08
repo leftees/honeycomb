@@ -7,9 +7,9 @@ class SectionType
 
   def type
     if section.item_id.present?
-      'image'
+      "image"
     else
-      'text'
+      "text"
     end
   end
 end

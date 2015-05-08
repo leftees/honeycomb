@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Showcase do
   [:title, :description, :unique_id, :image, :exhibit, :sections, :published, :collection].each do |field|
@@ -14,20 +14,20 @@ RSpec.describe Showcase do
     end
   end
 
-  it 'has paper trail' do
+  it "has paper trail" do
     expect(subject).to respond_to(:versions)
   end
 
-  describe '#has honeypot image interface' do
-    it 'responds to image' do
+  describe "#has honeypot image interface" do
+    it "responds to image" do
       expect(subject).to respond_to(:image)
     end
 
-    it 'responds to honeypot_image' do
+    it "responds to honeypot_image" do
       expect(subject).to respond_to(:honeypot_image)
     end
 
-    it 'responds to collection' do
+    it "responds to collection" do
       expect(subject).to respond_to(:collection)
     end
   end

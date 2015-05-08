@@ -25,23 +25,23 @@ module ApplicationHelper
   end
 
   def learn_more_button(path)
-    if path == '#'
-      link_to raw("<i class=\"glyphicon glyphicon-education\"></i> SUBMIT FEEDBACK"), "https://docs.google.com/a/nd.edu/forms/d/1PH99cRyKzhZ6rV-dCJjrfkzdThA2n1GvoE9PT6kCkSk/viewform?entry.1268925684=#{request.original_url}", class: 'btn btn-large btn-hollow', target: 'blank'
+    if path == "#"
+      link_to raw("<i class=\"glyphicon glyphicon-education\"></i> SUBMIT FEEDBACK"), "https://docs.google.com/a/nd.edu/forms/d/1PH99cRyKzhZ6rV-dCJjrfkzdThA2n1GvoE9PT6kCkSk/viewform?entry.1268925684=#{request.original_url}", class: "btn btn-large btn-hollow", target: "blank"
     else
-      link_to raw("<i class=\"glyphicon glyphicon-education\"></i> #{t('buttons.help')}"), path, class: 'btn btn-large btn-hollow'
+      link_to raw("<i class=\"glyphicon glyphicon-education\"></i> #{t('buttons.help')}"), path, class: "btn btn-large btn-hollow"
     end
   end
 
   def back_button(path)
-    link_to(raw("<span class=\"mdi-navigation-arrow-back\"></span>"), path, class: 'btn btn-large btn-hollow')
+    link_to(raw("<span class=\"mdi-navigation-arrow-back\"></span>"), path, class: "btn btn-large btn-hollow")
   end
 
   def back_action_bar(back_path, learn_more_path)
-    render(partial: '/shared/back_action_bar', locals: { back_path: back_path, learn_more_path: learn_more_path })
+    render(partial: "/shared/back_action_bar", locals: { back_path: back_path, learn_more_path: learn_more_path })
   end
 
   def no_back_action_bar(learn_more_path)
-    render(partial: '/shared/no_back_action_bar', locals: { learn_more_path: learn_more_path })
+    render(partial: "/shared/no_back_action_bar", locals: { learn_more_path: learn_more_path })
   end
 
   def permission

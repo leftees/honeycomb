@@ -18,7 +18,7 @@ class ShowcasesController < ApplicationController
     @showcase = ShowcaseQuery.new(exhibit.showcases).build(save_params)
 
     if SaveShowcase.call(@showcase, save_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
       redirect_to showcase_path(@showcase)
     else
       render :new
@@ -53,7 +53,7 @@ class ShowcasesController < ApplicationController
     check_user_edits!(@showcase.collection)
 
     if SaveShowcase.call(@showcase, save_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
       redirect_to showcase_path(@showcase)
     else
       render :edit
@@ -75,7 +75,7 @@ class ShowcasesController < ApplicationController
 
     @showcase.destroy!
 
-    flash[:notice] = t('.success')
+    flash[:notice] = t(".success")
     redirect_to exhibit_path(@showcase.exhibit)
   end
 
@@ -125,8 +125,8 @@ class ShowcasesController < ApplicationController
   end
 
   def showcase_save_html_success(showcase)
-    flash[:notice] = t('.success')
-    if params[:action] == 'create'
+    flash[:notice] = t(".success")
+    if params[:action] == "create"
       redirect_to edit_showcase_path(showcase)
     else
       redirect_to edit_showcase_path(showcase)
@@ -136,10 +136,10 @@ class ShowcasesController < ApplicationController
   def showcase_save_failure(item)
     respond_to do |format|
       format.html do
-        if params[:action] == 'create'
-          render action: 'new'
+        if params[:action] == "create"
+          render action: "new"
         else
-          render action: 'edit'
+          render action: "edit"
         end
       end
       format.json { render json: item.errors, status: :unprocessable_entity }

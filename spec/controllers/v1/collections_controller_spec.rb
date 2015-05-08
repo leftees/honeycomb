@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe V1::CollectionsController, type: :controller do
@@ -10,20 +10,20 @@ RSpec.describe V1::CollectionsController, type: :controller do
     allow_any_instance_of(CollectionQuery).to receive(:public_find).and_return(collection)
   end
 
-  describe '#index' do
+  describe "#index" do
     subject { get :index, format: :json }
-    it 'calls CollectionQuery' do
+    it "calls CollectionQuery" do
       expect_any_instance_of(CollectionQuery).to receive(:public_collections).and_return(collections)
 
       subject
     end
 
-    it 'is successful' do
+    it "is successful" do
       subject
 
       expect(response).to be_success
       expect(assigns(:collections)).to be_present
-      expect(subject).to render_template('v1/collections/index')
+      expect(subject).to render_template("v1/collections/index")
     end
 
     it_behaves_like "a private basic custom etag cacher"
@@ -34,20 +34,20 @@ RSpec.describe V1::CollectionsController, type: :controller do
     end
   end
 
-  describe '#show' do
-    subject { get :show, id: 'id', format: :json }
-    it 'calls CollectionQuery' do
-      expect_any_instance_of(CollectionQuery).to receive(:public_find).with('id').and_return(collection)
+  describe "#show" do
+    subject { get :show, id: "id", format: :json }
+    it "calls CollectionQuery" do
+      expect_any_instance_of(CollectionQuery).to receive(:public_find).with("id").and_return(collection)
 
       subject
     end
 
-    it 'is successful' do
+    it "is successful" do
       subject
 
       expect(response).to be_success
       expect(assigns(:collection)).to be_present
-      expect(subject).to render_template('v1/collections/show')
+      expect(subject).to render_template("v1/collections/show")
     end
 
     it_behaves_like "a private basic custom etag cacher"

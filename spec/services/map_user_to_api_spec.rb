@@ -1,16 +1,16 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe MapUserToApi do
   subject { MapUserToApi.call(user) }
-  let(:user) { double(User, username: 'username', 'first_name=' => true, 'last_name=' => true, 'display_name=' => true, 'email=' => true) }
-  let(:api_data) { {  'first_name' => 'first_name', 'contact_information' => { 'email' => 'email' } } }
+  let(:user) { double(User, username: "username", "first_name=" => true, "last_name=" => true, "display_name=" => true, "email=" => true) }
+  let(:api_data) { {  "first_name" => "first_name", "contact_information" => { "email" => "email" } } }
 
   before(:each) do
     remove_user_api_stub
     allow(HesburghAPI::PersonSearch).to receive(:find).and_return(api_data)
   end
 
-  it 'calls the api for the user data' do
+  it "calls the api for the user data" do
     expect(HesburghAPI::PersonSearch).to receive(:find).with(user.username).and_return(api_data)
 
     subject

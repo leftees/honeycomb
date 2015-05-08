@@ -10,10 +10,10 @@ class MapUserToApi
   end
 
   def map!
-    user.first_name = api_attributes['first_name']
-    user.last_name = api_attributes['last_name']
-    user.email = api_attributes['contact_information']['email']
-    user.display_name = api_attributes['full_name']
+    user.first_name = api_attributes["first_name"]
+    user.last_name = api_attributes["last_name"]
+    user.email = api_attributes["contact_information"]["email"]
+    user.display_name = api_attributes["full_name"]
     user
   end
 

@@ -15,12 +15,12 @@ class HoneypotImage < ActiveRecord::Base
   end
 
   def url
-    get_key('@id') || get_key('href')
+    get_key("@id") || get_key("href")
   end
 
   def image_json
     if json_response.present?
-      json_response['image'] || json_response
+      json_response["image"] || json_response
     else
       {}
     end
@@ -33,6 +33,6 @@ class HoneypotImage < ActiveRecord::Base
   end
 
   def set_values_from_json_response
-    self.title = get_key('name')
+    self.title = get_key("name")
   end
 end

@@ -7,7 +7,7 @@ class ShowcaseDecorator < Draper::Decorator
 
   def honeypot_image_url
     if object.honeypot_image
-      object.honeypot_image.json_response['contentUrl']
+      object.honeypot_image.json_response["contentUrl"]
     else
       {}
     end

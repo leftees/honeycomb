@@ -52,7 +52,7 @@ module V1
     end
 
     def display(json)
-      json.partial! '/v1/showcases/showcase', showcase_object: self
+      json.partial! "/v1/showcases/showcase", showcase_object: self
     end
   end
 end

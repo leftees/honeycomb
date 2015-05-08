@@ -37,11 +37,11 @@ class GenerateTitleFromFilename
   end
 
   def remove_extension
-    @filename = File.basename(filename, '.*')
+    @filename = File.basename(filename, ".*")
   end
 
   def add_spaces
-    @filename = filename.gsub('_', ' ')
+    @filename = filename.gsub("_", " ")
   end
 
   def titleize

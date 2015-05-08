@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe RemoveUserFromCollection do
   subject { described_class.new(collection, user) }
@@ -9,7 +9,7 @@ describe RemoveUserFromCollection do
     AssignUserToCollection.call(collection, user)
   end
 
-  it 'deletes the collection_user' do
+  it "deletes the collection_user" do
     expect_any_instance_of(CollectionUser).to receive(:destroy)
     subject.delete!
   end

@@ -15,10 +15,10 @@ class UsersController < ApplicationController
     check_admin_or_admin_masquerading_permission!
     user = User.new
     if CreateUser.call(user, save_params)
-      flash[:notice] = t('.success')
-      redirect_to action: 'index'
+      flash[:notice] = t(".success")
+      redirect_to action: "index"
     else
-      flash[:error] = t('.failure')
+      flash[:error] = t(".failure")
       redirect_to action: create
     end
   end
@@ -27,9 +27,9 @@ class UsersController < ApplicationController
     check_admin_or_admin_masquerading_permission!
     @user = User.find(params[:id])
     if @user.destroy
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
     else
-      flash[:error] = t('.failure')
+      flash[:error] = t(".failure")
     end
 
     redirect_to users_path
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     check_admin_or_admin_masquerading_permission!
     @user = User.find(params[:user_id])
     RevokeAdminOnUser.call(@user)
-    flash[:notice] = 'Revoked admin from ' + @user.username
+    flash[:notice] = "Revoked admin from " + @user.username
     redirect_to users_path
   end
 
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     check_admin_or_admin_masquerading_permission!
     @user = User.find(params[:user_id])
     SetAdminOnUser.call(@user)
-    flash[:notice] = 'Granted admin to ' + @user.username
+    flash[:notice] = "Granted admin to " + @user.username
     redirect_to users_path
   end
 
@@ -83,9 +83,9 @@ class UsersController < ApplicationController
     if !results.blank?
       results.map do |result|
         {
-          id: result['uid'],
-          label: result['full_name'],
-          value: result['full_name']
+          id: result["uid"],
+          label: result["full_name"],
+          value: result["full_name"]
         }
       end
     else

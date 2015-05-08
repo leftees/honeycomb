@@ -1,4 +1,4 @@
-require 'draper'
+require "draper"
 
 class ListTime < Draper::Decorator
   def self.display(time)

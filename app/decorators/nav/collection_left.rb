@@ -1,11 +1,11 @@
-require 'draper'
+require "draper"
 
 class Nav::CollectionLeft < Draper::Decorator
   attr_reader :left_nav_section
 
   def display(left_nav_section)
     @left_nav_section = left_nav_section
-    h.render partial: 'shared/collection_left_nav', locals: { nav: self }
+    h.render partial: "shared/collection_left_nav", locals: { nav: self }
   end
 
   def collection

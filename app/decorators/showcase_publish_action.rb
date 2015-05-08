@@ -1,4 +1,4 @@
-require 'draper'
+require "draper"
 
 class ShowcasePublishAction < Draper::Decorator
   def self.display(item)
@@ -6,13 +6,13 @@ class ShowcasePublishAction < Draper::Decorator
   end
 
   def display
-    h.react_component('ShowcasePublishAction', component_parameters)
+    h.react_component("ShowcasePublishAction", component_parameters)
   end
 
   private
 
   def i18n_key_base
-    @base ||= 'items.edit'
+    @base ||= "items.edit"
   end
 
   def component_parameters

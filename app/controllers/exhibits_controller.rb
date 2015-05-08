@@ -17,7 +17,7 @@ class ExhibitsController < ApplicationController
     check_user_edits!(@exhibit.collection)
 
     if SaveExhibit.call(@exhibit, save_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = t(".success")
       redirect_to edit_exhibit_path(@exhibit)
     else
       render :edit

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Section do
   [:title, :description, :image, :item_id, :order, :caption, :showcase, :item, :updated_at, :created_at].each do |field|

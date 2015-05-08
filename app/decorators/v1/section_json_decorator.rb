@@ -45,7 +45,7 @@ module V1
 
     def display(json)
       if object.present?
-        json.partial! '/v1/sections/section', section_object: self
+        json.partial! "/v1/sections/section", section_object: self
       end
     end
   end

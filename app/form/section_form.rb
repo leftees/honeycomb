@@ -27,10 +27,10 @@ class SectionForm
   end
 
   def form_partial
-    if section_type == 'image'
-      'image_form'
-    elsif section_type == 'text'
-      'text_form'
+    if section_type == "image"
+      "image_form"
+    elsif section_type == "text"
+      "text_form"
     else
       fail "Implment section form for type #{section.display_type}"
     end
@@ -54,7 +54,7 @@ class SectionForm
 
   def validate!
     if section.order.blank?
-      fail 'Section passed to section form requires an order '
+      fail "Section passed to section form requires an order "
     end
   end
 end

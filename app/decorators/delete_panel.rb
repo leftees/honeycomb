@@ -1,4 +1,4 @@
-require 'draper'
+require "draper"
 
 class DeletePanel < Draper::Decorator
   attr_accessor :path
@@ -6,7 +6,7 @@ class DeletePanel < Draper::Decorator
   def display
     yield(self) if block_given?
 
-    h.render partial: 'shared/delete_panel', locals: { default_name: default_name, path: path, i18n_key_base: i18n_key_base }
+    h.render partial: "shared/delete_panel", locals: { default_name: default_name, path: path, i18n_key_base: i18n_key_base }
   end
 
   def default_name

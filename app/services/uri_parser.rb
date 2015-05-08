@@ -1,4 +1,4 @@
-require 'addressable/uri'
+require "addressable/uri"
 
 class URIParser
   attr_reader :uri
@@ -16,10 +16,10 @@ class URIParser
       return (parse.scheme.present? && parse.host.present?)
 
     rescue Addressable::URI::InvalidURIError
-      puts 'rescue'
+      puts "rescue"
       return false
     end
-    puts 'false?'
+    puts "false?"
     false
   end
 
