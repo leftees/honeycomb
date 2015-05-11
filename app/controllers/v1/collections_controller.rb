@@ -35,6 +35,5 @@ module V1
         format.json { render json: { status: @return_value }.to_json }
       end
     end
-
   end
 end
