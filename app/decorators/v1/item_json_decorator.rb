@@ -3,7 +3,7 @@ module V1
     delegate :id, :title, :children, :parent, :collection, :unique_id, :updated_at
 
     METADATA_MAP = [
-      ["Title", :title],
+      ["Name", :title],
       ["Description", :description],
       ["Manuscript", :manuscript_url],
       ["Transcription", :transcription]
