@@ -26,6 +26,14 @@ class ShowcaseQuery
   def public_find(id)
     relation.find_by!(unique_id: id)
   end
+
+  def next(showcase)
+    showcase
+  end
+
+  def previous(showcase)
+    showcase
+  end
 end
 
 

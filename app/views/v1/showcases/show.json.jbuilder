@@ -1,7 +1,12 @@
 V1::CollectionJSONDecorator.display(@showcase.collection, json)
 json.set! :showcases do
   @showcase.display(json)
-
+  json.set! :nextShowcase do
+    V1::ShowcaseJSONDecorator.display(@showcase.next, json)
+  end
+  json.set! :previousShowcase do
+    V1::ShowcaseJSONDecorator.display(@showcase.previous, json)
+  end
   json.set! :sections do
     json.array! @showcase.sections do |section|
       V1::SectionJSONDecorator.display(section, json)
