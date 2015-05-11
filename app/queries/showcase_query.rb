@@ -28,11 +28,17 @@ class ShowcaseQuery
   end
 
   def next(showcase)
-    showcase
+    relation
+      .where(exhibit_id: showcase.exhibit_id)
+      .where("`#{relation.table_name}`.order > ?", showcase.order)
+      .order(:order).first
   end
 
   def previous(showcase)
-    showcase
+    relation
+      .where(exhibit_id: showcase.exhibit_id)
+      .where("`#{relation.table_name}`.order < ?", showcase.order)
+      .order(order: :desc).first
   end
 end
 
