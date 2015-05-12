@@ -40,7 +40,7 @@ module V1
     end
 
     def next
-      object
+      ShowcaseQuery.new.next(object)
     end
 
     def previous
