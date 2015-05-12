@@ -26,6 +26,22 @@ class ShowcaseQuery
   def public_find(id)
     relation.find_by!(unique_id: id)
   end
+
+  def next(showcase)
+    relation.
+      where(exhibit_id: showcase.exhibit_id).
+      where("`#{relation.table_name}`.order > ?", showcase.order).
+      order(:order).
+      first
+  end
+
+  def previous(showcase)
+    relation.
+      where(exhibit_id: showcase.exhibit_id).
+      where("`#{relation.table_name}`.order < ?", showcase.order).
+      order(order: :desc).
+      first
+  end
 end
 
 
