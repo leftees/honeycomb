@@ -60,4 +60,24 @@ describe ShowcaseQuery do
       expect { subject.public_find("asdf") }.to raise_error ActiveRecord::RecordNotFound
     end
   end
+
+  describe "next" do
+    let(:showcase) { instance_double(Showcase, id: 1, title: "title", exhibit_id: 1, order: 1) }
+
+    it "gets the next record based on order" do
+      expect(relation).to receive(:where).with(exhibit_id: showcase.exhibit_id).and_return(relation)
+      expect(relation).to receive(:where).with("`showcases`.order > ?", 1).and_return(relation)
+      subject.next(showcase)
+    end
+  end
+
+  describe "previous" do
+    let(:showcase) { instance_double(Showcase, id: 1, title: "title", exhibit_id: 1, order: 1) }
+
+    it "gets the next record based on order" do
+      expect(relation).to receive(:where).with(exhibit_id: showcase.exhibit_id).and_return(relation)
+      expect(relation).to receive(:where).with("`showcases`.order < ?", 1).and_return(relation)
+      subject.previous(showcase)
+    end
+  end
 end
