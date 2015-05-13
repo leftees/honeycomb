@@ -9,6 +9,15 @@
   <%= link_to("PREVIEW", @item.beehive_url, class: "btn btn-large btn-hollow", :target => "_blank") %>
 <div class="row">
   <div class="col-md-8">
+
+    <%= react_component(
+      "MetaDataForm",
+      authenticityToken: form_authenticity_token,
+      url: item_path(@item),
+      method: 'put',
+      data: { item_title: @item.title }
+      ) %>
+
     <%= simple_form_for @item, html: { :class => "item", id: "edit-item" } do |f| %>
 
       <div class="panel panel-default">
@@ -70,6 +79,7 @@
   </div>
 </div>
 
+<%= react_component("MetaDataForm", url: item_path(@item), method: 'put') %>
 
 <%= react_component("ReactDropzone", {
         formUrl: url_for( @item ),
