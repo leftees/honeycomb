@@ -40,6 +40,7 @@ a, a:hover, a:focus {
   width: 350px;
   vertical-align: middle;
   margin: 10px 1px;
+
   input {
     width: 70%;
     float: left;
@@ -51,9 +52,11 @@ a, a:hover, a:focus {
     box-sizing:content-box;
     height: 20px;
   }
+
   input:focus {
     height: 20px !important;
   }
+
   span {
     float: left;
     width: 20%;
@@ -102,6 +105,7 @@ div.dataTables_filter {
   a {
     color: $night-grey;
   }
+  
   .active {
     background: $white;
   }
