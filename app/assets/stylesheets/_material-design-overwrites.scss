@@ -100,7 +100,9 @@ div.dataTables_filter {
 	color:#333 !important;
 }
 
-.togglebutton label input[type=checkbox]:first-child:checked+.toggle {
-  background-color: rgba(80, 80, 80, 0.7);
-  font-weight: 300;
+.togglebutton label {
+    input[type=checkbox]:first-child:checked+.toggle {
+        background-color: rgba(80, 80, 80, 0.7);
+    }
+    font-weight: 300;
 }
