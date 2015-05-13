@@ -1,4 +1,5 @@
 require "rails"
+require "rails_helper"
 
 describe ShowcaseQuery do
   subject { described_class.new(relation) }
@@ -62,22 +63,22 @@ describe ShowcaseQuery do
   end
 
   describe "next" do
-    let(:showcase) { instance_double(Showcase, id: 1, title: "title", exhibit_id: 1, order: 1) }
-
-    it "gets the next record based on order" do
-      expect(relation).to receive(:where).with(exhibit_id: showcase.exhibit_id).and_return(relation)
-      expect(relation).to receive(:where).with("`showcases`.order > ?", 1).and_return(relation)
-      subject.next(showcase)
+    it "finds the correct showcase when there is one" do
+      collection = FactoryGirl.build(:collection)
+      exhibit = FactoryGirl.build(:exhibit, collection: collection)
+      showcase1 = FactoryGirl.build(:showcase, exhibit: exhibit, id: 1, order: 1)
+      showcase2 = FactoryGirl.create(:showcase, exhibit: exhibit, id: 2, order: 2)
+      expect(subject.next(showcase1)).to eq(showcase2)
     end
   end
 
   describe "previous" do
-    let(:showcase) { instance_double(Showcase, id: 1, title: "title", exhibit_id: 1, order: 1) }
-
-    it "gets the next record based on order" do
-      expect(relation).to receive(:where).with(exhibit_id: showcase.exhibit_id).and_return(relation)
-      expect(relation).to receive(:where).with("`showcases`.order < ?", 1).and_return(relation)
-      subject.previous(showcase)
+    it "finds the correct showcase when there is one" do
+      collection = FactoryGirl.build(:collection)
+      exhibit = FactoryGirl.build(:exhibit, collection: collection)
+      showcase1 = FactoryGirl.create(:showcase, exhibit: exhibit, id: 1, order: 1)
+      showcase2 = FactoryGirl.build(:showcase, exhibit: exhibit, id: 2, order: 2)
+      expect(subject.previous(showcase2)).to eq(showcase1)
     end
   end
 end
