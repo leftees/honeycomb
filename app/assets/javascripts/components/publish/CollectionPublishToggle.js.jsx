@@ -28,10 +28,10 @@ var CollectionPublishToggle = React.createClass({
     var searchUrl;
     var published_state;
     if (this.state.published) {
-      searchUrl = 'http://localhost:3017' + this.props.unpublishPath;
+      searchUrl = this.props.unpublishPath;
       published_state = false;
     } else {
-      searchUrl = 'http://localhost:3017' + this.props.publishPath;
+      searchUrl = this.props.publishPath;
       published_state = true;
     }
     $.ajax({

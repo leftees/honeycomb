@@ -15,8 +15,8 @@
       <div class="togglebutton">
         <%= react_component 'CollectionPublishToggle', {
           collection: nav.collection,
-          publishPath: "/v1/collections/#{nav.collection.unique_id}/publish",
-          unpublishPath: "/v1/collections/#{nav.collection.unique_id}/unpublish"
+          publishPath: v1_collection_publish_url(nav.collection.unique_id),
+          unpublishPath: v1_collection_unpublish_url(nav.collection.unique_id)
         },
         {prerender: false }
         %>
