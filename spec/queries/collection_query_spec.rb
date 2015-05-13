@@ -46,17 +46,6 @@ describe CollectionQuery do
     end
   end
 
-  describe "#private_find" do
-    it "calls private_find" do
-      expect(relation).to receive(:find_by!).with(unique_id: "asdf", published: false)
-      subject.private_find("asdf")
-    end
-
-    it "raises an error on not found" do
-      expect { subject.private_find("asdf") }.to raise_error ActiveRecord::RecordNotFound
-    end
-  end
-
   describe "#any_find" do
     it "calls any_find" do
       expect(relation).to receive(:find_by!).with(unique_id: "asdf")

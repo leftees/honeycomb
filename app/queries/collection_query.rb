@@ -25,10 +25,6 @@ class CollectionQuery
     relation.find_by!(unique_id: id, published: true)
   end
 
-  def private_find(id)
-    relation.find_by!(unique_id: id, published: false)
-  end
-
   def any_find(id)
     relation.find_by!(unique_id: id)
   end
