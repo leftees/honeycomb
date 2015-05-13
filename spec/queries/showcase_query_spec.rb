@@ -64,20 +64,16 @@ describe ShowcaseQuery do
 
   describe "next" do
     it "finds the correct showcase when there is one" do
-      collection = FactoryGirl.build(:collection)
-      exhibit = FactoryGirl.build(:exhibit, collection: collection)
-      showcase1 = FactoryGirl.build(:showcase, exhibit: exhibit, id: 1, order: 1)
-      showcase2 = FactoryGirl.create(:showcase, exhibit: exhibit, id: 2, order: 2)
+      showcase1 = FactoryGirl.build(:showcase_with_exhibit, id: 1, order: 1)
+      showcase2 = FactoryGirl.create(:showcase_with_exhibit, id: 2, order: 2)
       expect(subject.next(showcase1)).to eq(showcase2)
     end
   end
 
   describe "previous" do
     it "finds the correct showcase when there is one" do
-      collection = FactoryGirl.build(:collection)
-      exhibit = FactoryGirl.build(:exhibit, collection: collection)
-      showcase1 = FactoryGirl.create(:showcase, exhibit: exhibit, id: 1, order: 1)
-      showcase2 = FactoryGirl.build(:showcase, exhibit: exhibit, id: 2, order: 2)
+      showcase1 = FactoryGirl.create(:showcase_with_exhibit, id: 1, order: 1)
+      showcase2 = FactoryGirl.build(:showcase_with_exhibit, id: 2, order: 2)
       expect(subject.previous(showcase2)).to eq(showcase1)
     end
   end

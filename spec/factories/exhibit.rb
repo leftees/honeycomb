@@ -1,7 +1,12 @@
 FactoryGirl.define do
-  factory :exhibit do |s|
-    s.id  { 1 }
-    s.collection_id { 1 }
-    #s.image { File.new(Rails.root + "spec/fixtures/1.bmp") }
+  factory :exhibit do |e|
+    e.id  { 1 }
+    e.collection_id { 1 }
+
+    factory :exhibit_with_collection do
+      after(:build, :create) do |e|
+        e.collection { build(:collection) }
+      end
+    end
   end
 end
