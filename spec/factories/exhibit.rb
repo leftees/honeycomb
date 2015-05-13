@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :exhibit do |e|
-    e.id  { 1 }
-    e.collection_id { 1 }
+  factory :exhibit do
+    id  { 1 }
+    collection_id { 1 }
 
     factory :exhibit_with_collection do
       after(:build, :create) do |e|
