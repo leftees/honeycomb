@@ -7,7 +7,7 @@ var MetaDataForm = React.createClass({
     authenticityToken: React.PropTypes.string.isRequired,
     method: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
-    fields: React.PropTypes.object.isRequired,
+    fields: React.PropTypes.object,
     url: React.PropTypes.string.isRequired,
   },
 

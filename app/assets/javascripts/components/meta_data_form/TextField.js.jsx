@@ -40,9 +40,7 @@ var TextField = React.createClass({
   render: function () {
     return (
         <FormRow id={this.props.id} type="string" required={this.props.required} title={this.props.title} help={this.props.help} >
-          <textarea name={this.props.name} className={this.requiredClass()} id={this.props.id} onChange={this.handleChange} placeholder={this.props.placeholder}>
-            {this.props.value}
-          </textarea>
+          <textarea name={this.props.name} className={this.requiredClass()} id={this.props.id} onChange={this.handleChange} placeholder={this.props.placeholder} value={this.props.value} />
         </FormRow>
       );
   }

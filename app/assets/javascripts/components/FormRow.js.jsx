@@ -37,15 +37,22 @@ var FormRow = React.createClass({
     return ""
   },
 
+  formHelp: function() {
+    if (this.props.help) {
+      return (<FormHelpBlock>{this.props.help}</FormHelpBlock>)
+    }
+    return ""
+  },
+
   render: function () {
     return (
       <div className="form-group {this.props.type} {this.requiredClass()}">
-        <label className={this.requiredClass()} for={this.props.id}>
+        <label className={this.requiredClass()} htmlFor={this.props.id}>
           {this.requiredStar()}
           {this.props.title}
         </label>
         {this.props.children}
-        <FormHelpBlock>{this.props.help}</FormHelpBlock>
+        {this.formHelp()}
       </div>
     );
   }

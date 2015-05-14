@@ -7,12 +7,13 @@ var FormHelpBlock = React.createClass({
     children: React.PropTypes.oneOfType([
       React.PropTypes.object,
       React.PropTypes.array,
+      React.PropTypes.string,
     ])
   },
 
   render: function () {
     return (
-      <p class="help-block">{this.props.children}</p>
+      <p className="help-block">{this.props.children}</p>
     );
   }
 });
