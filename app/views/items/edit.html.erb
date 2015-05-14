@@ -22,21 +22,6 @@
         item_manuscript_url: @item.manuscript_url,
       }) %>
 
-    <%= simple_form_for @item, html: { :class => "item", id: "edit-item" } do |f| %>
-
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%= t(".metadata") %></h3>
-        </div>
-        <div class="panel-body">
-            <%= render :partial => "form", locals: { f: f } %>
-        </div>
-        <div class="panel-footer">
-          <%= f.button :submit, "Save", class: "btn btn-primary"%>
-        </div>
-      </div>
-    <% end %>
-
     <% if @item.is_parent? %>
       <div class="item-show-children clearfix">
         <div class="panel panel-default">
