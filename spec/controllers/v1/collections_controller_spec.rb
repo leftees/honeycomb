@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe V1::CollectionsController, type: :controller do
-  let(:collection) { instance_double(Collection, id: 1) }
+  let(:collection) { instance_double(Collection, id: 1, published: false) }
   let(:collections) { [collection] }
 
   before(:each) do
@@ -55,6 +55,52 @@ RSpec.describe V1::CollectionsController, type: :controller do
     it "uses the V1Collections#show to generate the cache key" do
       expect_any_instance_of(CacheKeys::Custom::V1Collections).to receive(:show)
       subject
+    end
+  end
+
+  describe "#publish" do
+    let(:collection_to_publish) { Collection.new(id: 1) }
+    subject { put :publish, collection_id: collection_to_publish.id, format: :json }
+
+    it "calls CollectionQuery" do
+      expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
+      subject
+    end
+
+    it "publishes the collection" do
+      expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
+      expect_any_instance_of(Publish).to receive(:publish!).and_return(true)
+      subject
+      expect(response.body).to eq("{\"status\":true}")
+    end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before(:each) do
+        expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
+      end
+    end
+  end
+
+  describe "#unpublish" do
+    let(:collection_to_unpublish) { Collection.new(id: 1, published: 1) }
+    subject { put :unpublish, collection_id: collection_to_unpublish.id, format: :json }
+
+    it "calls CollectionQuery" do
+      expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
+      subject
+    end
+
+    it "unpublishes the collection" do
+      expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
+      expect_any_instance_of(Unpublish).to receive(:unpublish!).and_return(true)
+      subject
+      expect(response.body).to eq("{\"status\":true}")
+    end
+
+    it_behaves_like "a private content-based etag cacher" do
+      before(:each) do
+        expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
+      end
     end
   end
 end
