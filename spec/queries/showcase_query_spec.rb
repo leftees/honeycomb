@@ -81,26 +81,26 @@ describe ShowcaseQuery do
 
     it "doesn't find one if the orders are the same" do
       showcase1 = FactoryGirl.build(:showcase_with_exhibit, id: 1, order: 1)
-      showcase2 = FactoryGirl.create(:showcase_with_exhibit, id: 2, order: 1)
+      FactoryGirl.create(:showcase_with_exhibit, id: 2, order: 1)
       expect(subject.next(showcase1)).to eq(nil)
     end
 
     it "doesn't find one if the next showcase's order is nil" do
       showcase1 = FactoryGirl.build(:showcase_with_exhibit, id: 1, order: 1)
-      showcase2 = FactoryGirl.create(:showcase_with_exhibit, id: 2, order: nil)
+      FactoryGirl.create(:showcase_with_exhibit, id: 2, order: nil)
       expect(subject.next(showcase1)).to eq(nil)
     end
 
     it "doesn't find one if the current showcase's order is nil" do
       showcase1 = FactoryGirl.build(:showcase_with_exhibit, id: 1, order: nil)
-      showcase2 = FactoryGirl.create(:showcase_with_exhibit, id: 2, order: 1)
+      FactoryGirl.create(:showcase_with_exhibit, id: 2, order: 1)
       expect(subject.next(showcase1)).to eq(nil)
     end
 
     context "searches based on order, not id" do
       it "and does not find one when there is no showcase with a higher order, even though there is one with a higher id" do
         showcase1 = FactoryGirl.build(:showcase_with_exhibit, id: 1, order: 2)
-        showcase2 = FactoryGirl.create(:showcase_with_exhibit, id: 2, order: 1)
+        FactoryGirl.create(:showcase_with_exhibit, id: 2, order: 1)
         expect(subject.next(showcase1)).to eq(nil)
       end
 
@@ -130,26 +130,26 @@ describe ShowcaseQuery do
     end
 
     it "doesn't find one if the orders are the same" do
-      showcase1 = FactoryGirl.create(:showcase_with_exhibit, id: 1, order: 1)
+      FactoryGirl.create(:showcase_with_exhibit, id: 1, order: 1)
       showcase2 = FactoryGirl.build(:showcase_with_exhibit, id: 2, order: 1)
       expect(subject.previous(showcase2)).to eq(nil)
     end
 
     it "doesn't find one if the previous showcase's order is nil" do
-      showcase1 = FactoryGirl.create(:showcase_with_exhibit, id: 1, order: nil)
+      FactoryGirl.create(:showcase_with_exhibit, id: 1, order: nil)
       showcase2 = FactoryGirl.build(:showcase_with_exhibit, id: 2, order: 1)
       expect(subject.previous(showcase2)).to eq(nil)
     end
 
     it "doesn't find one if the current showcase's order is nil" do
-      showcase1 = FactoryGirl.create(:showcase_with_exhibit, id: 1, order: 1)
+      FactoryGirl.create(:showcase_with_exhibit, id: 1, order: 1)
       showcase2 = FactoryGirl.build(:showcase_with_exhibit, id: 2, order: nil)
       expect(subject.previous(showcase2)).to eq(nil)
     end
 
     context "searches based on order, not id" do
       it "and does not find one when there is no showcase with a lower order, even though there is one with a lower id" do
-        showcase1 = FactoryGirl.create(:showcase_with_exhibit, id: 1, order: 2)
+        FactoryGirl.create(:showcase_with_exhibit, id: 1, order: 2)
         showcase2 = FactoryGirl.build(:showcase_with_exhibit, id: 2, order: 1)
         expect(subject.previous(showcase2)).to eq(nil)
       end
