@@ -57,4 +57,54 @@ RSpec.describe V1::ItemsController, type: :controller do
       subject
     end
   end
+
+  describe "PUT #update" do
+    let(:collection) { double(Collection, id: "1") }
+    let(:item) { double(Item, id: 1, parent: nil, collection: collection,  errors: "Errors" ) }
+    let(:update_params) { { format: :json, id: item.id, item: { title: "title" } } }
+
+    subject { put :update, update_params }
+
+    before(:each) do
+      sign_in_admin
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
+      allow(SaveItem).to receive(:call).and_return(true)
+    end
+
+    #it "checks the editor permissions" do
+    #  expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
+    #  subject
+    #end
+
+    it "uses item query " do
+      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      subject
+    end
+
+    it "renders the item on success" do
+      subject
+      expect(response).to render_template("show")
+    end
+
+    it "unprocessable on failure" do
+      allow(SaveItem).to receive(:call).and_return(false)
+      subject
+      expect(response).to be_unprocessable
+    end
+
+    it "assigns and item" do
+      subject
+
+      assigns(:item)
+      expect(assigns(:item)).to eq(item)
+    end
+
+    it "uses the save item service" do
+      expect(SaveItem).to receive(:call).and_return(true)
+
+      subject
+    end
+
+    it_behaves_like "a private content-based etag cacher"
+  end
 end
