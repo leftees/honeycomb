@@ -1,11 +1,11 @@
-$white: #FFF;
-$eggshell: #ECECEC;
-$light-grey: #D2D2D2;
+$white: #fff;
+$eggshell: #ececec;
+$light-grey: #d2d2d2;
 $charcoal-grey: #444;
 $dark-grey: #777;
 $night-grey: #333;
 $pale-white: #f5f5f5;
-$kelly-green: #0F9D58;
+$kelly-green: #0f9d58;
 
 a, a:hover, a:focus {
   color: $blue;
@@ -18,8 +18,8 @@ a, a:hover, a:focus {
 }
 
 .panel-heading .pull-right .btn {
-  padding:8px 10px;
-    margin:-10px -10px -10px 10px !important;
+  padding: 8px 10px;
+  margin: -10px -10px -10px 10px !important;
 }
 
 .btn:not(.btn-link):not(.btn-flat), .btn-default:not(.btn-link):not(.btn-flat) {
@@ -59,6 +59,7 @@ a, a:hover, a:focus {
   span {
     float: left;
     width: 20%;
+    
     .btn.btn-search {
       padding: 8px;
       border-radius: 0 2px 2px 0;
@@ -83,7 +84,7 @@ fieldset[disabled] .form-control, .form-control-wrapper .form-control, .form-con
     inset 0 3px 2px rgba(0,0,0,0.1);
   border-radius: 5px;
   color: $dark-grey;
-  height:auto !important;
+  height: auto !important;
 }
 
 div.dataTables_filter {
@@ -101,6 +102,7 @@ div.dataTables_filter {
 
 .nav-edit {
   background-color: $eggshell;
+  
   a {
     color: $night-grey;
   }
