@@ -71,7 +71,7 @@ describe ShowcaseQuery do
 
     it "doesn't crash when there isn't one" do
       showcase = FactoryGirl.build(:showcase, id: 1, order: 1)
-      expect{ subject.next(showcase) }.to_not raise_error
+      expect { subject.next(showcase) }.to_not raise_error
     end
 
     it "returns nil when there isn't one" do
@@ -121,7 +121,7 @@ describe ShowcaseQuery do
 
     it "doesn't crash when there isn't one" do
       showcase = FactoryGirl.build(:showcase, id: 1, order: 1)
-      expect{ subject.previous(showcase) }.to_not raise_error
+      expect { subject.previous(showcase) }.to_not raise_error
     end
 
     it "returns nil when there isn't one" do
