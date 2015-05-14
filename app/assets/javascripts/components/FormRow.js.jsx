@@ -11,7 +11,8 @@ var FormRow = React.createClass({
     ]).isRequired,
     type: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
-    required: React.PropTypes.string.isRequired
+    required: React.PropTypes.string.isRequired,
+    help: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -21,11 +22,12 @@ var FormRow = React.createClass({
   },
 
   requiredClass: function() {
+    css = this.props.type + ' control-label'
     if (this.props.required) {
-      return 'required'
+      css += ' required'
     }
 
-    return ''
+    return css
   },
 
   requiredStar: function() {
@@ -38,11 +40,12 @@ var FormRow = React.createClass({
   render: function () {
     return (
       <div className="form-group {this.props.type} {this.requiredClass()}">
-        <label className="{this.props.type} {this.requiredClass()} control-label" for={this.props.id}>
+        <label className={this.requiredClass()} for={this.props.id}>
           {this.requiredStar()}
           {this.props.title}
         </label>
         {this.props.children}
+        <FormHelpBlock>{this.props.help}</FormHelpBlock>
       </div>
     );
   }

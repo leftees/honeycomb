@@ -35,6 +35,12 @@ var MetaDataForm = React.createClass({
       <Panel PanelTitle="Meta Data">
         <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method}>
           <StringField name="item[name]" id="item_title" required="true" title="Title" value={this.state.formValues['item_title']} handleFieldChange={this.handleFieldChange} />
+          <TextField  name="item[description]" id="item_description" required="" title="Description" value={this.state.formValues['item_description']} handleFieldChange={this.handleFieldChange} />
+          <TextField  name="item[transcription]" id="item_transcription" required="" title="Transcription" value={this.state.formValues['item_transcription']} handleFieldChange={this.handleFieldChange} />
+          <StringField  name="item[manuscript_url]" id="item_manuscript_url" required="" title="Digitized Manuscript URL" value={this.state.formValues['item_manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." />
+
+
+
           <input type="submit" value="save" className="btn btn-primary" />
         </Form>
       </Panel>

@@ -1,7 +1,7 @@
 //app/assets/javascripts/components/modal/Modal.jsx
 
-var StringField = React.createClass({
-  displayName: 'Form',
+var TextField = React.createClass({
+  displayName: 'TextField',
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
@@ -20,6 +20,10 @@ var StringField = React.createClass({
     };
   },
 
+  componentDidMount: function() {
+
+  },
+
   requiredClass: function() {
     css = 'form-control'
     if (this.props.required) {
@@ -36,7 +40,9 @@ var StringField = React.createClass({
   render: function () {
     return (
         <FormRow id={this.props.id} type="string" required={this.props.required} title={this.props.title} help={this.props.help} >
-          <input type="text" name={this.props.name} value={this.props.value} className={this.requiredClass()} id={this.props.id} onChange={this.handleChange} placeholder={this.props.placeholder} />
+          <textarea name={this.props.name} className={this.requiredClass()} id={this.props.id} onChange={this.handleChange} placeholder={this.props.placeholder}>
+            {this.props.value}
+          </textarea>
         </FormRow>
       );
   }

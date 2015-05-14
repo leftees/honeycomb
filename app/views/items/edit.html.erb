@@ -15,8 +15,12 @@
       authenticityToken: form_authenticity_token,
       url: item_path(@item),
       method: 'put',
-      data: { item_title: @item.title }
-      ) %>
+      data: {
+        item_title: @item.title,
+        item_description: @item.description,
+        item_transcription: @item.transcription,
+        item_manuscript_url: @item.manuscript_url,
+      }) %>
 
     <%= simple_form_for @item, html: { :class => "item", id: "edit-item" } do |f| %>
 
