@@ -62,13 +62,12 @@ RSpec.describe V1::ItemsController, type: :controller do
     let(:collection) { double(Collection, id: "1") }
     let(:item) { double(Item, id: 1, parent: nil, collection: collection,  errors: "Errors" ) }
     let(:update_params) { { format: :json, id: item.id, item: { title: "title" } } }
-
     subject { put :update, update_params }
 
     before(:each) do
-      sign_in_admin
-      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
+      #sign_in_admin
       allow(SaveItem).to receive(:call).and_return(true)
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
     end
 
     #it "checks the editor permissions" do
@@ -81,15 +80,26 @@ RSpec.describe V1::ItemsController, type: :controller do
       subject
     end
 
-    it "renders the item on success" do
+    it "returns ok on success" do
       subject
-      expect(response).to render_template("show")
+      expect(response).to be_success
     end
 
-    it "unprocessable on failure" do
+    it "renders the item only on success" do
+      subject
+      expect(response).to render_template(partial: "_item")
+    end
+
+    it "returns unprocessable on failure" do
       allow(SaveItem).to receive(:call).and_return(false)
       subject
       expect(response).to be_unprocessable
+    end
+
+    it "renders with errors" do
+      allow(SaveItem).to receive(:call).and_return(false)
+      subject
+      expect(item).to render_template("errors")
     end
 
     it "assigns and item" do

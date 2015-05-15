@@ -26,9 +26,9 @@ module V1
       #check_user_edits!(@item.collection)
 
       if SaveItem.call(@item, save_params)
-        render action: :show
+        render partial: "item"
       else
-        render action: :show, status: :unprocessable_entity
+        render :errors, status: :unprocessable_entity
       end
     end
 
