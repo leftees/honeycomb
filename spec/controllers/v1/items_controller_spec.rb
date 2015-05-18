@@ -76,7 +76,7 @@ RSpec.describe V1::ItemsController, type: :controller do
     # end
 
     it "uses item query " do
-      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      expect_any_instance_of(ItemQuery).to receive(:public_find).with("1").and_return(item)
       subject
     end
 
@@ -87,7 +87,7 @@ RSpec.describe V1::ItemsController, type: :controller do
 
     it "renders the item only on success" do
       subject
-      expect(response).to render_template(partial: "_item")
+      expect(response).to render_template("update")
     end
 
     it "returns unprocessable on failure" do

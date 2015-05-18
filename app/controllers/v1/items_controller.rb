@@ -22,11 +22,11 @@ module V1
     end
 
     def update
-      @item = ItemQuery.new.find(params[:id])
+      @item = ItemQuery.new.public_find(params[:id])
       # check_user_edits!(@item.collection)
 
       if SaveItem.call(@item, save_params)
-        render partial: "item"
+        render :update
       else
         render :errors, status: :unprocessable_entity
       end
