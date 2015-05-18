@@ -29,9 +29,9 @@ class ItemDecorator < Draper::Decorator
     h.react_component "ItemShowImageBox", image: image_json, itemID: object.id.to_s
   end
 
-  def edit_form
+  def item_meta_data_form
     h.react_component(
-      "MetaDataForm",
+      "ItemMetaDataForm",
       authenticityToken: h.form_authenticity_token,
       url: h.item_path(object.id),
       method: "put",
