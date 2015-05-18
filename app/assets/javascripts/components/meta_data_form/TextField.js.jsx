@@ -20,10 +20,6 @@ var TextField = React.createClass({
     };
   },
 
-  componentDidMount: function() {
-
-  },
-
   requiredClass: function() {
     css = 'form-control'
     if (this.props.required) {
