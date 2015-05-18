@@ -1,26 +1,14 @@
 <%= page_title(@item.title, @item.collection) %>
 <%= collection_nav(@item.collection, :items) %>
 
-<% if @item.is_parent? %>
-  <%= back_action_bar(collection_items_path(@item.collection), "#" ) %>
-<% else %>
-  <%= back_action_bar(edit_item_path(@item.parent), "#" ) %>
-<% end %>
-  <%= link_to("PREVIEW", @item.beehive_url, class: "btn btn-large btn-hollow", :target => "_blank") %>
+<%= back_action_bar(@item.back_path, "#" ) %>
+
+<%= link_to("PREVIEW", @item.beehive_url, class: "btn btn-large btn-hollow", :target => "_blank") %>
+
 <div class="row">
   <div class="col-md-8">
 
-    <%= react_component(
-      "MetaDataForm",
-      authenticityToken: form_authenticity_token,
-      url: item_path(@item),
-      method: 'put',
-      data: {
-        item_title: @item.title,
-        item_description: @item.description,
-        item_transcription: @item.transcription,
-        item_manuscript_url: @item.manuscript_url,
-      }) %>
+    <%= @item.edit_form %>
 
     <% if @item.is_parent? %>
       <div class="item-show-children clearfix">
