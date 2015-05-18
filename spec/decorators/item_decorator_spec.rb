@@ -36,16 +36,16 @@ RSpec.describe ItemDecorator do
       allow(subject.h).to receive(:form_authenticity_token).and_return("token")
       expect(subject.h).to receive(:react_component).with(
         "MetaDataForm",
-          authenticityToken: "token",
-          url: "/items/1",
-          method: "put",
-          data: {
-            item_title: "title",
-            item_description: "description",
-            item_transcription: "transcription",
-            item_manuscript_url: "manuscript_url"
-          }
-        )
+        authenticityToken: "token",
+        url: "/items/1",
+        method: "put",
+        data: {
+          item_title: "title",
+          item_description: "description",
+          item_transcription: "transcription",
+          item_manuscript_url: "manuscript_url"
+        }
+      )
 
       subject.edit_form
     end
