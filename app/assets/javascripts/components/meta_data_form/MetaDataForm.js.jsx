@@ -40,7 +40,7 @@ var MetaDataForm = React.createClass({
           <TextField  name="item[transcription]" id="item_transcription" required="" title="Transcription" value={this.state.formValues['item_transcription']} handleFieldChange={this.handleFieldChange} />
           <StringField  name="item[manuscript_url]" id="item_manuscript_url" required="" title="Digitized Manuscript URL" value={this.state.formValues['item_manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." />
 
-          <input type="submit" value="save" className="btn btn-primary" onClick={this.saveForm} />
+          <input type="submit" value="save" className="btn btn-primary" />
         </Form>
       </Panel>
     );
