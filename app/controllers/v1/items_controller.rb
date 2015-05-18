@@ -23,7 +23,7 @@ module V1
 
     def update
       @item = ItemQuery.new.find(params[:id])
-      #check_user_edits!(@item.collection)
+      # check_user_edits!(@item.collection)
 
       if SaveItem.call(@item, save_params)
         render partial: "item"
@@ -32,11 +32,10 @@ module V1
       end
     end
 
-  protected
+    protected
 
     def save_params
       params.require(:item).permit(:title, :description, :image, :manuscript_url, :transcription)
     end
-
   end
 end
