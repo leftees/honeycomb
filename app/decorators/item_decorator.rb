@@ -29,12 +29,22 @@ class ItemDecorator < Draper::Decorator
     h.react_component "ItemShowImageBox", image: image_json, itemID: object.id.to_s
   end
 
-  def edit_path
-    h.edit_item_path(object.id)
+  def item_meta_data_form
+    h.react_component(
+      "ItemMetaDataForm",
+      authenticityToken: h.form_authenticity_token,
+      url: h.item_path(object.id),
+      method: "put",
+      data: {
+        item_title: object.title,
+        item_description: object.description,
+        item_transcription: object.transcription,
+        item_manuscript_url: object.manuscript_url,
+      })
   end
 
-  def page_title
-    h.render partial: "/items/item_title", locals: { item: self }
+  def edit_path
+    h.edit_item_path(object.id)
   end
 
   private
