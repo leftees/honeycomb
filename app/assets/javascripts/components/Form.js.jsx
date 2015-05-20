@@ -12,6 +12,7 @@ var Form = React.createClass({
     url: React.PropTypes.string.isRequired,
     authenticityToken: React.PropTypes.string.isRequired,
     method: React.PropTypes.string,
+    hasErrors: React.PropTypes.object,
   },
 
   getDefaultProps: function() {
@@ -28,12 +29,24 @@ var Form = React.createClass({
     }
   },
 
+  formErrorAlert: function () {
+    if (this.props.hasErrors)  {
+      return (
+        <div className="alert alert-danger" role="alert">
+          <strong>Opps!!</strong> errors prohibited this form being saved.
+        </div>
+      )
+    }
+    return "";
+  },
+
   render: function () {
     return (
       <form action={this.props.url} method={ this.formMethod() } >
         <input name="utf8" type="hidden" value="✓" />
         <input type="hidden" name="_method" value={this.props.method} />
         <input type="hidden" name="authenticity_token" value={this.props.authenticityToken} />
+        {this.formErrorAlert()}
         {this.props.children}
       </form>
     );

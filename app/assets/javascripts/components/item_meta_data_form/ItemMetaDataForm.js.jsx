@@ -21,7 +21,7 @@ var ItemMetaDataForm = React.createClass({
   getInitialState: function() {
     return {
       formValues: this.props.data,
-      errors: {},
+      errors: false,
     }
   },
 
@@ -34,6 +34,7 @@ var ItemMetaDataForm = React.createClass({
       type: "POST",
       data: this.postParams(),
       success: (function(data) {
+        this.setErrors(false);
         alert("You did it! Item SAVED. ");
         window.location.href = this.props.returnUrl;
       }).bind(this),
@@ -72,7 +73,7 @@ var ItemMetaDataForm = React.createClass({
   render: function () {
     return (
       <Panel PanelTitle="Meta Data">
-        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method}>
+        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} hasErrors={this.state.errors}>
 
           <StringField objectType="item" name="title" required="true" title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
           <TextField  objectType="item" name="description" required="" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} />
