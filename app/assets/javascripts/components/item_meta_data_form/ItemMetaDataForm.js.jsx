@@ -22,6 +22,7 @@ var ItemMetaDataForm = React.createClass({
     return {
       formValues: this.props.data,
       errors: false,
+      dirty: false,
     }
   },
 
@@ -34,9 +35,8 @@ var ItemMetaDataForm = React.createClass({
       type: "POST",
       data: this.postParams(),
       success: (function(data) {
-        this.setErrors(false);
+        this.cleanForm();
         alert("You did it! Item SAVED. ");
-        window.location.href = this.props.returnUrl;
       }).bind(this),
       error: (function(xhr, status, err) {
         if (xhr.status == '422') {
@@ -53,6 +53,7 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       formValues: this.state.formValues
     })
+    this.setDirty()
   },
 
   postParams: function () {
@@ -68,6 +69,23 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       errors: errors
     })
+  },
+
+  setDirty: function () {
+    this.setState({
+      dirty: true,
+    });
+    window.onbeforeunload = function () {
+      return "Caution - proceeding will cause you to lose any changes that are not yet saved. "
+    }
+  },
+
+  cleanForm: function () {
+    this.setState({
+      dirty: false,
+      errors: false,
+    })
+    window.onbeforeunload = function () { }
   },
 
   render: function () {
