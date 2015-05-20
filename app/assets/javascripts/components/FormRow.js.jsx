@@ -13,6 +13,7 @@ var FormRow = React.createClass({
     title: React.PropTypes.string.isRequired,
     required: React.PropTypes.string.isRequired,
     help: React.PropTypes.string,
+    errorMsg: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -24,34 +25,56 @@ var FormRow = React.createClass({
   requiredClass: function() {
     css = this.props.type + ' control-label'
     if (this.props.required) {
-      css += ' required'
+      css += ' required';
+    }
+    if (this.props.errorMsg) {
+      css += ' has-error';
     }
 
-    return css
+    return css;
+  },
+
+  rowClass: function () {
+    css = "form-group " + this.props.type + ' control-label'
+    if (this.props.required) {
+      css += ' required';
+    }
+    if (this.props.errorMsg) {
+      css += ' has-error';
+    }
+    return css;
   },
 
   requiredStar: function() {
     if (this.props.required) {
       return (<abbr title="required">* </abbr>)
     }
-    return ""
+    return "";
   },
 
   formHelp: function() {
     if (this.props.help) {
-      return (<FormHelpBlock>{this.props.help}</FormHelpBlock>)
+      return (<FormHelpBlock>{this.props.help}</FormHelpBlock>);
     }
-    return ""
+    return "";
+  },
+
+  formErrorMsg: function() {
+    if (this.props.errorMsg) {
+      return (<FormHelpBlock>{this.props.errorMsg}</FormHelpBlock>);
+    }
+    return "";
   },
 
   render: function () {
     return (
-      <div className="form-group {this.props.type} {this.requiredClass()}">
+      <div className={this.rowClass()}>
         <label className={this.requiredClass()} htmlFor={this.props.id}>
           {this.requiredStar()}
           {this.props.title}
         </label>
         {this.props.children}
+        {this.formErrorMsg()}
         {this.formHelp()}
       </div>
     );
