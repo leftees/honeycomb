@@ -9,6 +9,7 @@ var ItemMetaDataForm = React.createClass({
     data: React.PropTypes.object.isRequired,
     errors: React.PropTypes.object,
     url: React.PropTypes.string.isRequired,
+    returnUrl: React.PropTypes.string.isRequired,
   },
 
   getDefaultProps: function() {
@@ -23,8 +24,22 @@ var ItemMetaDataForm = React.createClass({
     }
   },
 
-  handleSave: function() {
+  handleSave: function(event) {
+    event.preventDefault();
 
+    $.ajax({
+      url: this.props.url,
+      dataType: "json",
+      type: "POST",
+      data: this.postParams(),
+      success: (function(data) {
+        alert("success?");
+        window.location.href = this.props.returnUrl;
+      }).bind(this),
+      error: (function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }).bind(this)
+    });
   },
 
   handleFieldChange: function(field, value) {
@@ -32,6 +47,15 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       formValues: this.state.formValues
     })
+  },
+
+  postParams: function () {
+    return ({
+      utf8: '✓',
+      _method: "put",
+      authenticity_token: this.props.authenticityToken,
+      item: this.props.data
+    });
   },
 
   render: function () {
