@@ -30,8 +30,16 @@ RSpec.describe ItemDecorator do
   end
 
   describe "#item_meta_data_form" do
-    let(:collection) { double(Collection, id: 2 )}
-    let(:item) { double(Item, id: 1, title: "title", description: "description", transcription: "transcription", manuscript_url: "manuscript_url", collection: collection) }
+    let(:collection) { double(Collection, id: 2) }
+    let(:item) {
+      double(Item,
+        id: 1,
+        title: "title",
+        description: "description",
+        transcription: "transcription",
+        manuscript_url: "manuscript_url",
+        collection: collection)
+    }
 
     it "rends the react component" do
       allow(subject.h).to receive(:form_authenticity_token).and_return("token")
