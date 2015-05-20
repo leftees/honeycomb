@@ -36,10 +36,10 @@ class ItemDecorator < Draper::Decorator
       url: h.item_path(object.id),
       method: "put",
       data: {
-        item_title: object.title,
+        title: object.title,
         item_description: object.description,
         item_transcription: object.transcription,
-        item_manuscript_url: object.manuscript_url,
+        manuscript_url: object.manuscript_url,
       })
   end
 
