@@ -42,7 +42,7 @@ RSpec.describe ItemDecorator do
         collection: collection)
     end
 
-    it "rends the react component" do
+    it "renders the react component" do
       allow(subject.h).to receive(:form_authenticity_token).and_return("token")
       expect(subject.h).to receive(:react_component).with(
         "ItemMetaDataForm",
