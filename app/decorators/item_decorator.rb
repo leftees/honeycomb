@@ -37,8 +37,8 @@ class ItemDecorator < Draper::Decorator
       method: "put",
       data: {
         title: object.title,
-        item_description: object.description,
-        item_transcription: object.transcription,
+        description: object.description,
+        transcription: object.transcription,
         manuscript_url: object.manuscript_url,
       })
   end
