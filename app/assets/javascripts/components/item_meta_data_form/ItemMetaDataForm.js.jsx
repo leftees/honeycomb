@@ -89,7 +89,7 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       dirty: false,
       errors: false,
-    })
+    });
   },
 
   unloadMsg: function (event) {
@@ -101,13 +101,20 @@ var ItemMetaDataForm = React.createClass({
     }
   },
 
+  hasErrors: function () {
+    if (this.state.errors) {
+      return true;
+    }
+    return false;
+  },
+
   render: function () {
     return (
       <Panel PanelTitle="Meta Data">
-        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} hasErrors={this.state.errors}>
+        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} hasErrors={this.hasErrors()}>
 
           <StringField objectType="item" name="title" required={true} title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
-          <TextField  objectType="item" name="description" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} />
+          <TextField  objectType="item" name="description" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
           <TextField objectType="item" name="transcription" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
           <StringField  objectType="item" name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
 
