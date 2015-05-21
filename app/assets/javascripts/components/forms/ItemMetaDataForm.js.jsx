@@ -126,7 +126,7 @@ var ItemMetaDataForm = React.createClass({
           <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
           <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
 
-          <input type="submit" value="save" onClick={this.handleSave} className="btn btn-primary" />
+          <SubmitButton formDirty={this.state.dirty} handleClick={this.handleSave} />
         </Form>
       </Panel>
     );
