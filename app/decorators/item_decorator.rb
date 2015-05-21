@@ -34,7 +34,6 @@ class ItemDecorator < Draper::Decorator
       "ItemMetaDataForm",
       authenticityToken: h.form_authenticity_token,
       url: h.item_path(object.id),
-      returnUrl: h.collection_items_path(object.collection.id),
       method: "put",
       data: {
         title: object.title,

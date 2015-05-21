@@ -48,7 +48,6 @@ RSpec.describe ItemDecorator do
         "ItemMetaDataForm",
         authenticityToken: "token",
         url: "/items/1",
-        returnUrl: "/collections/2/items",
         method: "put",
         data: {
           title: "title",
