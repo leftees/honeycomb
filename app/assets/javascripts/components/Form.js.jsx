@@ -12,7 +12,7 @@ var Form = React.createClass({
     url: React.PropTypes.string.isRequired,
     authenticityToken: React.PropTypes.string.isRequired,
     method: React.PropTypes.string,
-    hasErrors: React.PropTypes.object,
+    hasErrors: React.PropTypes.any,
   },
 
   getDefaultProps: function() {
