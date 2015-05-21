@@ -106,10 +106,10 @@ var ItemMetaDataForm = React.createClass({
       <Panel PanelTitle="Meta Data">
         <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} hasErrors={this.state.errors}>
 
-          <StringField objectType="item" name="title" required="true" title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
-          <TextField  objectType="item" name="description" required="" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} />
-          <TextField objectType="item" name="transcription" required="" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
-          <StringField  objectType="item" name="manuscript_url" required="" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
+          <StringField objectType="item" name="title" required={true} title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
+          <TextField  objectType="item" name="description" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} />
+          <TextField objectType="item" name="transcription" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
+          <StringField  objectType="item" name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
 
           <input type="submit" value="save" onClick={this.handleSave} className="btn btn-primary" />
         </Form>
