@@ -52,14 +52,14 @@ var FormRow = React.createClass({
 
   formHelp: function() {
     if (this.props.help) {
-      return (<FormHelpBlock>{this.props.help}</FormHelpBlock>);
+      return (<FormFieldHelp>{this.props.help}</FormFieldHelp>);
     }
     return "";
   },
 
   formErrorMsg: function() {
     if (this.props.errorMsg) {
-      return (<FormHelpBlock>{this.props.errorMsg}</FormHelpBlock>);
+      return (<FormFieldHelp>{this.props.errorMsg}</FormFieldHelp>);
     }
     return "";
   },
