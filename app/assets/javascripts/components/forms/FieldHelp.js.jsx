@@ -1,6 +1,6 @@
-//app/assets/javascripts/components/forms/FormFieldHelp.jsx
+//app/assets/javascripts/components/forms/FieldHelp.jsx
 
-var FormFieldHelp = React.createClass({
+var FieldHelp = React.createClass({
   displayName: 'FormHelpBlock',
 
   propTypes: {
