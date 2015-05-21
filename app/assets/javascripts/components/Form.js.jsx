@@ -32,8 +32,8 @@ var Form = React.createClass({
   formErrorAlert: function () {
     if (this.props.hasErrors)  {
       return (
-        <div className="alert alert-danger" role="alert">
-          <strong>Opps!!</strong> errors prohibited this form being saved.
+        <div className="alert alert-warning" role="alert">
+          Please complete the highlighted fields in order to continue.
         </div>
       )
     }

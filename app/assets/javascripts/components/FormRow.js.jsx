@@ -40,7 +40,7 @@ var FormRow = React.createClass({
       css += ' required';
     }
     if (this.props.errorMsg) {
-      css += ' has-error';
+      css += ' has-warning';
     }
     return css;
   },
