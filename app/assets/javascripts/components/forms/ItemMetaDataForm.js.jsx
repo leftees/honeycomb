@@ -23,7 +23,7 @@ var ItemMetaDataForm = React.createClass({
       errors: false,
       dirty: false,
       saved: false,
-    }
+    };
   },
 
   componentDidMount: function() {
@@ -54,7 +54,7 @@ var ItemMetaDataForm = React.createClass({
         } else {
           console.error(this.props.url, status, err.toString());
         }
-      }).bind(this)
+      }).bind(this);
     });
   },
 
@@ -63,7 +63,7 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       formValues: this.state.formValues
     })
-    this.setDirty()
+    this.setDirty();
   },
 
   postParams: function () {
