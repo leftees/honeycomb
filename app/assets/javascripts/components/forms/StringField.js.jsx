@@ -22,9 +22,9 @@ var StringField = React.createClass({
   },
 
   requiredClass: function() {
-    css = 'form-control'
+    var css = 'form-control';
     if (this.props.required) {
-      css += ' required'
+      css += ' required';
     }
 
     return css
