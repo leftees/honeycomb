@@ -5,7 +5,7 @@ var FormServerErrorMsg = React.createClass({
   render: function () {
     return (
       <div className="alert alert-danger" role="alert">
-        The server has reported an error.  The form has not been saved.
+        The server has encountered an error.  The form has not been saved.
       </div>
     );
   }
