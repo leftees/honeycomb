@@ -11,7 +11,7 @@ var FormRow = React.createClass({
     ]).isRequired,
     type: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
-    required: React.PropTypes.string.isRequired,
+    required: React.PropTypes.bool,
     help: React.PropTypes.string,
     errorMsg: React.PropTypes.string,
   },
@@ -19,6 +19,7 @@ var FormRow = React.createClass({
   getDefaultProps: function() {
     return {
       method: "post",
+      required: false,
     };
   },
 
@@ -26,9 +27,6 @@ var FormRow = React.createClass({
     css = this.props.type + ' control-label'
     if (this.props.required) {
       css += ' required';
-    }
-    if (this.props.errorMsg) {
-      css += ' has-error';
     }
 
     return css;

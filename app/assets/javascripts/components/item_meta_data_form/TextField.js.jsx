@@ -7,9 +7,9 @@ var TextField = React.createClass({
     objectType: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string,
-    required: React.PropTypes.string.isRequired,
     handleFieldChange: React.PropTypes.func.isRequired,
+    value: React.PropTypes.string,
+    required: React.PropTypes.bool,
     placeholder: React.PropTypes.string,
     help: React.PropTypes.string,
     errorMsg: React.PropTypes.string,
@@ -17,7 +17,8 @@ var TextField = React.createClass({
 
   getDefaultProps: function() {
     return {
-      value: ""
+      value: "",
+      required: false,
     };
   },
 

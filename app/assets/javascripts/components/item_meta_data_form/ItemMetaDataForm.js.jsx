@@ -24,7 +24,16 @@ var ItemMetaDataForm = React.createClass({
     return {
       formValues: this.props.data,
       errors: false,
+      dirty: false,
     }
+  },
+
+  componentDidMount: function() {
+    window.addEventListener("beforeunload", this.unloadMsg);
+  },
+
+  componentWillUnmount: function() {
+    window.removeEventListener("beforeunload", this.unloadMsg);
   },
 
   handleSave: function(event) {
@@ -36,9 +45,8 @@ var ItemMetaDataForm = React.createClass({
       type: "POST",
       data: this.postParams(),
       success: (function(data) {
-        this.setErrors(false);
+        this.cleanForm();
         alert("You did it! Item SAVED. ");
-        window.location.href = this.props.returnUrl;
       }).bind(this),
       error: (function(xhr, status, err) {
         if (xhr.status == '422') {
@@ -55,6 +63,7 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       formValues: this.state.formValues
     })
+    this.setDirty()
   },
 
   postParams: function () {
@@ -72,15 +81,44 @@ var ItemMetaDataForm = React.createClass({
     })
   },
 
+  setDirty: function () {
+    this.setState({
+      dirty: true,
+    });
+  },
+
+  cleanForm: function () {
+    this.setState({
+      dirty: false,
+      errors: false,
+    });
+  },
+
+  unloadMsg: function (event) {
+    if (this.state.dirty) {
+      var confirmationMessage = "Caution - proceeding will cause you to lose any changes that are not yet saved. ";
+
+      (event || window.event).returnValue = confirmationMessage;
+      return confirmationMessage;
+    }
+  },
+
+  hasErrors: function () {
+    if (this.state.errors) {
+      return true;
+    }
+    return false;
+  },
+
   render: function () {
     return (
       <Panel PanelTitle="Meta Data">
-        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} hasErrors={this.state.errors}>
+        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} hasErrors={this.hasErrors()}>
 
-          <StringField objectType={this.props.objectType} name="title" required="true" title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
-          <TextField  objectType={this.props.objectType} name="description" required="" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} />
-          <TextField objectType={this.props.objectType} name="transcription" required="" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
-          <StringField  objectType={this.props.objectType} name="manuscript_url" required="" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
+          <StringField objectType={this.props.objectType} name="title" required={true} title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
+          <TextField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
+          <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
+          <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
 
           <input type="submit" value="save" onClick={this.handleSave} className="btn btn-primary" />
         </Form>
