@@ -35,7 +35,7 @@ RSpec.describe ItemDecorator do
       double(
         Item,
         id: 1,
-        unique_id: 'unique_id',
+        unique_id: "unique_id",
         title: "title",
         description: "description",
         transcription: "transcription",
