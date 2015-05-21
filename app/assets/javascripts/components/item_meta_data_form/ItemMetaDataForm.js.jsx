@@ -26,6 +26,14 @@ var ItemMetaDataForm = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    window.addEventListener("beforeunload", this.unloadMsg);
+  },
+
+  componentWillUnmount: function() {
+    window.removeEventListener("beforeunload", this.unloadMsg);
+  },
+
   handleSave: function(event) {
     event.preventDefault();
 
@@ -75,9 +83,6 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       dirty: true,
     });
-    window.onbeforeunload = function () {
-      return "Caution - proceeding will cause you to lose any changes that are not yet saved. "
-    }
   },
 
   cleanForm: function () {
@@ -85,7 +90,15 @@ var ItemMetaDataForm = React.createClass({
       dirty: false,
       errors: false,
     })
-    window.onbeforeunload = function () { }
+  },
+
+  unloadMsg: function (event) {
+    if (this.state.dirty) {
+      var confirmationMessage = "Caution - proceeding will cause you to lose any changes that are not yet saved. ";
+
+      (event || window.event).returnValue = confirmationMessage;
+      return confirmationMessage;
+    }
   },
 
   render: function () {

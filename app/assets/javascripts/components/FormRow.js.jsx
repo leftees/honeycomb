@@ -27,9 +27,6 @@ var FormRow = React.createClass({
     if (this.props.required) {
       css += ' required';
     }
-    if (this.props.errorMsg) {
-      css += ' has-error';
-    }
 
     return css;
   },
