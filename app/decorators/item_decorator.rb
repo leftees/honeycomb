@@ -34,12 +34,13 @@ class ItemDecorator < Draper::Decorator
       "ItemMetaDataForm",
       authenticityToken: h.form_authenticity_token,
       url: h.item_path(object.id),
+      returnUrl: h.collection_items_path(object.collection.id),
       method: "put",
       data: {
-        item_title: object.title,
-        item_description: object.description,
-        item_transcription: object.transcription,
-        item_manuscript_url: object.manuscript_url,
+        title: object.title,
+        description: object.description,
+        transcription: object.transcription,
+        manuscript_url: object.manuscript_url,
       })
   end
 
