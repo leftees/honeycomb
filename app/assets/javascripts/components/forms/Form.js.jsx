@@ -1,7 +1,6 @@
-//app/assets/javascripts/components/modal/Modal.jsx
+//app/assets/javascripts/components/forms/Form.jsx
 
 var Form = React.createClass({
-  displayName: 'Form',
 
   propTypes: {
     id: React.PropTypes.string,

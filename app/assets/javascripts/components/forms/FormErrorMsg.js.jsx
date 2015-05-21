@@ -1,7 +1,6 @@
-//app/assets/javascripts/components/FormErrorMsg.jsx
+//app/assets/javascripts/components/forms/FormErrorMsg.jsx
 
 var FormErrorMsg = React.createClass({
-  displayName: 'FormErrorMsg',
 
   render: function () {
     return (

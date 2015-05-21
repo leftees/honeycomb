@@ -1,7 +1,6 @@
 //app/assets/javascripts/components/forms/FieldHelp.jsx
 
 var FieldHelp = React.createClass({
-  displayName: 'FormHelpBlock',
 
   propTypes: {
     children: React.PropTypes.oneOfType([

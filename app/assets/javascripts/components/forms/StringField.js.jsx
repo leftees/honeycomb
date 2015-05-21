@@ -1,7 +1,6 @@
-//app/assets/javascripts/components/modal/Modal.jsx
+//app/assets/javascripts/components/forms/StringField.jsx
 
 var StringField = React.createClass({
-  displayName: 'StringField',
 
   propTypes: {
     objectType: React.PropTypes.string.isRequired,

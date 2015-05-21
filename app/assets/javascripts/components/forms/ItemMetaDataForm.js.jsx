@@ -1,7 +1,6 @@
-//app/assets/javascripts/components/modal/Modal.jsx
+//app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 
 var ItemMetaDataForm = React.createClass({
-  displayName: 'ItemMetaDataForm',
 
   propTypes: {
     authenticityToken: React.PropTypes.string.isRequired,

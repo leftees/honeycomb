@@ -1,7 +1,6 @@
-//app/assets/javascripts/components/FormSavedMsg.jsx
+//app/assets/javascripts/components/forms/FormSavedMsg.jsx
 
 var FormSavedMsg = React.createClass({
-  displayName: 'FormSavedMsg',
 
   render: function () {
     return (
