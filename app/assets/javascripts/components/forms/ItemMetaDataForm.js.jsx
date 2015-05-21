@@ -24,6 +24,7 @@ var ItemMetaDataForm = React.createClass({
       dirty: false,
       saved: false,
       saveStarted: false,
+      serverError: false,
     };
   },
 
@@ -52,10 +53,13 @@ var ItemMetaDataForm = React.createClass({
       }).bind(this),
       error: (function(xhr, status, err) {
         if (xhr.status == '422') {
-          this.setErrors(xhr.responseJSON);
+          this.setSavedFailure(xhr.responseJSON);
         } else {
-          console.error(this.props.url, status, err.toString());
+          this.setServerError();
         }
+      }).bind(this),
+      complete: (function(xhr, status) {
+        this.setSavedComplete();
       }).bind(this)
     });
   },
@@ -77,10 +81,11 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
-  setErrors: function (errors) {
+  setSavedFailure: function (errors) {
     this.setState({
       errors: errors,
       saved: false,
+      serverError: false,
     })
   },
 
@@ -102,6 +107,20 @@ var ItemMetaDataForm = React.createClass({
       dirty: false,
       errors: false,
       saved: true,
+      serverError: false,
+    });
+  },
+
+  setServerError: function () {
+    this.setState({
+      serverError: true,
+      saved: false,
+      errors: false,
+    });
+  },
+
+  setSavedComplete: function () {
+    this.setState({
       saveStarted: false,
     });
   },
@@ -124,6 +143,8 @@ var ItemMetaDataForm = React.createClass({
       return (<FormErrorMsg />);
     } else if (this.state.saved) {
       return (<FormSavedMsg />);
+    } else if (this.state.serverError) {
+      return (<FormServerErrorMsg />)
     }
     return "";
   },
