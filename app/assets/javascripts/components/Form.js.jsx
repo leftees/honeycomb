@@ -12,7 +12,6 @@ var Form = React.createClass({
     url: React.PropTypes.string.isRequired,
     authenticityToken: React.PropTypes.string.isRequired,
     method: React.PropTypes.string,
-    hasErrors: React.PropTypes.bool,
   },
 
   getDefaultProps: function() {
@@ -30,24 +29,12 @@ var Form = React.createClass({
     }
   },
 
-  formErrorAlert: function () {
-    if (this.props.hasErrors)  {
-      return (
-        <div className="alert alert-warning" role="alert">
-          Please complete the highlighted fields in order to continue.
-        </div>
-      )
-    }
-    return "";
-  },
-
   render: function () {
     return (
       <form action={this.props.url} method={ this.formMethod() } >
         <input name="utf8" type="hidden" value="✓" />
         <input type="hidden" name="_method" value={this.props.method} />
         <input type="hidden" name="authenticity_token" value={this.props.authenticityToken} />
-        {this.formErrorAlert()}
         {this.props.children}
       </form>
     );

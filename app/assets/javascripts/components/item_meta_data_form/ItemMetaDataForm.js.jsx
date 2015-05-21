@@ -7,9 +7,7 @@ var ItemMetaDataForm = React.createClass({
     authenticityToken: React.PropTypes.string.isRequired,
     method: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
-    errors: React.PropTypes.object,
     url: React.PropTypes.string.isRequired,
-    returnUrl: React.PropTypes.string.isRequired,
     objectType: React.PropTypes.string,
   },
 
@@ -25,6 +23,7 @@ var ItemMetaDataForm = React.createClass({
       formValues: this.props.data,
       errors: false,
       dirty: false,
+      saved: false,
     }
   },
 
@@ -38,6 +37,9 @@ var ItemMetaDataForm = React.createClass({
 
   handleSave: function(event) {
     event.preventDefault();
+    if (!this.state.dirty) {
+      return;
+    }
 
     $.ajax({
       url: this.props.url,
@@ -45,8 +47,7 @@ var ItemMetaDataForm = React.createClass({
       type: "POST",
       data: this.postParams(),
       success: (function(data) {
-        this.cleanForm();
-        alert("You did it! Item SAVED. ");
+        this.setSaved();
       }).bind(this),
       error: (function(xhr, status, err) {
         if (xhr.status == '422') {
@@ -77,20 +78,23 @@ var ItemMetaDataForm = React.createClass({
 
   setErrors: function (errors) {
     this.setState({
-      errors: errors
+      errors: errors,
+      saved: false,
     })
   },
 
   setDirty: function () {
     this.setState({
       dirty: true,
+      saved: false,
     });
   },
 
-  cleanForm: function () {
+  setSaved: function () {
     this.setState({
       dirty: false,
       errors: false,
+      saved: true,
     });
   },
 
@@ -103,17 +107,20 @@ var ItemMetaDataForm = React.createClass({
     }
   },
 
-  hasErrors: function () {
+  formMsg: function () {
     if (this.state.errors) {
-      return true;
+      return (<FormErrorMsg />);
+    } else if (this.state.saved) {
+      return (<FormSavedMsg />);
     }
-    return false;
+    return "";
   },
 
   render: function () {
     return (
       <Panel PanelTitle="Meta Data">
-        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} hasErrors={this.hasErrors()}>
+        <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
+          {this.formMsg()}
 
           <StringField objectType={this.props.objectType} name="title" required={true} title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
           <TextField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
