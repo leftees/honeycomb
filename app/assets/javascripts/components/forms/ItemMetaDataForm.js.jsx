@@ -54,7 +54,7 @@ var ItemMetaDataForm = React.createClass({
         } else {
           console.error(this.props.url, status, err.toString());
         }
-      }).bind(this);
+      }).bind(this)
     });
   },
 
@@ -97,6 +97,10 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
+  formDisabled: function () {
+    return !this.state.dirty
+  },
+
   unloadMsg: function (event) {
     if (this.state.dirty) {
       var confirmationMessage = "Caution - proceeding will cause you to lose any changes that are not yet saved. ";
@@ -126,7 +130,7 @@ var ItemMetaDataForm = React.createClass({
           <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
           <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
 
-          <SubmitButton formDirty={this.state.dirty} handleClick={this.handleSave} />
+          <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
         </Form>
       </Panel>
     );

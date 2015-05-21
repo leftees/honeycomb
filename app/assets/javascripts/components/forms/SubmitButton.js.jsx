@@ -3,7 +3,7 @@
 var SubmitButton = React.createClass({
 
   propTypes: {
-    formDirty: React.PropTypes.string.isRequired,
+    disabled: React.PropTypes.string.isRequired,
     handleClick: React.PropTypes.func.isRequired,
     name: React.PropTypes.string,
     value: React.PropTypes.string,
@@ -18,7 +18,7 @@ var SubmitButton = React.createClass({
 
   buttonCSS: function () {
     var css = 'btn btn-primary';
-    if (!this.props.formDirty) {
+    if (this.props.disabled) {
       css += ' disabled';
     }
     return css;
