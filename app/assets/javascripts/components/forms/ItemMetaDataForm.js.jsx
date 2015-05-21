@@ -23,6 +23,7 @@ var ItemMetaDataForm = React.createClass({
       errors: false,
       dirty: false,
       saved: false,
+      saveStarted: false,
     };
   },
 
@@ -39,6 +40,7 @@ var ItemMetaDataForm = React.createClass({
     if (!this.state.dirty) {
       return;
     }
+    this.setSavedStarted();
 
     $.ajax({
       url: this.props.url,
@@ -46,7 +48,7 @@ var ItemMetaDataForm = React.createClass({
       type: "POST",
       data: this.postParams(),
       success: (function(data) {
-        this.setSaved();
+        this.setSavedSuccess();
       }).bind(this),
       error: (function(xhr, status, err) {
         if (xhr.status == '422') {
@@ -89,16 +91,23 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
-  setSaved: function () {
+  setSavedStarted: function () {
+    this.setState({
+      saveStarted: true,
+    });
+  },
+
+  setSavedSuccess: function () {
     this.setState({
       dirty: false,
       errors: false,
       saved: true,
+      saveStarted: false,
     });
   },
 
   formDisabled: function () {
-    return !this.state.dirty
+    return (!this.state.dirty || this.state.saveStarted);
   },
 
   unloadMsg: function (event) {

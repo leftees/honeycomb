@@ -3,7 +3,7 @@
 var SubmitButton = React.createClass({
 
   propTypes: {
-    disabled: React.PropTypes.string.isRequired,
+    disabled: React.PropTypes.bool.isRequired,
     handleClick: React.PropTypes.func.isRequired,
     name: React.PropTypes.string,
     value: React.PropTypes.string,
