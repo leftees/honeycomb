@@ -35,6 +35,7 @@ RSpec.describe ItemDecorator do
       double(
         Item,
         id: 1,
+        unique_id: 'unique_id',
         title: "title",
         description: "description",
         transcription: "transcription",
@@ -47,7 +48,7 @@ RSpec.describe ItemDecorator do
       expect(subject.h).to receive(:react_component).with(
         "ItemMetaDataForm",
         authenticityToken: "token",
-        url: "/items/1",
+        url: "/v1/items/unique_id",
         method: "put",
         data: {
           title: "title",
