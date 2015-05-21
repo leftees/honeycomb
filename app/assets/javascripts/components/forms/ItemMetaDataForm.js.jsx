@@ -20,11 +20,8 @@ var ItemMetaDataForm = React.createClass({
   getInitialState: function() {
     return {
       formValues: this.props.data,
-      errors: false,
-      dirty: false,
-      saved: false,
-      saveStarted: false,
-      serverError: false,
+      formState: 'clean',
+      formErrors: false,
     };
   },
 
@@ -38,7 +35,7 @@ var ItemMetaDataForm = React.createClass({
 
   handleSave: function(event) {
     event.preventDefault();
-    if (!this.state.dirty) {
+    if (this.formDisabled()) {
       return;
     }
     this.setSavedStarted();
@@ -53,14 +50,11 @@ var ItemMetaDataForm = React.createClass({
       }).bind(this),
       error: (function(xhr, status, err) {
         if (xhr.status == '422') {
-          this.setSavedFailure(xhr.responseJSON);
+          this.setSavedFailure(xhr.responseJSON.errors);
         } else {
           this.setServerError();
         }
       }).bind(this),
-      complete: (function(xhr, status) {
-        this.setSavedComplete();
-      }).bind(this)
     });
   },
 
@@ -83,54 +77,42 @@ var ItemMetaDataForm = React.createClass({
 
   setSavedFailure: function (errors) {
     this.setState({
-      errors: errors,
-      saved: false,
-      serverError: false,
+      formState: 'formErrors',
+      formErrors: errors,
     })
   },
 
   setDirty: function () {
     this.setState({
-      dirty: true,
-      saved: false,
+      formState: 'dirty',
     });
   },
 
   setSavedStarted: function () {
     this.setState({
-      saveStarted: true,
+      formState: 'saveStarted',
     });
   },
 
   setSavedSuccess: function () {
     this.setState({
-      dirty: false,
-      errors: false,
-      saved: true,
-      serverError: false,
+      formState: 'saved',
     });
   },
 
   setServerError: function () {
     this.setState({
-      serverError: true,
-      saved: false,
-      errors: false,
+      formState: 'serverError',
     });
   },
 
-  setSavedComplete: function () {
-    this.setState({
-      saveStarted: false,
-    });
-  },
 
   formDisabled: function () {
-    return (!this.state.dirty || this.state.saveStarted);
+    return (this.state.formState == 'clean' || this.state.formState == 'saved');
   },
 
   unloadMsg: function (event) {
-    if (this.state.dirty) {
+    if (!this.formDisabled()) {
       var confirmationMessage = "Caution - proceeding will cause you to lose any changes that are not yet saved. ";
 
       (event || window.event).returnValue = confirmationMessage;
@@ -139,11 +121,11 @@ var ItemMetaDataForm = React.createClass({
   },
 
   formMsg: function () {
-    if (this.state.errors) {
+    if (this.state.formState == 'formErrors') {
       return (<FormErrorMsg />);
-    } else if (this.state.saved) {
+    } else if (this.state.formState == 'saved') {
       return (<FormSavedMsg />);
-    } else if (this.state.serverError) {
+    } else if (this.state.formState == 'serverError') {
       return (<FormServerErrorMsg />)
     }
     return "";
@@ -155,10 +137,10 @@ var ItemMetaDataForm = React.createClass({
         <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
           {this.formMsg()}
 
-          <StringField objectType={this.props.objectType} name="title" required={true} title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['title']} />
-          <TextField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['description']} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
-          <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.errors['transcription']}  />
-          <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.errors['manuscript_url']}  />
+          <StringField objectType={this.props.objectType} name="title" required={true} title="Title" value={this.state.formValues['title']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.formErrors['title']} />
+          <TextField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues['description']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.formErrors['description']} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
+          <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues['transcription']} handleFieldChange={this.handleFieldChange} errorMsg={this.state.formErrors['transcription']}  />
+          <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues['manuscript_url']} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.formErrors['manuscript_url']}  />
 
           <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
         </Form>
