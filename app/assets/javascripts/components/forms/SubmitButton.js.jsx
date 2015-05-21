@@ -19,12 +19,12 @@ var SubmitButton = React.createClass({
   buttonCSS: function () {
     var css = 'btn btn-primary';
     if (!this.props.formDirty) {
-      css += ' disabled'
+      css += ' disabled';
     }
     return css;
   },
 
   render: function () {
-    return (<input type="submit" name={this.props.name} value={this.props.value} onClick={this.props.handleClick} className={this.buttonCSS()} />)
+    return (<input type="submit" name={this.props.name} value={this.props.value} onClick={this.props.handleClick} className={this.buttonCSS()} />);
   }
 });
