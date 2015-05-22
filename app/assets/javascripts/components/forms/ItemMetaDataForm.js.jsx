@@ -99,6 +99,7 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       dataState: "clean",
       formState: "saved",
+      formErrors: false,
     });
   },
 
