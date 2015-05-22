@@ -58,7 +58,11 @@ var FormRow = React.createClass({
 
   formErrorMsg: function() {
     if (this.props.errorMsg) {
-      return (_.map( this.props.errorMsg, function (errMsg, index) { return (<FieldHelp key={index}>{errMsg}</FieldHelp>); }));
+      var messages = _.map(this.props.errorMsg, function (errMsg, index) {
+        return (<FieldHelp key={index}>{errMsg}</FieldHelp>);
+      });
+
+      return messages;
     }
     return "";
   },
