@@ -11,7 +11,7 @@ var StringField = React.createClass({
     handleFieldChange: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string,
     help: React.PropTypes.string,
-    errorMsg: React.PropTypes.string,
+    errorMsg: React.PropTypes.array,
   },
 
   getDefaultProps: function() {

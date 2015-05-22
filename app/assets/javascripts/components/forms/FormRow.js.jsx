@@ -12,7 +12,7 @@ var FormRow = React.createClass({
     title: React.PropTypes.string.isRequired,
     required: React.PropTypes.bool,
     help: React.PropTypes.string,
-    errorMsg: React.PropTypes.string,
+    errorMsg: React.PropTypes.array,
   },
 
   getDefaultProps: function() {
@@ -36,7 +36,7 @@ var FormRow = React.createClass({
     if (this.props.required) {
       css += ' required';
     }
-    if (this.props.errorMsg) {
+    if (this.props.errorMsg.length > 0) {
       css += ' has-warning';
     }
     return css;
@@ -58,7 +58,11 @@ var FormRow = React.createClass({
 
   formErrorMsg: function() {
     if (this.props.errorMsg) {
-      return (<FieldHelp>{this.props.errorMsg}</FieldHelp>);
+      var messages = _.map(this.props.errorMsg, function (errMsg, index) {
+        return (<FieldHelp key={index}>{errMsg}</FieldHelp>);
+      });
+
+      return messages;
     }
     return "";
   },

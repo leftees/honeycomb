@@ -128,9 +128,16 @@ var ItemMetaDataForm = React.createClass({
     } else if (this.state.formState == "saved") {
       return (<FormSavedMsg />);
     } else if (this.state.formState == "error") {
-      return (<FormServerErrorMsg />)
+      return (<FormServerErrorMsg />);
     }
     return "";
+  },
+
+  fieldError: function (field) {
+    if (this.state.formErrors[field]) {
+      return this.state.formErrors[field];
+    }
+    return []
   },
 
   render: function () {
@@ -139,10 +146,13 @@ var ItemMetaDataForm = React.createClass({
         <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
           {this.formMsg()}
 
-          <StringField objectType={this.props.objectType} name="title" required={true} title="Title" value={this.state.formValues["title"]} handleFieldChange={this.handleFieldChange} errorMsg={this.state.formErrors["title"]} />
-          <TextField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues["description"]} handleFieldChange={this.handleFieldChange} errorMsg={this.state.formErrors["description"]} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
-          <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues["transcription"]} handleFieldChange={this.handleFieldChange} errorMsg={this.state.formErrors["transcription"]}  />
-          <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues["manuscript_url"]} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.state.formErrors["manuscript_url"]}  />
+          <StringField objectType={this.props.objectType} name="title" required={true} title="Title" value={this.state.formValues["title"]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('title')} />
+
+          <TextField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues["description"]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('description')} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
+
+          <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues["transcription"]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('transcription')}  />
+
+          <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues["manuscript_url"]} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.fieldError('manuscript_url')}  />
 
           <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
         </Form>
