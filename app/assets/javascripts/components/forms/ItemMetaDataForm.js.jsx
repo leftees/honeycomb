@@ -20,7 +20,8 @@ var ItemMetaDataForm = React.createClass({
   getInitialState: function() {
     return {
       formValues: this.props.data,
-      formState: "clean",
+      formState: "new",
+      dataState: "clean",
       formErrors: false,
     };
   },
@@ -77,14 +78,14 @@ var ItemMetaDataForm = React.createClass({
 
   setSavedFailure: function (errors) {
     this.setState({
-      formState: "formErrors",
+      formState: "invalid",
       formErrors: errors,
     })
   },
 
   setDirty: function () {
     this.setState({
-      formState: "dirty",
+      dataState: "dirty",
     });
   },
 
@@ -96,23 +97,24 @@ var ItemMetaDataForm = React.createClass({
 
   setSavedSuccess: function () {
     this.setState({
+      dataState: "clean",
       formState: "saved",
     });
   },
 
   setServerError: function () {
     this.setState({
-      formState: "serverError",
+      formState: "error",
     });
   },
 
 
   formDisabled: function () {
-    return (this.state.formState == "clean" || this.state.formState == "saved" || this.state.formState == "saveStarted");
+    return (this.state.dataState == "clean" || this.state.formState == "saveStarted");
   },
 
   unloadMsg: function (event) {
-    if (!this.formDisabled()) {
+    if (this.state.dataState == "dirty") {
       var confirmationMessage = "Caution - proceeding will cause you to lose any changes that are not yet saved. ";
 
       (event || window.event).returnValue = confirmationMessage;
@@ -121,11 +123,11 @@ var ItemMetaDataForm = React.createClass({
   },
 
   formMsg: function () {
-    if (this.state.formState == "formErrors") {
+    if (this.state.formState == "invalid") {
       return (<FormErrorMsg />);
     } else if (this.state.formState == "saved") {
       return (<FormSavedMsg />);
-    } else if (this.state.formState == "serverError") {
+    } else if (this.state.formState == "error") {
       return (<FormServerErrorMsg />)
     }
     return "";
