@@ -11,7 +11,7 @@ var TextField = React.createClass({
     required: React.PropTypes.bool,
     placeholder: React.PropTypes.string,
     help: React.PropTypes.string,
-    errorMsg: React.PropTypes.string,
+    errorMsg: React.PropTypes.array,
   },
 
   getDefaultProps: function() {
