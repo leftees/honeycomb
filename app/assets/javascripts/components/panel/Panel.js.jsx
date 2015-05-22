@@ -2,8 +2,7 @@
 
 var Panel = React.createClass({
   propTypes: {
-    PanelTitle: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element.isRequired
+    children: React.PropTypes.any
   },
   render: function () {
     return (

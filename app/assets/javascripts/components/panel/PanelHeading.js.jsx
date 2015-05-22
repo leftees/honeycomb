@@ -2,7 +2,7 @@
 
 var PanelHeading = React.createClass({
   propTypes: {
-    children: React.PropTypes.element.isRequired
+    children: React.PropTypes.any
   },
   render: function () {
     return (
