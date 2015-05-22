@@ -1,7 +1,6 @@
-//app/assets/javascripts/components/modal/Modal.jsx
+//app/assets/javascripts/components/forms/FieldHelp.jsx
 
-var FormHelpBlock = React.createClass({
-  displayName: 'FormHelpBlock',
+var FieldHelp = React.createClass({
 
   propTypes: {
     children: React.PropTypes.oneOfType([

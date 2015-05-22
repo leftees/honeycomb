@@ -1,15 +1,14 @@
-//app/assets/javascripts/components/modal/Modal.jsx
+//app/assets/javascripts/components/forms/StringField.jsx
 
-var TextField = React.createClass({
-  displayName: 'TextField',
+var StringField = React.createClass({
 
   propTypes: {
     objectType: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
-    handleFieldChange: React.PropTypes.func.isRequired,
     value: React.PropTypes.string,
     required: React.PropTypes.bool,
+    handleFieldChange: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string,
     help: React.PropTypes.string,
     errorMsg: React.PropTypes.string,
@@ -23,9 +22,9 @@ var TextField = React.createClass({
   },
 
   requiredClass: function() {
-    css = 'form-control'
+    var css = 'form-control';
     if (this.props.required) {
-      css += ' required'
+      css += ' required';
     }
 
     return css
@@ -46,7 +45,7 @@ var TextField = React.createClass({
   render: function () {
     return (
         <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
-          <textarea name={this.formName()} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} value={this.props.value} />
+          <input type="text" name={this.formName()} value={this.props.value} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} />
         </FormRow>
       );
   }

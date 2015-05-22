@@ -1,7 +1,6 @@
-//app/assets/javascripts/components/modal/Modal.jsx
+//app/assets/javascripts/components/forms/FormRow.jsx
 
 var FormRow = React.createClass({
-  displayName: 'Form',
 
   propTypes: {
     id: React.PropTypes.string.isRequired,
@@ -52,14 +51,14 @@ var FormRow = React.createClass({
 
   formHelp: function() {
     if (this.props.help) {
-      return (<FormHelpBlock>{this.props.help}</FormHelpBlock>);
+      return (<FieldHelp>{this.props.help}</FieldHelp>);
     }
     return "";
   },
 
   formErrorMsg: function() {
     if (this.props.errorMsg) {
-      return (<FormHelpBlock>{this.props.errorMsg}</FormHelpBlock>);
+      return (<FieldHelp>{this.props.errorMsg}</FieldHelp>);
     }
     return "";
   },

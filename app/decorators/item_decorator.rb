@@ -33,8 +33,7 @@ class ItemDecorator < Draper::Decorator
     h.react_component(
       "ItemMetaDataForm",
       authenticityToken: h.form_authenticity_token,
-      url: h.item_path(object.id),
-      returnUrl: h.collection_items_path(object.collection.id),
+      url: h.v1_item_path(object.unique_id),
       method: "put",
       data: {
         title: object.title,
