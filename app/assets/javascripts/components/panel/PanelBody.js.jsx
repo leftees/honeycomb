@@ -2,7 +2,7 @@
 
 var PanelBody = React.createClass({
   propTypes: {
-    children: React.PropTypes.node
+    children: React.PropTypes.any
   },
   render: function () {
     return (
