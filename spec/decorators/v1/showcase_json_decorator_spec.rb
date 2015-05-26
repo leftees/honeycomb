@@ -131,4 +131,18 @@ RSpec.describe V1::ShowcaseJSONDecorator do
       subject.display(json)
     end
   end
+
+  describe "#next" do
+    it "uses the showcase query to retrieve the next showcase" do
+      expect_any_instance_of(ShowcaseQuery).to receive(:next).with(showcase)
+      subject.next
+    end
+  end
+
+  describe "#previous" do
+    it "uses the showcase query to retrieve the previous showcase" do
+      expect_any_instance_of(ShowcaseQuery).to receive(:previous).with(showcase)
+      subject.previous
+    end
+  end
 end

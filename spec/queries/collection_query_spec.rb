@@ -46,6 +46,17 @@ describe CollectionQuery do
     end
   end
 
+  describe "#any_find" do
+    it "calls any_find" do
+      expect(relation).to receive(:find_by!).with(unique_id: "asdf")
+      subject.any_find("asdf")
+    end
+
+    it "raises an error on not found" do
+      expect { subject.any_find("asdf") }.to raise_error ActiveRecord::RecordNotFound
+    end
+  end
+
   describe "for_editor" do
     it "returns all the collections for an admin" do
       expect(UserIsAdmin).to receive(:call).and_return(true)

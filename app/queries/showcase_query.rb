@@ -43,6 +43,3 @@ class ShowcaseQuery
       first
   end
 end
-
-
-

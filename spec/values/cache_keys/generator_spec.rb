@@ -15,6 +15,6 @@ RSpec.describe CacheKeys::Generator do
 
   it "is the generator's return value" do
     allow_any_instance_of(Class).to receive(:specificmethod).and_return("one")
-    expect(subject.generate).to eq("one")
+    expect(subject.generate).to include("one")
   end
 end
