@@ -20,13 +20,13 @@ RSpec.describe Nav::CollectionLeft do
     expect(subject.collection).to eq(collection)
   end
 
-  it "sets selected when the left nav section is active" do
-    subject.display(:section)
-    expect(subject.active_section_css(:section)).to eq("selected")
-  end
+  # it "sets selected when the left nav section is active" do
+  #   subject.display(:section)
+  #   expect(subject.active_section_css(:section)).to eq("selected")
+  # end
 
-  it "sets empty when the left nav section is not active" do
-    subject.display(:section)
-    expect(subject.active_section_css(:other_section)).to eq("")
-  end
+  # it "sets empty when the left nav section is not active" do
+  #   subject.display(:section)
+  #   expect(subject.active_section_css(:other_section)).to eq("")
+  # end
 end

@@ -85,6 +85,9 @@ RSpec.configure do |config|
       field = instance.attributes.keys[1]
       # Trigger method missing on the instance which dynamically adds the methods to the class
       instance.send(field)
+
+      # Reload all factories
+      FactoryGirl.reload
     end
   end
 end
