@@ -9,9 +9,9 @@ class ItemDecorator < Draper::Decorator
     ItemsDecorator.new(children_query_recent)
   end
 
-  def image_title
+  def image_name
     if object.honeypot_image
-      object.honeypot_image.title
+      object.honeypot_image.name
     else
       nil
     end
@@ -45,6 +45,10 @@ class ItemDecorator < Draper::Decorator
 
   def edit_path
     h.edit_item_path(object.id)
+  end
+
+  def page_name
+    h.render partial: "/items/item_name", locals: { item: self }
   end
 
   private
