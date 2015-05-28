@@ -22,7 +22,17 @@ describe EnsureCollectionHasExhibit do
     let(:collection) { double(Collection, id: 1, exhibit: nil, title: "title", create_exhibit: true)  }
 
     it "creates the exhibit" do
-      expect(collection).to receive(:create_exhibit).with(title: collection.title, copyright: "<p><a href=\"http://www.nd.edu/copyright/\">Copyright</a> #{Date.today.year} <a href=\"http://www.nd.edu\">University of Notre Dame</a></p>")
+      expect(collection).to receive(:create_exhibit)
+      subject
+    end
+
+    it "uses the collection title" do
+      expect(collection).to receive(:create_exhibit).with(hash_including(title: collection.title))
+      subject
+    end
+
+    it "uses the correct copyright as a default" do
+      expect(collection).to receive(:create_exhibit).with(hash_including(copyright: "<p><a href=\"http://www.nd.edu/copyright/\">Copyright</a> #{Date.today.year} <a href=\"http://www.nd.edu\">University of Notre Dame</a></p>"))
       subject
     end
   end
