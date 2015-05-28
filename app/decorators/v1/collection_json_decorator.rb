@@ -35,6 +35,15 @@ module V1
       object.exhibit.about.to_s
     end
 
+    def copyright
+      exhibit_copyright = object.exhibit.copyright.to_s
+      if exhibit_copyright.empty?
+        "<p><a href=\"http://www.nd.edu/copyright/\">Copyright</a> #{Date.today.year} <a href=\"http://www.nd.edu\">University of Notre Dame</a></p>"
+      else
+        exhibit_copyright
+      end
+    end
+
     def slug
       CreateURLSlug.call(object.title)
     end
