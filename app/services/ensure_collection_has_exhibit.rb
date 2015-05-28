@@ -20,7 +20,9 @@ class EnsureCollectionHasExhibit
   private
 
   def create!
-    copyright_default = '<p><a href="http://www.nd.edu/copyright/">Copyright</a> ' + Date.today.year.to_s + ' <a href="http://www.nd.edu">University of Notre Dame</a></p>'
+    copyright_default = '<p><a href="http://www.nd.edu/copyright/">Copyright</a> ' +
+                        Date.today.year.to_s +
+                        ' <a href="http://www.nd.edu">University of Notre Dame</a></p>'
     collection.create_exhibit(title: collection.title, copyright: copyright_default)
   end
 end
