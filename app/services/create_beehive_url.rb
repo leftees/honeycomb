@@ -13,6 +13,8 @@ class CreateBeehiveURL
   def create
     if @object.is_a?(Collection)
       collection_url(@object)
+    elsif @object.is_a?(Item)
+      item_url
     else
       object_url
     end
@@ -22,6 +24,10 @@ class CreateBeehiveURL
 
   def collection_url(collection)
     "#{Rails.configuration.settings.beehive_url}/#{collection.unique_id}/#{CreateURLSlug.call(collection.title)}"
+  end
+
+  def item_url
+    "#{collection_url(object.collection)}/#{object.class.name.pluralize.downcase}#modal-#{object.unique_id}"
   end
 
   def object_url
