@@ -33,13 +33,11 @@ RSpec.describe CreateBeehiveURL do
       end
 
       it "returns a beehive item url" do
-        expect(object).to receive(:is_a?).and_return(false)
-        expect(subject).to receive(:create).and_return("http://localhost:3018/12345678/a-collection/items/87654321/an-item")
+        expect(subject).to receive(:create).and_return("http://localhost:3018/12345678/a-collection/items#modal-87654321")
         subject.create
       end
 
       it "calls CreateURLSlug on the collection and item names" do
-        expect(object).to receive(:is_a?).and_return(false)
         expect(CreateURLSlug).to receive(:call).with(object.collection.name_line_1).and_return("a-collection")
         expect(CreateURLSlug).to receive(:call).with(object.name).and_return("an-item")
         subject
