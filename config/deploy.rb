@@ -26,6 +26,7 @@ desc "Setup for the production environment"
 task :production do
   # Customize production configuration
   set :rails_env, "production"
+  set :branch, "v1.0"
   role :app, "honeycombprod-vm.library.nd.edu"
 end
 
