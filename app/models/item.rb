@@ -4,6 +4,8 @@ class Item < ActiveRecord::Base
   belongs_to :collection
   belongs_to :parent, class_name: "Item", foreign_key: :parent_id
   has_many :children, class_name: "Item", foreign_key: :parent_id
+  has_many :sections
+  has_many :showcases, -> { distinct }, through: :sections
   has_one :honeypot_image
 
   has_attached_file :image, restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
