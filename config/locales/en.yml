@@ -177,6 +177,9 @@ en:
       updated_at: 'Last Modified At'
     update:
       success: "Showcase updated"
+    destroy:
+      success: "Showcase deleted"
+      failure: "There was a problem deleting this showcase"
   exhibits:
     update:
       success: 'Website updated'
