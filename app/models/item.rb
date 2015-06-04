@@ -1,4 +1,6 @@
 class Item < ActiveRecord::Base
+  store :metadata, accessors: [:creator, :publisher, :alternate_name, :rights, :original_language], coder: JSON
+
   has_paper_trail
 
   belongs_to :collection

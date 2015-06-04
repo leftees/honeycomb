@@ -3,7 +3,20 @@ require "rails_helper"
 RSpec.describe Item do
   let(:image_with_spaces) { File.open(Rails.root.join("spec/fixtures", "test copy.jpg"), "r") }
 
-  [:name, :description, :transcription, :collection, :honeypot_image, :published, :unique_id].each do |field|
+  [
+    :name,
+    :description,
+    :transcription,
+    :collection,
+    :honeypot_image,
+    :published,
+    :unique_id,
+    :creator,
+    :publisher,
+    :alternate_name,
+    :rights,
+    :original_language
+  ].each do |field|
     it "has field, #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")
