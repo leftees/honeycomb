@@ -57,6 +57,16 @@ RSpec.describe Item do
     expect(subject.children).to eq([])
   end
 
+  it "has sections" do
+    expect(subject).to respond_to(:sections)
+    expect(subject.sections).to eq([])
+  end
+
+  it "has showcases" do
+    expect(subject).to respond_to(:showcases)
+    expect(subject.showcases).to eq([])
+  end
+
   describe "#has honeypot image interface" do
     it "responds to image" do
       expect(subject).to respond_to(:image)

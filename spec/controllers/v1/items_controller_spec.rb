@@ -117,4 +117,37 @@ RSpec.describe V1::ItemsController, type: :controller do
 
     it_behaves_like "a private content-based etag cacher"
   end
+
+  describe "#showcases" do
+    subject { get :showcases, item_id: "id", format: :json }
+    let(:item) { instance_double(Item, id: "1", collection: nil, children: nil, showcases: nil) }
+
+    it "calls ItemQuery" do
+      expect_any_instance_of(ItemQuery).to receive(:public_find).with("id").and_return(item)
+
+      subject
+    end
+
+    it "is successful" do
+      subject
+      expect(response).to be_success
+    end
+
+    it "assigns the item to render" do
+      subject
+      expect(assigns(:item)).to be_present
+    end
+
+    it "renders the correct template" do
+      expect(subject).to render_template("v1/items/showcases")
+      subject
+    end
+
+    it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the V1Items#showcases to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::V1Items).to receive(:showcases)
+      subject
+    end
+  end
 end
