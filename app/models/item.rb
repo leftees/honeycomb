@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  store :metadata, accessors: [ :creator, :publisher, :alternateName, :rights, :originalLanguage ]
+  store :metadata, accessors: [:creator, :publisher, :alternateName, :rights, :originalLanguage]
 
   has_paper_trail
 
