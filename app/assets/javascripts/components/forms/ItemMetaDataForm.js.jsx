@@ -18,13 +18,17 @@ var ItemMetaDataForm = React.createClass({
   },
 
   getInitialState: function() {
-    console.log(this.props.data);
     return {
       formValues: this.props.data,
       formState: "new",
       dataState: "clean",
       formErrors: false,
-      displayedFields: this.props.data.key,
+      displayedFields: _.mapObject(this.props.data, function(val, key) {
+        if (val) {
+          return true;
+        }
+        return false;
+      }),
     };
   },
 
@@ -144,9 +148,8 @@ var ItemMetaDataForm = React.createClass({
   },
 
   additionalFields: function() {
-
     var map_function = function(fieldConfig, field) {
-      if (this.state.formValues[field]){
+      if (this.state.displayedFields[field]){
         return (<StringField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
       }
       return "";
