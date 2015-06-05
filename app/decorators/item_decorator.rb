@@ -40,7 +40,6 @@ class ItemDecorator < Draper::Decorator
         description: object.description,
         transcription: object.transcription,
         manuscript_url: object.manuscript_url,
-        metadata: object.metadata,
         creator: object.creator,
         alternate_name: object.alternate_name,
         rights: object.rights,

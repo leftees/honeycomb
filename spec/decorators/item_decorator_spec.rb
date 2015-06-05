@@ -51,6 +51,10 @@ RSpec.describe ItemDecorator do
         description: "description",
         transcription: "transcription",
         manuscript_url: "manuscript_url",
+        creator: "creator",
+        alternate_name: "alternate_name",
+        rights: "rights",
+        original_language: "original_language",
         collection: collection)
     end
 
@@ -65,7 +69,11 @@ RSpec.describe ItemDecorator do
           name: "name",
           description: "description",
           transcription: "transcription",
-          manuscript_url: "manuscript_url"
+          manuscript_url: "manuscript_url",
+          creator: "creator",
+          alternate_name: "alternate_name",
+          rights: "rights",
+          original_language: "original_language",
         }
       )
 
