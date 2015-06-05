@@ -20,5 +20,43 @@ module V1
                                            item: @item)
       fresh_when(etag: cache_key.generate)
     end
+
+    def update
+      @item = ItemQuery.new.public_find(params[:id])
+      # check_user_edits!(@item.collection)
+
+      if SaveItem.call(@item, save_params)
+        render :update
+      else
+        render :errors, status: :unprocessable_entity
+      end
+    end
+
+    # get all showcases that use the given item
+    def showcases
+      @item = ItemQuery.new.public_find(params[:item_id])
+
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Items,
+                                           action: "showcases",
+                                           item: @item)
+      fresh_when(etag: cache_key.generate)
+    end
+
+    protected
+
+    def save_params
+      params.require(:item).permit(
+        :name,
+        :description,
+        :image,
+        :manuscript_url,
+        :transcription,
+        :creator,
+        :publisher,
+        :alternateName,
+        :rights,
+        :originalLanguage
+      )
+    end
   end
 end

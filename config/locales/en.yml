@@ -36,8 +36,8 @@ en:
   simple_form:
     labels:
       collection:
-        title: 'Title Line 1'
-        subtitle: 'Title Line 2'
+        name_line_1: 'Name Line 1'
+        name_line_2: 'Name Line 2'
       exhibit:
         edit:
           description: "Collection/Exhibit Introduction"
@@ -177,6 +177,9 @@ en:
       updated_at: 'Last Modified At'
     update:
       success: "Showcase updated"
+    destroy:
+      success: "Showcase deleted"
+      failure: "There was a problem deleting this showcase"
   exhibits:
     update:
       success: 'Website updated'

@@ -19,14 +19,14 @@ Capistrano::Configuration.instance.load do
 
   namespace :deploy do
     desc "Set SCM branch"
+
     task :set_scm_branch do
-      set :branch, "master"
-      if ENV["SCM_BRANCH"] && !(ENV["SCM_BRANCH"] == "")
-        set :branch, ENV["SCM_BRANCH"]
-      elsif rails_env == "production"
-        prompt_with_default(:branch, "master")
-      else
-        prompt_with_default(:branch, current_git_branch)
+      if rails_env != "production"
+        if ENV["SCM_BRANCH"] && !(ENV["SCM_BRANCH"] == "")
+          set :branch, ENV["SCM_BRANCH"]
+        else
+          prompt_with_default(:branch, current_git_branch)
+        end
       end
     end
   end
