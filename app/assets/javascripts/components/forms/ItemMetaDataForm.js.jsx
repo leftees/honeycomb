@@ -18,11 +18,13 @@ var ItemMetaDataForm = React.createClass({
   },
 
   getInitialState: function() {
+    console.log(this.props.data);
     return {
       formValues: this.props.data,
       formState: "new",
       dataState: "clean",
       formErrors: false,
+      displayedFields: this.props.data.key,
     };
   },
 
@@ -141,6 +143,25 @@ var ItemMetaDataForm = React.createClass({
     return []
   },
 
+  additionalFields: function() {
+
+    var map_function = function(fieldConfig, field) {
+      if (this.state.formValues[field]){
+        return (<StringField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+      }
+      return "";
+    };
+    map_function = _.bind(map_function, this);
+
+    return _.map(this.additionalFieldConfiguration(), map_function);;
+  },
+
+  additionalFieldConfiguration: function() {
+    return {
+      "creator": {"title": "Creator", "placeholder": "Placey the holder"},
+      "alternate_name": {"title": "Alternate Name", "placeholder": "another name"},
+    };
+  },
   render: function () {
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
@@ -155,6 +176,8 @@ var ItemMetaDataForm = React.createClass({
               <TextField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues["transcription"]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('transcription')}  />
 
               <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues["manuscript_url"]} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.fieldError('manuscript_url')}  />
+
+              {this.additionalFields()}
 
           </PanelBody>
           <PanelFooter>

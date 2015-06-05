@@ -22,7 +22,7 @@ var EmbedCode = React.createClass({
         <PanelHeading>Embed This Item</PanelHeading>
         <PanelBody>
           <p>Copy and Paste this code into any site you want this item to be viewable.</p>
-          <textarea value={embedString} style={this.style()} rows="5" />
+          <textarea readOnly={true} value={embedString} style={this.style()} rows="5" />
         </PanelBody>
       </Panel>
     )
