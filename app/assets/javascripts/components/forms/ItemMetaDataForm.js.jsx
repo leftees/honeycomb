@@ -14,6 +14,13 @@ var ItemMetaDataForm = React.createClass({
     return {
       method: "post",
       objectType: "item",
+      additionalFieldConfiguration: {
+        "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"'},
+        "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as."},
+        "rights": {"title": "Rights", "placeholder": 'Example "Copyright held by Hesburgh Libraries"'},
+        "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"'},
+        "original_language": {"title": "Original Language", "placeholder": 'Example: "French"'},
+      }
     };
   },
 
@@ -23,6 +30,12 @@ var ItemMetaDataForm = React.createClass({
       formState: "new",
       dataState: "clean",
       formErrors: false,
+      displayedFields: _.mapObject(this.props.data, function(val, key) {
+        if (val) {
+          return true;
+        }
+        return false;
+      }),
     };
   },
 
@@ -141,6 +154,42 @@ var ItemMetaDataForm = React.createClass({
     return []
   },
 
+  additionalFields: function() {
+    var map_function = function(fieldConfig, field) {
+      if (this.state.displayedFields[field]){
+        return (<StringField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+      }
+      return "";
+    };
+    map_function = _.bind(map_function, this);
+
+    return _.map(this.props.additionalFieldConfiguration, map_function);;
+  },
+
+
+  addFieldsSelectOptions: function () {
+    var map_function = function (data, field) {
+      if (!this.state.displayedFields[field]) {
+        return (<option key={field} value={field}>{this.props.additionalFieldConfiguration[field]["title"]}</option>);
+      }
+      return;
+    };
+    map_function = _.bind(map_function, this);
+
+    return [<option key="add-option">Add a New Field</option>].concat(_.map(this.props.additionalFieldConfiguration, map_function));
+  },
+
+  changeAddField: function(event) {
+    if (!event.target.value) {
+      return
+    }
+
+    this.state.displayedFields[event.target.value] = true;
+    this.setState({
+      displayedFields: this.state.displayedFields,
+    });
+  },
+
   render: function () {
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
@@ -156,6 +205,11 @@ var ItemMetaDataForm = React.createClass({
 
               <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues["manuscript_url"]} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.fieldError('manuscript_url')}  />
 
+              {this.additionalFields()}
+
+              <select onChange={this.changeAddField}>
+                {this.addFieldsSelectOptions()}
+              </select>
           </PanelBody>
           <PanelFooter>
             <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
