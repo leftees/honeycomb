@@ -16,7 +16,7 @@ module V1
 
       cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Showcases,
                                            action: "show",
-                                           showcase: showcase)
+                                           showcase: @showcase)
       fresh_when(etag: cache_key.generate)
     end
   end

@@ -36,6 +36,12 @@ RSpec.describe V1::ShowcasesController, type: :controller do
 
   describe "#show" do
     subject { get :show, id: "id", format: :json }
+
+    before(:each) do
+      allow_any_instance_of(V1::ShowcaseJSONDecorator).to receive(:sections).and_return([])
+      allow_any_instance_of(V1::ShowcaseJSONDecorator).to receive(:next).and_return(nil)
+    end
+
     it "calls ShowcaseQuery" do
       expect_any_instance_of(ShowcaseQuery).to receive(:public_find).with("id").and_return(showcase)
 

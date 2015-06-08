@@ -16,7 +16,7 @@ RSpec.describe CacheKeys::Custom::V1Showcases do
   end
 
   context "show" do
-    let(:showcase) { instance_double(Showcase, collection: "collection", sections: "sections", items: "items") }
+    let(:showcase) { instance_double(V1::ShowcaseJSONDecorator, collection: "collection", sections: "sections", items: "items", next: "next") }
 
     it "uses CacheKeys::ActiveRecord" do
       expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate)
@@ -24,7 +24,7 @@ RSpec.describe CacheKeys::Custom::V1Showcases do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: [showcase, "collection", "sections", "items"])
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: [showcase, "collection", "sections", "items", "next"])
       subject.show(showcase: showcase)
     end
   end
