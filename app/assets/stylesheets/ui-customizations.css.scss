@@ -355,6 +355,38 @@ div.dataTables_filter {
 	background: $blue;
 }
 
+.overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.showcases-panel {
+
+  .row {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .image {
+    float: left;
+    height: 3em;
+
+    img {
+      border: 1px solid Black;
+      margin: 5px;
+      width: 70px;
+    }
+  }
+
+  .name {
+    display: block;
+    height: 3em;
+    line-height: 1.5em;
+    margin-top: 1px;
+    overflow: hidden;
+  }
+}
 
 
 .panel-heading .pull-right .btn {

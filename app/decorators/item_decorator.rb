@@ -47,6 +47,15 @@ class ItemDecorator < Draper::Decorator
       })
   end
 
+  def showcases_json
+    json_string = h.render :partial => "showcases/showcases", formats: [:json], locals: { showcases: object.showcases }
+    if json_string
+      ActiveSupport::JSON.decode(json_string)
+    else
+      {}
+    end
+  end
+
   def edit_path
     h.edit_item_path(object.id)
   end
