@@ -1,0 +1,7 @@
+languages:
+  Ruby: true
+  JavaScript: true
+exclude_paths:
+- "app/assets/javascripts/redactor.js"
+- "app/assets/javascripts/openseadragon.js"
+- "app/assets/javascripts/components.js"
