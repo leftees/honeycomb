@@ -9,7 +9,8 @@ RSpec.describe ItemDecorator do
       id: 1,
       collection_id: collection.id,
       collection: collection,
-      image: "image.jpg"
+      image: "image.jpg",
+      showcases: { showcases: {} }
     }
   end
   let(:item) { instance_double(Item, item_stubs) }
@@ -113,6 +114,13 @@ RSpec.describe ItemDecorator do
       it "is the collection items index" do
         expect(subject.back_path).to eq("/collections/#{collection.id}")
       end
+    end
+  end
+
+  context "showcases_json" do
+    it "renders the json partial from the showcases view" do
+      expect(subject.h).to receive(:render).with(partial: "showcases/showcases", formats: [:json], locals: { showcases: item.showcases })
+      subject.showcases_json
     end
   end
 

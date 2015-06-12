@@ -51,6 +51,12 @@
       </div>
     </div>
 
+    <%= react_component("ShowcasesPanel", {
+          showcases: @item.showcases_json,
+          panelTitle: "Showcases"
+        })
+    %>
+
     <%= ItemPublishEmbedPanel.display(@item.object) %>
 
   </div>
