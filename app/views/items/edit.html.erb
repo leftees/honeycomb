@@ -35,7 +35,7 @@
       </div>
     <% end %>
 
-    <%= DeletePanel.new(@item.object).display %>
+    <%= DeletePanel.new(@item.object).display(ItemQuery.new(@item)) %>
 
   </div>
   <div class="col-md-4">
