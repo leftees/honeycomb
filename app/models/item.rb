@@ -20,10 +20,6 @@ class Item < ActiveRecord::Base
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-  def slug
-    name
-  end
-
   def beehive_url
     CreateBeehiveURL.call(self)
   end

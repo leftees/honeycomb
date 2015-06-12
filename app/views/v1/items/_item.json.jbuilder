@@ -3,7 +3,7 @@ json.set! "@type", "CreativeWork"
 json.set! "@id", item_object.at_id
 json.set! "isPartOf/collection", item_object.collection_url
 json.id item_object.unique_id
-json.slug item_object.slug
+json.slug CreateURLSlug.call(item_object.name)
 json.name item_object.name
 json.description item_object.description.to_s
 json.image item_object.image

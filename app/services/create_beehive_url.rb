@@ -31,6 +31,6 @@ class CreateBeehiveURL
   end
 
   def object_url
-    "#{collection_url(object.collection)}/#{object.class.name.pluralize.downcase}/#{object.unique_id}/#{CreateURLSlug.call(object.slug)}"
+    "#{collection_url(object.collection)}/#{object.class.name.pluralize.downcase}/#{object.unique_id}/#{CreateURLSlug.call(object.name)}"
   end
 end
