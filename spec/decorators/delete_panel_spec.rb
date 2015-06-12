@@ -18,7 +18,7 @@ RSpec.describe DeletePanel do
   end
 
   it "uses a custom query object to check if it can be deleted" do
-    expect(object).to receive(:can_delete).and_return(false)
+    expect(object).to receive(:can_delete?).and_return(false)
     required_locals = { default_name: "Object", path: object, i18n_key_base: "objects.delete_panel", can_delete: false }
     allow(subject.h).to receive(:render).with(partial: "shared/delete_panel", locals: required_locals)
     subject.display(object)

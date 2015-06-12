@@ -3,7 +3,7 @@ require "draper"
 class DeletePanel < Draper::Decorator
   attr_accessor :path
 
-  # If providing a query_object, it must implement "can_delete"
+  # If providing a query_object, it must implement "can_delete?"
   def display(query_object = nil)
     yield(self) if block_given?
 
@@ -11,7 +11,7 @@ class DeletePanel < Draper::Decorator
     # retain the current behavior for all other objects
     can_delete = true
     if query_object
-      can_delete = query_object.can_delete
+      can_delete = query_object.can_delete?
     end
     h.render partial: "shared/delete_panel", locals: { default_name: default_name, path: path, i18n_key_base: i18n_key_base, can_delete: can_delete }
   end

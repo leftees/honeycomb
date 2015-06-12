@@ -27,7 +27,7 @@ class ItemQuery
     relation.find_by!(unique_id: id)
   end
 
-  def can_delete
+  def can_delete?
     relation.showcases.count == 0
   end
 end
