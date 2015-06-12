@@ -11,7 +11,6 @@ class Item < ActiveRecord::Base
   has_one :honeypot_image
 
   has_attached_file :image, restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
-  # , :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
 
   validates :name, :collection, presence: true
   validates :image, attachment_presence: true
@@ -19,10 +18,6 @@ class Item < ActiveRecord::Base
   validate :manuscript_url_is_valid_uri
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-
-  def beehive_url
-    CreateBeehiveURL.call(self)
-  end
 
   private
 
