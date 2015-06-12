@@ -142,7 +142,8 @@ en:
       success: "Item deleted"
     delete_panel:
       heading: Delete this Item
-      message: "Proceed with caution. This will also remove all the items information from the site ."
+      message: "Proceed with caution. This will also remove all the items information from the site."
+      cannot_delete_message: "Deleting this item is disabled due to its usage in one or more showcases. Please first remove the item from these showcases."
   item_children:
     new:
       title: "Upload Additional Resources"
