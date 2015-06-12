@@ -41,17 +41,6 @@ class ItemsController < ApplicationController
     fresh_when(etag: cache_key.generate)
   end
 
-  def update
-    @item = ItemQuery.new.find(params[:id])
-    check_user_edits!(@item.collection)
-
-    if SaveItem.call(@item, save_params)
-      item_save_success(@item)
-    else
-      item_save_failure(@item)
-    end
-  end
-
   def destroy
     @item = ItemQuery.new.find(params[:id])
     check_user_edits!(@item.collection)

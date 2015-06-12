@@ -186,60 +186,6 @@ RSpec.describe ItemsController, type: :controller do
     end
   end
 
-  describe "PUT #update" do
-    let(:collection) { double(Collection, id: "1") }
-    let(:item) { double(Item, id: 1, parent: nil, collection: collection) }
-    let(:update_params) { { id: item.id, item: { name: "name" } } }
-
-    subject { put :update, update_params }
-
-    before(:each) do
-      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
-      allow(SaveItem).to receive(:call).and_return(true)
-    end
-
-    it "checks the editor permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
-      subject
-    end
-
-    it "uses item query " do
-      expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
-      subject
-    end
-
-    it "redirects on success" do
-      expect_any_instance_of(described_class).to receive(:item_save_success).and_call_original
-
-      subject
-
-      expect(response).to be_redirect
-      expect(flash[:notice]).to_not be_nil
-    end
-
-    it "renders new on failure" do
-      allow(SaveItem).to receive(:call).and_return(false)
-
-      subject
-      expect(response).to render_template("edit")
-    end
-
-    it "assigns and item" do
-      subject
-
-      assigns(:item)
-      expect(assigns(:item)).to eq(item)
-    end
-
-    it "uses the save item service" do
-      expect(SaveItem).to receive(:call).and_return(true)
-
-      subject
-    end
-
-    it_behaves_like "a private content-based etag cacher"
-  end
-
   describe "DELETE #destroy" do
     let(:collection) { double(Collection, id: "1") }
     let(:item) { double(Item, id: 1, collection: collection, destroy!: true) }
