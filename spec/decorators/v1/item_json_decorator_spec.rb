@@ -60,10 +60,10 @@ RSpec.describe V1::ItemJSONDecorator do
   end
 
   describe "#slug" do
-    let(:item) { double(Item, slug: "sluggish") }
+    let(:item) { double(Item, name: "sluggish") }
 
     it "Calls the slug generator" do
-      expect(CreateURLSlug).to receive(:call).with(item.slug)
+      expect(CreateURLSlug).to receive(:call).with(item.name)
       subject.slug
     end
   end

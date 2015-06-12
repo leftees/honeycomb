@@ -46,9 +46,9 @@ ActiveRecord::Schema.define(version: 20150604150434) do
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
     t.text     "short_description",  limit: 65535
-    t.text     "about",              limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "about",              limit: 65535
     t.text     "copyright",          limit: 65535
   end
 

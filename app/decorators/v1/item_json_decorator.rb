@@ -30,7 +30,7 @@ module V1
     end
 
     def slug
-      CreateURLSlug.call(object.slug)
+      CreateURLSlug.call(object.name)
     end
 
     def image
