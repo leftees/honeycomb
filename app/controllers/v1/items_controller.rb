@@ -23,7 +23,8 @@ module V1
 
     def update
       @item = ItemQuery.new.public_find(params[:id])
-      # check_user_edits!(@item.collection)
+
+      return if rendered_forbidden?(@item.collection)
 
       if SaveItem.call(@item, save_params)
         render :update
