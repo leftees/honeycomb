@@ -16,6 +16,12 @@ describe MapUserToApi do
     subject
   end
 
+  it "does not raise an exception if one is encountered" do
+    expect(HesburghAPI::PersonSearch).to receive(:find).with(user.username).and_raise("error encountered")
+
+    subject
+  end
+
   [:first_name, :last_name, :display_name].each do |field|
     it "set the #{field} from the api data " do
       expect(user).to receive("#{field}=").with(api_data["#{field}"])
