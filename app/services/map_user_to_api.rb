@@ -15,6 +15,9 @@ class MapUserToApi
     user.email = api_attributes["contact_information"]["email"]
     user.display_name = api_attributes["full_name"]
     user
+  rescue StandardError => exception
+    NotifyError.call(exception: exception, args: { username: user.username })
+    user
   end
 
   private

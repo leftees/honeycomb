@@ -6,10 +6,15 @@
 #   cities = City.create([{ name: "Chicago" }, { name: "Copenhagen" }])
 #   Mayor.create(name: "Emanuel", city: cities.first)
 
-User.new(username: "jhartzle", admin: true).save!
-User.new(username: "dwolfe2", admin: true).save!
-User.new(username: "rfox2", admin: true).save!
-User.new(username: "rmallot", admin: true).save!
-User.new(username: "jkennel", admin: true).save!
-User.new(username: "awetheri", admin: true).save!
-User.new(username: "jgondron", admin: true).save!
+[
+  "jhartzle",
+  "dwolfe2",
+  "rfox2",
+  "jkennel",
+  "awetheri",
+  "jgondron"
+].each do |username|
+  u = User.where(username: username).first || User.new(username: username)
+  u.admin = true
+  u.save!
+end
