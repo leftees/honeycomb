@@ -113,10 +113,10 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#slug" do
-    let(:collection) { double(Collection, slug: "sluggish") }
+    let(:collection) { double(Collection, name_line_1: "sluggish") }
 
     it "calls the slug generator" do
-      expect(CreateURLSlug).to receive(:call).with(collection.slug)
+      expect(CreateURLSlug).to receive(:call).with(collection.name_line_1)
       subject.slug
     end
   end

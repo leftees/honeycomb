@@ -16,17 +16,6 @@ RSpec.describe Collection do
     expect(subject).to respond_to(:versions)
   end
 
-  describe "#beehive_url" do
-    it "is a url to the beehive server" do
-      expect(subject.beehive_url).to include(Rails.configuration.settings.beehive_url)
-    end
-
-    it "uses name for the slug" do
-      subject.name_line_1 = "Slug"
-      expect(subject.slug).to eq(subject.name_line_1)
-    end
-  end
-
   describe "#name" do
     it "concatinates name_line_1 and name_line_2 if there is a name_line_2" do
       expect(subject).to receive(:name_line_1).and_return("name line 1")
