@@ -1,5 +1,8 @@
 source "https://rubygems.org"
 
+# Don't load all mime types
+gem "mime-types", "~> 2.6.1", require: "mime/types/columnar"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 4.2.0"
 
