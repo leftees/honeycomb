@@ -62,22 +62,27 @@ RSpec.describe V1::CollectionsController, type: :controller do
     let(:collection_to_publish) { Collection.new(id: 1) }
     subject { put :publish, collection_id: collection_to_publish.id, format: :json }
 
+    before(:each) do
+      sign_in_admin
+      allow_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
+    end
+
     it "calls CollectionQuery" do
       expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
       subject
     end
 
     it "publishes the collection" do
-      expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
       expect_any_instance_of(Publish).to receive(:publish!).and_return(true)
       subject
       expect(response.body).to eq("{\"status\":true}")
     end
 
-    it_behaves_like "a private content-based etag cacher" do
-      before(:each) do
-        expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_publish)
-      end
+    it_behaves_like "a private content-based etag cacher"
+
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection_to_publish)
+      subject
     end
   end
 
@@ -85,22 +90,27 @@ RSpec.describe V1::CollectionsController, type: :controller do
     let(:collection_to_unpublish) { Collection.new(id: 1, published: 1) }
     subject { put :unpublish, collection_id: collection_to_unpublish.id, format: :json }
 
+    before(:each) do
+      sign_in_admin
+      allow_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
+    end
+
     it "calls CollectionQuery" do
       expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
       subject
     end
 
     it "unpublishes the collection" do
-      expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
       expect_any_instance_of(Unpublish).to receive(:unpublish!).and_return(true)
       subject
       expect(response.body).to eq("{\"status\":true}")
     end
 
-    it_behaves_like "a private content-based etag cacher" do
-      before(:each) do
-        expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_unpublish)
-      end
+    it_behaves_like "a private content-based etag cacher"
+
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection_to_unpublish)
+      subject
     end
   end
 end
