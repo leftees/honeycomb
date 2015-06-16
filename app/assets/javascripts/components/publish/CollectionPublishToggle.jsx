@@ -1,11 +1,18 @@
 /** @jsx React.DOM */
 var React = require('react');
 var CollectionPublishToggle = React.createClass({
+  mixins: [APIResponseMixin],
   propTypes: {
     collection: React.PropTypes.object.isRequired,
     publishPath: React.PropTypes.string.isRequired,
     unpublishPath: React.PropTypes.string.isRequired,
     onToggle: React.PropTypes.func
+  },
+  componentWillMount: function() {
+    mediator.subscribe("test", this);
+  },
+  receive: function(message) {
+    console.log("CollectionPublishToggle received " + message);
   },
   getInitialState: function() {
     return {
@@ -50,7 +57,7 @@ var CollectionPublishToggle = React.createClass({
         }, this.stateChanged);
       }).bind(this),
       error: (function(xhr, status, err) {
-        console.error(searchUrl, status, err.toString());
+        mediator.send("MessageCenterDisplayAndFocus", ["error", this.apiErrorToString(xhr)]);
       }).bind(this)
     });
   },

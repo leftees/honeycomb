@@ -9,6 +9,7 @@ DraggableMixin = require("./mixins/DraggableMixin");
 HoneypotImageMixin = require("./mixins/HoneypotImageMixin");
 HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
+APIResponseMixin = require("./mixins/APIResponseMixin");
 
 CollectionPreviewModeToggle = require("./components/CollectionPreviewModeToggle");
 CollectionPreviewPublish = require("./components/CollectionPreviewPublish");

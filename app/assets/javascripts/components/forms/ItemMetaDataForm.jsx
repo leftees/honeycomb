@@ -1,7 +1,7 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
 var ItemMetaDataForm = React.createClass({
-
+  mixins: [APIResponseMixin],
   propTypes: {
     authenticityToken: React.PropTypes.string.isRequired,
     method: React.PropTypes.string.isRequired,
@@ -67,7 +67,7 @@ var ItemMetaDataForm = React.createClass({
         if (xhr.status == "422") {
           this.setSavedFailure(xhr.responseJSON.errors);
         } else {
-          this.setServerError(xhr.status, xhr.responseJSON);
+          this.setServerError(this.apiErrorToString(xhr));
         }
       }).bind(this),
     });
@@ -91,6 +91,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setSavedFailure: function (errors) {
+    mediator.send("MessageCenterDisplayAndFocus", ["warning", "Please complete the highlighted fields in order to continue."]);
     this.setState({
       formState: "invalid",
       formErrors: errors,
@@ -110,6 +111,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setSavedSuccess: function () {
+    mediator.send("MessageCenterDisplay", ["success", "Item saved successfully."]);
     this.setState({
       dataState: "clean",
       formState: "saved",
@@ -117,15 +119,13 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
-  setServerError: function (code, responseJSON) {
-    errors = responseJSON || {}
+  setServerError: function (errorString) {
+    mediator.send("MessageCenterDisplayAndFocus", ["error", errorString]);
     this.setState({
       formState: "error",
-      formErrors: errors,
-      responseCode: code,
+      formErrors: errorString,
     });
   },
-
 
   formDisabled: function () {
     return (this.state.dataState == "clean" || this.state.formState == "saveStarted");
@@ -138,17 +138,6 @@ var ItemMetaDataForm = React.createClass({
       (event || window.event).returnValue = confirmationMessage;
       return confirmationMessage;
     }
-  },
-
-  formMsg: function () {
-    if (this.state.formState == "invalid") {
-      return (<FormErrorMsg message="Please complete the highlighted fields in order to continue."/>);
-    } else if (this.state.formState == "saved") {
-      return (<FormSavedMsg />);
-    } else if (this.state.formState == "error") {
-      return (<FormServerErrorMsg message={this.state.formErrors[this.state.responseCode]}/>);
-    }
-    return "";
   },
 
   fieldError: function (field) {
@@ -200,7 +189,6 @@ var ItemMetaDataForm = React.createClass({
         <Panel>
           <PanelHeading>{this.state.formValues['name']} Meta Data</PanelHeading>
           <PanelBody>
-              {this.formMsg()}
               <StringField objectType={this.props.objectType} name="name" required={true} title="Name" value={this.state.formValues["name"]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('name')} />
 
               <TextField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues["description"]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('description')} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
