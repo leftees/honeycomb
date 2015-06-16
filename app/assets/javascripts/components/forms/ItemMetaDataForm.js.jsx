@@ -30,6 +30,7 @@ var ItemMetaDataForm = React.createClass({
       formState: "new",
       dataState: "clean",
       formErrors: false,
+      responseCode: 0,
       displayedFields: _.mapObject(this.props.data, function(val, key) {
         if (val) {
           return true;
@@ -66,7 +67,7 @@ var ItemMetaDataForm = React.createClass({
         if (xhr.status == "422") {
           this.setSavedFailure(xhr.responseJSON.errors);
         } else {
-          this.setServerError();
+          this.setServerError(xhr.status, xhr.responseJSON);
         }
       }).bind(this),
     });
@@ -116,9 +117,12 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
-  setServerError: function () {
+  setServerError: function (code, responseJSON) {
+    errors = responseJSON || {}
     this.setState({
       formState: "error",
+      formErrors: errors,
+      responseCode: code,
     });
   },
 
@@ -138,11 +142,11 @@ var ItemMetaDataForm = React.createClass({
 
   formMsg: function () {
     if (this.state.formState == "invalid") {
-      return (<FormErrorMsg />);
+      return (<FormErrorMsg message="Please complete the highlighted fields in order to continue."/>);
     } else if (this.state.formState == "saved") {
       return (<FormSavedMsg />);
     } else if (this.state.formState == "error") {
-      return (<FormServerErrorMsg />);
+      return (<FormServerErrorMsg message={this.state.formErrors[this.state.responseCode]}/>);
     }
     return "";
   },

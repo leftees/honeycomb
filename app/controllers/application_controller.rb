@@ -56,8 +56,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def user_can_edit?(collection)
+    permission.user_is_admin_in_masquerade? || permission.user_is_administrator? || permission.user_is_editor?(collection)
+  end
+
   def check_user_edits!(collection)
-    unless permission.user_is_admin_in_masquerade? || permission.user_is_administrator? || permission.user_is_editor?(collection)
+    unless user_can_edit?(collection)
       raise_404("User does not edit this collection")
     end
   end
