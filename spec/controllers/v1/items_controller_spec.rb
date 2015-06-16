@@ -65,15 +65,15 @@ RSpec.describe V1::ItemsController, type: :controller do
     subject { put :update, update_params }
 
     before(:each) do
-      # sign_in_admin
+      sign_in_admin
       allow(SaveItem).to receive(:call).and_return(true)
       allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
     end
 
-    # it "checks the editor permissions" do
-    #   expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
-    #   subject
-    # end
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection)
+      subject
+    end
 
     it "uses item query " do
       expect_any_instance_of(ItemQuery).to receive(:public_find).with("1").and_return(item)
