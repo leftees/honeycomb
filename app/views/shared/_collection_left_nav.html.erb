@@ -22,6 +22,17 @@
         %>
       </div>
     </li>
+    <li class="header" role="presentation">Preview Mode</li>
+    <li>
+      <div class="togglebutton">
+        <%= react_component 'CollectionPreviewModeToggle', {
+          collection: nav.collection,
+          previewModePath: v1_collection_preview_mode_url(nav.collection.unique_id)
+        },
+        {prerender: false }
+        %>
+      </div>
+    </li>
     <li class="<%= nav.active_section_css(:livesite) %>"><a href="<%= CreateBeehiveURL.call(nav.collection) %>" target="_blank"><i class="glyphicon mdi-av-web"></i> <%= t('collection_left_nav.live_site') %></a></li>
   </ul>
   &nbsp;

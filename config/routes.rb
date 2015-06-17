@@ -64,6 +64,7 @@ Rails.application.routes.draw do
               defaults: { format: :json } do
       put :publish, defaults: { format: :json }
       put :unpublish, defaults: { format: :json }
+      put :preview_mode, defaults: { format: :json }
       resources :items, only: [:index], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
     end
