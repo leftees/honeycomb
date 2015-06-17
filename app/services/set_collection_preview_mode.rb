@@ -1,5 +1,4 @@
 class SetCollectionPreviewMode
-
   attr_reader :collection, :value
 
   def self.call(collection, value)
@@ -7,7 +6,7 @@ class SetCollectionPreviewMode
   end
 
   def initialize(collection, value)
-    @collection = collection 
+    @collection = collection
     @value = value
   end
 
