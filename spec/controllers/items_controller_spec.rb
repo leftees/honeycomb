@@ -188,7 +188,7 @@ RSpec.describe ItemsController, type: :controller do
 
   describe "DELETE #destroy" do
     let(:collection) { double(Collection, id: "1") }
-    let(:item) { double(Item, id: 1, collection: collection, destroy!: true) }
+    let(:item) { double(Item, id: 1, collection: collection, destroy!: true, sections: [], children: []) }
 
     subject { delete :destroy, id: item.id }
 
@@ -196,9 +196,7 @@ RSpec.describe ItemsController, type: :controller do
       allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
     end
 
-    it "calls destroy on the item on success, redirects, and flashes " do
-      expect(item).to receive(:destroy!).and_return(true)
-
+    it "on success, redirects, and flashes " do
       subject
       expect(response).to be_redirect
       expect(flash[:notice]).to_not be_nil
@@ -218,6 +216,15 @@ RSpec.describe ItemsController, type: :controller do
 
     it "uses item query " do
       expect_any_instance_of(ItemQuery).to receive(:find).with("1").and_return(item)
+      subject
+    end
+
+    # We should not cascade here since we've decided the user needs to correct
+    # the associations before deleting the item. If we later decide to just clean
+    # up all children and sections for the user when deleting the Item, then change
+    # this to use cascade
+    it "uses the Destroy::Item.destroy! method" do
+      expect_any_instance_of(Destroy::Item).to receive(:destroy!)
       subject
     end
 

@@ -28,6 +28,6 @@ class ItemQuery
   end
 
   def can_delete?
-    relation.showcases.count == 0
+    !relation.showcases.any? && !relation.children.any?
   end
 end

@@ -17,11 +17,13 @@ describe AssignUserToCollection do
     end
 
     it "to set the collection id" do
+      allow_any_instance_of(CollectionUser).to receive(:save).and_return(true)
       result = subject.assign!
       expect(result.collection_id).to eq collection.id
     end
 
     it "to set the user id" do
+      allow_any_instance_of(CollectionUser).to receive(:save).and_return(true)
       result = subject.assign!
       expect(result.user_id).to eq user.id
     end

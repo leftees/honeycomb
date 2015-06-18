@@ -14,8 +14,9 @@ RSpec.describe Showcase do
     end
   end
 
-  it "has paper trail" do
-    expect(subject).to respond_to(:versions)
+  it "has a papertrail" do
+    expect(subject).to respond_to(:paper_trail_enabled_for_model?)
+    expect(subject.paper_trail_enabled_for_model?).to be(true)
   end
 
   describe "#has honeypot image interface" do
@@ -57,6 +58,18 @@ RSpec.describe Showcase do
     it "uses name_line_1 for the slug" do
       subject.name_line_1 = "Slug"
       expect(subject.slug).to eq(subject.name_line_1)
+    end
+  end
+
+  context "foreign key constraints" do
+    describe "#destroy" do
+      it "fails if a Section references it" do
+        FactoryGirl.create(:collection)
+        FactoryGirl.create(:exhibit)
+        subject = FactoryGirl.create(:showcase)
+        FactoryGirl.create(:section)
+        expect { subject.destroy }.to raise_error
+      end
     end
   end
 end

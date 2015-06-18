@@ -56,7 +56,7 @@ class CollectionsController < ApplicationController
     check_admin_or_admin_masquerading_permission!
 
     @collection = CollectionQuery.new.find(params[:id])
-    @collection.destroy!
+    Destroy::Collection.new.cascade!(collection: @collection)
 
     flash[:notice] = t(".success")
     redirect_to collections_path

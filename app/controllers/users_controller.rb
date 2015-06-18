@@ -26,11 +26,8 @@ class UsersController < ApplicationController
   def destroy
     check_admin_or_admin_masquerading_permission!
     @user = User.find(params[:id])
-    if @user.destroy
-      flash[:notice] = t(".success")
-    else
-      flash[:error] = t(".failure")
-    end
+    Destroy::User.new.cascade!(user: @user)
+    flash[:notice] = t(".success")
 
     redirect_to users_path
   end

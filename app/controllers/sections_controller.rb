@@ -52,8 +52,7 @@ class SectionsController < ApplicationController
   def destroy
     @section = SectionQuery.new.find(params[:id])
     check_user_edits!(@section.showcase.exhibit.collection)
-
-    @section.destroy!
+    Destroy::Section.new.cascade!(section: @section)
 
     flash[:notice] = t(".success")
     redirect_to edit_showcase_path(@section.showcase.id)

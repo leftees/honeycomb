@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe CollectionsController, type: :controller do
-  let(:collection) { instance_double(Collection, id: 1, name_line_1: "COLLECTION", destroy!: true) }
+  let(:collection) { instance_double(Collection, id: 1, name_line_1: "COLLECTION", destroy!: true, collection_users: [], exhibit: nil, items: []) }
 
   let(:create_params) { { collection: { name_line_1: "TITLE!!" } } }
   let(:update_params) { { id: "1", published: true, collection: { name_line_1: "TITLE!!" } } }
@@ -201,6 +201,11 @@ RSpec.describe CollectionsController, type: :controller do
     it "redirects on success " do
       delete :destroy, id: "1"
       expect(response).to be_redirect
+    end
+
+    it "uses the Destroy::Collection.cascade! method" do
+      expect_any_instance_of(Destroy::Collection).to receive(:cascade!)
+      delete :destroy, id: "1"
     end
 
     it_behaves_like "a private content-based etag cacher" do

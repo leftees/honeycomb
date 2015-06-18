@@ -198,9 +198,7 @@ RSpec.describe SectionsController, type: :controller do
   describe "DELETE #destroy" do
     subject { delete :destroy, id: section.id }
 
-    it "calls destroy on the section on success, redirects, and flashes " do
-      expect(section).to receive(:destroy!).and_return(true)
-
+    it "on success, redirects, and flashes " do
       subject
       expect(response).to be_redirect
       expect(flash[:notice]).to_not be_nil
@@ -220,6 +218,11 @@ RSpec.describe SectionsController, type: :controller do
 
     it "uses section query " do
       expect_any_instance_of(SectionQuery).to receive(:find).with("1").and_return(section)
+      subject
+    end
+
+    it "uses the Destroy::Section.cascade method" do
+      expect_any_instance_of(Destroy::Section).to receive(:cascade!)
       subject
     end
 

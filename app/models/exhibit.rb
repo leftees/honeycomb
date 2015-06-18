@@ -11,6 +11,10 @@ class Exhibit < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates_attachment_content_type :uploaded_image, content_type: /\Aimage\/.*\Z/
 
+  validates :collection, presence: true
+
+  has_paper_trail
+
   def items_json_url
     "/api/collections/#{collection_id}/items.json?include=image"
   end

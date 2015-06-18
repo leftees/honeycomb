@@ -3,8 +3,8 @@ require "cache_spec_helper"
 
 RSpec.describe EditorsController, type: :controller do
   let(:collection) { instance_double(Collection, id: 1, collection_users: []) }
-  let(:user) { instance_double(User, id: 100, username: "username", name: "name") }
-  let(:collection_user) { double(CollectionUser, id: 1) }
+  let(:user) { instance_double(User, id: 100, username: "username", name: "name", display_name: "displayname") }
+  let(:collection_user) { instance_double(CollectionUser, id: 1, user_id: user.id, collection_id: collection.id, user: user) }
 
   before(:each) do
     sign_in_admin
@@ -38,6 +38,10 @@ RSpec.describe EditorsController, type: :controller do
   end
 
   describe "#create" do
+    before(:each) do
+      allow_any_instance_of(CollectionUser).to receive(:save).and_return(true)
+    end
+
     it "maps a user to a collection" do
       expect(FindOrCreateUser).to receive(:call).with(user.username).and_return(user)
       expect(AssignUserToCollection).to receive(:call).with(collection, user).and_return(collection_user)

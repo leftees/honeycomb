@@ -44,8 +44,8 @@ class ItemsController < ApplicationController
   def destroy
     @item = ItemQuery.new.find(params[:id])
     check_user_edits!(@item.collection)
+    Destroy::Item.new.destroy!(item: @item)
 
-    @item.destroy!
     flash[:notice] = t(".success")
 
     redirect_to collection_path(@item.collection)
