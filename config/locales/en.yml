@@ -66,6 +66,7 @@ en:
     website: 'Site Setup'
     editors: 'Editors'
     live_site: 'Live Site'
+    preview_site: 'Preview Site'
   collection_top_nav:
     recent_collections: 'Collections'
   collections:

@@ -3,7 +3,8 @@
 var CollectionPreviewModeToggle = React.createClass({
   propTypes: {
     collection: React.PropTypes.object.isRequired,
-    previewModePath: React.PropTypes.string.isRequired
+    previewModePath: React.PropTypes.string.isRequired,
+    onToggle: React.PropTypes.func
   },
   getInitialState: function() {
     return {
@@ -14,12 +15,16 @@ var CollectionPreviewModeToggle = React.createClass({
   handleClick: function () {
     this.togglePreviewMode();
   },
+  stateChanged: function() {
+    if(this.props.onToggle)
+      this.props.onToggle(this.state.preview_mode);
+  },
   previewLabel: function (preview_status) {
     var label;
     if (preview_status) {
-      label = 'Preview Enabled'
+      label = 'Enabled'
     } else {
-      label = 'Preview Not Enabled'
+      label = 'Disabled'
     }
     return label;
   },
@@ -41,7 +46,7 @@ var CollectionPreviewModeToggle = React.createClass({
         this.setState({
           preview_mode: preview_state,
           preview_mode_label: this.previewLabel(preview_state)
-        });
+        }, this.stateChanged);
       }).bind(this),
       error: (function(xhr, status, err) {
         console.error(actionUrl, status, err.toString());
