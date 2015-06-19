@@ -1,3 +1,4 @@
+var React = require('react');
 var PeopleSearchListItem = React.createClass({
     handleClick:  function(event) {
         event.preventDefault();
@@ -11,3 +12,4 @@ var PeopleSearchListItem = React.createClass({
         );
     }
 });
+module.exports = PeopleSearchListItem;

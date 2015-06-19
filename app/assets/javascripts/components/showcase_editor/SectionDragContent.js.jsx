@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var SectionDragContent = React.createClass({
   propTypes: {
     section: React.PropTypes.object.isRequired,
@@ -65,3 +65,4 @@ var SectionDragContent = React.createClass({
     );
   }
 });
+module.exports = SectionDragContent;

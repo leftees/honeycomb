@@ -90,3 +90,4 @@ var DraggableMixin = {
     document.removeEventListener('mouseup', this.onMouseUp);
   },
 };
+module.exports = DraggableMixin;

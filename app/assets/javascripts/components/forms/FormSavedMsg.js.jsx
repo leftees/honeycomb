@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/FormSavedMsg.jsx
-
+var React = require('react');
 var FormSavedMsg = React.createClass({
 
   render: function () {
@@ -9,4 +9,6 @@ var FormSavedMsg = React.createClass({
       </div>
     );
   }
-})
+});
+
+module.exports = FormSavedMsg;

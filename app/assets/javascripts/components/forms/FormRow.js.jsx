@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/FormRow.jsx
-
+var React = require('react');
 var FormRow = React.createClass({
 
   propTypes: {
@@ -82,3 +82,4 @@ var FormRow = React.createClass({
   }
 });
 
+module.exports = FormRow;

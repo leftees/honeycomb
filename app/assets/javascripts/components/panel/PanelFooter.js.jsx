@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var PanelFooter = React.createClass({
   propTypes: {
     children: React.PropTypes.element.isRequired
@@ -12,3 +12,4 @@ var PanelFooter = React.createClass({
     );
   }
 });
+module.exports = PanelFooter;

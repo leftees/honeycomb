@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/Form.jsx
-
+var React = require('react');
 var Form = React.createClass({
 
   propTypes: {
@@ -40,3 +40,4 @@ var Form = React.createClass({
   }
 });
 
+module.exports = Form;

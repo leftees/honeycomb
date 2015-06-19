@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var ItemPublishEmbedPanel = React.createClass({
   propTypes: {
     item: React.PropTypes.object.isRequired,
@@ -75,3 +75,4 @@ var ItemPublishEmbedPanel = React.createClass({
     )
   }
 });
+module.exports = ItemPublishEmbedPanel;

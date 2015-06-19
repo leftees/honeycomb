@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var NewSectionDropzone = React.createClass({
   getInitialState: function() {
     return {
@@ -81,3 +81,4 @@ var NewSectionDropzone = React.createClass({
      </div>);
   }
 });
+module.exports = NewSectionDropzone;

@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/FieldHelp.jsx
-
+var React = require('react');
 var FieldHelp = React.createClass({
 
   propTypes: {
@@ -16,3 +16,5 @@ var FieldHelp = React.createClass({
     );
   }
 });
+
+module.exports = FieldHelp;

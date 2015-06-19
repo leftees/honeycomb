@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/modal/Modal.jsx
-
+var React = require('react');
 var Modal = React.createClass({
   displayName: 'Modal',
 
@@ -51,3 +51,4 @@ var Modal = React.createClass({
   }
 });
 
+module.exports = Modal;

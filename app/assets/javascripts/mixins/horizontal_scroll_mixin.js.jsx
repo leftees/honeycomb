@@ -49,3 +49,4 @@ var HorizontalScrollMixin = {
   }
 
 };
+module.exports = HorizontalScrollMixin;

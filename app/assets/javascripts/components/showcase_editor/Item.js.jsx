@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var Item = React.createClass({
   mixins: [DraggableMixin],
 
@@ -37,3 +37,4 @@ var Item = React.createClass({
       </div>);
   }
 });
+module.exports = Item;

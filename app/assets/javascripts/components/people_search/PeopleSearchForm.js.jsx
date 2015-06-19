@@ -1,3 +1,4 @@
+var React = require('react');
 var PeopleSearchForm = React.createClass({
     handleChange:  function(event) {
         this.props.invokeSearch(event.target.value);
@@ -15,3 +16,4 @@ var PeopleSearchForm = React.createClass({
     }
 
 });
+module.exports = PeopleSearchForm;

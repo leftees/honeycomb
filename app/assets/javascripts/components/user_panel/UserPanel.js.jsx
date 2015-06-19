@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var UserPanel = React.createClass({
   propTypes: {
     initialUsers: React.PropTypes.array.isRequired,
@@ -64,3 +64,4 @@ var UserPanel = React.createClass({
     );
   }
 });
+module.exports = UserPanel;

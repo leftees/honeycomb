@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var ShowcaseEditorTitle = React.createClass({
   propTypes: {
     showcase: React.PropTypes.object.isRequired,
@@ -83,3 +83,4 @@ var ShowcaseEditorTitle = React.createClass({
     );
   }
 });
+module.exports = ShowcaseEditorTitle;

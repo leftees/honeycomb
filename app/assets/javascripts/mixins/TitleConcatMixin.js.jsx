@@ -16,3 +16,4 @@ var TitleConcatMixin = {
     return ": "
   }
 }
+module.exports = TitleConcatMixin;

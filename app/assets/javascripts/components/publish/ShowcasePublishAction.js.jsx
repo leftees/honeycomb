@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var ShowcasePublishAction = React.createClass({
   propTypes: {
     published: React.PropTypes.bool.isRequired,
@@ -50,3 +50,4 @@ var ShowcasePublishAction = React.createClass({
     )
   }
 });
+module.exports = ShowcasePublishAction;

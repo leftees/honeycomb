@@ -1,3 +1,4 @@
+var React = require('react');
 var PeopleSearchList = React.createClass({
     listToggle: function() {
         return { display: (this.props.hide ? 'none' : 'block') };
@@ -19,3 +20,4 @@ var PeopleSearchList = React.createClass({
         );
     }
 });
+module.exports = PeopleSearchList;

@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/OpenseadragonViewer.jsx
-
+var React = require('react');
 var OpenseadragonViewer = React.createClass({
   propTypes: {
     image: React.PropTypes.object,
@@ -122,3 +122,4 @@ var OpenseadragonViewer = React.createClass({
 });
 
 // each file will export exactly one component
+module.exports = OpenseadragonViewer;

@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var PublishToggle = React.createClass({
   propTypes: {
     publishPanelFieldName: React.PropTypes.string.isRequired,
@@ -17,3 +17,4 @@ var PublishToggle = React.createClass({
     )
   }
 });
+module.exports = PublishToggle;

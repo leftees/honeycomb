@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var SectionImage = React.createClass({
   propTypes: {
     section: React.PropTypes.object.isRequired
@@ -45,3 +45,4 @@ var SectionImage = React.createClass({
   }
 
 });
+module.exports = SectionImage;

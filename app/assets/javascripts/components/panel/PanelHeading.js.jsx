@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var PanelHeading = React.createClass({
   propTypes: {
     children: React.PropTypes.any
@@ -12,3 +12,4 @@ var PanelHeading = React.createClass({
     );
   }
 });
+module.exports = PanelHeading;

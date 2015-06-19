@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+var React = require('react');
 
 var DragContent = React.createClass({
   getInitialState: function() {
@@ -44,3 +45,5 @@ var DragContent = React.createClass({
     );
   }
 });
+
+module.exports = DragContent;

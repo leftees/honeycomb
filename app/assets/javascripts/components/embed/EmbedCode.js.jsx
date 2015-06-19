@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var EmbedCode = React.createClass({
   propTypes: {
     item: React.PropTypes.object.isRequired,
@@ -28,3 +28,4 @@ var EmbedCode = React.createClass({
     )
   }
 });
+module.exports = EmbedCode;

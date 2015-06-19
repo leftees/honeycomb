@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/FormErrorMsg.jsx
-
+var React = require('react');
 var FormErrorMsg = React.createClass({
   propTypes: {
     message: React.PropTypes.string,
@@ -13,4 +13,6 @@ var FormErrorMsg = React.createClass({
       </div>
     );
   }
-})
+});
+
+module.exports = FormErrorMsg;

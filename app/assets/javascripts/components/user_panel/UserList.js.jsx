@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var UserList = React.createClass({
   render: function() {
     var userRows = this.props.users.map(function(user) {
@@ -22,3 +22,4 @@ var UserList = React.createClass({
     );
   }
 });
+module.exports = UserList;

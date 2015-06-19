@@ -1,3 +1,4 @@
+var React = require('react');
 var Thumbnail = React.createClass({
   propTypes: {
     image: React.PropTypes.oneOfType([
@@ -55,3 +56,4 @@ var Thumbnail = React.createClass({
     );
   }
 });
+module.exports = Thumbnail;

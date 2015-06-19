@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var PeopleSearch = React.createClass({
     getInitialState: function() {
         return { peopleList: [],
@@ -82,3 +82,4 @@ var PeopleSearch = React.createClass({
         );
     }
 });
+module.exports = PeopleSearch;

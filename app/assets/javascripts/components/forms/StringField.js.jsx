@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/StringField.jsx
-
+var React = require('react');
 var StringField = React.createClass({
 
   propTypes: {
@@ -50,4 +50,4 @@ var StringField = React.createClass({
       );
   }
 });
-
+module.exports = StringField;

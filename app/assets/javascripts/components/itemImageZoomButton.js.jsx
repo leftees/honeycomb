@@ -1,3 +1,4 @@
+var React = require('react');
 var ItemImageZoomButton = React.createClass({
   propTypes: {
     image: React.PropTypes.object.isRequired,
@@ -36,3 +37,4 @@ var ItemImageZoomButton = React.createClass({
     }
   }
 });
+module.exports = ItemImageZoomButton;

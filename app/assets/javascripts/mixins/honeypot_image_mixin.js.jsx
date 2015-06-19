@@ -23,3 +23,4 @@ var HoneypotImageMixin = {
     return imageObject.contentUrl;
   },
 };
+module.exports = HoneypotImageMixin;

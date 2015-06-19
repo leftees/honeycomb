@@ -1,3 +1,4 @@
+var React = require('react');
 var PeopleSearchFormButton = React.createClass({
     buttonToggle: function() {
         return ( (!this.props.activePersonId) ? 'disabled' : false )
@@ -14,3 +15,4 @@ var PeopleSearchFormButton = React.createClass({
         );
     }
 });
+module.exports = PeopleSearchFormButton;

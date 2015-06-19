@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var UserListRow = React.createClass({
   render: function() {
     return (
@@ -23,3 +23,4 @@ var UserListRow = React.createClass({
     );
   }
 });
+module.exports = UserListRow;

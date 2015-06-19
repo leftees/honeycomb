@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var EditLink = React.createClass({
 
   propTypes: {
@@ -37,3 +37,4 @@ var EditLink = React.createClass({
     );
   }
 });
+module.exports = EditLink;

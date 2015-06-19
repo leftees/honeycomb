@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/SubmitButton.jsx
-
+var React = require('react');
 var SubmitButton = React.createClass({
 
   propTypes: {
@@ -28,3 +28,4 @@ var SubmitButton = React.createClass({
     return (<input type="submit" name={this.props.name} value={this.props.value} onClick={this.props.handleClick} className={this.buttonCSS()} />);
   }
 });
+module.exports = SubmitButton;

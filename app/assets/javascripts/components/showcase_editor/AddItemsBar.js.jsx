@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var AddItemsBar;
 
 AddItemsBar = React.createClass({
@@ -33,3 +33,4 @@ AddItemsBar = React.createClass({
     return (<ItemList onDragStart={this.props.onDragStart} onDragStop={this.props.onDragStop} items={this.state.items} />);
   }
 });
+module.exports = AddItemsBar;

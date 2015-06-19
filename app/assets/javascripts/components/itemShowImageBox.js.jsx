@@ -1,3 +1,4 @@
+var React = require('react');
 var ItemShowImageBox = React.createClass({
   propTypes: {
     image: React.PropTypes.oneOfType([
@@ -22,3 +23,4 @@ var ItemShowImageBox = React.createClass({
     );
   }
 });
+module.exports = ItemShowImageBox;

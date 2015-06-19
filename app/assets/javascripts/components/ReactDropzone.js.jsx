@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 Dropzone.autoDiscover = false;
 
-
+var React = require('react');
 var ReactDropzone = React.createClass({
   propTypes: {
     formUrl: React.PropTypes.string.isRequired,
@@ -140,3 +140,4 @@ var ReactDropzone = React.createClass({
       </Modal>);
   }
 });
+module.exports = ReactDropzone;

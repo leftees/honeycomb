@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
-
+var React = require('react');
 var ItemMetaDataForm = React.createClass({
 
   propTypes: {
@@ -224,3 +224,4 @@ var ItemMetaDataForm = React.createClass({
   }
 });
 
+module.exports = ItemMetaDataForm;

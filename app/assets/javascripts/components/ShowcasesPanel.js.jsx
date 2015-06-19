@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var ShowcasesPanel = React.createClass({
   mixins: [TitleConcatMixin],
   propTypes: {
@@ -63,3 +63,4 @@ var ShowcasesPanel = React.createClass({
   }
 
 });
+module.exports = ShowcasesPanel;

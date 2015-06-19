@@ -1,3 +1,6 @@
-//= require_tree ./mixins
-//= require_tree ./components
+//app/assets/javascripts/components.js
+//= require_self
+//= require react_ujs
+
+React = require("react");
 

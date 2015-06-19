@@ -1,8 +1,6 @@
 /** @jsx React.DOM */
-
-var ItemList;
-
-ItemList = React.createClass({
+var React = require('react');
+var ItemList = React.createClass({
   style: function() {
     return {
       whiteSpace: 'nowrap',
@@ -40,3 +38,4 @@ ItemList = React.createClass({
       </div>);
   }
 });
+module.exports = ItemList;

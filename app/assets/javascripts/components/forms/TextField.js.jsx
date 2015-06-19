@@ -1,5 +1,5 @@
 //app/assets/javascripts/components/forms/TextField.jsx
-
+var React = require('react');
 var TextField = React.createClass({
 
   propTypes: {
@@ -51,3 +51,4 @@ var TextField = React.createClass({
   }
 });
 
+module.exports = TextField;

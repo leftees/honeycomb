@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var Panel = React.createClass({
   propTypes: {
     children: React.PropTypes.any
@@ -12,3 +12,4 @@ var Panel = React.createClass({
     );
   }
 });
+module.exports = Panel;

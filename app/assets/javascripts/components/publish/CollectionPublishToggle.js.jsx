@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var CollectionPublishToggle = React.createClass({
   propTypes: {
     collection: React.PropTypes.object.isRequired,
@@ -58,3 +58,4 @@ render: function () {
     )
 }
 });
+module.exports = CollectionPublishToggle;

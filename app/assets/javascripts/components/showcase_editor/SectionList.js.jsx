@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var SectionList = React.createClass({
   propTypes: {
     sections: React.PropTypes.array.isRequired,
@@ -45,3 +45,4 @@ var SectionList = React.createClass({
     return (<div id="sections-content-inner" className="sections-content-inner" style={this.style()}>{this.sectionRows()}</div>);
   }
 });
+module.exports = SectionList;

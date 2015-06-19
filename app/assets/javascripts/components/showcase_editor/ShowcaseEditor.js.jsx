@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require('react');
 var ShowcaseEditor = React.createClass({
   mixins: [HorizontalScrollMixin],
   propTypes: {
@@ -176,3 +176,4 @@ var ShowcaseEditor = React.createClass({
     </div>);
   }
 });
+module.exports =ShowcaseEditor;
