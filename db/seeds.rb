@@ -18,3 +18,6 @@
   u.admin = true
   u.save!
 end
+
+brood = Brood::Repo.new(github: "ndlib/honeycomb-brood")
+brood.grow!
