@@ -71,10 +71,6 @@ var ReactDropzone = React.createClass({
     }
   },
 
-  droppedCallback: function () {
-    debugger;
-  },
-
   checkfileCallback: function () {
     var hasFiles = (this.dropzone.files.length > 0);
     this.setState( { hasFiles: hasFiles } );
@@ -108,7 +104,8 @@ var ReactDropzone = React.createClass({
           <div className="dz-clickable" onDrop={this.droppedCallback} >
             <div className="dropzone-previews" id={"dz-preview-" + this.props.modalId}></div>
             <div className="dz-message">
-              <p>Drag files here <br />or<br /> <a className="btn">click to upload</a></p>
+              <h4>Drag images here</h4>
+              <p>or <br /> <a className="btn">Select images from your computer.</a></p>
             </div>
           </div>
         </form>
@@ -124,7 +121,6 @@ var ReactDropzone = React.createClass({
     } else {
       return null
     }
-
   },
 
   render: function() {
