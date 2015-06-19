@@ -105,16 +105,6 @@ ActiveRecord::Schema.define(version: 20150616185505) do
 
   add_index "sections", ["unique_id"], name: "index_sections_on_unique_id", using: :btree
 
-  create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", limit: 255,   null: false
-    t.text     "data",       limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
-
   create_table "showcases", force: :cascade do |t|
     t.text     "name_line_1",        limit: 65535
     t.text     "description",        limit: 65535
