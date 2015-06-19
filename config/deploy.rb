@@ -29,10 +29,9 @@ set :linked_files, %w{config/database.yml config/secrets.yml config/hesburgh_api
 
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system}
 
-set :default_env, { path: "/opt/ruby/current/bin:$PATH" }
+set :default_env, path: "/opt/ruby/current/bin:$PATH"
 
 namespace :deploy do
-
   desc "Restart application"
 
   task :restart do
@@ -47,7 +46,6 @@ namespace :deploy do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
     end
   end
-
 end
 
 after "deploy:finished", "airbrake:deploy"
