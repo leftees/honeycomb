@@ -1,36 +1,52 @@
-# Add the deploy directory to the load path
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "deploy")
-require "hesburgh/common"
-require "hesburgh/git"
-require "hesburgh/vm"
-require "hesburgh/rails"
-require "hesburgh/rails_db"
-require "hesburgh/jenkins"
-require "hesburgh/prompt_branch"
-require "airbrake/capistrano"
+# config valid only for current version of Capistrano
+lock "3.4"
+
+require "airbrake/capistrano3"
 require "new_relic/recipes"
 
 set :application, "honeycomb"
-set :repository, "https://github.com/ndlib/honeycomb.git"
+set :repo_url, "https://github.com/ndlib/honeycomb.git"
 
-set :application_symlinks, ["config/secrets.yml", "config/hesburgh_api.yml"]
+set :log_level, :info
 
-desc "Setup for the Pre-Production environment"
-task :pre_production do
-  # Customize pre_production configuration
-  set :rails_env, "pre_production"
-  role :app, "honeycombpprd-vm.library.nd.edu"
-end
-
-desc "Setup for the production environment"
-task :production do
-  # Customize production configuration
-  set :rails_env, "production"
+# Default branch is :master
+if fetch(:stage).to_s == "production"
   set :branch, "v1.0"
-  role :app, "honeycombprod-vm.library.nd.edu"
+else
+  if ENV["SCM_BRANCH"] && !(ENV["SCM_BRANCH"] == "")
+    set :branch, ENV["SCM_BRANCH"]
+  else
+    ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+  end
 end
 
-# Notify New Relic of deployments.
-# This goes out even if the deploy fails, sadly.
-after "deploy",            "newrelic:notice_deployment"
+# Default deploy_to directory is /var/www/my_app
+set :deploy_to, "/home/app/honeycomb"
 
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml config/hesburgh_api.yml}
+
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system}
+
+set :default_env, path: "/opt/ruby/current/bin:$PATH"
+
+namespace :deploy do
+  desc "Restart application"
+
+  task :restart do
+    on roles(:web), in: :sequence, wait: 5 do
+      execute :touch, release_path.join("tmp/restart.txt")
+    end
+  end
+
+  after :publishing, :restart
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+    end
+  end
+end
+
+after "deploy:finished", "airbrake:deploy"
+after "deploy:updated", "newrelic:notice_deployment"
