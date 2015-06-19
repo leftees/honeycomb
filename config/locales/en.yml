@@ -97,7 +97,8 @@ en:
     index:
       title: "Items"
       add_new_items: "Add New Items"
-      add_new_items_close_text: 'I am Finished'
+      add_new_items_close_text: 'Done'
+      add_new_items_cancel_text: 'Cancel'
     action_bar:
       new: "Add New Items"
       edit: "Edit"

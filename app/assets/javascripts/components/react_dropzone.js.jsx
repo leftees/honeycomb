@@ -21,12 +21,17 @@ var ReactDropzone = React.createClass({
   },
 
   getInitialState: function() {
-    return { closed: false }
+    return {
+      closed: false,
+      hasFiles: false,
+    }
   },
 
   componentDidMount: function() {
     if (!this.dropzone) {
       this.dropzone = new Dropzone(this.refs.uploadForm.getDOMNode(), this.options());
+      this.dropzone.on('addedfile', this.checkfileCallback);
+      this.dropzone.on('removedfile', this.checkfileCallback);
     }
   },
 
@@ -47,11 +52,7 @@ var ReactDropzone = React.createClass({
       parallelUploads: 100,
       maxFiles: (this.props.multifileUpload ? 100 : 1),
       dictRemoveFile: "Cancel Upload",
-      init: function () {
-        this.on('addedfile', function () {
-          this.element.classList.add("dz-started");
-        });
-      },
+      someprop: "prop",
       complete: this.completeCallback,
     };
   },
@@ -70,6 +71,15 @@ var ReactDropzone = React.createClass({
     }
   },
 
+  droppedCallback: function () {
+    debugger;
+  },
+
+  checkfileCallback: function () {
+    var hasFiles = (this.dropzone.files.length > 0);
+    this.setState( { hasFiles: hasFiles } );
+  },
+
   spinner: function () {
     if (this.state.closed) {
       return ( <LoadingImage /> );
@@ -78,19 +88,27 @@ var ReactDropzone = React.createClass({
     }
   },
 
+  classes: function () {
+    var classes = "dropzone"
+    if (this.dropzone && this.dropzone.files.length > 0) {
+      classes += " dz-started";
+    }
+    return classes;
+  },
+
   dropzoneForm: function() {
     if (!this.state.closed) {
       return (
-        <form method="post" className="dropzone" ref={"uploadForm"} id={"dz-" + this.props.modalId}>
+        <form method="post" className={this.classes()} ref={"uploadForm"} id={"dz-" + this.props.modalId}>
           <div>
             <input name="utf8" type="hidden" value="✓" />
             <input name="authenticity_token" type="hidden" value={this.props.authenticityToken} />
             { this.formMethod() }
           </div>
-          <div className="dz-clickable">
+          <div className="dz-clickable" onDrop={this.droppedCallback} >
             <div className="dropzone-previews" id={"dz-preview-" + this.props.modalId}></div>
             <div className="dz-message">
-              Drop files here or click to upload.
+              <p>Drag files here <br />or<br /> <a className="btn">click to upload</a></p>
             </div>
           </div>
         </form>
@@ -99,6 +117,7 @@ var ReactDropzone = React.createClass({
       return null;
     }
   },
+
   formMethod: function() {
     if (!this.props.multifileUpload) {
       return (<input name="_method" type="hidden" value="put" />)
@@ -107,8 +126,8 @@ var ReactDropzone = React.createClass({
     }
 
   },
-  render: function() {
 
+  render: function() {
     return (
       <Modal title={this.props.modalTitle} id={this.props.modalId} closeCallback={this.closeCallback} closeText={this.props.closeText} >
         { this.dropzoneForm() }

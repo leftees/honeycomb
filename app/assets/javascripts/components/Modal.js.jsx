@@ -33,8 +33,10 @@ var Modal = React.createClass({
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
               <h4 className="modal-title">{this.props.title}</h4>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div className="modal-body">
               {this.props.children}
