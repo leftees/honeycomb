@@ -20,6 +20,9 @@ module V1
 
     def publish
       @collection = CollectionQuery.new.any_find(params[:collection_id])
+
+      return if rendered_forbidden?(@collection)
+
       @return_value = Publish.call(@collection)
 
       respond_to do |format|
@@ -29,6 +32,9 @@ module V1
 
     def unpublish
       @collection = CollectionQuery.new.any_find(params[:collection_id])
+
+      return if rendered_forbidden?(@collection)
+
       @return_value = Unpublish.call(@collection)
 
       respond_to do |format|
