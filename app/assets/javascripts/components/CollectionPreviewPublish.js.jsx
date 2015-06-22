@@ -19,20 +19,22 @@ var CollectionPreviewPublish = React.createClass({
   },
 
   linkLabel: function () {
-    if (this.state.published)
+    if (this.state.published) {
       return this.props.liveLinkLabel;
+    }
     return this.props.previewLinkLabel;
   },
 
   siteLink: function() {
-    if(this.state.published || this.state.preview)
+    if(this.state.published || this.state.preview) {
       return (
         <a href={this.props.previewLinkURL} target="_blank">
           <i className="glyphicon mdi-av-web"></i>
           <span> {this.linkLabel()}</span>
         </a>)
-    else
+    } else {
       return "";
+    }
   },
 
   handlePreviewClick: function(newValue) {
