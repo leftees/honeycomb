@@ -9,7 +9,6 @@ var CollectionPreviewModeToggle = React.createClass({
   getInitialState: function() {
     return {
       preview_mode: this.props.collection.preview_mode,
-      preview_mode_label: this.previewLabel(this.props.collection.preview_mode)
     };
   },
   handleClick: function () {
@@ -19,9 +18,9 @@ var CollectionPreviewModeToggle = React.createClass({
     if(this.props.onToggle)
       this.props.onToggle(this.state.preview_mode);
   },
-  previewLabel: function (preview_status) {
+  previewLabel: function () {
     var label;
-    if (preview_status) {
+    if (this.state.preview_mode) {
       label = 'Enabled'
     } else {
       label = 'Disabled'
@@ -45,7 +44,6 @@ var CollectionPreviewModeToggle = React.createClass({
       success: (function(data) {
         this.setState({
           preview_mode: preview_state,
-          preview_mode_label: this.previewLabel(preview_state)
         }, this.stateChanged);
       }).bind(this),
       error: (function(xhr, status, err) {
@@ -57,7 +55,7 @@ render: function () {
   return (
     <label>
     <input type="checkbox" checked={this.state.preview_mode} onChange={this.handleClick}/>
-    <span className="toggle"></span><span className="toggle-label">{this.state.preview_mode_label}</span>
+    <span className="toggle"></span><span className="toggle-label">{this.previewLabel()}</span>
     </label>
     )
 }

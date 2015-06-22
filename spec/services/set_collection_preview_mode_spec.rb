@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "SetCollectionPreviewMode" do
-  let(:collection) { double(Collection, "preview_mode=" => false, save: true) }
+  let(:collection) { instance_double(Collection, "preview_mode=" => false, save: true) }
   subject(:subject) { SetCollectionPreviewMode.new(collection, true) }
 
   describe "#!enable_preview" do
@@ -16,7 +16,7 @@ describe "SetCollectionPreviewMode" do
     end
 
     it "should return false if the save fails" do
-      allow(collection).to receive("save").and_return(false)
+      allow(collection).to receive(:save).and_return(false)
       expect(subject.set_preview_mode).to be_falsey
     end
   end
