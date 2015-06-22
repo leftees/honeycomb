@@ -51,7 +51,7 @@ var OpenSeadragonViewer = React.createClass({
     } else {
       options = this.dziOptions(image);
     }
-    var viewer = OpenSeadragon;
+    var viewer = window.OpenSeadragon(options);
     var escapeHandler = function(event) {
       if (event.keyCode === 27) {
         this.fullPageOff();
