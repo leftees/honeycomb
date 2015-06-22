@@ -4,7 +4,6 @@
   "devDependencies": {
     "browserify": "^6.3.4",
     "browserify-incremental": "^1.5.0",
-    "coveralls": "^2.11.2",
     "gulp": "^3.9.0",
     "gulp-watch": "^4.2.4",
     "jest-cli": "^0.4.12",
@@ -40,8 +39,5 @@
     "testPathIgnorePatterns": [
       "preprocessor.js"
     ]
-  },
-  "dependencies": {
-    "coveralls": "^2.11.2"
   }
 }
