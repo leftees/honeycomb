@@ -37,8 +37,9 @@ describe CollectionQuery do
 
   describe "public_find" do
     it "calls public_find!" do
-      expect(relation).to receive(:where)
-        .with("unique_id = ? AND (published = ? OR preview_mode = ?)", "asdf", true, true).and_return(@collection_array = [collection])
+      expect(relation).to receive(:where).
+        with("unique_id = ? AND (published = ? OR preview_mode = ?)", "asdf", true, true).
+        and_return(@collection_array = [collection])
       expect(@collection_array).to receive(:take!).and_return(collection)
       subject.public_find("asdf")
     end
