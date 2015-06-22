@@ -8,7 +8,8 @@ var ReactDropzone = React.createClass({
     authenticityToken: React.PropTypes.string.isRequired,
     multifileUpload: React.PropTypes.bool,
     modalTitle: React.PropTypes.string.isRequired,
-    closeText: React.PropTypes.string,
+    doneText: React.PropTypes.string,
+    cancelText: React.PropTypes.string,
     modalId: React.PropTypes.string,
   },
 
@@ -105,7 +106,7 @@ var ReactDropzone = React.createClass({
             <div className="dropzone-previews" id={"dz-preview-" + this.props.modalId}></div>
             <div className="dz-message">
               <h4>Drag images here</h4>
-              <p>or <br /> <a className="btn">Select images from your computer.</a></p>
+              <p>or <br /> <a className="btn btn-raised">Select images from your computer.</a></p>
             </div>
           </div>
         </form>
@@ -123,9 +124,17 @@ var ReactDropzone = React.createClass({
     }
   },
 
+  closeText: function () {
+    if (this.state.hasFiles) {
+      return this.props.doneText;
+    }
+
+    return this.props.cancelText;
+  },
+
   render: function() {
     return (
-      <Modal title={this.props.modalTitle} id={this.props.modalId} closeCallback={this.closeCallback} closeText={this.props.closeText} >
+      <Modal title={this.props.modalTitle} id={this.props.modalId} closeCallback={this.closeCallback} closeText={this.closeText()} >
         { this.dropzoneForm() }
         { this.spinner() }
       </Modal>);

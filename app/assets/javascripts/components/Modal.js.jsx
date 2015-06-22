@@ -42,7 +42,7 @@ var Modal = React.createClass({
               {this.props.children}
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">{this.props.closeText}</button>
+              <button type="button" className="btn btn-default btn-raised" data-dismiss="modal">{this.props.closeText}</button>
             </div>
           </div>
         </div>
