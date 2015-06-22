@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react/addons');
+
 var Thumbnail = React.createClass({
   propTypes: {
     image: React.PropTypes.oneOfType([
