@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604150434) do
+ActiveRecord::Schema.define(version: 20150616185505) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -24,16 +24,18 @@ ActiveRecord::Schema.define(version: 20150604150434) do
   add_index "collection_users", ["user_id"], name: "index_collection_users_on_user_id", using: :btree
 
   create_table "collections", force: :cascade do |t|
-    t.string   "name_line_1", limit: 255
+    t.string   "name_line_1",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted",     limit: 1,     default: false
-    t.text     "description", limit: 65535
-    t.string   "unique_id",   limit: 255
-    t.boolean  "published",   limit: 1
-    t.string   "name_line_2", limit: 255
+    t.boolean  "deleted",      limit: 1,     default: false
+    t.text     "description",  limit: 65535
+    t.string   "unique_id",    limit: 255
+    t.boolean  "published",    limit: 1
+    t.string   "name_line_2",  limit: 255
+    t.boolean  "preview_mode", limit: 1
   end
 
+  add_index "collections", ["preview_mode"], name: "index_collections_on_preview_mode", using: :btree
   add_index "collections", ["published"], name: "index_collections_on_published", using: :btree
   add_index "collections", ["unique_id"], name: "index_collections_on_unique_id", using: :btree
 
