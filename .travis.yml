@@ -2,8 +2,7 @@ language: ruby
 sudo: false
 rvm:
   - 2.1.4
-install:
-  - bundle install
+before_install:
   - npm install
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
