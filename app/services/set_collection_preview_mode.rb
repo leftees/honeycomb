@@ -15,4 +15,3 @@ class SetCollectionPreviewMode
     collection.save
   end
 end
-
