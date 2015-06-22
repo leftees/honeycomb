@@ -11,7 +11,7 @@ HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 
 DragContent = require("./components/DragContent");
-HoneypotImage = require("./components/HoneyPotImage");
+HoneypotImage = require("./components/HoneypotImage");
 ImageCaptionEditor = require("./components/ImageCaptionEditor");
 ItemImageZoomButton = require("./components/ItemImageZoomButton");
 ItemShowImageBox = require("./components/ItemShowImageBox");
