@@ -8,3 +8,8 @@ script:
   - bundle exec rspec spec
 before_script:
   - mysql -e 'create database item_admin_test'
+  - npm install
+cache:
+  bundler: true
+  directories:
+  - node_modules
