@@ -11,6 +11,8 @@
 // about supported directives.
 //
 
+//= require_self
+//= require jquery_ujs
 //= require jquery-ui
 //= require redactor
 //= require bootstrap-sprockets
@@ -19,8 +21,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dropzone
-//= require react
-//= require react_ujs
 //= require bootstrap-material-design
+//= require components
 
 $ = jQuery = require('jquery');

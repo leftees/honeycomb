@@ -4,6 +4,12 @@
 
 React = require("react");
 
+// mixins
+DraggableMixin = require("./mixins/DraggableMixin");
+HoneypotImageMixin = require("./mixins/HoneypotImageMixin");
+HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
+TitleConcatMixin = require("./mixins/TitleConcatMixin");
+
 DragContent = require("./components/DragContent");
 HoneypotImage = require("./components/HoneyPotImage");
 ImageCaptionEditor = require("./components/ImageCaptionEditor");
@@ -35,7 +41,7 @@ TextField = require("./components/forms/TextField");
 Panel = require("./components/panel/Panel");
 PanelBody = require("./components/panel/PanelBody");
 PanelFooter = require("./components/panel/PanelFooter");
-PanelHeader = require("./components/panel/PanelHeader");
+PanelHeading = require("./components/panel/PanelHeading");
 
 // people search
 PeopleSearch = require("./components/people_search/PeopleSearch");
@@ -65,6 +71,6 @@ ShowcaseEditor = require("./components/showcase_editor/ShowcaseEditor");
 ShowcaseEditorTitle = require("./components/showcase_editor/ShowcaseEditorTitle");
 
 // user panel
-UserList = require("./components/UserList");
-UserListRow = require("./components/UserListRow");
-UserPanel = require("./components/UserPanel");
+UserList = require("./components/user_panel/UserList");
+UserListRow = require("./components/user_panel/UserListRow");
+UserPanel = require("./components/user_panel/UserPanel");

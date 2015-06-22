@@ -48,14 +48,14 @@ var CollectionPublishToggle = React.createClass({
         console.error(searchUrl, status, err.toString());
       }).bind(this)
     });
-},
-render: function () {
-  return (
-    <label>
-    <input type="checkbox" checked={this.state.published} onChange={this.handleClick}/>
-    <span className="toggle"></span><span className="toggle-label">{this.state.published_label}</span>
-    </label>
-    )
-}
+  },
+  render: function () {
+    return (
+      <label>
+      <input type="checkbox" checked={this.state.published} onChange={this.handleClick}/>
+      <span className="toggle"></span><span className="toggle-label">{this.state.published_label}</span>
+      </label>
+      )
+  }
 });
 module.exports = CollectionPublishToggle;

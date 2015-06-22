@@ -31,7 +31,9 @@ module ItemAdmin
     # config.i18n.load_path += Dir[Rails.root.join("my", "locales", "*.{rb,yml}").to_s]
     # config.i18n.default_locale = :de
 
+    config.react.variant = :production
     config.react.addons = true
+    config.browserify_rails.commandline_options = "--transform reactify --extension=\".jsx\""
 
     config.assets.precompile = [proc { |path| !File.extname(path).in?([".js", ".css", ".map", ".gzip", ""]) }, /(?:\/|\\|\A)application\.(css|js)$/]
 

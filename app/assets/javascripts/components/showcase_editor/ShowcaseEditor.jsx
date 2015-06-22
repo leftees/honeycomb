@@ -176,4 +176,4 @@ var ShowcaseEditor = React.createClass({
     </div>);
   }
 });
-module.exports =ShowcaseEditor;
+module.exports = ShowcaseEditor;
