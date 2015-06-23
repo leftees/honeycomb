@@ -10,19 +10,19 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+
+//= require_self
 //= require jquery_ujs
 //= require jquery-ui
 //= require redactor
 //= require bootstrap-sprockets
 //= require underscore
 //= require showdown
-//= require dataTables/jquery.dataTables
+//= require datatables
+//= require jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require dropzone
-//= require react
-//= require react_ujs
-//= require components
 //= require bootstrap-material-design
-//= require_tree .
-
+//= require components
+//= require redactor_field
+//= require menu-bar
+$ = jQuery = require('jquery');

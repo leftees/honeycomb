@@ -54,16 +54,17 @@ gem "airbrake"
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", ">= 1.3.0"
 gem "react-rails", "~> 1.0.0.pre", github: "reactjs/react-rails"
+gem "browserify-rails", "~>0.7.2"
 gem "underscore-rails"
 gem "showdown-rails"
 gem "therubyracer"
 # Use jquery as the JavaScript library
 gem "jquery-rails", "3.1.2"
 gem "jquery-ui-rails", "5.0.2"
-gem "jquery-datatables-rails", "~> 2.2.3"
+gem "jquery-datatables-rails", "~> 3.3.0"
 gem "coffee-rails", "~> 4.0.0"
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem "turbolinks"
+#gem "turbolinks"
 
 # CSS
 # Use SCSS for stylesheets
@@ -116,6 +117,7 @@ gem "dalli"
 # Use Capistrano for deployment
 gem "capistrano", "~> 3.1"
 gem "capistrano-rails", "~> 1.1"
+gem "capistrano-npm"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

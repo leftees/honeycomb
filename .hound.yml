@@ -3,4 +3,5 @@ ruby:
 
 javascript:
   config_file: config/style_guides/.javascript-style.json
+  ignore_file: config/style_guides/.javascript-ignore
 
