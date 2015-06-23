@@ -27,7 +27,7 @@ set :deploy_to, "/home/app/honeycomb"
 # set :linked_files, %w{config/database.yml}
 set :linked_files, %w{config/database.yml config/secrets.yml config/hesburgh_api.yml}
 
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system node_modules}
 
 set :default_env, path: "/opt/ruby/current/bin:$PATH"
 
@@ -47,6 +47,8 @@ namespace :deploy do
     end
   end
 end
+
+before "npm:install", "npm:prune"
 
 after "deploy:finished", "airbrake:deploy"
 after "deploy:updated", "newrelic:notice_deployment"
