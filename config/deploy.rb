@@ -48,6 +48,20 @@ namespace :deploy do
   end
 end
 
+namespace :sneakers do
+  task :restart do
+    on roles(:all) do
+      within release_path do
+        with rails_env: fetch(:rack_env) do
+          execute :rake, "sneakers:restart"
+        end
+      end
+    end
+  end
+end
+
+after "deploy:restart", "sneakers:restart"
+
 before "npm:install", "npm:prune"
 
 after "deploy:finished", "airbrake:deploy"

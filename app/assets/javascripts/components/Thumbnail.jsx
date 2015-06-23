@@ -7,6 +7,7 @@ var Thumbnail = React.createClass({
       React.PropTypes.string,
       React.PropTypes.object,
     ]),
+    thumbnailSrc: React.PropTypes.string,
   },
 
   getInitialState: function() {
@@ -26,17 +27,21 @@ var Thumbnail = React.createClass({
   },
 
   componentDidMount: function() {
-    if (typeof(this.props.image) == 'object') {
-      this.setImage(this.props.image);
-    } else {
-      $.get(this.props.image, function(result) {
-        this.setImage(result);
-      }.bind(this));
+    if (!this.props.thumbnailSrc) {
+      if (typeof(this.props.image) == 'object') {
+        this.setImage(this.props.image);
+      } else {
+        $.get(this.props.image, function(result) {
+          this.setImage(result);
+        }.bind(this));
+      }
     }
   },
 
   thumbnailSrc: function() {
-    if (this.state.image) {
+    if (this.props.thumbnailSrc) {
+      return this.props.thumbnailSrc;
+    } else if (this.state.image) {
       return this.state.image.contentUrl;
     } else {
       return '/images/blank.png';
@@ -46,7 +51,7 @@ var Thumbnail = React.createClass({
   classes: function() {
     var classes = classNames({
       'hc-thumbnail': true,
-      'hc-thumbnail-loading': !this.state.image
+      'hc-thumbnail-loading': !this.props.thumbnailSrc && !this.state.image
     });
     return classes;
   },
