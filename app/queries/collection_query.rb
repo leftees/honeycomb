@@ -22,7 +22,10 @@ class CollectionQuery
   end
 
   def public_find(id)
-    relation.find_by!(unique_id: id, published: true)
+    relation.where(
+      "unique_id = ? AND (published = ? OR preview_mode = ?)",
+      id, true, true
+    ).take!
   end
 
   def any_find(id)

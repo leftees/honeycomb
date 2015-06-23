@@ -4,7 +4,8 @@ var CollectionPublishToggle = React.createClass({
   propTypes: {
     collection: React.PropTypes.object.isRequired,
     publishPath: React.PropTypes.string.isRequired,
-    unpublishPath: React.PropTypes.string.isRequired
+    unpublishPath: React.PropTypes.string.isRequired,
+    onToggle: React.PropTypes.func
   },
   getInitialState: function() {
     return {
@@ -14,6 +15,10 @@ var CollectionPublishToggle = React.createClass({
   },
   handleClick: function () {
     this.togglePublished();
+  },
+  stateChanged: function() {
+    if(this.props.onToggle)
+      this.props.onToggle(this.state.published);
   },
   publishedLabel: function (published_status) {
     var label;
@@ -42,7 +47,7 @@ var CollectionPublishToggle = React.createClass({
         this.setState({
           published: published_state,
           published_label: this.publishedLabel(published_state)
-        });
+        }, this.stateChanged);
       }).bind(this),
       error: (function(xhr, status, err) {
         console.error(searchUrl, status, err.toString());
