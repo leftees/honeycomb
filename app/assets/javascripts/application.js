@@ -18,9 +18,11 @@
 //= require bootstrap-sprockets
 //= require underscore
 //= require showdown
-//= require dataTables/jquery.dataTables
+//= require datatables
+//= require jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require bootstrap-material-design
 //= require components
-
+//= require redactor_field
+//= require menu-bar
 $ = jQuery = require('jquery');
