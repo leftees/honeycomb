@@ -10,6 +10,8 @@ HoneypotImageMixin = require("./mixins/HoneypotImageMixin");
 HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 
+CollectionPreviewModeToggle = require("./components/CollectionPreviewModeToggle");
+CollectionPreviewPublish = require("./components/CollectionPreviewPublish");
 DragContent = require("./components/DragContent");
 HoneypotImage = require("./components/HoneypotImage");
 ImageCaptionEditor = require("./components/ImageCaptionEditor");

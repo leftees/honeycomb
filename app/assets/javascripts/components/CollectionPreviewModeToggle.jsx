@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require("react");
 var CollectionPreviewModeToggle = React.createClass({
   propTypes: {
     collection: React.PropTypes.object.isRequired,
@@ -66,3 +66,4 @@ var CollectionPreviewModeToggle = React.createClass({
       )
   }
 });
+module.exports = CollectionPreviewModeToggle;

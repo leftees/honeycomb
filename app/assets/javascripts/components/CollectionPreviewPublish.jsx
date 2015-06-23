@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+var React = require("react");
 var CollectionPreviewPublish = React.createClass({
   propTypes: {
     collection: React.PropTypes.object.isRequired,
@@ -61,3 +61,4 @@ var CollectionPreviewPublish = React.createClass({
       )
   }
 });
+module.exports = CollectionPreviewPublish;
