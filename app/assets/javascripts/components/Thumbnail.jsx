@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var classNames = require('classnames');
 
 var Thumbnail = React.createClass({
   propTypes: {
@@ -43,8 +44,7 @@ var Thumbnail = React.createClass({
   },
 
   classes: function() {
-    var cx = React.addons.classSet;
-    var classes = cx({
+    var classes = classNames({
       'hc-thumbnail': true,
       'hc-thumbnail-loading': !this.state.image
     });
