@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
-Dropzone.autoDiscover = false;
+var Dropzone = require("../dropzone");
 
 var React = require('react');
+
 var ReactDropzone = React.createClass({
   propTypes: {
     formUrl: React.PropTypes.string.isRequired,
