@@ -52,7 +52,7 @@ var FormMessageCenter = React.createClass({
     return (
       <Dialog
         ref= "errorDialog"
-        title="Error"
+        title={this.state.messageType}
         actions={this.customActions()}
         openImmediately = {false}
       >
