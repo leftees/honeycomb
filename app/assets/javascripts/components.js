@@ -10,6 +10,7 @@ HoneypotImageMixin = require("./mixins/HoneypotImageMixin");
 HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 APIResponseMixin = require("./mixins/APIResponseMixin");
+MuiThemeMixin = require("./mixins/MuiThemeMixin");
 
 CollectionPreviewModeToggle = require("./components/CollectionPreviewModeToggle");
 CollectionPreviewPublish = require("./components/CollectionPreviewPublish");
@@ -31,7 +32,6 @@ EmbedCode = require("./components/embed/EmbedCode");
 // forms
 FieldHelp = require("./components/forms/FieldHelp");
 Form = require("./components/forms/Form");
-FormErrorMsg = require("./components/forms/FormErrorMsg");
 FormMessageCenter = require("./components/forms/FormMessageCenter");
 FormRow = require("./components/forms/FormRow");
 FormSavedMsg = require("./components/forms/FormSavedMsg");

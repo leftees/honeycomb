@@ -1,6 +1,11 @@
 var React = require("react");
 var mediator = require("../../mediator");
+var mui = require("material-ui");
+var Dialog = mui.Dialog;
+
+
 var FormMessageCenter = React.createClass({
+  mixins: [MuiThemeMixin],
   getInitialState: function() {
     return {
       messageType: "",
@@ -8,7 +13,6 @@ var FormMessageCenter = React.createClass({
       displayState: "hidden",
     };
   },
-
   componentWillMount: function() {
     mediator.subscribe("MessageCenterDisplay", this.receiveDisplay);
     mediator.subscribe("MessageCenterHide", this.receiveHide);
@@ -45,7 +49,13 @@ var FormMessageCenter = React.createClass({
 
   getMessage: function () {
     if(this.state.displayState == "show") {
-      return (<FormErrorMsg message={this.state.messageText} type={this.state.messageType}/>);
+      return (
+      <Dialog
+        openImmediately = {true}
+      >
+        {this.state.messageText}
+      </Dialog>
+      );
     }
     return "";
   },
