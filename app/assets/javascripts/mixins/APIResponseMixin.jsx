@@ -10,3 +10,4 @@ var APIResponseMixin = {
     return apiMessage;
   },
 };
+module.exports = APIResponseMixin;

@@ -1,3 +1,5 @@
+var React = require("react");
+var mediator = require("../../mediator");
 var FormMessageCenter = React.createClass({
   getInitialState: function() {
     return {
@@ -43,7 +45,7 @@ var FormMessageCenter = React.createClass({
 
   getMessage: function () {
     if(this.state.displayState == "show") {
-      return (<FormMessage message={this.state.messageText} type={this.state.messageType}/>);
+      return (<FormErrorMsg message={this.state.messageText} type={this.state.messageType}/>);
     }
     return "";
   },
@@ -55,4 +57,5 @@ var FormMessageCenter = React.createClass({
       return <div/>
     }
   }
-})
+});
+module.exports = FormMessageCenter;

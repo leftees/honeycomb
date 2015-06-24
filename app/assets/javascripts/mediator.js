@@ -21,3 +21,4 @@ Mediator.prototype.send = function(type, message, excludes) {
 };
 
 var mediator = mediator || new Mediator();
+module.exports = mediator;

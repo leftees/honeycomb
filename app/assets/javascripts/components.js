@@ -32,6 +32,7 @@ EmbedCode = require("./components/embed/EmbedCode");
 FieldHelp = require("./components/forms/FieldHelp");
 Form = require("./components/forms/Form");
 FormErrorMsg = require("./components/forms/FormErrorMsg");
+FormMessageCenter = require("./components/forms/FormMessageCenter");
 FormRow = require("./components/forms/FormRow");
 FormSavedMsg = require("./components/forms/FormSavedMsg");
 FormServerErrorMsg = require("./components/forms/FormServerErrorMsg");

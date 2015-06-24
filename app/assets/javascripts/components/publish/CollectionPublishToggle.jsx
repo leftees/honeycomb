@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
-var React = require('react');
+var React = require("react");
+var mediator = require("../../mediator");
 var CollectionPublishToggle = React.createClass({
   mixins: [APIResponseMixin],
   propTypes: {

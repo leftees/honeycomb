@@ -1,6 +1,6 @@
 //app/assets/javascripts/components/forms/FormErrorMsg.jsx
 var React = require('react');
-var FormMessage = React.createClass({
+var FormErrorMsg = React.createClass({
   propTypes: {
     message: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired,
@@ -31,6 +31,6 @@ var FormMessage = React.createClass({
       </div>
     );
   }
-})
+});
 
 module.exports = FormErrorMsg;
