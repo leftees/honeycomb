@@ -2,7 +2,9 @@ var React = require("react");
 var mediator = require("../../mediator");
 var mui = require("material-ui");
 var Dialog = mui.Dialog;
-
+var FlatButton = mui.FlatButton;
+var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
 
 var FormMessageCenter = React.createClass({
   mixins: [MuiThemeMixin],
@@ -10,62 +12,53 @@ var FormMessageCenter = React.createClass({
     return {
       messageType: "",
       messageText: "",
-      displayState: "hidden",
     };
   },
   componentWillMount: function() {
     mediator.subscribe("MessageCenterDisplay", this.receiveDisplay);
-    mediator.subscribe("MessageCenterHide", this.receiveHide);
-    mediator.subscribe("MessageCenterFocus", this.receiveFocus);
     mediator.subscribe("MessageCenterDisplayAndFocus", this.receiveDisplayAndFocus);
   },
 
   receiveDisplay: function(type, message) {
     this.setState({
-      displayState: "show",
       messageType: message[0],
       messageText: message[1],
-    })
+    });
+    this.refs.errorDialog.show();
   },
 
   receiveDisplayAndFocus: function(type, message) {
     this.setState({
-      displayState: "show",
       messageType: message[0],
       messageText: message[1],
-    })
-    this.getDOMNode().scrollIntoView();
+    });
+    this.refs.errorDialog.show();
   },
 
-  receiveHide: function(type, message) {
-    this.setState({
-      displayState: "hidden"
-    })
+  dismissMessage: function() {
+    this.refs.errorDialog.dismiss();
   },
 
-  receiveFocus: function(type, message) {
-    this.getDOMNode().scrollIntoView();
+  customActions: function() {
+    return [
+      <FlatButton
+        label="OK"
+        primary={true}
+        onTouchTap={this.dismissMessage}
+      />
+    ];
   },
-
-  getMessage: function () {
-    if(this.state.displayState == "show") {
-      return (
+  render: function () {
+    return (
       <Dialog
-        openImmediately = {true}
+        ref= "errorDialog"
+        title="Error"
+        actions={this.customActions()}
+        openImmediately = {false}
       >
         {this.state.messageText}
       </Dialog>
-      );
-    }
-    return "";
-  },
-
-  render: function () {
-    if(this.state.displayState == "show") {
-      return this.getMessage();
-    } else {
-      return <div/>
-    }
+    );
   }
 });
 module.exports = FormMessageCenter;

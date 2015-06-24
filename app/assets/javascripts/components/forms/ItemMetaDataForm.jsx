@@ -1,5 +1,6 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
+var mediator = require("../../mediator");
 var ItemMetaDataForm = React.createClass({
   mixins: [APIResponseMixin],
   propTypes: {
