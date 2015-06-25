@@ -2,12 +2,9 @@ var React = require("react");
 var mediator = require("../../mediator");
 var mui = require("material-ui");
 var Dialog = mui.Dialog;
-var FlatButton = mui.FlatButton;
-var injectTapEventPlugin = require("react-tap-event-plugin");
-injectTapEventPlugin();
 
 var FormMessageCenter = React.createClass({
-  mixins: [MuiThemeMixin],
+  mixins: [MuiThemeMixin, DialogMixin],
   getInitialState: function() {
     return {
       messageType: "",
@@ -39,22 +36,13 @@ var FormMessageCenter = React.createClass({
     this.refs.errorDialog.dismiss();
   },
 
-  customActions: function() {
-    return [
-      <FlatButton
-        label="OK"
-        primary={true}
-        onTouchTap={this.dismissMessage}
-      />
-    ];
-  },
+
   render: function () {
     return (
       <Dialog
-        ref= "errorDialog"
-        title={this.state.messageType}
-        actions={this.customActions()}
-        openImmediately = {false}
+        ref = "errorDialog"
+        title = {this.state.messageType}
+        actions = {this.okDismiss()}
       >
         {this.state.messageText}
       </Dialog>

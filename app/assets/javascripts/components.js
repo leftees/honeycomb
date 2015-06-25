@@ -5,13 +5,15 @@
 React = require("react");
 
 // mixins
+APIResponseMixin = require("./mixins/APIResponseMixin");
+DialogMixin = require("./mixins/DialogMixin");
 DraggableMixin = require("./mixins/DraggableMixin");
 HoneypotImageMixin = require("./mixins/HoneypotImageMixin");
 HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
-TitleConcatMixin = require("./mixins/TitleConcatMixin");
-APIResponseMixin = require("./mixins/APIResponseMixin");
 MuiThemeMixin = require("./mixins/MuiThemeMixin");
+TitleConcatMixin = require("./mixins/TitleConcatMixin");
 
+// uncategorized
 CollectionPreviewModeToggle = require("./components/CollectionPreviewModeToggle");
 CollectionPreviewPublish = require("./components/CollectionPreviewPublish");
 DragContent = require("./components/DragContent");
