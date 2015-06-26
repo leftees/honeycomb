@@ -11,7 +11,6 @@ class APIController < ApplicationController
   # Returns true if the response was rendered
   def rendered_forbidden?(collection)
     can_edit = user_can_edit?(collection)
-    can_edit = false
     unless can_edit
       @errors = { 403 => "User does not have permission to edit this collection." }
       render json: @errors, status: :forbidden
