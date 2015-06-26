@@ -14,7 +14,6 @@ class APIController < ApplicationController
     unless can_edit
       @errors = { 403 => "User does not have permission to edit this collection." }
       render json: @errors, status: :forbidden
-      #render nothing: true, status: :forbidden
     end
     !can_edit
   end
