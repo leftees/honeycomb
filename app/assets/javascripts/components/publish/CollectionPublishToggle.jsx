@@ -58,7 +58,7 @@ var CollectionPublishToggle = React.createClass({
         }, this.stateChanged);
       }).bind(this),
       error: (function(xhr, status, err) {
-        mediator.send("MessageCenterDisplayAndFocus", ["error", this.apiErrorToString(xhr)]);
+        mediator.send("MessageCenterDisplay", ["error", this.apiErrorToString(xhr)]);
       }).bind(this)
     });
   },

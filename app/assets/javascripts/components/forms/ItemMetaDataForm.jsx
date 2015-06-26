@@ -92,7 +92,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setSavedFailure: function (errors) {
-    mediator.send("MessageCenterDisplayAndFocus", ["warning", "Please complete the highlighted fields in order to continue."]);
+    mediator.send("MessageCenterDisplay", ["warning", "Please complete the highlighted fields in order to continue."]);
     this.setState({
       formState: "invalid",
       formErrors: errors,
@@ -121,7 +121,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setServerError: function (errorString) {
-    mediator.send("MessageCenterDisplayAndFocus", ["error", errorString]);
+    mediator.send("MessageCenterDisplay", ["error", errorString]);
     this.setState({
       formState: "error",
       formErrors: errorString,

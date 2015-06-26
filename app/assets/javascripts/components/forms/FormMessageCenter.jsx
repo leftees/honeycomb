@@ -13,18 +13,9 @@ var FormMessageCenter = React.createClass({
   },
   componentWillMount: function() {
     mediator.subscribe("MessageCenterDisplay", this.receiveDisplay);
-    mediator.subscribe("MessageCenterDisplayAndFocus", this.receiveDisplayAndFocus);
   },
 
   receiveDisplay: function(type, message) {
-    this.setState({
-      messageType: message[0],
-      messageText: message[1],
-    });
-    this.refs.errorDialog.show();
-  },
-
-  receiveDisplayAndFocus: function(type, message) {
     this.setState({
       messageType: message[0],
       messageText: message[1],
