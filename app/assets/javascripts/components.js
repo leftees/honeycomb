@@ -5,11 +5,15 @@
 React = require("react");
 
 // mixins
+APIResponseMixin = require("./mixins/APIResponseMixin");
+DialogMixin = require("./mixins/DialogMixin");
 DraggableMixin = require("./mixins/DraggableMixin");
 HoneypotImageMixin = require("./mixins/HoneypotImageMixin");
 HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
+MuiThemeMixin = require("./mixins/MuiThemeMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 
+// uncategorized
 CollectionPreviewModeToggle = require("./components/CollectionPreviewModeToggle");
 CollectionPreviewPublish = require("./components/CollectionPreviewPublish");
 DragContent = require("./components/DragContent");
@@ -30,7 +34,7 @@ EmbedCode = require("./components/embed/EmbedCode");
 // forms
 FieldHelp = require("./components/forms/FieldHelp");
 Form = require("./components/forms/Form");
-FormErrorMsg = require("./components/forms/FormErrorMsg");
+FormMessageCenter = require("./components/forms/FormMessageCenter");
 FormRow = require("./components/forms/FormRow");
 FormSavedMsg = require("./components/forms/FormSavedMsg");
 FormServerErrorMsg = require("./components/forms/FormServerErrorMsg");
