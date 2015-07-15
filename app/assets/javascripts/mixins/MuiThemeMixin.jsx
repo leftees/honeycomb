@@ -1,7 +1,8 @@
 "use strict"
 let mui = require("material-ui");
 let ThemeManager = new mui.Styles.ThemeManager();
-ThemeManager.setTheme(ThemeManager.types.LIGHT);
+let HoneycombTheme = require("../themes/HoneycombTheme");
+ThemeManager.setTheme(HoneycombTheme);
 
 let MuiThemeMixin = {
   childContextTypes: {
