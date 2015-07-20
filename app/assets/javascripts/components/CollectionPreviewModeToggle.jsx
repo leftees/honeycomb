@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 var React = require("react");
+var mui = require("material-ui");
+var Toggle = mui.Toggle;
 var CollectionPreviewModeToggle = React.createClass({
+  mixins: [MuiThemeMixin],
   propTypes: {
     collection: React.PropTypes.object.isRequired,
     previewModePath: React.PropTypes.string.isRequired,
@@ -59,11 +62,12 @@ var CollectionPreviewModeToggle = React.createClass({
 
   render: function () {
     return (
-      <label>
-      <input type="checkbox" checked={this.state.preview_mode} onChange={this.handleClick}/>
-      <span className="toggle"></span><span className="toggle-label">{this.previewLabel()}</span>
-      </label>
-      )
+      <Toggle
+        label={this.previewLabel()}
+        defaultToggled={this.state.preview_mode}
+        onToggle={this.handleClick}
+      />
+    )
   }
 });
 module.exports = CollectionPreviewModeToggle;
