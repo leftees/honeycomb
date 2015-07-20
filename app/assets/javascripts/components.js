@@ -13,6 +13,9 @@ HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
 MuiThemeMixin = require("./mixins/MuiThemeMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 
+// themes
+HoneycombTheme = require("./themes/HoneycombTheme");
+
 // uncategorized
 CollectionPreviewModeToggle = require("./components/CollectionPreviewModeToggle");
 CollectionPreviewPublish = require("./components/CollectionPreviewPublish");

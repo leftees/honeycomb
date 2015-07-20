@@ -21,7 +21,7 @@
   </head>
   <body>
 
-<header id="banner" role="banner" class="home">
+<header id="banner" role="banner" class="home" style="z-index:1;">
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="brand-bar">
       <div class="container-fluid">
@@ -41,13 +41,13 @@
 </header>
 
 
-<div class="container-fluid content">
+<div class="container-fluid content" style="z-index: 100;">
   <div class="row row-fluid">
     <% if content_for?(:left_nav) %>
       <div class="col-md-2" id="col1">
         <%= yield(:left_nav) %>
       </div>
-      <div class="col-lg-10" id="col2">
+      <div class="col-lg-10" id="col2" style="z-index: 1000;">
     <% else %>
       <div class="col-lg-12">
     <% end%>

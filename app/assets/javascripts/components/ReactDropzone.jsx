@@ -2,8 +2,14 @@
 var Dropzone = require("../dropzone");
 Dropzone.autoDiscover = false;
 var React = require('react');
+var mui = require("material-ui");
+var Dialog = mui.Dialog;
+var RaisedButton = mui.RaisedButton;
+var FontIcon = mui.FontIcon;
 
 var ReactDropzone = React.createClass({
+  mixins: [MuiThemeMixin, DialogMixin],
+
   propTypes: {
     formUrl: React.PropTypes.string.isRequired,
     authenticityToken: React.PropTypes.string.isRequired,
@@ -65,6 +71,9 @@ var ReactDropzone = React.createClass({
       window.location.reload();
       e.preventDefault();
     }
+  },
+  dismissMessage: function() {
+    this.refs.addItems.dismiss();
   },
 
   completeCallback: function() {
@@ -133,12 +142,36 @@ var ReactDropzone = React.createClass({
     return this.props.cancelText;
   },
 
+  showModal: function() {
+    this.refs.addItems.show();
+  },
+
   render: function() {
+    var iconStyle = {fontSize: 14, marginRight: ".5em"};
+    var buttonLabel = (
+      <span>
+        <FontIcon className="glyphicon glyphicon-plus" label="Add New Items" color="#fff" style={iconStyle}/>
+        <span>Add New Items</span>
+      </span>
+    );
     return (
-      <Modal title={this.props.modalTitle} id={this.props.modalId} closeCallback={this.closeCallback} closeText={this.closeText()} >
-        { this.dropzoneForm() }
-        { this.spinner() }
-      </Modal>);
+      <div>
+        <RaisedButton
+          primary={true}
+          onTouchTap={this.showModal}
+          label={buttonLabel}
+        />
+        <Dialog
+          ref="addItems"
+          title={this.props.modalTitle}
+          actions={this.okDismiss()}
+          openImmediately={false}
+        >
+          { this.dropzoneForm() }
+          { this.spinner() }
+        </Dialog>
+      </div>
+    );
   }
 });
 module.exports = ReactDropzone;
