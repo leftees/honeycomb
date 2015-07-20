@@ -148,19 +148,24 @@ var ReactDropzone = React.createClass({
 
   render: function() {
     var iconStyle = {fontSize: 14, marginRight: ".5em"};
-    var buttonLabel = (<span><FontIcon className="glyphicon glyphicon-plus" label="Add New Items" color="#fff" style={iconStyle}/><span>Add New Items</span></span>);
+    var buttonLabel = (
+      <span>
+        <FontIcon className="glyphicon glyphicon-plus" label="Add New Items" color="#fff" style={iconStyle}/>
+        <span>Add New Items</span>
+      </span>
+    );
     return (
       <div>
         <RaisedButton
-          primary = {true}
-          onTouchTap = {this.showModal}
+          primary={true}
+          onTouchTap={this.showModal}
           label={buttonLabel}
         />
         <Dialog
-          ref = "addItems"
-          title = {this.props.modalTitle}
-          actions = {this.okDismiss()}
-          openImmediately = {false}
+          ref="addItems"
+          title={this.props.modalTitle}
+          actions={this.okDismiss()}
+          openImmediately={false}
         >
           { this.dropzoneForm() }
           { this.spinner() }
