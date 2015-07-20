@@ -171,7 +171,7 @@ var ReactDropzone = React.createClass({
           { this.spinner() }
         </Dialog>
       </div>
-      );
+    );
   }
 });
 module.exports = ReactDropzone;
