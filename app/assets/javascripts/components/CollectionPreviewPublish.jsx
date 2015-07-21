@@ -47,18 +47,18 @@ var CollectionPreviewPublish = React.createClass({
 
   render: function () {
     return (
-        <div>
-          <li className="header" role="presentation">Publishing Status</li>
-          <li className="togglebutton">
-            <CollectionPublishToggle onToggle={this.handlePublishClick} ref="myPublishToggle" collection={this.props.collection} publishPath={this.props.publishPath} unpublishPath={this.props.unpublishPath} />
-          </li>
-          <li className="header" role="presentation">Preview Mode</li>
-          <li className="togglebutton">
-            <CollectionPreviewModeToggle onToggle={this.handlePreviewClick} ref="myPreviewToggle" collection={this.props.collection} previewModePath={this.props.previewModePath} previewLinkURL={this.props.previewLinkURL}/>
-          </li>
-          {this.siteLink()}
-        </div>
-      )
+      <div>
+        <li className="header" role="presentation">Publishing Status</li>
+        <li className="togglebutton">
+          <CollectionPublishToggle onToggle={this.handlePublishClick} ref="myPublishToggle" collection={this.props.collection} publishPath={this.props.publishPath} unpublishPath={this.props.unpublishPath} />
+        </li>
+        <li className="header" role="presentation">Preview Mode</li>
+        <li className="togglebutton">
+          <CollectionPreviewModeToggle onToggle={this.handlePreviewClick} ref="myPreviewToggle" collection={this.props.collection} previewModePath={this.props.previewModePath} previewLinkURL={this.props.previewLinkURL}/>
+        </li>
+        {this.siteLink()}
+      </div>
+    )
   }
 });
 module.exports = CollectionPreviewPublish;

@@ -1,8 +1,10 @@
 /** @jsx React.DOM */
 var React = require("react");
+var mui = require("material-ui");
+var Toggle = mui.Toggle;
 var mediator = require("../../mediator");
 var CollectionPublishToggle = React.createClass({
-  mixins: [APIResponseMixin],
+  mixins: [APIResponseMixin, MuiThemeMixin],
   propTypes: {
     collection: React.PropTypes.object.isRequired,
     publishPath: React.PropTypes.string.isRequired,
@@ -64,11 +66,12 @@ var CollectionPublishToggle = React.createClass({
   },
   render: function () {
     return (
-      <label>
-      <input type="checkbox" checked={this.state.published} onChange={this.handleClick}/>
-      <span className="toggle"></span><span className="toggle-label">{this.state.published_label}</span>
-      </label>
-      )
+      <Toggle
+        label={this.state.published_label}
+        defaultToggled={this.state.published}
+        onToggle={this.handleClick}
+      />
+    )
   }
 });
 module.exports = CollectionPublishToggle;
