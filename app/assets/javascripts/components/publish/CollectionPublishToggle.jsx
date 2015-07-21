@@ -71,7 +71,7 @@ var CollectionPublishToggle = React.createClass({
         defaultToggled={this.state.published}
         onToggle={this.handleClick}
       />
-      )
+    )
   }
 });
 module.exports = CollectionPublishToggle;
