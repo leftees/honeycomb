@@ -13,7 +13,7 @@ var PublishToggle = React.createClass({
   publishLabel: function () {
     var label;
     if (this.props.published) {
-      label = 'Publishedxxx'
+      label = 'Published'
     } else {
       label = 'Not Published'
     }
