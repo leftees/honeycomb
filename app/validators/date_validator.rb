@@ -8,7 +8,8 @@ class DateValidator < ActiveModel::EachValidator
   private
 
   def date_valid?(value)
-    date_data = { display_text: nil, value: value }
+    date_data = value
+    puts date_data.inspect
     return true if value.nil?
     begin
       MetadataDate.new(date_data)

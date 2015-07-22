@@ -5,80 +5,80 @@ describe DateValidator do
 
   context "with valid date" do
     it "does not require a date string to be submitted" do
-      item.date_created = nil
+      item.date_created =  nil
       expect(item).to have(0).errors_on(:date_created)
     end
 
     it "allows 1-4 digit years" do
-      item.date_created = "1"
+      item.date_created = { value: "1", display_text: nil }
       expect(item).to have(0).errors_on(:date_created)
     end
 
     it "allows 1-2 digit months" do
-      item.date_created = "1-06"
+      item.date_created = { value: "1-06", display_text: nil }
       expect(item).to have(0).errors_on(:date_created)
     end
 
     it "allows 1-2 digit days" do
-      item.date_created = "1-06-30"
+      item.date_created = { value: "1-06-30", display_text: nil }
       expect(item).to have(0).errors_on(:date_created)
     end
 
     it "allows BC dates" do
-      item.date_created = "-01-06"
+      item.date_created = { value: "-01-06", display_text: nil }
       expect(item).to have(0).errors_on(:date_created)
     end
 
     it "allows dates with only a year" do
-      item.date_created = "-01"
+      item.date_created = { value: "-01", display_text: nil }
       expect(item).to have(0).errors_on(:date_created)
     end
 
     it "allows dates with only a month and a year" do
-      item.date_created = "1-06"
+      item.date_created = { value: "1-06", display_text: nil }
       expect(item).to have(0).errors_on(:date_created)
     end
   end
 
   context "with invalid date" do
     it "does not allow alpha characters" do
-      item.date_created = "e01-13"
+      item.date_created = { value: "e01-13", display_text: nil }   
       expect(item).to have(1).errors_on(:date_created)
       expect(item.errors.messages[:date_created][0]).to eq "Unable to parse date"
     end
 
     it "does not allow extra characters" do
-      item.date_created = "+-01-13"
+      item.date_created = { value: "+-01-13", display_text: nil }
       expect(item).to have(1).errors_on(:date_created)
       expect(item.errors.messages[:date_created][0]).to eq "Unable to parse date"
     end
 
     it "does not allow more than 4 year digits" do
-      item.date_created = "10000-12"
+      item.date_created = { value: "10000-12", display_text: nil }
       expect(item).to have(1).errors_on(:date_created)
       expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
     end
 
     it "does not allow more than 2 month digits" do
-      item.date_created = "1000-120"
+      item.date_created = { value: "1000-120", display_text: nil }
       expect(item).to have(1).errors_on(:date_created)
       expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
     end
 
     it "verifies that the month is a valid month" do
-      item.date_created = "1000-13"
+      item.date_created = { value: "1000-13", display_text: nil }
       expect(item).to have(1).errors_on(:date_created)
       expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
     end
 
     it "does not allow more than 2 day digits" do
-      item.date_created = "1000-12-100"
+      item.date_created = { value: "1000-12-100", display_text: nil }
       expect(item).to have(1).errors_on(:date_created)
       expect(item.errors.messages[:date_created][0]).to eq "Unable to parse date"
     end
 
     it "verifies that the day is a valid day" do
-      item.date_created = "1000-12-32"
+      item.date_created = { value: "1000-12-32", display_text: nil }
       expect(item).to have(1).errors_on(:date_created)
       expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
     end
