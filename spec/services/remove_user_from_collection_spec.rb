@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe RemoveUserFromCollection do
   subject { described_class.new(collection, user) }
-  let(:collection_user) { instance_double(CollectionUser, user_id: 1, collection_id: 1)}
+  let(:collection_user) { instance_double(CollectionUser, user_id: 1, collection_id: 1) }
   let(:collection) { double(Collection, id: 1) }
   let(:user) { double(User, id: 1) }
 
