@@ -5,7 +5,7 @@ class DateValidator < ActiveModel::EachValidator
 
     date = MetadataDate.new(value)
     if !date.valid?
-      date.errors.full_messages.each do | msg |
+      date.errors.full_messages.each do |msg|
         record.errors[attribute] << msg
       end
     end

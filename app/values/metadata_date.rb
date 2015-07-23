@@ -7,7 +7,6 @@ class MetadataDate
   validates :month, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :day, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31  }
 
-
   class ParseError < Exception
   end
 
@@ -46,8 +45,6 @@ class MetadataDate
   def to_date
     @date ||= ConvertToRubyDate.new(self).convert
   end
-
-  private
 
   class FormatDisplayText
     attr_reader :metadata_date
@@ -121,11 +118,9 @@ class MetadataDate
     end
 
     def convert
-      begin
-        convert!
-      rescue ArgumentError
-        false
-      end
+      convert!
+    rescue ArgumentError
+      false
     end
   end
 
@@ -137,9 +132,8 @@ class MetadataDate
     end
 
     def convert
-      return false if !metadata_date.valid?
-      return false if !metadata_date.to_date
-      
+      return false if !metadata_date.valid? || !metadata_date.to_date
+
       date = format_date
       format_bc(date)
     end
@@ -156,7 +150,6 @@ class MetadataDate
       else
         raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
       end
-
     end
 
     def format_bc(date)
