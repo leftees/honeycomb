@@ -106,6 +106,8 @@ group :development, :test do
   gem "web-console", "~> 2.0"
 
   gem "factory_girl_rails"
+
+  gem "rails-erd"
 end
 
 # Dalli Caching

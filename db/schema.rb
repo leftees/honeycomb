@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616185505) do
+ActiveRecord::Schema.define(version: 20150623132325) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20150616185505) do
     t.datetime "uploaded_image_updated_at"
     t.text     "copyright",                   limit: 65535
   end
+
+  add_index "exhibits", ["collection_id"], name: "fk_rails_b56f41d7b6", using: :btree
 
   create_table "honeypot_images", force: :cascade do |t|
     t.integer  "item_id",       limit: 4
@@ -111,6 +113,8 @@ ActiveRecord::Schema.define(version: 20150616185505) do
     t.datetime "created_at"
   end
 
+  add_index "sections", ["item_id"], name: "fk_rails_921f48e5e7", using: :btree
+  add_index "sections", ["showcase_id"], name: "fk_rails_9a3e59b41b", using: :btree
   add_index "sections", ["unique_id"], name: "index_sections_on_unique_id", using: :btree
 
   create_table "showcases", force: :cascade do |t|
@@ -133,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150616185505) do
     t.datetime "uploaded_image_updated_at"
   end
 
+  add_index "showcases", ["exhibit_id"], name: "fk_rails_ee93a134d7", using: :btree
   add_index "showcases", ["order"], name: "index_showcases_on_order", using: :btree
   add_index "showcases", ["published"], name: "index_showcases_on_published", using: :btree
   add_index "showcases", ["unique_id"], name: "index_showcases_on_unique_id", using: :btree
@@ -167,4 +172,12 @@ ActiveRecord::Schema.define(version: 20150616185505) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "collection_users", "collections"
+  add_foreign_key "collection_users", "users"
+  add_foreign_key "exhibits", "collections"
+  add_foreign_key "items", "collections"
+  add_foreign_key "items", "items", column: "parent_id"
+  add_foreign_key "sections", "items"
+  add_foreign_key "sections", "showcases"
+  add_foreign_key "showcases", "exhibits"
 end

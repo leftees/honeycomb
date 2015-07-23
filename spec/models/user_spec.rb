@@ -22,4 +22,20 @@ RSpec.describe User do
     expect(MapUserToApi).to receive(:call)
     User.new.save
   end
+
+  it "has a papertrail" do
+    expect(subject).to respond_to(:paper_trail_enabled_for_model?)
+    expect(subject.paper_trail_enabled_for_model?).to be(true)
+  end
+
+  context "foreign key constraints" do
+    describe "#destroy" do
+      it "fails if a collection_user references it" do
+        subject = FactoryGirl.create(:user)
+        FactoryGirl.create(:collection)
+        FactoryGirl.create(:collection_user, user_id: 1)
+        expect { subject.destroy }.to raise_error
+      end
+    end
+  end
 end

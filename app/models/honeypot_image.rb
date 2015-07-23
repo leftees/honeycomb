@@ -9,6 +9,8 @@ class HoneypotImage < ActiveRecord::Base
 
   before_validation :set_values_from_json_response
 
+  has_paper_trail
+
   def json_response=(*args)
     super(*args)
     set_values_from_json_response

@@ -13,8 +13,9 @@ RSpec.describe Collection do
     expect(subject).to have(1).error_on(:name_line_1)
   end
 
-  it "has paper trail" do
-    expect(subject).to respond_to(:versions)
+  it "has a papertrail" do
+    expect(subject).to respond_to(:paper_trail_enabled_for_model?)
+    expect(subject.paper_trail_enabled_for_model?).to be(true)
   end
 
   describe "#name" do
@@ -30,6 +31,29 @@ RSpec.describe Collection do
       expect(subject).to receive(:name_line_2).and_return(nil)
 
       expect(subject.name).to eq("name line 1")
+    end
+  end
+
+  context "foreign key constraints" do
+    describe "#destroy" do
+      it "fails if a CollectionUser references it" do
+        FactoryGirl.create(:user)
+        subject = FactoryGirl.create(:collection)
+        FactoryGirl.create(:collection_user)
+        expect { subject.destroy }.to raise_error
+      end
+
+      it "fails if a Exhibit references it" do
+        subject = FactoryGirl.create(:collection)
+        FactoryGirl.create(:exhibit)
+        expect { subject.destroy }.to raise_error
+      end
+
+      it "fails if an Item references it" do
+        subject = FactoryGirl.create(:collection)
+        FactoryGirl.create(:item)
+        expect { subject.destroy }.to raise_error
+      end
     end
   end
 end

@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe ShowcasesController, type: :controller do
-  let(:showcase) { instance_double(Showcase, id: 1, name_line_1: "name_line_1", exhibit: exhibit, destroy!: true, collection: collection) }
+  let(:showcase) { instance_double(Showcase, id: 1, name_line_1: "name_line_1", exhibit: exhibit, collection: collection, sections: [], destroy!: true) }
   let(:exhibit) { instance_double(Exhibit, id: 1, name: "name", showcases: relation, collection: collection) }
   let(:collection) { instance_double(Collection, id: 1, name_line_1: "name_line_1") }
 
@@ -262,9 +262,7 @@ RSpec.describe ShowcasesController, type: :controller do
   describe "DELETE #destroy" do
     subject { delete :destroy, id: showcase.id }
 
-    it "calls destroy on the item on success, redirects, and flashes " do
-      expect(showcase).to receive(:destroy!).and_return(true)
-
+    it "on success, redirects, and flashes " do
       subject
       expect(response).to be_redirect
       expect(flash[:notice]).to_not be_nil
@@ -284,6 +282,11 @@ RSpec.describe ShowcasesController, type: :controller do
 
     it "uses showcase query " do
       expect_any_instance_of(ShowcaseQuery).to receive(:find).with("1").and_return(showcase)
+      subject
+    end
+
+    it "uses the Destroy::Showcase.cascade method" do
+      expect_any_instance_of(Destroy::Showcase).to receive(:cascade!)
       subject
     end
 

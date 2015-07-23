@@ -67,8 +67,9 @@ RSpec.describe Item do
     end
   end
 
-  it "has versioning " do
-    expect(subject).to respond_to(:versions)
+  it "has a papertrail" do
+    expect(subject).to respond_to(:paper_trail_enabled_for_model?)
+    expect(subject.paper_trail_enabled_for_model?).to be(true)
   end
 
   it "keeps spaces in the original filename" do
@@ -107,6 +108,28 @@ RSpec.describe Item do
 
     it "responds to collection" do
       expect(subject).to respond_to(:collection)
+    end
+  end
+
+  context "foreign key constraints" do
+    describe "#destroy" do
+      it "fails if a section references it" do
+        FactoryGirl.create(:collection)
+        FactoryGirl.create(:exhibit)
+        FactoryGirl.create(:showcase)
+        subject = FactoryGirl.create(:item)
+        FactoryGirl.create(:section, id: 1, item_id: 1)
+        expect { subject.destroy }.to raise_error
+      end
+
+      it "fails if a child item references it" do
+        FactoryGirl.create(:collection)
+        FactoryGirl.create(:exhibit)
+        FactoryGirl.create(:showcase)
+        subject = FactoryGirl.create(:item)
+        FactoryGirl.create(:item, id: 2, parent_id: 1)
+        expect { subject.destroy }.to raise_error
+      end
     end
   end
 end

@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   scope :username, ->(username) {  where(username: username) }
 
+  has_paper_trail
+
   def name
     "#{first_name} #{last_name}"
   end

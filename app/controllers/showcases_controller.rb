@@ -72,8 +72,7 @@ class ShowcasesController < ApplicationController
   def destroy
     @showcase = ShowcaseQuery.new.find(params[:id])
     check_user_edits!(@showcase.collection)
-
-    @showcase.destroy!
+    Destroy::Showcase.new.cascade!(showcase: @showcase)
 
     flash[:notice] = t(".success")
     redirect_to exhibit_path(@showcase.exhibit)

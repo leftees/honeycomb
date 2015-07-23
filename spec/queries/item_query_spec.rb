@@ -75,4 +75,22 @@ describe ItemQuery do
       expect { subject.public_find("asdf") }.to raise_error ActiveRecord::RecordNotFound
     end
   end
+
+  describe "can_delete?" do
+    let(:relation) { instance_double(Item, showcases: [], children: []) }
+    let(:child) { instance_double(Item) }
+    let(:showcase) { instance_double(Showcase) }
+
+    it "returns false if the item has children" do
+      allow(relation).to receive(:showcases).and_return([])
+      allow(relation).to receive(:children).and_return([child])
+      expect(subject.can_delete?).to eq(false)
+    end
+
+    it "returns false if its used in a showcase" do
+      allow(relation).to receive(:showcases).and_return([showcase])
+      allow(relation).to receive(:children).and_return([])
+      expect(subject.can_delete?).to eq(false)
+    end
+  end
 end

@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe UsersController, type: :controller do
-  let(:user) { instance_double(User, id: 100, username: "username") }
+  let(:user) { instance_double(User, id: 100, username: "username", collection_users: [], destroy!: true) }
   let(:admin_user) { double(User, id: 99, username: "dwolfe2", admin?: true) }
   let(:users) { [user] }
   let(:relation) { User.all }
@@ -55,20 +55,15 @@ RSpec.describe UsersController, type: :controller do
       expect(User).to receive(:find).and_return(user)
     end
 
-    it "calls destroy on the user on success, redirects, and flashes " do
-      expect(user).to receive(:destroy).and_return(true)
-
+    it "on success, redirects, and flashes " do
       delete :destroy, id: 100
       expect(response).to be_redirect
       expect(flash[:notice]).to_not be_nil
     end
 
-    it "calls destroy on the user on failure, redirects, and flashes " do
-      expect(user).to receive(:destroy).and_return(false)
-
-      delete :destroy, id: 100
-      expect(response).to be_redirect
-      expect(flash[:error]).to_not be_nil
+    it "uses the Destroy::User.cascade! method" do
+      expect_any_instance_of(Destroy::User).to receive(:cascade!)
+      delete :destroy, id: "1"
     end
 
     it_behaves_like "a private content-based etag cacher" do
