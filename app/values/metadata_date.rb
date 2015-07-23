@@ -3,9 +3,9 @@ class MetadataDate
 
   attr_reader :date_data, :display_text, :year, :month, :day, :bc
 
-  validates :year, numericality: { only_integer: true, allow_nil: false, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999  }
-  validates :month, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
-  validates :day, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31  }
+  validates :year, numericality:{ only_integer: true, allow_nil: false, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999  }
+  validates :month, numericality:{ only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
+  validates :day, numericality:{ only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31  }
 
   class ParseError < Exception
   end
