@@ -1,11 +1,10 @@
 require "rails_helper"
 
 RSpec.describe MetadataDate do
-
   describe :year do
     it "passes the value of the year field " do
-      date = MetadataDate.new(year: 'year')
-      expect(date.year).to eq('year')
+      date = MetadataDate.new(year: "year")
+      expect(date.year).to eq("year")
     end
 
     it "returns nil if there is nothing passed in for year" do
@@ -16,8 +15,8 @@ RSpec.describe MetadataDate do
 
   describe :month do
     it "passes the value of the month field " do
-      date = MetadataDate.new(month: 'month')
-      expect(date.month).to eq('month')
+      date = MetadataDate.new(month: "month")
+      expect(date.month).to eq("month")
     end
 
     it "returns nil if there is nothing passed in for month" do
@@ -28,8 +27,8 @@ RSpec.describe MetadataDate do
 
   describe :day do
     it "passes the value of the day field " do
-      date = MetadataDate.new(year: 'day')
-      expect(date.year).to eq('day')
+      date = MetadataDate.new(year: "day")
+      expect(date.year).to eq("day")
     end
 
     it "returns nil if there is nothing passed in for day" do
@@ -70,9 +69,7 @@ RSpec.describe MetadataDate do
     end
   end
 
-
   context :validations do
-
     describe :year do
       it "does not allow nil" do
         date = MetadataDate.new(year: nil)
@@ -153,6 +150,5 @@ RSpec.describe MetadataDate do
         expect(date).to have(1).errors_on(:month)
       end
     end
-
   end
 end

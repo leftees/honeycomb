@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe MetadataDate::ConvertToRubyDate do
-
   describe "#convert!" do
     it "converts a date with year, month, day" do
       date = double(MetadataDate, year: "2010", month: "10", day: "10", valid?: true)
@@ -56,6 +55,5 @@ RSpec.describe MetadataDate::ConvertToRubyDate do
       expect(object).to receive(:convert!).and_raise(ArgumentError.new(""))
       expect(object.convert).to eq(false)
     end
-
   end
 end
