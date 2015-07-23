@@ -9,5 +9,10 @@ class DateValidator < ActiveModel::EachValidator
         record.errors[attribute] << msg
       end
     end
+    # this is to catch an additional errors from date formatting such as but not limited to
+    # invalid days for a month.
+    if record.errors[attribute].empty? && !date.to_date
+      record.errors[attribute] << "Invalid Date"
+    end
   end
 end

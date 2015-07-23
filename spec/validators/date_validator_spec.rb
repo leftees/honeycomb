@@ -4,7 +4,7 @@ describe DateValidator do
   let(:item) { Item.new }
 
   it "passes the errors from metadata date to determine validity" do
-    expect_any_instance_of(MetadataDate).to receive(:valid?).and_return(true)
+    expect_any_instance_of(MetadataDate).to receive(:valid?).twice.and_return(true)
     i = Item.new(date_created: { year: '2010' })
     i.save
   end

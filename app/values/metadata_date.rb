@@ -28,15 +28,19 @@ class MetadataDate
   end
 
   def year
-    date_data[:year]
+    @year ||= date_data[:year] ? date_data[:year].strip : nil
   end
 
   def month
-    date_data[:month]
+    @month ||= date_data[:month] ? date_data[:month].strip : nil
   end
 
   def day
-    date_data[:day]
+    @day ||= date_data[:day] ? date_data[:day].strip : nil
+  end
+
+  def to_date
+    ConvertToRubyDate.new(self).convert
   end
 
   private
@@ -73,7 +77,7 @@ class MetadataDate
     end
 
     def format_date
-      if !date = ruby_date
+      if !date = metadata_date.to_date
         return ""
       end
 
@@ -89,22 +93,35 @@ class MetadataDate
       end
       date
     end
+  end
 
-    def ruby_date
-      if metadata_date.valid?
-        if metadata_date.day
-          @date = Date.new(metadata_date.year.to_i, metadata_date.month.to_i, metadata_date.day.to_i)
-        elsif metadata_date.month
-          @date = Date.new(metadata_date.year.to_i, metadata_date.month.to_i)
-        elsif metadata_date.year
-          @date = Date.new(metadata_date.year.to_i)
-        else
-          raise ParseError.new("Unable to setup date from parsed data")
-        end
+  class ConvertToRubyDate
+    attr_reader :metadata_date
+
+    def initialize(metadata_date)
+      @metadata_date = metadata_date
+    end
+
+    def convert!
+      return false if !metadata_date.valid?
+
+      if metadata_date.day
+        Date.new(metadata_date.year.to_i, metadata_date.month.to_i, metadata_date.day.to_i)
+      elsif metadata_date.month
+        Date.new(metadata_date.year.to_i, metadata_date.month.to_i)
+      elsif metadata_date.year
+        Date.new(metadata_date.year.to_i)
       else
-        false
+        raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
       end
     end
 
+    def convert
+      begin
+        convert!
+      rescue ArgumentError
+        false
+      end
+    end
   end
 end
