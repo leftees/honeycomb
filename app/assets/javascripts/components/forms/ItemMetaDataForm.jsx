@@ -1,6 +1,6 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
-var mediator = require("../../mediator");
+var EventEmitter = require('../../EventEmitter');
 var ItemMetaDataForm = React.createClass({
   mixins: [APIResponseMixin],
   propTypes: {
@@ -94,7 +94,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setSavedFailure: function (errors) {
-    mediator.send("MessageCenterDisplay", ["warning", "Please complete the highlighted fields in order to continue."]);
+    EventEmitter.emit("MessageCenterDisplay", "warning", "Please complete the highlighted fields in order to continue.");
     this.setState({
       formState: "invalid",
       formErrors: errors,
@@ -114,7 +114,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setSavedSuccess: function () {
-    mediator.send("MessageCenterDisplay", ["success", "Item saved successfully."]);
+    EventEmitter.emit("MessageCenterDisplay", "success", "Item saved successfully.");
     this.setState({
       dataState: "clean",
       formState: "saved",
@@ -123,7 +123,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setServerError: function (errorString) {
-    mediator.send("MessageCenterDisplay", ["error", errorString]);
+    EventEmitter.emit("MessageCenterDisplay", "error", errorString);
     this.setState({
       formState: "error",
       formErrors: errorString,
@@ -160,7 +160,7 @@ var ItemMetaDataForm = React.createClass({
         } else if (fieldConfig['type'] == 'html') {
           return (<HtmlField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
         } else if (fieldConfig['type'] == 'text') {
-          return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);  
+          return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
         }
       }
       return "";
