@@ -41,17 +41,17 @@ module V1
     end
 
     def date_created
-      return nil if !object.date_created
+      return nil if object.date_created.nil? || object.date_created.empty?
       MetadataDate.new(object.date_created).human_readable
     end
 
     def date_modified
-      return nil if !object.date_modified
+      return nil if object.date_modified.nil? || object.date_modified.empty?
       MetadataDate.new(object.date_modified).human_readable
     end
 
     def date_published
-      return nil if !object.date_published
+      return nil if object.date_published.nil? || object.date_published.empty?
       MetadataDate.new(object.date_published).human_readable
     end
 

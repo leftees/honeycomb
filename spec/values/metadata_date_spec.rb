@@ -1,68 +1,58 @@
 require "rails_helper"
 
 RSpec.describe MetadataDate do
-  describe :date_parsing do
-    {
-      "2012-12-12" => [2012, 12, 12],
-      "0010-1-2" => [10, 1, 2],
-      "190-03-22" => [190, 3, 22],
-      "19-12-05" => [19, 12, 5],
-      "1-12-22" => [1, 12, 22],
-      "-1190-12-22" => [-1190, 12, 22],
-      "-110-12" => [-110, 12, nil],
-      "1000-03" => [1000, 3, nil],
-      "0010-11" => [10, 11, nil],
-      "10-11" => [10, 11, nil],
-      "5-3" => [5, 3, nil],
-      "-2125-03" => [-2125, 3, nil],
-      "-2125" => [-2125, nil, nil],
-      "2121" => [2121, nil, nil],
-      "121" => [121, nil, nil],
-      "0121" => [121, nil, nil],
-      "0021" => [21, nil, nil],
-      "21" => [21, nil, nil],
-      "0002" => [2, nil, nil],
-      "2" => [2, nil, nil],
-    }.each do |date, expected|
-      it "parses #{date}" do
-        date = MetadataDate.new(value: date)
-        expect(date.year).to eq(expected[0])
-        expect(date.month).to eq(expected[1])
-        expect(date.day).to eq(expected[2])
-      end
+
+  describe :year do
+    it "passes the value of the year field " do
+      date = MetadataDate.new(year: 'year')
+      expect(date.year).to eq('year')
     end
 
-    [
-      "asdf-da-as",
-      "sd23-10-21",
-      "2012-15-21",
-      "2012-10-41",
-    ].each do |date|
-      it "fails on the invalid format of #{date}" do
-        expect { MetadataDate.new(value: date) }.to raise_error
-      end
+    it "returns nil if there is nothing passed in for year" do
+      date = MetadataDate.new({})
+      expect(date.year).to eq(nil)
+    end
+  end
+
+  describe :month do
+    it "passes the value of the month field " do
+      date = MetadataDate.new(month: 'month')
+      expect(date.month).to eq('month')
     end
 
-    it "raises an error if there is no date" do
-      expect { MetadataDate.new(value: nil) }.to raise_error(MetadataDate::ParseError)
+    it "returns nil if there is nothing passed in for month" do
+      date = MetadataDate.new({})
+      expect(date.month).to eq(nil)
+    end
+  end
+
+  describe :day do
+    it "passes the value of the day field " do
+      date = MetadataDate.new(year: 'day')
+      expect(date.year).to eq('day')
+    end
+
+    it "returns nil if there is nothing passed in for day" do
+      date = MetadataDate.new({})
+      expect(date.day).to eq(nil)
     end
   end
 
   describe :bc? do
     it "is true when the date is BC" do
-      date = MetadataDate.new(value: "-2322")
+      date = MetadataDate.new(bc: true)
       expect(date.bc?).to be_truthy
     end
 
     it "is false when the date is AD" do
-      date = MetadataDate.new(value: "2322")
+      date = MetadataDate.new(bc: false)
       expect(date.bc?).to be_falsey
     end
   end
 
   describe :human_readable do
     it "uses FormatDisplayText to determine how to format display text" do
-      date = MetadataDate.new(value: "2322", display_text: "display-text")
+      date = MetadataDate.new(display_text: "display-text")
       expect(MetadataDate::FormatDisplayText).to receive(:format).with(date)
       date.human_readable
     end
@@ -70,13 +60,99 @@ RSpec.describe MetadataDate do
 
   describe :display_text do
     it "returns the passed in display_text" do
-      date = MetadataDate.new(value: "2122", display_text: "display-text")
+      date = MetadataDate.new(display_text: "display-text")
       expect(date.display_text).to eq("display-text")
     end
 
     it "returns nil if there is nothing passed in for display-text" do
-      date = MetadataDate.new(value: "2122")
+      date = MetadataDate.new({})
       expect(date.display_text).to eq(nil)
     end
+  end
+
+
+  context :validations do
+
+    describe :year do
+      it "does not allow nil" do
+        date = MetadataDate.new(year: nil)
+        expect(date).to have(1).errors_on(:year)
+      end
+
+      it "requires it to be an integer " do
+        date = MetadataDate.new(year: "a")
+        expect(date).to have(1).errors_on(:year)
+      end
+
+      it "does allow year 0" do
+        date = MetadataDate.new(year: "0")
+        expect(date).to have(0).errors_on(:year)
+      end
+
+      it "does not allow negative numbers" do
+        date = MetadataDate.new(year: "-100")
+        expect(date).to have(1).errors_on(:year)
+      end
+
+      it "does not allow numbers greater than 9999" do
+        date = MetadataDate.new(year: "10000")
+        expect(date).to have(1).errors_on(:year)
+      end
+    end
+
+    describe :month do
+      it "allows nil" do
+        date = MetadataDate.new(month: nil)
+        expect(date).to have(0).errors_on(:month)
+      end
+
+      it "requires it to be an integer " do
+        date = MetadataDate.new(month: "a")
+        expect(date).to have(1).errors_on(:month)
+      end
+
+      it "does not allow year 0" do
+        date = MetadataDate.new(month: "0")
+        expect(date).to have(1).errors_on(:month)
+      end
+
+      it "does not allow negative numbers" do
+        date = MetadataDate.new(month: "-100")
+        expect(date).to have(1).errors_on(:month)
+      end
+
+      it "does not allow numbers greater than 12" do
+        date = MetadataDate.new(month: "13")
+        expect(date).to have(1).errors_on(:month)
+      end
+    end
+
+    describe :day do
+      it "allows nil" do
+        date = MetadataDate.new(day: nil)
+        expect(date).to have(0).errors_on(:day)
+      end
+
+      it "requires it to be an integer " do
+        date = MetadataDate.new(day: "a")
+        expect(date).to have(1).errors_on(:day)
+      end
+
+      it "does not allow year 0" do
+        date = MetadataDate.new(day: "0")
+        expect(date).to have(1).errors_on(:day)
+      end
+
+      it "does not allow negative numbers" do
+        date = MetadataDate.new(day: "-100")
+        expect(date).to have(1).errors_on(:day)
+      end
+
+      it "does not allow numbers greater than 31" do
+        date = MetadataDate.new(month: "32")
+        expect(date).to have(1).errors_on(:month)
+      end
+    end
+
   end
 end

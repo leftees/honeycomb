@@ -3,84 +3,22 @@ require "rails_helper"
 describe DateValidator do
   let(:item) { Item.new }
 
-  context "with valid date" do
-    it "does not require a date string to be submitted" do
-      item.date_created =  nil
-      expect(item).to have(0).errors_on(:date_created)
-    end
-
-    it "allows 1-4 digit years" do
-      item.date_created = { value: "1", display_text: nil }
-      expect(item).to have(0).errors_on(:date_created)
-    end
-
-    it "allows 1-2 digit months" do
-      item.date_created = { value: "1-06", display_text: nil }
-      expect(item).to have(0).errors_on(:date_created)
-    end
-
-    it "allows 1-2 digit days" do
-      item.date_created = { value: "1-06-30", display_text: nil }
-      expect(item).to have(0).errors_on(:date_created)
-    end
-
-    it "allows BC dates" do
-      item.date_created = { value: "-01-06", display_text: nil }
-      expect(item).to have(0).errors_on(:date_created)
-    end
-
-    it "allows dates with only a year" do
-      item.date_created = { value: "-01", display_text: nil }
-      expect(item).to have(0).errors_on(:date_created)
-    end
-
-    it "allows dates with only a month and a year" do
-      item.date_created = { value: "1-06", display_text: nil }
-      expect(item).to have(0).errors_on(:date_created)
-    end
+  it "passes the errors from metadata date to determine validity" do
+    expect_any_instance_of(MetadataDate).to receive(:valid?).and_return(true)
+    i = Item.new(date_created: { year: '2010' })
+    i.save
   end
 
-  context "with invalid date" do
-    it "does not allow alpha characters" do
-      item.date_created = { value: "e01-13", display_text: nil }   
-      expect(item).to have(1).errors_on(:date_created)
-      expect(item.errors.messages[:date_created][0]).to eq "Unable to parse date"
-    end
+  it "passes errors from metadata date to item errors" do
+    allow_any_instance_of(MetadataDate).to receive(:valid?).and_return(false)
+    expect_any_instance_of(MetadataDate).to receive(:errors).and_return(double(full_messages: [ "error message"]))
 
-    it "does not allow extra characters" do
-      item.date_created = { value: "+-01-13", display_text: nil }
-      expect(item).to have(1).errors_on(:date_created)
-      expect(item.errors.messages[:date_created][0]).to eq "Unable to parse date"
-    end
+    i = Item.new(date_created: { year: '2010' })
+    i.save
+  end
 
-    it "does not allow more than 4 year digits" do
-      item.date_created = { value: "10000-12", display_text: nil }
-      expect(item).to have(1).errors_on(:date_created)
-      expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
-    end
-
-    it "does not allow more than 2 month digits" do
-      item.date_created = { value: "1000-120", display_text: nil }
-      expect(item).to have(1).errors_on(:date_created)
-      expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
-    end
-
-    it "verifies that the month is a valid month" do
-      item.date_created = { value: "1000-13", display_text: nil }
-      expect(item).to have(1).errors_on(:date_created)
-      expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
-    end
-
-    it "does not allow more than 2 day digits" do
-      item.date_created = { value: "1000-12-100", display_text: nil }
-      expect(item).to have(1).errors_on(:date_created)
-      expect(item.errors.messages[:date_created][0]).to eq "Unable to parse date"
-    end
-
-    it "verifies that the day is a valid day" do
-      item.date_created = { value: "1000-12-32", display_text: nil }
-      expect(item).to have(1).errors_on(:date_created)
-      expect(item.errors.messages[:date_created][0]).to eq "Invalid date"
-    end
+  it "does no validation if the field is empty" do
+    expect_any_instance_of(MetadataDate).to_not receive(:valid?)
+    Item.new.save
   end
 end

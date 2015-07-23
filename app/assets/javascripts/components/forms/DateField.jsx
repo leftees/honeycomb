@@ -37,17 +37,16 @@ var DateField = React.createClass({
     if (!this.props.value) {
       return;
     }
-
-    var date = this.splitDate();
-
-    this.setState({
-      year: date[2],
-      month: date[3],
-      day: date[4],
-      bc: (date[1] === '-'),
-      displayText: this.props.value.display_text,
-      chooseDisplayText: (this.props.value.display_text ? true : false)
-    });
+    if (this.props.value) {
+      this.setState({
+        year: this.props.value.year,
+        month: this.props.value.month,
+        day: this.props.value.day,
+        bc: this.props.value.bc,
+        displayText: this.props.value.display_text,
+        chooseDisplayText: (this.props.value.display_text ? true : false)
+      });
+    }
   },
 
   requiredClass: function() {
@@ -80,13 +79,16 @@ var DateField = React.createClass({
       displayText: stateDisplayText,
     });
 
-    var date = ((bc) ? "-" : "") + year;
-    date += ((month) ? "-" + month : "");
-    date += ((month && day) ? "-" + day : "");
-
-    var newValue = {
-      value: date,
-      display_text: displayText,
+    if (year) {
+      var newValue = {
+        year: year,
+        month: month,
+        day: day,
+        bc: bc,
+        display_text: displayText,
+      };
+    } else {
+      var newValue = null;
     }
 
     this.props.handleFieldChange(this.props.name, newValue);
@@ -106,22 +108,11 @@ var DateField = React.createClass({
     if (this.state.chooseDisplayText) {
       return (
         <div className="row">
-          <input  onChange={this.handleChange} type="text" ref="displayText" className="form-control" name="specifieddate" placeholder="Example: &quot;1788&quot; or &quot;circa. 1950&quot;" value={this.state.displayText} />
+          <input onChange={this.handleChange} type="text" ref="displayText" className="form-control" name="specifieddate" placeholder="Example: &quot;1788&quot; or &quot;circa. 1950&quot;" value={this.state.displayText} />
         </div>
       );
     }
     return "";
-  },
-
-  splitDate: function () {
-    var re = /^([-]?)(\d{4})[-]?(\d{1,2})?[-]?(\d{1,2})?/;
-    var m;
-    if ((m = re.exec(this.props.value.value)) !== null) {
-      if (m.index === re.lastIndex) {
-        re.lastIndex++;
-      }
-      return m;
-    }
   },
 
   render: function () {
@@ -131,15 +122,15 @@ var DateField = React.createClass({
           <div className="row form-inline">
             <div className="form-group">
               <label className="sr-only" htmlFor={"year" + this.props.name}>Year</label>
-              <input id={"year" + this.props.name} type="number" max="2100" min="0" step="1" onChange={this.handleChange} placeholder="YYYY" className="form-control" ref="year" style={{display: 'inline', width: '6em' }} value={this.state.year} />
+              <input id={"year" + this.props.name} type="text" max="2100" min="0" step="1" onChange={this.handleChange} placeholder="YYYY" className="form-control" ref="year" style={{display: 'inline', width: '6em' }} value={this.state.year} />
             </div>
             <div className="form-group">
               <label className="sr-only" htmlFor={"month" + this.props.name}>Month</label>
-              <input id={"month" + this.props.name} onChange={this.handleChange} type="number" max="12" min="1" step="1" placeholder="MM" className="form-control" style={{display: 'inline', width: '6em' }} ref="month" value={this.state.month} />
+              <input id={"month" + this.props.name} onChange={this.handleChange} type="text" max="12" min="1" step="1" placeholder="MM" className="form-control" style={{display: 'inline', width: '6em' }} ref="month" value={this.state.month} />
             </div>
             <div className="form-group">
               <label className="sr-only" htmlFor={"day" + this.props.name}>Day</label>
-              <input id={"day" + this.props.name} onChange={this.handleChange} type="number" max="31" min="1" step="1" placeholder="DD" className="form-control" ref="day" style={{display: 'inline', width: '6em' }} value={this.state.day} />
+              <input id={"day" + this.props.name} onChange={this.handleChange} type="text" max="31" min="1" step="1" placeholder="DD" className="form-control" ref="day" style={{display: 'inline', width: '6em' }} value={this.state.day} />
             </div>
             <div className="form-group">
               <label className="control-label">
