@@ -1,0 +1,81 @@
+{
+  "@context":"http://schema.org",
+  "@type":"CreativeWork",
+  "@id":"http://localhost:3017/v1/collections/animals",
+  "hasPart/items":"http://localhost:3017/v1/collections/animals/items",
+  "hasPart/showcases":"http://localhost:3017/v1/collections/animals/showcases",
+  "id":"animals",
+  "slug":"pretty-animals",
+  "name":"Pretty Animals CC Images of Animals",
+  "name_line_1":"Pretty Animals",
+  "name_line_2":"CC Images of Animals",
+  "short_description":"",
+  "description":"",
+  "about":"",
+  "image":null,
+  "last_updated":"2015-06-23T18:16:15.000Z",
+  "copyright":"\u003cp\u003e\u003ca href=\"http://www.nd.edu/copyright/\"\u003eCopyright\u003c/a\u003e 2015 \u003ca href=\"http://www.nd.edu\"\u003eUniversity of Notre Dame\u003c/a\u003e\u003c/p\u003e",
+  "items":{
+    "@context":"http://schema.org",
+    "@type":"CreativeWork",
+    "@id":"http://localhost:3017/v1/items/pig-in-mud",
+    "isPartOf/collection":"http://localhost:3017/v1/collections/animals",
+    "id":"pig-in-mud",
+    "slug":"pig-in-mud",
+    "name":"pig-in-mud",
+    "description":"Source: https://pixabay.com/en/pig-sow-animal-portrait-752555/",
+    "image":{
+      "@context":"http://schema.org",
+      "@type":"ImageObject",
+      "@id":"http://localhost:3019/api/v1/images/honeycomb/000/001/000/013/pig-in-mud.jpg",
+      "width":"4898 px",
+      "height":"3265 px",
+      "encodingFormat":"jpeg",
+      "contentUrl":"http://localhost:3019/images/honeycomb/000/001/000/013/pig-in-mud.jpg",
+      "name":"pig-in-mud.jpg",
+      "thumbnail/medium":{
+        "@type":"ImageObject",
+        "width":"1200 px",
+        "height":"800 px",
+        "encodingFormat":"jpeg",
+        "contentUrl":"http://localhost:3019/images/honeycomb/000/001/000/013/medium/pig-in-mud.jpg"
+      },
+      "thumbnail/dzi":{
+        "@type":"ImageObject",
+        "width":"4898 px",
+        "height":"3265 px",
+        "encodingFormat":"dzi",
+        "contentUrl":"http://localhost:3019/images/honeycomb/000/001/000/013/pyramid/pig-in-mud.tif.dzi"
+      },
+      "thumbnail/small":{
+        "@type":"ImageObject",
+        "width":"300 px",
+        "height":"200 px",
+        "encodingFormat":"jpeg",
+        "contentUrl":"http://localhost:3019/images/honeycomb/000/001/000/013/small/pig-in-mud.jpg"
+      }
+    },
+    "metadata":[
+      {
+        "label":"Name",
+        "value":"pig-in-mud"
+      },
+      {
+        "label":"Description",
+        "value":"Source: https://pixabay.com/en/pig-sow-animal-portrait-752555/"
+      },
+      {
+        "label":"Creator",
+        "value":"Bob"
+      },
+      {
+        "label":"Date Published",
+        "value":"March 2013"
+      }
+    ],
+    "last_updated":"2015-07-23T20:26:06.000Z",
+    "children":[
+
+    ]
+  }
+}
