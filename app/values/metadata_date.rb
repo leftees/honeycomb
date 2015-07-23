@@ -39,8 +39,12 @@ class MetadataDate
     @day ||= date_data[:day] ? date_data[:day].strip : nil
   end
 
+  def iso8601
+    @iso ||= ConvertToIsoDate.new(self).convert
+  end
+
   def to_date
-    ConvertToRubyDate.new(self).convert
+    @date ||= ConvertToRubyDate.new(self).convert
   end
 
   private
@@ -122,6 +126,44 @@ class MetadataDate
       rescue ArgumentError
         false
       end
+    end
+  end
+
+  class ConvertToIsoDate
+    attr_reader :metadata_date
+
+    def initialize(metadata_date)
+      @metadata_date = metadata_date
+    end
+
+    def convert
+      return false if !metadata_date.valid?
+      return false if !metadata_date.to_date
+      
+      date = format_date
+      format_bc(date)
+    end
+
+    private
+
+    def format_date
+      if metadata_date.day
+        "#{metadata_date.year}-#{metadata_date.month}-#{metadata_date.day}"
+      elsif metadata_date.month
+        "#{metadata_date.year}-#{metadata_date.month}"
+      elsif metadata_date.year
+        "#{metadata_date.year}"
+      else
+        raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
+      end
+
+    end
+
+    def format_bc(date)
+      if metadata_date.bc?
+        date = "-#{date}"
+      end
+      date
     end
   end
 end
