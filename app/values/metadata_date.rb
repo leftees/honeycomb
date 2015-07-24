@@ -139,12 +139,8 @@ class MetadataDate
     private
 
     def format_date
-      if metadata_date.day
-        "#{metadata_date.year}-#{metadata_date.month}-#{metadata_date.day}"
-      elsif metadata_date.month
-        "#{metadata_date.year}-#{metadata_date.month}"
-      elsif metadata_date.year
-        "#{metadata_date.year}"
+      if values.present?
+        values.join("-")
       else
         raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
       end
@@ -155,6 +151,10 @@ class MetadataDate
         date = "-#{date}"
       end
       date
+    end
+
+    def values
+      @values ||= [metadata_date.year, metadata_date.month, metadata_date.day].compact
     end
   end
 end
