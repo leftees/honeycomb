@@ -1,21 +1,21 @@
 class MetadataDate
-  attr_reader :date_data, :parsed_date, :date, :display_text
+  include ActiveModel::Validations
+
+  attr_reader :date_data, :display_text, :year, :month, :day, :bc
+
+  validates :year, numericality: { only_integer: true, allow_nil: false, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999 }
+  validates :month, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
+  validates :day, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31 }
 
   class ParseError < Exception
   end
 
   def initialize(data)
-    if !data[:value]
-      raise ParseError.new("No date value submitted")
-    end
-
     @date_data = data
-    parse_date
-    setup_date
   end
 
   def bc?
-    (year < 0)
+    date_data[:bc]
   end
 
   def human_readable
@@ -23,39 +23,27 @@ class MetadataDate
   end
 
   def display_text
-    @date_data[:display_text]
+    date_data[:display_text]
   end
 
   def year
-    @year ||= parsed_date[0] ? parsed_date[0].to_i : nil
+    @year ||= date_data[:year] ? date_data[:year].strip : nil
   end
 
   def month
-    @month ||= parsed_date[1] ? parsed_date[1].to_i : nil
+    @month ||= date_data[:month] ? date_data[:month].strip : nil
   end
 
   def day
-    @day ||= parsed_date[2] ? parsed_date[2].to_i : nil
+    @day ||= date_data[:day] ? date_data[:day].strip : nil
   end
 
-  private
-
-  def parse_date
-    if !@parsed_date ||= date_data[:value].scan(/^([-]?\d{1,4})[-]?(\d{1,2})?[-]?(\d{1,2})?$/).first
-      raise ParseError.new("Unable to parse date")
-    end
+  def iso8601
+    @iso ||= ConvertToIsoDate.new(self).convert
   end
 
-  def setup_date
-    if day
-      @date = Date.new(year, month, day)
-    elsif month
-      @date = Date.new(year, month)
-    elsif year
-      @date = Date.new(year)
-    else
-      raise ParseError.new("Unable to setup date from parsed data")
-    end
+  def to_date
+    @date ||= ConvertToRubyDate.new(self).convert
   end
 
   class FormatDisplayText
@@ -70,7 +58,7 @@ class MetadataDate
     end
 
     def format
-      if metadata_date.display_text
+      if metadata_date.display_text.present?
         metadata_date.display_text
       else
         format_date
@@ -90,16 +78,83 @@ class MetadataDate
     end
 
     def format_date
-      date = I18n.localize(metadata_date.date, format: date_format)
-      date = fix_bc_date(date)
+      if !date = metadata_date.to_date
+        return ""
+      end
+
+      date = I18n.localize(date, format: date_format)
+      date = add_bc_to_date(date)
 
       date
     end
 
-    def fix_bc_date(date)
+    def add_bc_to_date(date)
       if metadata_date.bc?
         date += " BC"
-        date.gsub!(metadata_date.year.to_s, metadata_date.year.abs.to_s)
+      end
+      date
+    end
+  end
+
+  class ConvertToRubyDate
+    attr_reader :metadata_date
+
+    def initialize(metadata_date)
+      @metadata_date = metadata_date
+    end
+
+    def convert!
+      return false if !metadata_date.valid?
+
+      if metadata_date.day
+        Date.new(metadata_date.year.to_i, metadata_date.month.to_i, metadata_date.day.to_i)
+      elsif metadata_date.month
+        Date.new(metadata_date.year.to_i, metadata_date.month.to_i)
+      elsif metadata_date.year
+        Date.new(metadata_date.year.to_i)
+      else
+        raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
+      end
+    end
+
+    def convert
+      convert!
+    rescue ArgumentError
+      false
+    end
+  end
+
+  class ConvertToIsoDate
+    attr_reader :metadata_date
+
+    def initialize(metadata_date)
+      @metadata_date = metadata_date
+    end
+
+    def convert
+      return false if !metadata_date.valid? || !metadata_date.to_date
+
+      date = format_date
+      format_bc(date)
+    end
+
+    private
+
+    def format_date
+      if metadata_date.day
+        "#{metadata_date.year}-#{metadata_date.month}-#{metadata_date.day}"
+      elsif metadata_date.month
+        "#{metadata_date.year}-#{metadata_date.month}"
+      elsif metadata_date.year
+        "#{metadata_date.year}"
+      else
+        raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
+      end
+    end
+
+    def format_bc(date)
+      if metadata_date.bc?
+        date = "-#{date}"
       end
       date
     end
