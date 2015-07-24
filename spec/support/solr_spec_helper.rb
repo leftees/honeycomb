@@ -3,7 +3,6 @@ $proxy_sunspot_session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_
 Sunspot.session = $proxy_sunspot_session
 
 module SolrSpecHelper
-
   def unstub_solr
     unless $sunspot
       $sunspot = ::Sunspot::Rails::Server.new

@@ -55,10 +55,10 @@ RSpec.describe Waggle::Item do
     end
 
     expect(search.facet(:name_facet).rows.first.value).to eq("pig-in-mud")
-    search.hits.each do |hit|
-      stored_values = hit.instance_variable_get(:@stored_values)
-      # pp stored_values
-    end
+    # search.hits.each do |hit|
+    #   stored_values = hit.instance_variable_get(:@stored_values)
+    #   pp stored_values
+    # end
 
     hit = search.hits.select { |h| h.primary_key == subject.id }.first
 
