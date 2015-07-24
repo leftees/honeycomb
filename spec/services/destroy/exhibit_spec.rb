@@ -1,10 +1,10 @@
 require "rails_helper"
 
-describe Module::Exhibit do
+describe Destroy::Exhibit do
   let(:showcase) { instance_double(Showcase, destroy!: true) }
   let(:exhibit) { instance_double(Exhibit, showcases: [showcase, showcase], destroy!: true) }
   let(:destroy_showcase) { instance_double(Destroy::Showcase, cascade!: nil) }
-  let(:subject) { Destroy::Exhibit.new(destroy_showcase: destroy_showcase) }
+  let(:subject) { described_class.new(destroy_showcase: destroy_showcase) }
 
   describe "#destroy" do
     it "destroys the Exhibit" do
@@ -27,7 +27,7 @@ describe Module::Exhibit do
 
   context "cascade transaction" do
     let(:destroy_showcase) { Destroy::Showcase.new }
-    let(:subject) { Destroy::Exhibit.new(destroy_showcase: destroy_showcase) }
+    let(:subject) { described_class.new(destroy_showcase: destroy_showcase) }
     let(:exhibit) { FactoryGirl.create(:exhibit) }
     let(:collection) { FactoryGirl.create(:collection) }
     let(:showcases) { [FactoryGirl.create(:showcase, id: 1, exhibit_id: exhibit.id), FactoryGirl.create(:showcase, id: 2, exhibit_id: exhibit.id)] }
