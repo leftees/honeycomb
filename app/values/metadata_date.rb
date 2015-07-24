@@ -1,41 +1,27 @@
 class MetadataDate
   include ActiveModel::Validations
 
-  attr_reader :date_data, :display_text, :year, :month, :day, :bc
+  attr_reader :year, :month, :day, :bc, :display_text
 
   validates :year, numericality: { only_integer: true, allow_nil: false, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999 }
   validates :month, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :day, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31 }
+  validates :month, presence: true, if: :month_required?
 
-  class ParseError < Exception
-  end
-
-  def initialize(data)
-    @date_data = data
+  def initialize(year: nil, month: nil, day: nil, bc: nil, display_text: nil)
+    @year = parse_value(year)
+    @month = parse_value(month)
+    @day = parse_value(day)
+    @bc = bc
+    @display_text = parse_value(display_text)
   end
 
   def bc?
-    date_data[:bc]
+    bc.present?
   end
 
   def human_readable
     @human_readable ||= FormatDisplayText.format(self)
-  end
-
-  def display_text
-    date_data[:display_text]
-  end
-
-  def year
-    @year ||= date_data[:year] ? date_data[:year].strip : nil
-  end
-
-  def month
-    @month ||= date_data[:month] ? date_data[:month].strip : nil
-  end
-
-  def day
-    @day ||= date_data[:day] ? date_data[:day].strip : nil
   end
 
   def iso8601
@@ -44,6 +30,16 @@ class MetadataDate
 
   def to_date
     @date ||= ConvertToRubyDate.new(self).convert
+  end
+
+  private
+
+  def parse_value(value)
+    value ? value.to_s.strip : nil
+  end
+
+  def month_required?
+    day.present?
   end
 
   class FormatDisplayText
@@ -106,12 +102,8 @@ class MetadataDate
     def convert!
       return false if !metadata_date.valid?
 
-      if metadata_date.day
-        Date.new(metadata_date.year.to_i, metadata_date.month.to_i, metadata_date.day.to_i)
-      elsif metadata_date.month
-        Date.new(metadata_date.year.to_i, metadata_date.month.to_i)
-      elsif metadata_date.year
-        Date.new(metadata_date.year.to_i)
+      if values.present?
+        Date.new(*values)
       else
         raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
       end
@@ -121,6 +113,12 @@ class MetadataDate
       convert!
     rescue ArgumentError
       false
+    end
+
+    private
+
+    def values
+      @values ||= [metadata_date.year, metadata_date.month, metadata_date.day].compact.map(&:to_i)
     end
   end
 
