@@ -26,8 +26,6 @@ module Waggle
       def thumbnail_url
         if object.honeypot_image
           object.honeypot_image.json_response["thumbnail/small"]["contentUrl"]
-        else
-          nil
         end
       end
 

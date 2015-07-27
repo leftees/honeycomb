@@ -49,7 +49,7 @@ RSpec.describe Waggle::Item do
     name_q = "pig-in-mud"
 
     search = Sunspot.search described_class do
-      fulltext "pig" do
+      fulltext q do
         boost_fields name: 3.0
         highlight :name
       end
