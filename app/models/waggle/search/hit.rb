@@ -32,7 +32,7 @@ module Waggle
       end
 
       def updated
-        object.updated_at.to_json
+        object.updated_at.as_json
       end
     end
   end
