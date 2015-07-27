@@ -45,13 +45,21 @@ RSpec.describe Waggle::Item do
     Sunspot.index(other_instance)
     Sunspot.commit
 
+    q = "pig"
+    name_q = "pig-in-mud"
+
     search = Sunspot.search described_class do
       fulltext "pig" do
         boost_fields name: 3.0
         highlight :name
       end
 
-      facet :name_facet
+      if name_q.present?
+        name_filter = with(:name_facet, name_q)
+        facet :name_facet, exclude: [name_filter]
+      else
+        facet :name_facet
+      end
     end
 
     expect(search.facet(:name_facet).rows.first.value).to eq("pig-in-mud")
