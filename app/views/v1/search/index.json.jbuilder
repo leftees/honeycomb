@@ -1,4 +1,4 @@
-json.set! "@type", "SearchResponse"
+json.set! "@type", "SearchResult"
 json.hits do
   json.found @search.total
   json.start @search.start
