@@ -50,17 +50,17 @@ RSpec.describe V1::MetadataJSON do
   ].each do |field|
     describe "##{field}" do
       it "returns nil if there is no #{field}" do
-        item.stub(field).and_return(nil)
+        allow(item).to receive(field).and_return(nil)
         expect(subject.send(field)).to eq(nil)
       end
 
       it "returns nil if the field value is \"\"" do
-        item.stub(field).and_return("")
+        allow(item).to receive(field).and_return("")
         expect(subject.send(field)).to eq(nil)
       end
 
       it "uses the MetadataDate#display_text field" do
-        item.stub(field).and_return(year: "2010", month: "10", day: "12")
+        allow(item).to receive(field).and_return(year: "2010", month: "10", day: "12")
         expect_any_instance_of(MetadataDate).to receive(:human_readable).and_call_original
         expect(subject.send(field)).to eq("October 12, 2010")
       end

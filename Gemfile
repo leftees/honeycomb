@@ -47,6 +47,11 @@ gem "paper_trail", "~> 4.0.0.beta2"
 gem "faraday"
 gem "faraday_middleware"
 
+gem "sunspot"
+# Include the sunspot_rails gem but don't require it because we only want the configuration
+gem "sunspot_rails", require: false
+gem "sunspot_solr"
+
 # Background processing
 gem "sneakers"
 
