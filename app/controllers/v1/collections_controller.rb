@@ -44,6 +44,9 @@ module V1
 
     def preview_mode
       @collection = CollectionQuery.new.any_find(params[:collection_id])
+
+      return if rendered_forbidden?(@collection)
+
       @return_value = SetCollectionPreviewMode.call(@collection, params[:value])
 
       respond_to do |format|

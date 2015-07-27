@@ -2,17 +2,27 @@
 var React = require("react");
 var mui = require("material-ui");
 var Toggle = mui.Toggle;
+var CollectionActions = require('../actions/Collection');
+var CollectionActionTypes = require('../constants/CollectionActionTypes');
+var CollectionStore = require('stores/Collection');
+
 var CollectionPreviewModeToggle = React.createClass({
   mixins: [MuiThemeMixin],
   propTypes: {
-    collection: React.PropTypes.object.isRequired,
     previewModePath: React.PropTypes.string.isRequired,
     onToggle: React.PropTypes.func
   },
-
+  componentWillMount: function() {
+    CollectionStore.on("CollectionStoreChanged", this.collectionStoreChanged);
+  },
+  collectionStoreChanged: function() {
+    this.setState({
+      preview_mode: CollectionStore.preview,
+    }, this.stateChanged);
+  },
   getInitialState: function() {
     return {
-      preview_mode: this.props.collection.preview_mode,
+      preview_mode: CollectionStore.preview,
     };
   },
 
@@ -42,22 +52,7 @@ var CollectionPreviewModeToggle = React.createClass({
     } else {
       preview_state = true;
     }
-    $.ajax({
-      url: this.props.previewModePath,
-      dataType: "json",
-      data: {
-        value: preview_state
-      },
-      method: "PUT",
-      success: (function(data) {
-        this.setState({
-          preview_mode: preview_state,
-        }, this.stateChanged);
-      }).bind(this),
-      error: (function(xhr, status, err) {
-        console.error(actionUrl, status, err.toString());
-      }).bind(this)
-    });
+    CollectionActions.changePreview(preview_state, this.props.previewModePath);
   },
 
   render: function () {

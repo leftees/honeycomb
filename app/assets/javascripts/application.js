@@ -26,3 +26,4 @@
 //= require redactor_field
 //= require menu-bar
 $ = jQuery = require('jquery');
+

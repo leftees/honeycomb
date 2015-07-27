@@ -120,6 +120,10 @@ RSpec.describe V1::CollectionsController, type: :controller do
     let(:set_preview_mode_true) { put :preview_mode, collection_id: collection_to_preview.id, value: true, format: :json }
     let(:set_preview_mode_false) { put :preview_mode, collection_id: collection_not_to_preview.id, value: false, format: :json }
 
+    before(:each) do
+      sign_in_admin
+    end
+
     it "calls CollectionQuery" do
       expect_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_preview)
       set_preview_mode_true
@@ -137,6 +141,12 @@ RSpec.describe V1::CollectionsController, type: :controller do
       expect_any_instance_of(SetCollectionPreviewMode).to receive(:set_preview_mode).and_return(true)
       set_preview_mode_false
       expect(response.body).to eq("{\"status\":true}")
+    end
+
+    it "checks the editor permissions" do
+      allow_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_preview)
+      expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection_to_preview)
+      set_preview_mode_true
     end
   end
 end
