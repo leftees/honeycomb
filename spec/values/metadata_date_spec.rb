@@ -69,6 +69,19 @@ RSpec.describe MetadataDate do
     end
   end
 
+  describe :to_hash do
+    it "creates a hash for the api " do
+      date = MetadataDate.new(year: "2010", month: "2", day: "1", bc: true, display_text: "display_text")
+      expect(date.to_hash("label")).to eq(
+        "@type" => "date",
+        label: "label",
+        value: "display_text",
+        iso8601: "-2010-2-1",
+        raw: { year: "2010", month: "2", day: "1", bc: true, "display-text" => "display_text" }
+      )
+    end
+  end
+
   context :validations do
     describe :year do
       it "does not allow nil" do
