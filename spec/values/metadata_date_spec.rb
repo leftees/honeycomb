@@ -39,12 +39,27 @@ RSpec.describe MetadataDate do
 
   describe :bc? do
     it "is true when the date is BC" do
+      date = MetadataDate.new(bc: "true")
+      expect(date.bc?).to be(true)
+    end
+
+    it "is true when the date is true" do
       date = MetadataDate.new(bc: true)
-      expect(date.bc?).to be_truthy
+      expect(date.bc?).to be(true)
     end
 
     it "is false when the date is AD" do
+      date = MetadataDate.new(bc: "false")
+      expect(date.bc?).to be_falsey
+    end
+
+    it "is false when the date is false" do
       date = MetadataDate.new(bc: false)
+      expect(date.bc?).to be_falsey
+    end
+
+    it "is false when the date is nil" do
+      date = MetadataDate.new(bc: nil)
       expect(date.bc?).to be_falsey
     end
   end

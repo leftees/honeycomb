@@ -17,7 +17,7 @@ class MetadataDate
   end
 
   def bc?
-    bc.present?
+    bc.to_s == "true"
   end
 
   def human_readable
