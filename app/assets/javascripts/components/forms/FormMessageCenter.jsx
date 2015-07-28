@@ -1,5 +1,5 @@
 var React = require("react");
-var mediator = require("../../mediator");
+var EventEmitter = require('../../EventEmitter');
 var mui = require("material-ui");
 var Snackbar = mui.Snackbar;
 
@@ -12,13 +12,13 @@ var FormMessageCenter = React.createClass({
     };
   },
   componentWillMount: function() {
-    mediator.subscribe("MessageCenterDisplay", this.receiveDisplay);
+    EventEmitter.on("MessageCenterDisplay", this.receiveDisplay);
   },
 
-  receiveDisplay: function(type, message) {
+  receiveDisplay: function(messageType, messageText) {
     this.setState({
-      messageType: message[0],
-      messageText: message[1],
+      messageType: messageType,
+      messageText: messageText,
     });
     this.refs.errorDialog.show();
   },

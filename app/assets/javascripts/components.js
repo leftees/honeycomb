@@ -18,7 +18,7 @@ HoneycombTheme = require("./themes/HoneycombTheme");
 
 // uncategorized
 CollectionPreviewModeToggle = require("./components/CollectionPreviewModeToggle");
-CollectionPreviewPublish = require("./components/CollectionPreviewPublish");
+CollectionPreviewPublishLink = require("./components/CollectionPreviewPublishLink");
 DragContent = require("./components/DragContent");
 HoneypotImage = require("./components/HoneypotImage");
 ImageCaptionEditor = require("./components/ImageCaptionEditor");
@@ -85,3 +85,6 @@ ShowcaseEditorTitle = require("./components/showcase_editor/ShowcaseEditorTitle"
 UserList = require("./components/user_panel/UserList");
 UserListRow = require("./components/user_panel/UserListRow");
 UserPanel = require("./components/user_panel/UserPanel");
+
+// store initiliazers
+CollectionStoreInitializer = require("./components/store_initializers/collection");

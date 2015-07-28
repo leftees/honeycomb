@@ -2,25 +2,30 @@
 var React = require("react");
 var mui = require("material-ui");
 var Toggle = mui.Toggle;
-var mediator = require("../../mediator");
+var CollectionActions = require('../../actions/Collection');
+var CollectionActionTypes = require('../../constants/CollectionActionTypes');
+var CollectionStore = require('stores/Collection');
+
 var CollectionPublishToggle = React.createClass({
   mixins: [APIResponseMixin, MuiThemeMixin],
   propTypes: {
-    collection: React.PropTypes.object.isRequired,
     publishPath: React.PropTypes.string.isRequired,
     unpublishPath: React.PropTypes.string.isRequired,
     onToggle: React.PropTypes.func
   },
   componentWillMount: function() {
-    mediator.subscribe("test", this);
+    CollectionStore.on("CollectionStoreChanged", this.collectionStoreChanged);
   },
-  receive: function(message) {
-    console.log("CollectionPublishToggle received " + message);
+  collectionStoreChanged: function() {
+    this.setState({
+      published: CollectionStore.published,
+      published_label: this.publishedLabel(CollectionStore.published)
+    }, this.stateChanged);
   },
   getInitialState: function() {
     return {
-      published: this.props.collection.published,
-      published_label: this.publishedLabel(this.props.collection.published)
+      published: CollectionStore.published,
+      published_label: this.publishedLabel(CollectionStore.published)
     };
   },
   handleClick: function () {
@@ -40,29 +45,16 @@ var CollectionPublishToggle = React.createClass({
     return label;
   },
   togglePublished: function () {
-    var searchUrl;
+    var publishUrl;
     var published_state;
     if (this.state.published) {
-      searchUrl = this.props.unpublishPath;
+      publishUrl = this.props.unpublishPath;
       published_state = false;
     } else {
-      searchUrl = this.props.publishPath;
+      publishUrl = this.props.publishPath;
       published_state = true;
     }
-    $.ajax({
-      url: searchUrl,
-      dataType: "json",
-      method: "PUT",
-      success: (function(data) {
-        this.setState({
-          published: published_state,
-          published_label: this.publishedLabel(published_state)
-        }, this.stateChanged);
-      }).bind(this),
-      error: (function(xhr, status, err) {
-        mediator.send("MessageCenterDisplay", ["error", this.apiErrorToString(xhr)]);
-      }).bind(this)
-    });
+    CollectionActions.changePublished(published_state, publishUrl);
   },
   render: function () {
     return (
