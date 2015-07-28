@@ -102,6 +102,7 @@ group :development, :test do
   gem "guard-rails"
   gem "guard-rspec"
   gem "guard-spring"
+  gem "guard-npm"
   #  gem "growl"
   #  gem "ruby_gntp"
   #  gem "growl-rspec"
