@@ -1,6 +1,7 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
 var mediator = require("../../mediator");
+
 var ItemMetaDataForm = React.createClass({
   mixins: [APIResponseMixin],
   propTypes: {
@@ -152,7 +153,7 @@ var ItemMetaDataForm = React.createClass({
 
   additionalFields: function() {
     var map_function = function(fieldConfig, field) {
-      if (this.state.displayedFields[field]){
+      if (this.state.displayedFields[field]) {
         if (fieldConfig['type'] == 'string') {
           return (<StringField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
         } else if (fieldConfig['type'] == 'date') {
@@ -160,7 +161,7 @@ var ItemMetaDataForm = React.createClass({
         } else if (fieldConfig['type'] == 'html') {
           return (<HtmlField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
         } else if (fieldConfig['type'] == 'text') {
-          return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);  
+          return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
         }
       }
       return "";

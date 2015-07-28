@@ -44,10 +44,10 @@ var TextField = React.createClass({
 
   render: function () {
     return (
-        <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
-          <textarea name={this.formName()} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} value={this.props.value} />
-        </FormRow>
-      );
+      <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
+        <textarea name={this.formName()} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} value={this.props.value} />
+      </FormRow>
+    );
   }
 });
 

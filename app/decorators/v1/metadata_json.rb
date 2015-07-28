@@ -21,6 +21,13 @@ module V1
       ["Date Modified", :date_modified],
     ]
 
+    {
+      name: { type: :sting, label: "Name" },
+      description: { type: :html, label: "Description" },
+      transcription: { type: :html, label: "Transcription" },
+      date_created: { type: :date, label: "Date Created" },
+    }
+
     def metadata
       [].tap do |array|
         METADATA_MAP.each do |label, field|
@@ -57,12 +64,24 @@ module V1
 
     private
 
-    def metadata_value(field)
-      value = send(field)
+    def metadata_value(field, label)
+      value = send(object.field)
 
       if value.present?
         value
       end
+    end
+
+    def string_value(value, label)
+      MetadataString.new(value).to_hash(label)
+    end
+
+    def html_value(value, label)
+
+    end
+
+    def date_value(value, label)
+      MetadataDate.new(value).to_hash(label)
     end
   end
 end
