@@ -6,69 +6,50 @@ module V1
       new(item).metadata
     end
 
-    METADATA_MAP = [
-      ["Name", :name],
-      ["Description", :description],
-      ["Manuscript", :manuscript_url],
-      ["Transcription", :transcription],
-      ["Creator", :creator],
-      ["Alternate Name", :alternate_name],
-      ["Publisher", :publisher],
-      ["Rights", :rights],
-      ["Original", :original_language],
-      ["Date Created", :date_created],
-      ["Date Published", :date_published],
-      ["Date Modified", :date_modified],
-    ]
-
-    {
-      name: { type: :sting, label: "Name" },
+    METADATA_MAP = {
+      name: { type: :string, label: "Name" },
+      alternate_name: { type: :string, label: "Alternate Name" },
+      creator: { type: :string, label: "Creator" },
       description: { type: :html, label: "Description" },
       transcription: { type: :html, label: "Transcription" },
       date_created: { type: :date, label: "Date Created" },
+      date_published: { type: :date, label: "Date Published" },
+      date_modified: { type: :date, label: "Date Modified" },
+      original_language: { type: :string, label: "Original Language" },
+      rights: { type: :string, label: "Rights" },
+      publisher: { type: :string, label: "Publisher" },
     }
 
     def metadata
-      [].tap do |array|
-        METADATA_MAP.each do |label, field|
+      {}.tap do |hash|
+        METADATA_MAP.each do |field, config|
           value = metadata_value(field)
           if value
-            array << { label: label, value: value }
+            hash[field] = metadata_hash(config[:type], value, config[:label])
           end
         end
       end
     end
 
-    def description
-      object.description.to_s
-    end
-
-    def transcription
-      object.transcription.to_s
-    end
-
-    def date_created
-      return nil if object.date_created.nil? || object.date_created.empty?
-      MetadataDate.new(object.date_created).human_readable
-    end
-
-    def date_modified
-      return nil if object.date_modified.nil? || object.date_modified.empty?
-      MetadataDate.new(object.date_modified).human_readable
-    end
-
-    def date_published
-      return nil if object.date_published.nil? || object.date_published.empty?
-      MetadataDate.new(object.date_published).human_readable
-    end
-
     private
 
-    def metadata_value(field, label)
-      value = send(object.field)
+    def metadata_value(field)
+      value = object.send(field)
 
       if value.present?
         value
+      end
+    end
+
+    def metadata_hash(type, value, label)
+      if type == :string
+        string_value(value, label)
+      elsif type == :html
+        html_value(value, label)
+      elsif type == :date
+        date_value(value, label)
+      else
+        raise "missing type"
       end
     end
 
@@ -77,11 +58,11 @@ module V1
     end
 
     def html_value(value, label)
-
+      MetadataHtml.new(value).to_hash(label)
     end
 
     def date_value(value, label)
-      MetadataDate.new(value).to_hash(label)
+      MetadataDate.new(value.symbolize_keys).to_hash(label)
     end
   end
 end
