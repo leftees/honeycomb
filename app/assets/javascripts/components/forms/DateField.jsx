@@ -37,7 +37,7 @@ var DateField = React.createClass({
     if (!this.props.value) {
       return;
     }
-    if (this.props.value) {
+
       this.setState({
         year: this.props.value.year,
         month: this.props.value.month,
@@ -46,7 +46,6 @@ var DateField = React.createClass({
         displayText: this.props.value.display_text,
         chooseDisplayText: (this.props.value.display_text ? true : false)
       });
-    }
   },
 
   requiredClass: function() {

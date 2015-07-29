@@ -16,10 +16,11 @@ var ItemMetaDataForm = React.createClass({
       method: "post",
       objectType: "item",
       additionalFieldConfiguration: {
-        "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"', "type": "string"},
-        "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as.", "type": "string"},
+        "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"', "type": "multiple"},
+        "contributor": {"title": "Contributor", "placeholder": '', "type": "multiple"},
+        "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as.", "type": "multiple"},
         "rights": {"title": "Rights", "placeholder": 'Example "Copyright held by Hesburgh Libraries"', "type": "string"},
-        "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"', "type": "string"},
+        "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"', "type": "multiple"},
         "original_language": {"title": "Original Language", "placeholder": 'Example: "French"', "type": "string"},
         "date_published": {"title": "Date Published", "placeholder": '', "type": "date"},
         "date_modified": {"title": "Date Modified", "placeholder": '', "type": "date"},
@@ -81,6 +82,7 @@ var ItemMetaDataForm = React.createClass({
     this.setState({
       formValues: this.state.formValues
     })
+    console.log(this.state)
     this.setDirty();
   },
 
@@ -161,6 +163,8 @@ var ItemMetaDataForm = React.createClass({
           return (<HtmlField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
         } else if (fieldConfig['type'] == 'text') {
           return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+        } else if (fieldConfig['type'] == 'multiple') {
+          return (<MultipleField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
         }
       }
       return "";

@@ -31,7 +31,8 @@ var StringField = React.createClass({
   },
 
   handleChange: function(event) {
-    this.props.handleFieldChange(this.props.name, event.target.value);
+    console.log(event)
+    this.props.handleFieldChange(this.props.name, event.target.value, event);
   },
 
   formName: function() {
@@ -45,7 +46,7 @@ var StringField = React.createClass({
   render: function () {
     return (
       <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
-        <input type="text" name={this.formName()} value={this.props.value} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} />
+        <input type="text" name={this.formName()} value={this.props.value} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} onBlur={this.handleChange} />
       </FormRow>
     );
   }

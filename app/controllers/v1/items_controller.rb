@@ -52,14 +52,14 @@ module V1
         :image,
         :manuscript_url,
         :transcription,
-        :creator,
-        :publisher,
-        :alternate_name,
         :rights,
         :original_language,
         date_created: [:value, :year, :month, :day, :bc, :display_text],
         date_modified: [:value, :year, :month, :day, :bc, :display_text],
         date_published: [:value, :year, :month, :day, :bc, :display_text],
+        creator: [],
+        publisher: [],
+        alternate_name: [],
       )
     end
   end
