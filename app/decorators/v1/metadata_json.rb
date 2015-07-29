@@ -10,13 +10,16 @@ module V1
       name: { type: :string, label: "Name" },
       alternate_name: { type: :string, label: "Alternate Name" },
       creator: { type: :string, label: "Creator" },
+      contributor: { type: :string, label: "Contributor" },
       description: { type: :html, label: "Description" },
+      subject: { type: :html, label: "Subject" },
       transcription: { type: :html, label: "Transcription" },
       date_created: { type: :date, label: "Date Created" },
       date_published: { type: :date, label: "Date Published" },
       date_modified: { type: :date, label: "Date Modified" },
       original_language: { type: :string, label: "Original Language" },
       rights: { type: :string, label: "Rights" },
+      provenance: { type: :string, label: "Provenance" },
       publisher: { type: :string, label: "Publisher" },
     }
 

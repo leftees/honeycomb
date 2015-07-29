@@ -53,6 +53,8 @@ module V1
         :manuscript_url,
         :transcription,
         :rights,
+        :subject,
+        :provenance,
         :original_language,
         date_created: [:value, :year, :month, :day, :bc, :display_text],
         date_modified: [:value, :year, :month, :day, :bc, :display_text],
@@ -60,6 +62,7 @@ module V1
         creator: [],
         publisher: [],
         alternate_name: [],
+        contributor: [],
       )
     end
   end
