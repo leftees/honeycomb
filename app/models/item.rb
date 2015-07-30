@@ -1,5 +1,18 @@
 class Item < ActiveRecord::Base
-  store :metadata, accessors: [:creator, :contributor, :publisher, :alternate_name, :rights, :provenance, :subject, :original_language, :date_created, :date_published, :date_modified], coder: JSON
+  store :metadata,
+        accessors: [
+          :creator,
+          :contributor,
+          :publisher,
+          :alternate_name,
+          :rights,
+          :provenance,
+          :subject,
+          :original_language,
+          :date_created,
+          :date_published,
+          :date_modified
+        ], coder: JSON
 
   has_paper_trail
 

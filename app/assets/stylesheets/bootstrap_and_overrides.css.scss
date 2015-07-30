@@ -1,4 +1,6 @@
 $brand-primary: #2c5882 !default;
+$multi-field-background: #f2f2f2;
+$multi-field-color: #696969;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -21,21 +23,21 @@ $brand-primary: #2c5882 !default;
   padding-right: 5px;
 }
 
-div.multi-field-value {
-  background-color: #f2f2f2;
-  color: #696969;
-  padding: 5px;
+.multi-field-value {
+  background-color: $multi-field-background;
+  color: $multi-field-color;
   margin: 3px;
+  padding: 5px;
 }
 
 .multi-field-value a {
-  padding-right: 5px;
   cursor: pointer;
+  padding-right: 5px;
 }
 
 .multi-field-delete-cell {
   text-align: right;
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 
 .multi-field-value-cell {
