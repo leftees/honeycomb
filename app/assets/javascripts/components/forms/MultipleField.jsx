@@ -97,7 +97,7 @@ var MultipleField = React.createClass({
 
   displayValues: function () {
     return _.map(this.state.values, function (value, index) {
-      return (<MultipleFieldDisplayValue value={value} index={index} handleFieldUpdate={this.updateValue} handleRemove={this.handleRemove} />)
+      return (<MultipleFieldDisplayValue key={index} value={value} index={index} handleFieldUpdate={this.updateValue} handleRemove={this.handleRemove} />)
     }, this);
   },
 

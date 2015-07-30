@@ -3,7 +3,7 @@ var React = require('react');
 var MultipleFieldDisplayValue = React.createClass({
 
   propTypes: {
-    index: React.PropTypes.string.isRequired,
+    index: React.PropTypes.number.isRequired,
     value: React.PropTypes.string,
     handleFieldUpdate: React.PropTypes.func.isRequired,
     handleRemove: React.PropTypes.func.isRequired,
