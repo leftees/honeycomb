@@ -48,6 +48,7 @@ TextField = require("./components/forms/TextField");
 DateField = require("./components/forms/DateField");
 HtmlField = require("./components/forms/HtmlField");
 MultipleField = require("./components/forms/MultipleField");
+MultipleFieldDisplayValue = require("./components/forms/MultipleFieldDisplayValue");
 
 // panel
 Panel = require("./components/panel/Panel");

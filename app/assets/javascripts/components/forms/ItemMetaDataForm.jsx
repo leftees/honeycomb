@@ -16,16 +16,17 @@ var ItemMetaDataForm = React.createClass({
       method: "post",
       objectType: "item",
       additionalFieldConfiguration: {
-        "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"', "type": "multiple"},
-        "contributor": {"title": "Contributor", "placeholder": '', "type": "multiple"},
-        "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as.", "type": "multiple"},
-        "rights": {"title": "Rights", "placeholder": 'Example "Copyright held by Hesburgh Libraries"', "type": "string"},
-        "provenance": {"title": "Provenance", "placeholder": 'Example: "Received as a gift from John Doe"', "type": "string"},
-        "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"', "type": "multiple"},
-        "subject": {"title": "Subject Keywords", "placeholder": '', "type": "string"},
-        "original_language": {"title": "Original Language", "placeholder": 'Example: "French"', "type": "string"},
-        "date_published": {"title": "Date Published", "placeholder": '', "type": "date"},
-        "date_modified": {"title": "Date Modified", "placeholder": '', "type": "date"},
+        "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"', "type": "multiple", "help": ""},
+        "contributor": {"title": "Contributor", "placeholder": '', "type": "multiple", "help": ""},
+        "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as.", "type": "multiple", "help": ""},
+        "rights": {"title": "Rights", "placeholder": 'Example "Copyright held by Hesburgh Libraries"', "type": "string", "help": ""},
+        "provenance": {"title": "Provenance", "placeholder": 'Example: "Received as a gift from John Doe"', "type": "string", "help": ""},
+        "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"', "type": "multiple", "help": ""},
+        "subject": {"title": "Subject Keywords", "placeholder": '', "type": "string", "help": ""},
+        "original_language": {"title": "Original Language", "placeholder": 'Example: "French"', "type": "string", "help": ""},
+        "date_published": {"title": "Date Published", "placeholder": '', "type": "date", "help": ""},
+        "date_modified": {"title": "Date Modified", "placeholder": '', "type": "date", "help": ""},
+        "manuscript_url": {"title": "Digitized Manuscript URL", "placeholder": 'http://', "type": "string", "help": "Link to externally hosted manuscript viewer." },
       }
     };
   },
@@ -158,15 +159,15 @@ var ItemMetaDataForm = React.createClass({
     var map_function = function(fieldConfig, field) {
       if (this.state.displayedFields[field]) {
         if (fieldConfig['type'] == 'string') {
-          return (<StringField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+          return (<StringField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} help={fieldConfig["help"]} />);
         } else if (fieldConfig['type'] == 'date') {
-          return (<DateField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+          return (<DateField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} help={fieldConfig["help"]} />);
         } else if (fieldConfig['type'] == 'html') {
-          return (<HtmlField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+          return (<HtmlField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} help={fieldConfig["help"]} />);
         } else if (fieldConfig['type'] == 'text') {
-          return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+          return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} help={fieldConfig["help"]} />);
         } else if (fieldConfig['type'] == 'multiple') {
-          return (<MultipleField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} />);
+          return (<MultipleField key={field} objectType={this.props.objectType} name={field} title={fieldConfig["title"]} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig["placeholder"]} help={fieldConfig["help"]} />);
         }
       }
       return "";
@@ -213,8 +214,6 @@ var ItemMetaDataForm = React.createClass({
               <DateField objectType={this.props.objectType} name="date_created" title="Date Created" value={this.state.formValues["date_created"]} handleFieldChange={this.handleFieldChange} placeholder="" errorMsg={this.fieldError('date_created')} />
 
               <HtmlField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues["transcription"]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('transcription')}  />
-
-              <StringField objectType={this.props.objectType} name="manuscript_url" title="Digitized Manuscript URL" value={this.state.formValues["manuscript_url"]} handleFieldChange={this.handleFieldChange} placeholder="http://" help="Link to externally hosted manuscript viewer." errorMsg={this.fieldError('manuscript_url')}  />
 
               {this.additionalFields()}
 

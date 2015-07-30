@@ -32,7 +32,7 @@ RSpec.describe MetadataDate do
     end
 
     it "returns nil if there is nothing passed in for day" do
-      date = MetadataDate.new({})
+      date = MetadataDate.new({})    
       expect(date.day).to eq(nil)
     end
   end

@@ -18,6 +18,7 @@ var MultipleField = React.createClass({
     return {
       values: [],
       currentValue: "",
+      editValues: [],
       required: false,
     };
   },
@@ -40,6 +41,14 @@ var MultipleField = React.createClass({
     return css
   },
 
+  updateValue: function(index, newValue) {
+    if (this.state.values[index]) {
+      this.state.values[index] = newValue;
+      this.setState(this.state);
+      this.props.handleFieldChange(this.props.name, this.state.values);
+    }
+  },
+
   handleChange: function(event) {
     this.state.currentValue = event.target.value;
     this.setState(this.state);
@@ -49,19 +58,25 @@ var MultipleField = React.createClass({
     if (this.state.currentValue) {
       this.state.values.push(this.state.currentValue);
       this.state.currentValue = "";
-      this.setState(this.state);
 
       this.props.handleFieldChange(this.props.name, this.state.values);
       React.findDOMNode(this.refs[this.formId()]).focus();
     }
   },
 
-  handleRemove: function(index, event) {
-    event.preventDefault();
+  handleRemove: function(index) {
     if (index > -1) {
       this.state.values.splice(index, 1);
-      this.setState(this.state);
       this.props.handleFieldChange(this.props.name, this.state.values);
+    }
+  },
+
+  handleReplaceClick: function (index) {
+    event.preventDefault();
+    if (index > -1) {
+      if (_.indexOf(this.state.editValues, index) != -1) {
+        this.state.editValues.push(index);
+      }
     }
   },
 
@@ -75,7 +90,7 @@ var MultipleField = React.createClass({
 
   displayValues: function () {
     return _.map(this.state.values, function (value, index) {
-      return (<div className="multi-field-value" key={value}>{value} <a className="pull-right" onClick={this.handleRemove.bind(this, index)} href="#">x</a></div>);
+      return (<MultipleFieldDisplayValue value={value} index={index} handleFieldUpdate={this.updateValue} handleRemove={this.handleRemove} />)
     }, this);
   },
 
