@@ -40,7 +40,7 @@ module V1
       value = object.send(field)
 
       if value.present?
-        value
+        ensure_value_is_array(value)
       end
     end
 
@@ -57,15 +57,22 @@ module V1
     end
 
     def string_value(value, label)
-      MetadataString.new(value).to_hash(label)
+      value.map { |v| MetadataString.new(v).to_hash(label) }
     end
 
     def html_value(value, label)
-      MetadataHtml.new(value).to_hash(label)
+      value.map { |v| MetadataHtml.new(v).to_hash(label) }
     end
 
     def date_value(value, label)
-      MetadataDate.new(value.symbolize_keys).to_hash(label)
+      value.map { |v| MetadataDate.new(v.symbolize_keys).to_hash(label) }
+    end
+
+    def ensure_value_is_array(value)
+      if !value.is_a?(Array)
+        return [value]
+      end
+      value
     end
   end
 end
