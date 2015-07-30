@@ -31,7 +31,6 @@ var StringField = React.createClass({
   },
 
   handleChange: function(event) {
-    console.log(event)
     this.props.handleFieldChange(this.props.name, event.target.value, event);
   },
 

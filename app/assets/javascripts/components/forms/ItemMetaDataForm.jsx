@@ -84,8 +84,7 @@ var ItemMetaDataForm = React.createClass({
     this.state.formValues[field] = value;
     this.setState({
       formValues: this.state.formValues
-    })
-    console.log(this.state)
+    })    
     this.setDirty();
   },
 
