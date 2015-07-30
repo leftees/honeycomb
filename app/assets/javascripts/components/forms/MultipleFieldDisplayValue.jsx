@@ -59,9 +59,15 @@ var MultipleFieldDisplayValue = React.createClass({
     }
   },
 
+  handleKeyPress: function(event) {
+    if (event.charCode == 13) {
+      this.handleBlur(event);
+    }
+  },
+
   renderDisplayElement: function() {
     if (this.state.editMode) {
-      return (<input type="text" ref="input" className="form-control input-sm" onBlur={this.handleBlur} onChange={this.handleChange} value={this.state.value} />);
+      return (<input type="text" ref="input" className="form-control input-sm" onKeyPress={this.handleKeyPress} onBlur={this.handleBlur} onChange={this.handleChange} value={this.state.value} />);
     } else {
       return (this.props.value);
     }
@@ -74,7 +80,7 @@ var MultipleFieldDisplayValue = React.createClass({
           {this.renderDisplayElement()}
         </div>
         <div className="col-xs-2 multi-field-delete-cell">
-          <a onClick={this.handleRemove}>| x</a>
+          <a title="Remove this value" onClick={this.handleRemove}>| x</a>
         </div>
       </div>
     );

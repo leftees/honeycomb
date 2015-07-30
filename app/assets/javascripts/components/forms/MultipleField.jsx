@@ -80,6 +80,13 @@ var MultipleField = React.createClass({
     }
   },
 
+  handleKeyPress: function (event) {
+    if (event.charCode == 13) {
+      event.preventDefault();
+      this.handleBlur(event);
+    }
+  },
+
   formName: function() {
     return this.props.objectType + "[" + this.props.name + "]";
   },
@@ -98,7 +105,7 @@ var MultipleField = React.createClass({
     return (
       <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
         {this.displayValues()}
-        <input type="text" ref={this.formId()} name={this.formName()} value={this.state.currentValue} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} onBlur={this.handleBlur} />
+        <input type="text" ref={this.formId()} name={this.formName()} value={this.state.currentValue} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} onBlur={this.handleBlur}  onKeyPress={this.handleKeyPress} />
       </FormRow>
     );
   }
