@@ -17,7 +17,7 @@ class MetadataDate
   end
 
   def bc?
-    bc.present?
+    bc.to_s == "true"
   end
 
   def human_readable
@@ -30,6 +30,22 @@ class MetadataDate
 
   def to_date
     @date ||= ConvertToRubyDate.new(self).convert
+  end
+
+  def to_hash(label)
+    {
+      "@type" => "date",
+      label: label,
+      value: human_readable,
+      iso8601: iso8601,
+      raw: {
+        year: year,
+        month: month,
+        day: day,
+        bc: bc,
+        "display-text" => display_text,
+      }
+    }
   end
 
   private

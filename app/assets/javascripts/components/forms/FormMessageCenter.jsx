@@ -34,7 +34,6 @@ var FormMessageCenter = React.createClass({
         ref = "errorDialog"
         message={this.state.messageText}
       >
-
       </Snackbar>
     );
   }
