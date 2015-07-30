@@ -6,3 +6,5 @@ Sunspot::Adapters::DataAccessor.register(
   Waggle::Sunspot::Adapters::ItemDataAccessor,
   Waggle::Item
 )
+
+Waggle::Index::Item.setup

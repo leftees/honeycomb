@@ -9,10 +9,10 @@ RSpec.describe V1::MetadataJSON do
     it "calls the MetadataString class for string metadata" do
       allow(item).to receive(:name).and_return("name")
       expect_any_instance_of(MetadataString).to receive(:to_hash).and_return("hash")
-      expect(subject.metadata).to eq(name: { "@type"=>"MetadataField", "name" => :name, "label" => "Name", "values" => ["hash"] })
+      expect(subject.metadata).to eq(name: { "@type" => "MetadataField", "name" => :name, "label" => "Name", "values" => ["hash"] })
     end
 
-    it "calls the MetadataHtml class for html metadata" do
+    it "calls the MetadataHTML class for html metadata" do
       allow(item).to receive(:description).and_return("desc")
       expect_any_instance_of(MetadataHTML).to receive(:to_hash).and_return("hash")
       expect(subject.metadata).to eq(description: { "@type" => "MetadataField", "name" => :description, "label" => "Description", "values" => ["hash"] })

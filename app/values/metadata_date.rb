@@ -8,6 +8,10 @@ class MetadataDate
   validates :day, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31 }
   validates :month, presence: true, if: :month_required?
 
+  def self.from_hash(hash)
+    new(**hash.symbolize_keys)
+  end
+
   def initialize(year: nil, month: nil, day: nil, bc: nil, display_text: nil)
     @year = parse_value(year)
     @month = parse_value(month)

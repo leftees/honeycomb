@@ -55,24 +55,58 @@
         "contentUrl":"http://localhost:3019/images/honeycomb/000/001/000/013/small/pig-in-mud.jpg"
       }
     },
-    "metadata":[
-      {
+    "metadata":{
+      "name":{
+        "@type":"MetadataField",
+        "name":"name",
         "label":"Name",
-        "value":"pig-in-mud"
+        "values":[
+          {
+            "@type":"MetadataString",
+            "value":"pig-in-mud"
+          }
+        ]
       },
-      {
-        "label":"Description",
-        "value":"Source: https://pixabay.com/en/pig-sow-animal-portrait-752555/"
-      },
-      {
+      "creator":{
+        "@type":"MetadataField",
+        "name":"creator",
         "label":"Creator",
-        "value":"Bob"
+        "values":[
+          {
+            "@type":"MetadataString",
+            "value":"Bob"
+          }
+        ]
       },
-      {
+      "description":{
+        "@type":"MetadataField",
+        "name":"description",
+        "label":"Description",
+        "values":[
+          {
+            "@type":"MetadataHTML",
+            "value":"<p>Source: https://pixabay.com/en/pig-sow-animal-portrait-752555/</p>"
+          }
+        ]
+      },
+      "date_published":{
+        "@type":"MetadataField",
+        "name":"date_published",
         "label":"Date Published",
-        "value":"March 2013"
+        "values":[
+          {
+            "@type":"MetadataDate",
+            "value":"March 2013",
+            "iso8601":"2013-03-24",
+            "year":"2013",
+            "month":"03",
+            "day":"24",
+            "bc":"false",
+            "display-text":"March 2013"
+          }
+        ]
       }
-    ],
+    },
     "last_updated":"2015-07-23T20:26:06.000Z",
     "children":[
 

@@ -17,6 +17,7 @@ end
 # https://github.com/guard/guard-spring
 hesburgh_guard.spring do
   # Watch any custom paths
+  watch(%r{^config/metadata/(.+)\.yml$}) { "spec/models/metadata/configuration/config_yml_spec.rb" }
 end
 
 hesburgh_guard.rails do
@@ -24,5 +25,4 @@ hesburgh_guard.rails do
 end
 
 hesburgh_guard.npm do
-
 end

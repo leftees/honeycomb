@@ -6,41 +6,32 @@ module V1
       new(item).metadata
     end
 
-    METADATA_MAP = {
-      name: { type: :string, label: "Name" },
-      alternate_name: { type: :string, label: "Alternate Name" },
-      creator: { type: :string, label: "Creator" },
-      contributor: { type: :string, label: "Contributor" },
-      description: { type: :html, label: "Description" },
-      subject: { type: :html, label: "Subject" },
-      transcription: { type: :html, label: "Transcription" },
-      date_created: { type: :date, label: "Date Created" },
-      date_published: { type: :date, label: "Date Published" },
-      date_modified: { type: :date, label: "Date Modified" },
-      original_language: { type: :string, label: "Original Language" },
-      rights: { type: :string, label: "Rights" },
-      provenance: { type: :string, label: "Provenance" },
-      publisher: { type: :string, label: "Publisher" },
-      manuscript_url: { type: :string, label: "Digitized Manuscript" },
-    }
-
     def metadata
       {}.tap do |hash|
-        METADATA_MAP.each do |field, config|
-          value = metadata_value(field)
+        configuration.fields.each do |field_config|
+          value = metadata_value(field_config.name)
 
           if value.present?
-            hash[field] = {}
-            hash[field]["@type"] = "MetadataField"
-            hash[field]["name"] = field
-            hash[field]["label"] = config[:label]
-            hash[field]["values"] = metadata_hash(config[:type], value)
+            hash[field_config.name] = field_hash(value, field_config)
           end
         end
       end
     end
 
     private
+
+    def configuration
+      Metadata::Configuration.item_configuration
+    end
+
+    def field_hash(value, field_config)
+      {
+        "@type" => "MetadataField",
+        "name" => field_config.name,
+        "label" => field_config.label,
+        "values" => metadata_hash(field_config.type, value),
+      }
+    end
 
     def metadata_value(field)
       value = object.send(field)
@@ -71,7 +62,7 @@ module V1
     end
 
     def date_value(value)
-      value.map { |v| MetadataDate.new(v.symbolize_keys).to_hash }
+      value.map { |v| MetadataDate.from_hash(v).to_hash }
     end
 
     def ensure_value_is_array(value)
