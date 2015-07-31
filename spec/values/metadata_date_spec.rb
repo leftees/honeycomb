@@ -39,12 +39,27 @@ RSpec.describe MetadataDate do
 
   describe :bc? do
     it "is true when the date is BC" do
+      date = MetadataDate.new(bc: "true")
+      expect(date.bc?).to be(true)
+    end
+
+    it "is true when the date is true" do
       date = MetadataDate.new(bc: true)
-      expect(date.bc?).to be_truthy
+      expect(date.bc?).to be(true)
     end
 
     it "is false when the date is AD" do
+      date = MetadataDate.new(bc: "false")
+      expect(date.bc?).to be_falsey
+    end
+
+    it "is false when the date is false" do
       date = MetadataDate.new(bc: false)
+      expect(date.bc?).to be_falsey
+    end
+
+    it "is false when the date is nil" do
+      date = MetadataDate.new(bc: nil)
       expect(date.bc?).to be_falsey
     end
   end
@@ -66,6 +81,19 @@ RSpec.describe MetadataDate do
     it "returns nil if there is nothing passed in for display-text" do
       date = MetadataDate.new({})
       expect(date.display_text).to eq(nil)
+    end
+  end
+
+  describe :to_hash do
+    it "creates a hash for the api " do
+      date = MetadataDate.new(year: "2010", month: "2", day: "1", bc: true, display_text: "display_text")
+      expect(date.to_hash("label")).to eq(
+        "@type" => "date",
+        label: "label",
+        value: "display_text",
+        iso8601: "-2010-2-1",
+        raw: { year: "2010", month: "2", day: "1", bc: true, "display-text" => "display_text" }
+      )
     end
   end
 
