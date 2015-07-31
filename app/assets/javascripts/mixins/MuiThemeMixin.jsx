@@ -1,10 +1,10 @@
 "use strict"
-let mui = require("material-ui");
-let ThemeManager = new mui.Styles.ThemeManager();
-let HoneycombTheme = require("../themes/HoneycombTheme");
+var mui = require("material-ui");
+var ThemeManager = new mui.Styles.ThemeManager();
+var HoneycombTheme = require("../themes/HoneycombTheme");
 ThemeManager.setTheme(HoneycombTheme);
 
-let MuiThemeMixin = {
+var MuiThemeMixin = {
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },

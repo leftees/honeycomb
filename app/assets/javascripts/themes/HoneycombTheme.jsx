@@ -1,11 +1,11 @@
 "use strict"
 
-let Colors = require("material-ui/src/styles/colors");
-let Spacing = require("material-ui/src/styles/spacing");
-let ColorManipulator = require("material-ui/src/utils/color-manipulator");
+var Colors = require("material-ui/src/styles/colors");
+var Spacing = require("material-ui/src/styles/spacing");
+var ColorManipulator = require("material-ui/src/utils/color-manipulator");
 
 
-let HoneycombTheme = {
+var HoneycombTheme = {
   spacing: Spacing,
   contentFontFamily: "Roboto, sans-serif",
   getPalette() {
@@ -24,7 +24,7 @@ let HoneycombTheme = {
   },
   getComponentThemes(palette, spacing) {
     spacing = spacing || Spacing;
-    let obj = {
+    var obj = {
       appBar: {
         color: palette.primary1Color,
         textColor: Colors.darkWhite,
