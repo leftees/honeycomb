@@ -5,7 +5,13 @@ module Waggle
         reset!
         ::Sunspot.setup(Waggle::Item) do
           configuration.fields.each do |field|
-            text field.name
+            if field.type == :date
+              time field.name, multiple: true
+            elsif [:string, :html].include?(field.type)
+              text field.name
+            else
+              raise "unknown type #{field.type}"
+            end
           end
           string :type, stored: true
           string :thumbnail_url, stored: true

@@ -39,6 +39,7 @@ RSpec.describe Waggle::Index::Item do
     describe "fields" do
       before do
         allow_any_instance_of(Sunspot::DSL::Fields).to receive(:text)
+        allow_any_instance_of(Sunspot::DSL::Fields).to receive(:time)
         allow_any_instance_of(Sunspot::DSL::Fields).to receive(:string)
       end
 
@@ -63,7 +64,11 @@ RSpec.describe Waggle::Index::Item do
 
       context "metadata fields" do
         Metadata::Configuration.item_configuration.fields.each do |field|
-          it_behaves_like "a field indexer", field.name, :text
+          if field.type == :date
+            it_behaves_like "a field indexer", field.name, :time, multiple: true
+          else
+            it_behaves_like "a field indexer", field.name, :text
+          end
         end
       end
     end
