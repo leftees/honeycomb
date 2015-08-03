@@ -1,14 +1,13 @@
-class MetadataHtml
+class MetadataHTML
   attr_reader :value
 
   def initialize(value)
     @value = value
   end
 
-  def to_hash(label)
+  def to_hash
     {
-      "@type" => "html",
-      label: label,
+      "@type" => "MetadataHTML",
       value: value,
     }
   end
