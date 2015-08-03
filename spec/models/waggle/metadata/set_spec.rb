@@ -23,8 +23,13 @@ RSpec.describe Waggle::Metadata::Set do
       expect(subject.value(:name)).to eq(["pig-in-mud"])
     end
 
+    it "returns nil for a field with no value" do
+      data.delete("name")
+      expect(subject.value(:name)).to be_nil
+    end
+
     it "returns nil for a field that doesn't exist" do
-      expect(subject.value(:fake_field)).to eq([])
+      expect(subject.value(:fake_field)).to be_nil
     end
   end
 end

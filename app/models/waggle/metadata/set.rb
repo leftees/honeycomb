@@ -5,22 +5,24 @@ module Waggle
 
       def initialize(data, configuration)
         @data = data
-        @values = {}
+        @fields = {}
         @configuration = configuration
       end
 
       def value(field_name)
-        @values[field_name] ||= raw_data(field_name).fetch("values").map { |v| v.fetch("value") }
+        if field(field_name)
+          field(field_name).values.map(&:value)
+        end
+      end
+
+      def field(field_name)
+        if field?(field_name) && data.has_key?(field_name.to_s)
+          @fields[field_name] ||= Waggle::Metadata::Field.new(data.fetch(field_name.to_s))
+        end
       end
 
       def field?(field_name)
         configuration.field?(field_name)
-      end
-
-      private
-
-      def raw_data(field_name)
-        data.fetch(field_name.to_s, "values" => [])
       end
     end
   end

@@ -6,10 +6,19 @@ RSpec.describe Waggle::Metadata::Value do
   describe "from_hash" do
     subject { described_class.from_hash(data) }
 
-    it "returns a value" do
-      expect(subject).to be_kind_of(described_class::Base)
+    it "returns a String instance" do
+      data["@type"] = "MetadataString"
+      expect(subject).to be_kind_of(described_class::String)
     end
 
-    it "returns a value based on type"
+    it "returns a Date instance" do
+      data["@type"] = "MetadataDate"
+      expect(subject).to be_kind_of(described_class::Date)
+    end
+
+    it "returns an HTML instance" do
+      data["@type"] = "MetadataHTML"
+      expect(subject).to be_kind_of(described_class::HTML)
+    end
   end
 end
