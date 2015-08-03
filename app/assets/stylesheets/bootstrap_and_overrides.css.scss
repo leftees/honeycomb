@@ -1,6 +1,4 @@
 $brand-primary: #2c5882 !default;
-$multi-field-background: #f2f2f2;
-$multi-field-color: #696969;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -21,26 +19,4 @@ $multi-field-color: #696969;
 
 .form-inline .form-group {
   padding-right: 5px;
-}
-
-.multi-field-value {
-  background-color: $multi-field-background;
-  color: $multi-field-color;
-  margin: 3px;
-  padding: 5px;
-
-  a {
-    cursor: pointer;
-    padding-right: 5px;
-  }
-}
-
-.multi-field-delete-cell {
-  text-align: right;
-  vertical-align: middle;
-}
-
-.multi-field-value-cell {
-  cursor: pointer;
-  vertical-align: middle;
 }
