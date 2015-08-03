@@ -21,6 +21,7 @@ module V1
       rights: { type: :string, label: "Rights" },
       provenance: { type: :string, label: "Provenance" },
       publisher: { type: :string, label: "Publisher" },
+      manuscript_url: { type: :string, label: "Digitized Manuscript" },
     }
 
     def metadata
