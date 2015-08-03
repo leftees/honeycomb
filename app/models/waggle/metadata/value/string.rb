@@ -2,8 +2,8 @@ module Waggle
   module Metadata
     module Value
       class String < Base
-        def to_s
-          value
+        def value
+          raw_value.to_s
         end
       end
     end
