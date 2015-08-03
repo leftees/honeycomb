@@ -95,7 +95,7 @@ RSpec.describe MetadataDate do
         month: "2",
         day: "1",
         bc: true,
-        "display-text" => "display_text"
+        displayText: "display_text"
       )
     end
   end

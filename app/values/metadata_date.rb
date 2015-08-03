@@ -41,7 +41,7 @@ class MetadataDate
       month: month,
       day: day,
       bc: bc,
-      "display-text" => display_text,
+      displayText: display_text,
     }
   end
 
