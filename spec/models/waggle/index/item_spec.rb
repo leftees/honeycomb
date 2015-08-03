@@ -85,7 +85,7 @@ RSpec.describe Waggle::Index::Item do
     end
   end
 
-  describe "Waggle::Item search" do
+  describe "search" do
     before :each do
       described_class.setup
     end
@@ -98,6 +98,67 @@ RSpec.describe Waggle::Index::Item do
     after do
       Sunspot.remove_all(index_class)
       Sunspot.commit
+    end
+
+    shared_examples_for "a searchable field" do |field_name, field_type|
+      before do
+        allow(instance.metadata).to receive(:value).and_call_original
+      end
+
+      if field_type == :time
+        it "searches #{field_name} as #{field_type}" do
+          timestamp = Time.now - 1.day
+          expect(instance.metadata).to receive(:value).with(field_name).and_return([timestamp])
+          Sunspot.index(instance)
+          Sunspot.commit
+
+          search = Sunspot.search index_class do
+            with(field_name).equal_to timestamp
+          end
+
+          expect(search.total).to eq(1)
+
+          search = Sunspot.search index_class do
+            with(field_name).greater_than timestamp
+          end
+
+          expect(search.total).to eq(0)
+        end
+      elsif field_type == :text
+        it "searches #{field_name} as #{field_type}" do
+          q = field_name
+
+          expect(instance.metadata).to receive(:value).with(field_name).and_return([q])
+          Sunspot.index(instance)
+          Sunspot.commit
+
+          search = Sunspot.search index_class do
+            fulltext q
+          end
+
+          expect(search.total).to eq(1)
+
+          expect(instance.metadata).to receive(:value).with(field_name).and_return(nil)
+          Sunspot.index(instance)
+          Sunspot.commit
+
+          search = Sunspot.search index_class do
+            fulltext q
+          end
+
+          expect(search.total).to eq(0)
+        end
+      else
+        raise "unknown type #{field_type}"
+      end
+    end
+
+    Metadata::Configuration.item_configuration.fields.each do |field|
+      if field.type == :date
+        it_behaves_like "a searchable field", field.name, :time, multiple: true
+      else
+        it_behaves_like "a searchable field", field.name, :text
+      end
     end
 
     it "is searchable" do
