@@ -32,7 +32,7 @@ module V1
             hash[field] = {}
             hash[field]["@type"] = "MetadataField"
             hash[field]["name"] = field
-            hash[field]["label"] = config[:label]        
+            hash[field]["label"] = config[:label]
             hash[field]["values"] = metadata_hash(config[:type], value, config[:label])
           end
         end
@@ -66,7 +66,7 @@ module V1
     end
 
     def html_value(value, label)
-      value.map { |v| MetadataHtml.new(v).to_hash(label) }
+      value.map { |v| MetadataHTML.new(v).to_hash(label) }
     end
 
     def date_value(value, label)
