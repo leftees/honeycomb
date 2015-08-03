@@ -3,7 +3,7 @@
 
 <%= back_action_bar(@item.back_path, "#" ) %>
 
-<%= link_to("PREVIEW", CreateBeehiveURL.call(@item), class: "btn btn-large btn-hollow", :target => "_blank") %>
+<%= link_to("PREVIEW", CreateBeehiveURL.call(@item.object), class: "btn btn-large btn-hollow", :target => "_blank") %>
 
 <div class="row">
   <div class="col-md-8">
