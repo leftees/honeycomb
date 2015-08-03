@@ -9,31 +9,6 @@
   <div class="col-md-8">
 
     <%= @item.item_meta_data_form %>
-<!-- 
-    <% if @item.is_parent? %>
-      <div class="item-show-children clearfix">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <div class="pull-right">
-              <div>
-                <%= link_to "#", class: "btn btn-default btn-xs btn-flat", "data-toggle" => "modal", "data-target" => "#add-children-items" do %>
-                  <i class="glyphicon glyphicon-plus"></i> <%= t(".children.manage_link") %>
-                <% end %>
-              </div>
-            </div>
-            <h3 class="panel-title"><%= t(".children.title") %></h3>
-          </div>
-          <div class="panel-body">
-            <% if @item.recent_children.count > 0 %>
-
-              <%= render partial: "list", locals: { items: @item.recent_children } %>
-            <% else %>
-              <%= t(".children.empty_message_html") %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %> -->
 
     <%= DeletePanel.new(@item.object).display(ItemQuery.new(@item)) %>
 
@@ -61,21 +36,3 @@
 
   </div>
 </div>
-<!--
-
-<%= react_component("ReactDropzone", {
-        formUrl: url_for( @item ),
-        authenticityToken: form_authenticity_token,
-        modalTitle: t(".replace_item_image_title"),
-        multifileUpload: false,
-  }) %>
-
-<% if @item.is_parent? %>
-  <%= react_component("ReactDropzone", {
-          modalId: "add-children-items",
-          formUrl: item_children_path(@item),
-          authenticityToken: form_authenticity_token,
-          modalTitle: t(".children.upload_title"),
-          closeText: t(".children.upload_close_text"),
-    }) %>
-<% end %> -->
