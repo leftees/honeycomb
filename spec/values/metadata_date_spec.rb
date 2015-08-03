@@ -87,12 +87,15 @@ RSpec.describe MetadataDate do
   describe :to_hash do
     it "creates a hash for the api " do
       date = MetadataDate.new(year: "2010", month: "2", day: "1", bc: true, display_text: "display_text")
-      expect(date.to_hash("label")).to eq(
-        "@type" => "date",
-        label: "label",
+      expect(date.to_hash()).to eq(
+        "@type" => "MetadataDate",
         value: "display_text",
         iso8601: "-2010-2-1",
-        raw: { year: "2010", month: "2", day: "1", bc: true, "display-text" => "display_text" }
+        year: "2010",
+        month: "2",
+        day: "1",
+        bc: true,
+        "display-text" => "display_text"
       )
     end
   end

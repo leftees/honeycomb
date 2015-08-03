@@ -33,7 +33,7 @@ module V1
             hash[field]["@type"] = "MetadataField"
             hash[field]["name"] = field
             hash[field]["label"] = config[:label]
-            hash[field]["values"] = metadata_hash(config[:type], value, config[:label])
+            hash[field]["values"] = metadata_hash(config[:type], value)
           end
         end
       end
@@ -49,28 +49,28 @@ module V1
       end
     end
 
-    def metadata_hash(type, value, label)
+    def metadata_hash(type, value)
       if type == :string
-        string_value(value, label)
+        string_value(value)
       elsif type == :html
-        html_value(value, label)
+        html_value(value)
       elsif type == :date
-        date_value(value, label)
+        date_value(value)
       else
         raise "missing type"
       end
     end
 
-    def string_value(value, label)
-      value.map { |v| MetadataString.new(v).to_hash(label) }
+    def string_value(value)
+      value.map { |v| MetadataString.new(v).to_hash }
     end
 
-    def html_value(value, label)
-      value.map { |v| MetadataHTML.new(v).to_hash(label) }
+    def html_value(value)
+      value.map { |v| MetadataHTML.new(v).to_hash }
     end
 
-    def date_value(value, label)
-      value.map { |v| MetadataDate.new(v.symbolize_keys).to_hash(label) }
+    def date_value(value)
+      value.map { |v| MetadataDate.new(v.symbolize_keys).to_hash }
     end
 
     def ensure_value_is_array(value)
