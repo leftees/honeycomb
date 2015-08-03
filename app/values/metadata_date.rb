@@ -32,19 +32,16 @@ class MetadataDate
     @date ||= ConvertToRubyDate.new(self).convert
   end
 
-  def to_hash(label)
+  def to_hash
     {
-      "@type" => "date",
-      label: label,
+      "@type" => "MetadataDate",
       value: human_readable,
       iso8601: iso8601,
-      raw: {
-        year: year,
-        month: month,
-        day: day,
-        bc: bc,
-        "display-text" => display_text,
-      }
+      year: year,
+      month: month,
+      day: day,
+      bc: bc,
+      displayText: display_text,
     }
   end
 

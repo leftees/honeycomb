@@ -32,7 +32,7 @@ class EditorsController < ApplicationController
     @collection = CollectionQuery.new.find(params[:collection_id])
     check_user_edits!(@collection)
 
-    @user =  User.find(params[:id])
+    @user = User.find(params[:id])
     if @user.present?
       if RemoveUserFromCollection.call(@collection, @user)
         flash[:notice] = t(".success")

@@ -5,10 +5,9 @@ class MetadataString
     @value = value
   end
 
-  def to_hash(label)
+  def to_hash
     {
-      "@type" => "string",
-      label: label,
+      "@type" => "MetadataString",
       value: value,
     }
   end

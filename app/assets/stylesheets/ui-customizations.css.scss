@@ -1,6 +1,8 @@
 $gold :#d9a300;
 $grey :#525252;
 $blue :#2c5882;
+$multi-field-background: #f2f2f2;
+$multi-field-color: #696969;
 
 body {
 	background: #fff;
@@ -38,8 +40,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9a500', end
 	position: absolute;
 	bottom:0;
 	left: 75px;
-
-
 }
 
 .navbar-right {
@@ -431,5 +431,28 @@ div.dataTables_filter {
 .section-caption {
 	white-space: normal;
 }
+
+.multi-field-value {
+  background-color: $multi-field-background;
+  color: $multi-field-color;
+  margin: 3px;
+  padding: 5px;
+
+  a {
+    cursor: pointer;
+    padding-right: 5px;
+  }
+}
+
+.multi-field-delete-cell {
+  text-align: right;
+  vertical-align: middle;
+}
+
+.multi-field-value-cell {
+  cursor: pointer;
+  vertical-align: middle;
+}
+
 
 @import "_material-design-overwrites.scss";

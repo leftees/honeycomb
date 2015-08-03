@@ -10,22 +10,31 @@ module V1
       name: { type: :string, label: "Name" },
       alternate_name: { type: :string, label: "Alternate Name" },
       creator: { type: :string, label: "Creator" },
+      contributor: { type: :string, label: "Contributor" },
       description: { type: :html, label: "Description" },
+      subject: { type: :html, label: "Subject" },
       transcription: { type: :html, label: "Transcription" },
       date_created: { type: :date, label: "Date Created" },
       date_published: { type: :date, label: "Date Published" },
       date_modified: { type: :date, label: "Date Modified" },
       original_language: { type: :string, label: "Original Language" },
       rights: { type: :string, label: "Rights" },
+      provenance: { type: :string, label: "Provenance" },
       publisher: { type: :string, label: "Publisher" },
+      manuscript_url: { type: :string, label: "Digitized Manuscript" },
     }
 
     def metadata
       {}.tap do |hash|
         METADATA_MAP.each do |field, config|
           value = metadata_value(field)
-          if value
-            hash[field] = metadata_hash(config[:type], value, config[:label])
+
+          if value.present?
+            hash[field] = {}
+            hash[field]["@type"] = "MetadataField"
+            hash[field]["name"] = field
+            hash[field]["label"] = config[:label]
+            hash[field]["values"] = metadata_hash(config[:type], value)
           end
         end
       end
@@ -37,32 +46,39 @@ module V1
       value = object.send(field)
 
       if value.present?
-        value
+        ensure_value_is_array(value)
       end
     end
 
-    def metadata_hash(type, value, label)
+    def metadata_hash(type, value)
       if type == :string
-        string_value(value, label)
+        string_value(value)
       elsif type == :html
-        html_value(value, label)
+        html_value(value)
       elsif type == :date
-        date_value(value, label)
+        date_value(value)
       else
         raise "missing type"
       end
     end
 
-    def string_value(value, label)
-      MetadataString.new(value).to_hash(label)
+    def string_value(value)
+      value.map { |v| MetadataString.new(v).to_hash }
     end
 
-    def html_value(value, label)
-      MetadataHtml.new(value).to_hash(label)
+    def html_value(value)
+      value.map { |v| MetadataHTML.new(v).to_hash }
     end
 
-    def date_value(value, label)
-      MetadataDate.new(value.symbolize_keys).to_hash(label)
+    def date_value(value)
+      value.map { |v| MetadataDate.new(v.symbolize_keys).to_hash }
+    end
+
+    def ensure_value_is_array(value)
+      if !value.is_a?(Array)
+        return [value]
+      end
+      value
     end
   end
 end
