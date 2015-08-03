@@ -27,8 +27,13 @@ module V1
       {}.tap do |hash|
         METADATA_MAP.each do |field, config|
           value = metadata_value(field)
-          if value
-            hash[field] = metadata_hash(config[:type], value, config[:label])
+
+          if value.present?
+            hash[field] = {}
+            hash[field]["@type"] = "MetadataField"
+            hash[field]["name"] = field
+            hash[field]["label"] = config[:label]        
+            hash[field]["values"] = metadata_hash(config[:type], value, config[:label])
           end
         end
       end
