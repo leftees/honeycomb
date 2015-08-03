@@ -1,6 +1,20 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
 var EventEmitter = require('../../EventEmitter');
+var StringField = require('./StringField');
+var DateField = require('./DateField');
+var HtmlField = require('./HtmlField');
+var TextField = require('./TextField');
+var MultipleField = require('./MultipleField');
+
+var fieldTypeMap = {
+  string: StringField,
+  date: DateField,
+  html: HtmlField,
+  text: TextField,
+  multiple: MultipleField,
+};
+
 var ItemMetaDataForm = React.createClass({
   mixins: [APIResponseMixin],
   propTypes: {
@@ -157,17 +171,8 @@ var ItemMetaDataForm = React.createClass({
   additionalFields: function() {
     var map_function = function(fieldConfig, field) {
       if (this.state.displayedFields[field]) {
-        if (fieldConfig.type == 'string') {
-          return (<StringField key={field} objectType={this.props.objectType} name={field} title={fieldConfig.title} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig.placeholder} help={fieldConfig.help} />);
-        } else if (fieldConfig.type == 'date') {
-          return (<DateField key={field} objectType={this.props.objectType} name={field} title={fieldConfig.title} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig.placeholder} help={fieldConfig.help} />);
-        } else if (fieldConfig.type == 'html') {
-          return (<HtmlField key={field} objectType={this.props.objectType} name={field} title={fieldConfig.title} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig.placeholder} help={fieldConfig.help} />);
-        } else if (fieldConfig.type == 'text') {
-          return (<TextField key={field} objectType={this.props.objectType} name={field} title={fieldConfig.title} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig.placeholder} help={fieldConfig.help} />);
-        } else if (fieldConfig.type == 'multiple') {
-          return (<MultipleField key={field} objectType={this.props.objectType} name={field} title={fieldConfig.title} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig.placeholder} help={fieldConfig.help} />);
-        }
+        var FieldComponent = fieldTypeMap[fieldConfig.type];
+        return (<FieldComponent key={field} objectType={this.props.objectType} name={field} title={fieldConfig.title} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig.placeholder} help={fieldConfig.help} />);
       }
       return "";
     };
