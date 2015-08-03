@@ -2,7 +2,6 @@
 <%= collection_nav(@exhibit.collection, :website) %>
 
 <%= back_action_bar(edit_exhibit_path(@exhibit.id), '#' ) %>
-<%= link_to("PREVIEW", CreateBeehiveURL.call(@exhibit.collection), class: "btn btn-large btn-hollow", :target => "_blank") %>
 
 <div class="row">
   <div class="col-md-10">
@@ -26,4 +25,3 @@
     <%= render "side_nav", exhibit: @exhibit, form: params[:form] %>
   </div>
 </div>
-
