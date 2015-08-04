@@ -4,7 +4,8 @@
       formUrl: url_for( @item ),
       authenticityToken: form_authenticity_token,
       modalTitle: raw(t(".new")),
-      multifileUpload: false,
+      multifileUpload: true,
+      primary: true,
   }) %>
   </div>
   <div class="input-group menu-bar">
@@ -13,7 +14,6 @@
       <button type="button" class="btn btn-hollow btn-flat btn-search"><i class="glyphicon glyphicon-search"></i></button>
     </span>
   </div>
-
 </div>
 <div class="menu-bar selected pull-left">
 
