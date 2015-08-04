@@ -1,0 +1,46 @@
+---
+- :name: :name
+  :type: :string
+  :label: Name
+- :name: :alternate_name
+  :type: :string
+  :label: Alternate Name
+- :name: :creator
+  :type: :string
+  :label: Creator
+- :name: :contributor
+  :type: :string
+  :label: Contributor
+- :name: :description
+  :type: :html
+  :label: Description
+- :name: :subject
+  :type: :html
+  :label: Subject
+- :name: :transcription
+  :type: :html
+  :label: Transcription
+- :name: :date_created
+  :type: :date
+  :label: Date Created
+- :name: :date_published
+  :type: :date
+  :label: Date Published
+- :name: :date_modified
+  :type: :date
+  :label: Date Modified
+- :name: :original_language
+  :type: :string
+  :label: Original Language
+- :name: :rights
+  :type: :string
+  :label: Rights
+- :name: :provenance
+  :type: :string
+  :label: Provenance
+- :name: :publisher
+  :type: :string
+  :label: Publisher
+- :name: :manuscript_url
+  :type: :string
+  :label: Digitized Manuscript

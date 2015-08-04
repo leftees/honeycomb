@@ -8,22 +8,35 @@ RSpec.describe Waggle::Item do
   let(:other_instance) do
     data = instance.data.clone
     data["id"] += "other"
-    data["name"] += " pig"
+    data["metadata"]["name"]["value"] += " pig"
     described_class.new(data)
   end
 
   subject { instance }
 
-  before :all do
-    unstub_solr
+  describe "id" do
+    it "is the id" do
+      expect(subject.id).to eq(data.fetch("id"))
+    end
   end
 
-  after :all do
-    stub_solr
+  describe "name" do
+    it "is the name in an array" do
+      expect(subject.name).to eq([data.fetch("name")])
+    end
   end
 
-  it "has a title" do
-    expect(subject.name).to eq("pig-in-mud")
+  describe "thumbnail_url" do
+    it "is the correct value" do
+      expect(subject.thumbnail_url).to be_present
+      expect(subject.thumbnail_url).to eq(data["image"]["thumbnail/small"]["contentUrl"])
+    end
+  end
+
+  describe "last_updated" do
+    it "is a Time" do
+      expect(subject.last_updated).to eq(Time.parse(data.fetch("last_updated")))
+    end
   end
 
   describe "self.load" do
@@ -35,42 +48,36 @@ RSpec.describe Waggle::Item do
     it "loads the correct way"
   end
 
-  it "is searchable" do
-    Sunspot.setup(described_class) do
-      text :name, stored: true
-      string :name_facet
+  describe "metadata" do
+    it "is a Metadata object" do
+      expect(Waggle::Metadata::Set).to receive(:new).
+        with(data.fetch("metadata"), Metadata::Configuration.item_configuration).and_call_original
+      expect(subject.metadata).to be_kind_of(Waggle::Metadata::Set)
+    end
+  end
+
+  describe "method_missing" do
+    it "returns the metadata value for a metadata field" do
+      expect(subject.metadata).to receive(:field?).with(:creator).and_return(true)
+      expect(subject.metadata).to receive(:value).with(:creator).and_return("creator")
+      expect(subject.creator).to eq("creator")
     end
 
-    Sunspot.index(subject)
-    Sunspot.index(other_instance)
-    Sunspot.commit
+    it "raises an error for any other missing methods" do
+      expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
+      expect { subject.creator }.to raise_error(NoMethodError)
+    end
+  end
 
-    q = "pig"
-    name_q = "pig-in-mud"
-
-    search = Sunspot.search described_class do
-      fulltext q do
-        boost_fields name: 3.0
-        highlight :name
-      end
-
-      if name_q.present?
-        name_filter = with(:name_facet, name_q)
-        facet :name_facet, exclude: [name_filter]
-      else
-        facet :name_facet
-      end
+  describe "respond_to?" do
+    it "is true for a metadata field" do
+      expect(subject.metadata).to receive(:field?).with(:creator).and_return(true)
+      expect(subject.respond_to?(:creator)).to eq(true)
     end
 
-    expect(search.facet(:name_facet).rows.first.value).to eq("pig-in-mud")
-    # search.hits.each do |hit|
-    #   stored_values = hit.instance_variable_get(:@stored_values)
-    #   pp stored_values
-    # end
-
-    hit = search.hits.select { |h| h.primary_key == subject.id }.first
-
-    expect(hit.highlights.first.formatted).to eq("<em>pig</em>-in-mud")
-    expect(hit.stored(:name)).to eq(["pig-in-mud"])
+    it "raises an error for any other missing methods" do
+      expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
+      expect(subject.respond_to?(:creator)).to eq(false)
+    end
   end
 end

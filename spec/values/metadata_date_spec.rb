@@ -1,6 +1,20 @@
 require "rails_helper"
 
 RSpec.describe MetadataDate do
+  describe "#from_hash" do
+    let(:hash) { { year: "2015", month: "7", day: "15" } }
+
+    it "works with string keys" do
+      expect(MetadataDate).to receive(:new).with(hash)
+      MetadataDate.from_hash(hash.stringify_keys)
+    end
+
+    it "works with symbol keys" do
+      expect(MetadataDate).to receive(:new).with(hash)
+      MetadataDate.from_hash(hash)
+    end
+  end
+
   describe :year do
     it "passes the value of the year field " do
       date = MetadataDate.new(year: "year")
