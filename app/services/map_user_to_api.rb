@@ -10,19 +10,39 @@ class MapUserToApi
   end
 
   def map!
-    user.first_name = api_attributes["first_name"]
-    user.last_name = api_attributes["last_name"]
-    user.email = api_attributes["contact_information"]["email"]
-    user.display_name = api_attributes["full_name"]
+    map_attributes
     user
   rescue StandardError => exception
-    NotifyError.call(exception: exception, args: { username: user.username })
+    notify_error(exception)
     user
   end
 
   private
 
+  def map_attributes
+    user.first_name = fetch("first_name")
+    user.last_name = fetch("last_name")
+    user.email = email
+    user.display_name = fetch("full_name")
+  end
+
   def api_attributes
     @api_attributes ||= HesburghAPI::PersonSearch.find(user.username)
+  end
+
+  def email
+    contact_information.fetch("email", nil)
+  end
+
+  def contact_information
+    fetch("contact_information", {})
+  end
+
+  def fetch(key, default = nil)
+    api_attributes.fetch(key.to_s, default)
+  end
+
+  def notify_error(exception)
+    NotifyError.call(exception: exception, parameters: { username: user.username }, component: self.class.to_s, action: "map!")
   end
 end
