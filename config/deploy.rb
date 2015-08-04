@@ -60,7 +60,7 @@ namespace :sneakers do
   end
 end
 
-after "deploy:restart", "sneakers:restart"
+after "deploy:finished", "sneakers:restart"
 
 before "npm:install", "npm:prune"
 
