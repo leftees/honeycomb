@@ -5,6 +5,7 @@ var React = require('react');
 var mui = require("material-ui");
 var Dialog = mui.Dialog;
 var RaisedButton = mui.RaisedButton;
+var FlatButton = mui.FlatButton;
 var FontIcon = mui.FontIcon;
 
 var ReactDropzone = React.createClass({
@@ -17,7 +18,7 @@ var ReactDropzone = React.createClass({
     modalTitle: React.PropTypes.string.isRequired,
     doneText: React.PropTypes.string,
     cancelText: React.PropTypes.string,
-    modalId: React.PropTypes.string,
+    primary: React.PropTypes.bool,
   },
 
   getDefaultProps: function() {
@@ -65,20 +66,20 @@ var ReactDropzone = React.createClass({
     };
   },
 
-  closeCallback: function(e) {
+  closeCallback: function() {
     if (this.dropzone.files.length > 0) {
       this.setState({closed: true});
       window.location.reload();
-      e.preventDefault();
     }
   },
+
   dismissMessage: function() {
     this.refs.addItems.dismiss();
   },
 
   completeCallback: function() {
     if (!this.props.multifileUpload) {
-      $("#" + this.props.modalId).modal('hide');
+      this.closeCallback();
     }
   },
 
@@ -89,18 +90,26 @@ var ReactDropzone = React.createClass({
 
   spinner: function () {
     if (this.state.closed) {
-      return ( <LoadingImage /> );
+      return (<LoadingImage />);
     } else {
       return null;
     }
   },
 
   classes: function () {
-    var classes = "dropzone"
+    var classes = "dropzone";
     if (this.dropzone && this.dropzone.files.length > 0) {
       classes += " dz-started";
     }
     return classes;
+  },
+
+  fontIconCSS: function () {
+    if (this.props.multifileUpload) {
+      return "glyphicon glyphicon-plus";
+    } else {
+      return "mdi-content-redo";
+    }
   },
 
   dropzoneForm: function() {
@@ -120,7 +129,7 @@ var ReactDropzone = React.createClass({
             </div>
           </div>
         </form>
-        )
+      );
     } else {
       return null;
     }
@@ -128,9 +137,9 @@ var ReactDropzone = React.createClass({
 
   formMethod: function() {
     if (!this.props.multifileUpload) {
-      return (<input name="_method" type="hidden" value="put" />)
+      return (<input name="_method" type="hidden" value="put" />);
     } else {
-      return null
+      return null;
     }
   },
 
@@ -147,25 +156,26 @@ var ReactDropzone = React.createClass({
   },
 
   render: function() {
-    var iconStyle = {fontSize: 14, marginRight: ".5em"};
+    var iconStyle = {fontSize: 14, marginRight: ".5em", color: (this.props.primary ? "#fff" : "#000") };
     var buttonLabel = (
-      <span>
-        <FontIcon className="glyphicon glyphicon-plus" label="Add New Items" color="#fff" style={iconStyle}/>
-        <span>Add New Items</span>
+      <span style={ {"color": (this.props.primary ? "#fff" : "#000") } }>
+        <FontIcon className={this.fontIconCSS()} label={this.props.modalTitle} style={iconStyle}/>
+        {this.props.modalTitle}
       </span>
     );
     return (
       <div>
         <RaisedButton
-          primary={true}
+          primary={this.props.primary}
           onTouchTap={this.showModal}
           label={buttonLabel}
-        />
+          />
         <Dialog
           ref="addItems"
           title={this.props.modalTitle}
           actions={this.okDismiss()}
           openImmediately={false}
+          onDismiss={this.closeCallback}
         >
           { this.dropzoneForm() }
           { this.spinner() }

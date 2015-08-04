@@ -56,6 +56,7 @@ module V1
         :subject,
         :provenance,
         :original_language,
+        :uploaded_image,
         date_created: [:value, :year, :month, :day, :bc, :display_text],
         date_modified: [:value, :year, :month, :day, :bc, :display_text],
         date_published: [:value, :year, :month, :day, :bc, :display_text],
