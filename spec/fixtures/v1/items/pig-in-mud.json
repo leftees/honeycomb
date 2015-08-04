@@ -13,7 +13,7 @@
   "description":"",
   "about":"",
   "image":null,
-  "last_updated":"2015-06-23T18:16:15.000Z",
+  "last_updated":"2015-08-04T12:39:35.000Z",
   "copyright":"\u003cp\u003e\u003ca href=\"http://www.nd.edu/copyright/\"\u003eCopyright\u003c/a\u003e 2015 \u003ca href=\"http://www.nd.edu\"\u003eUniversity of Notre Dame\u003c/a\u003e\u003c/p\u003e",
   "items":{
     "@context":"http://schema.org",
@@ -23,7 +23,7 @@
     "id":"pig-in-mud",
     "slug":"pig-in-mud",
     "name":"pig-in-mud",
-    "description":"Source: https://pixabay.com/en/pig-sow-animal-portrait-752555/",
+    "description":"\u003cp\u003eSource: \u003ca href=\"https://pixabay.com/en/pig-sow-animal-portrait-752555/\"\u003ehttps://pixabay.com/en/pig-sow-animal-portrait-752555/\u003c/a\u003e\n\u003c/p\u003e",
     "image":{
       "@context":"http://schema.org",
       "@type":"ImageObject",
@@ -85,7 +85,7 @@
         "values":[
           {
             "@type":"MetadataHTML",
-            "value":"<p>Source: https://pixabay.com/en/pig-sow-animal-portrait-752555/</p>"
+            "value":"\u003cp\u003eSource: \u003ca href=\"https://pixabay.com/en/pig-sow-animal-portrait-752555/\"\u003ehttps://pixabay.com/en/pig-sow-animal-portrait-752555/\u003c/a\u003e\n\u003c/p\u003e"
           }
         ]
       },
@@ -102,12 +102,12 @@
             "month":"03",
             "day":"24",
             "bc":"false",
-            "display-text":"March 2013"
+            "displayText":"March 2013"
           }
         ]
       }
     },
-    "last_updated":"2015-07-23T20:26:06.000Z",
+    "last_updated":"2015-08-04T12:47:17.000Z",
     "children":[
 
     ]
