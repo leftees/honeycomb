@@ -4,6 +4,6 @@
 <%= HoneypotThumbnail.display(f.object.honeypot_image) %>
 <%= f.input :uploaded_image, as: :file %>
 
-<%= f.input :show_page_title, as: :boolean, label: false do %>
-  <label><%= f.check_box :show_page_title %> Uploaded Image has the home page title embeded in it.</label>
+<%= f.input :show_page_title, as: :boolean, label: false, hint: "Select this box if your homepage image does not have your site title already embeded in it" do %>
+  <label><%= f.check_box :show_page_title %> Overlay site title over homepage image.</label>
 <% end %>
