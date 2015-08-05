@@ -44,8 +44,8 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#show_page_title" do
-    let(:exhibit) { double(Exhibit, show_page_title: nil) }
-    let(:collection) { double(Collection, exhibit: exhibit) }
+    let(:exhibit) { instance_double(Exhibit, show_page_title: nil) }
+    let(:collection) { instance_double(Collection, exhibit: exhibit) }
 
     it "converts nil to false" do
       expect(subject.show_page_title).to eq(false)
