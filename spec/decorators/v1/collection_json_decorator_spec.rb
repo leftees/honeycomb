@@ -43,6 +43,26 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#show_page_title" do
+    let(:exhibit) { double(Exhibit, show_page_title: nil) }
+    let(:collection) { double(Collection, exhibit: exhibit) }
+
+    it "converts nil to false" do
+      expect(subject.show_page_title).to eq(false)
+    end
+
+    it "returns true value from the exhibit" do
+      expect(exhibit).to receive(:show_page_title).and_return(true)
+      expect(subject.show_page_title).to eq(true)
+    end
+
+    it "returns true false when the exhibi is false" do
+      expect(exhibit).to receive(:show_page_title).and_return(false)
+      expect(subject.show_page_title).to eq(false)
+    end
+
+  end
+
   describe "#copyright" do
     let(:exhibit) { double(Exhibit) }
     let(:collection) { double(Collection, exhibit: exhibit) }
