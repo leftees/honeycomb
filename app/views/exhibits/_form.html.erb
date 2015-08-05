@@ -3,3 +3,7 @@
 
 <%= HoneypotThumbnail.display(f.object.honeypot_image) %>
 <%= f.input :uploaded_image, as: :file %>
+
+<%= f.input :show_page_title, as: :boolean, label: false do %>
+  <label><%= f.check_box :show_page_title %> Uploaded Image has the home page title embeded in it.</label>
+<% end %>
