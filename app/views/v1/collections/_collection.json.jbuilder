@@ -11,6 +11,7 @@ json.name_line_2 collection_object.name_line_2
 json.short_description collection_object.short_intro
 json.description collection_object.site_intro
 json.about collection_object.about
+json.show_page_title collection_object.show_page_title
 json.image collection_object.image
 json.last_updated collection_object.updated_at
 json.copyright collection_object.copyright
