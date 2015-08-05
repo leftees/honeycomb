@@ -1,16 +1,17 @@
-class NotifyError
-  attr_reader :exception, :args
-
-  def self.call(exception:, args: {})
-    new(exception: exception, args: args).notify
+module NotifyError
+  def self.call(exception:, parameters: {}, component: nil, action: nil)
+    Airbrake.notify(exception,
+                    component: component,
+                    action: action,
+                    parameters: parameters,
+                    cgi_data: environment_info)
   end
 
-  def initialize(exception:, args: {})
-    @exception = exception
-    @args = args
-  end
+  private
 
-  def notify
-    Airbrake.notify(exception, parameters: { args: args })
+  def self.environment_info
+    ENV.reject do |k|
+      Airbrake.configuration.rake_environment_filters.include? k
+    end
   end
 end

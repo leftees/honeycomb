@@ -16,7 +16,7 @@ gem "mysql2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.0"
 # bundle exec rake doc:rails generates the API under doc/api.
-gem "sdoc", "~> 0.4.0",          group: :doc
+gem "sdoc", "~> 0.4.0", group: :doc
 
 gem "paperclip"
 gem "fastimage"
@@ -60,6 +60,8 @@ gem "sneakers"
 # For Errbit
 gem "airbrake"
 
+# For cron tasks
+gem "whenever", require: false
 
 # Javascript assets
 # Use Uglifier as compressor for JavaScript assets
@@ -75,7 +77,7 @@ gem "jquery-ui-rails", "5.0.2"
 gem "jquery-datatables-rails", "~> 3.3.0"
 gem "coffee-rails", "~> 4.0.0"
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-#gem "turbolinks"
+# gem "turbolinks"
 
 # CSS
 # Use SCSS for stylesheets

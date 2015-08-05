@@ -2,26 +2,41 @@ require "rails_helper"
 
 RSpec.describe NotifyError do
   let(:exception) { instance_double(StandardError) }
-  let(:args) { { test: "test" } }
+  let(:parameters) { { test: "test" } }
+  let(:component) { "component" }
+  let(:action) { "action" }
+  let(:expected_environment) { { environment: "environment" } }
 
-  subject { described_class.new(exception: exception, args: args) }
+  subject { described_class.call(exception: exception, parameters: parameters, component: component, action: action) }
 
-  describe "self" do
-    subject { described_class }
-
-    describe "#call" do
-      it "instantiates a new instance and calls #notify" do
-        expect(subject).to receive(:new).with(exception: exception, args: args).and_call_original
-        expect_any_instance_of(described_class).to receive(:notify)
-        subject.call(exception: exception, args: args)
-      end
-    end
+  before do
+    allow(described_class).to receive(:environment_info).and_return(expected_environment)
   end
 
-  describe "#notify" do
-    it "calls Airbrake#notify" do
-      expect(Airbrake).to receive(:notify).with(exception, parameters: { args: args })
-      subject.notify
+  it "calls Airbrake#notify" do
+    expect(Airbrake).to receive(:notify).with(exception, component: component, action: action, parameters: parameters, cgi_data: expected_environment)
+    subject
+  end
+
+  it "calls with default values" do
+    expect(Airbrake).to receive(:notify).with(exception, component: nil, action: nil, parameters: {}, cgi_data: expected_environment)
+    described_class.call(exception: exception)
+  end
+
+  context "environment_info" do
+    subject { described_class.environment_info }
+
+    before do
+      allow(described_class).to receive(:environment_info).and_call_original
+    end
+
+    it "filters the environment data" do
+      allow(Airbrake.configuration).to receive(:rake_environment_filters).and_return(["REJECT_KEY"])
+      ENV["REJECT_KEY"] = "rejected"
+      unfiltered_values = ENV.reject { false }
+      filtered_values = ENV.reject { |k| k == "REJECT_KEY" }
+      expect(subject).to_not eq(unfiltered_values)
+      expect(subject).to eq(filtered_values)
     end
   end
 end
