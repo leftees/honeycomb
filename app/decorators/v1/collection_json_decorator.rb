@@ -45,7 +45,7 @@ module V1
     end
 
     def show_page_title
-      object.exhibit.show_page_title ? true : false
+      object.exhibit.show_page_title?
     end
 
     def slug
