@@ -60,7 +60,6 @@ RSpec.describe V1::CollectionJSONDecorator do
       expect(exhibit).to receive(:show_page_title).and_return(false)
       expect(subject.show_page_title).to eq(false)
     end
-
   end
 
   describe "#copyright" do
