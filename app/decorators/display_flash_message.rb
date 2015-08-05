@@ -27,7 +27,7 @@ class DisplayFlashMessage < Draper::Decorator
 
   def display_flash_message(key)
     if object[key].present?
-      h.react_component('PageMessage', messageText: object[key], css_class: KEY_2_CSS_CLASS[key])
+      h.react_component("PageMessage", messageText: object[key], css_class: KEY_2_CSS_CLASS[key])
     else
       ""
     end
