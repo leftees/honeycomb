@@ -13,6 +13,10 @@ HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
 MuiThemeMixin = require("./mixins/MuiThemeMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 
+// Page
+PageMessage = require("./components/PageMessage");
+
+
 // themes
 HoneycombTheme = require("./themes/HoneycombTheme");
 
