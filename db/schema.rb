@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623132325) do
+ActiveRecord::Schema.define(version: 20150804194246) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150623132325) do
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"
     t.text     "copyright",                   limit: 65535
+    t.boolean  "show_page_title",             limit: 1
   end
 
   add_index "exhibits", ["collection_id"], name: "fk_rails_b56f41d7b6", using: :btree
