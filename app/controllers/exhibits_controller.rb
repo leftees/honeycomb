@@ -32,7 +32,8 @@ class ExhibitsController < ApplicationController
       :uploaded_image,
       :short_description,
       :about,
-      :copyright
+      :copyright,
+      :show_page_title
     ])
   end
 end

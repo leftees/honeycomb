@@ -44,6 +44,10 @@ module V1
       end
     end
 
+    def show_page_title
+      object.exhibit.show_page_title?
+    end
+
     def slug
       CreateURLSlug.call(object.name_line_1)
     end
