@@ -10,7 +10,7 @@ RSpec.describe DisplayFlashMessage do
       expect(subject.h).to receive(:react_component).with(
         "PageMessage",
         messageText: "flash",
-        css_class: css_class
+        messageType: key
       ).and_return("message")
       expect(subject.display).to eq("message")
     end
