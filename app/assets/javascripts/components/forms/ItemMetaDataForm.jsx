@@ -1,10 +1,7 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
 var mui = require("material-ui");
-var Dialog = mui.Dialog;
-var RaisedButton = mui.RaisedButton;
 var DropDownMenu = mui.DropDownMenu;
-var FontIcon = mui.FontIcon;
 var EventEmitter = require('../../EventEmitter');
 var StringField = require('./StringField');
 var DateField = require('./DateField');
