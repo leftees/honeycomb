@@ -218,15 +218,8 @@ var ItemMetaDataForm = React.createClass({
   },
 
   render: function () {
-    var dropDownStyle = {
-      height: 40,
-    };
-    var dropDownLabelStyle = {
-      lineHeight: "36px",
-    };
     var dropDownIconStyle = {
-      top: 5,
-      right: Spacing.desktopGutterLess,
+      right: this.muiTheme.spacing.desktopGutterLess,
     };
     var underlineStyle = {
       borderTop: "solid 2px rgb(44, 88, 130)",
@@ -246,7 +239,7 @@ var ItemMetaDataForm = React.createClass({
 
               {this.additionalFields()}
 
-              <DropDownMenu menuItems={this.addFieldsSelectOptions()} style={dropDownStyle} labelStyle={dropDownLabelStyle} iconStyle={dropDownIconStyle} underlineStyle={underlineStyle} selectedIndex={this.props.menuIndex} onChange={this.changeAddField} />
+              <DropDownMenu menuItems={this.addFieldsSelectOptions()} iconStyle={dropDownIconStyle} underlineStyle={underlineStyle} selectedIndex={this.props.menuIndex} onChange={this.changeAddField} />
 
           </PanelBody>
           <PanelFooter>
