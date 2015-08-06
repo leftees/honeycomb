@@ -215,7 +215,6 @@ var ItemMetaDataForm = React.createClass({
     if (!menuItem.payload.field) {
       return;
     }
-    console.log(selectedIndex)
 
     this.state.displayedFields[menuItem.payload.field] = true;
     this.setState({
