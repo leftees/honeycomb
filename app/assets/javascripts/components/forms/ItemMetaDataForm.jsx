@@ -9,9 +9,7 @@ var HtmlField = require('./HtmlField');
 var TextField = require('./TextField');
 var MultipleField = require('./MultipleField');
 
-var Colors = require("material-ui/src/styles/colors");
 var Spacing = require("material-ui/src/styles/spacing");
-var ColorManipulator = require("material-ui/src/utils/color-manipulator");
 
 var fieldTypeMap = {
   string: StringField,
