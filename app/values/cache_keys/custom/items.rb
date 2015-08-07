@@ -7,7 +7,10 @@ module CacheKeys
       end
 
       def edit(decorated_item:)
-        CacheKeys::ActiveRecord.new.generate(record: [decorated_item.collection, decorated_item.recent_children, decorated_item.object])
+        CacheKeys::ActiveRecord.new.generate(record: [decorated_item.collection,
+                                                      decorated_item.recent_children,
+                                                      decorated_item.object,
+                                                      decorated_item.showcases])
       end
     end
   end
