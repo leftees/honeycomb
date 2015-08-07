@@ -21,6 +21,8 @@ module Waggle
                   raise "unknown type #{field.type}"
                 end
               end
+              string :at_id, stored: true
+              string :unique_id, stored: true
               string :collection_id, stored: true
               string :type, stored: true
               string :thumbnail_url, stored: true

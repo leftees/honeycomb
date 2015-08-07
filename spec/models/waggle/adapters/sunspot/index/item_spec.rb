@@ -63,6 +63,10 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
 
       it_behaves_like "a field indexer", :name, :text, stored: true
 
+      it_behaves_like "a field indexer", :unique_id, :string, stored: true
+
+      it_behaves_like "a field indexer", :at_id, :string, stored: true
+
       it_behaves_like "a field indexer", :collection_id, :string, stored: true
 
       it_behaves_like "a field indexer", :type, :string, stored: true
@@ -116,7 +120,7 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
 
     shared_examples_for "a searchable field" do |field_name, field_type|
       if field_type == :time
-        let(:q) { Time.now - 1.day }
+        let(:q) { Time.zone.now - 1.day }
       elsif field_type == :text
         let(:q) { field_name }
       else

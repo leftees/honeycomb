@@ -20,6 +20,30 @@ RSpec.describe Waggle::Item do
     end
   end
 
+  describe "unique_id" do
+    it "is the id" do
+      expect(subject.unique_id).to eq(data.fetch("id"))
+    end
+  end
+
+  describe "at_id" do
+    it "is the @id" do
+      expect(subject.at_id).to eq(data.fetch("@id"))
+    end
+  end
+
+  describe "collection_id" do
+    it "is the @id" do
+      expect(subject.collection_id).to eq(data.fetch("collection_id"))
+    end
+  end
+
+  describe "type" do
+    it "is Item" do
+      expect(subject.type).to eq("Item")
+    end
+  end
+
   describe "name" do
     it "is the name in an array" do
       expect(subject.name).to eq([data.fetch("name")])

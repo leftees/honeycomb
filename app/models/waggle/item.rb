@@ -11,6 +11,14 @@ module Waggle
       data.fetch("id")
     end
 
+    def unique_id
+      id
+    end
+
+    def at_id
+      data.fetch("@id")
+    end
+
     def collection_id
       data.fetch("collection_id")
     end
