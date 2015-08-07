@@ -176,6 +176,7 @@ var ReactDropzone = React.createClass({
           actions={this.okDismiss()}
           openImmediately={false}
           onDismiss={this.closeCallback}
+          style={{zIndex: 100}}
         >
           { this.dropzoneForm() }
           { this.spinner() }
