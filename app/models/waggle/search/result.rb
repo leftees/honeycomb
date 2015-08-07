@@ -8,7 +8,7 @@ module Waggle
       end
 
       def hits
-        items.map { |item| Waggle::Search::Hit.new(item) }
+        adapter_result.hits.map { |adapter_hit| Waggle::Search::Hit.new(adapter_hit) }
       end
 
       def start
@@ -20,21 +20,13 @@ module Waggle
       end
 
       def total
-        @total ||= item_relation.count
+        adapter_result.total
       end
 
       private
 
-      def collection
-        query.collection
-      end
-
-      def items
-        item_relation.limit(rows).offset(start)
-      end
-
-      def item_relation
-        collection ? collection.items : Item.all
+      def adapter_result
+        @adapter_result ||= Waggle.adapter.search_result(query: query)
       end
     end
   end

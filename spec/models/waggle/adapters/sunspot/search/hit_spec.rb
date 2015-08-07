@@ -39,6 +39,12 @@ RSpec.describe Waggle::Adapters::Sunspot::Search::Hit do
     end
   end
 
+  describe "at_id" do
+    it "is a thing" do
+      expect(hit.at_id).to eq("")
+    end
+  end
+
   describe "last_updated" do
     it "is a Time" do
       expect(hit.last_updated).to be_kind_of(Time)

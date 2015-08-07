@@ -45,6 +45,10 @@ module Waggle
         self::Index::Item.setup
       end
       private_class_method :setup_indexers
+
+      def self.search_result(query)
+        self::Search::Result.new(query)
+      end
     end
   end
 end

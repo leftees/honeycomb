@@ -28,7 +28,7 @@ module Waggle
     end
 
     def last_updated
-      @last_updated ||= Time.parse(data.fetch("last_updated")).utc
+      @last_updated ||= Time.zone.parse(data.fetch("last_updated")).utc
     end
 
     def thumbnail_url
