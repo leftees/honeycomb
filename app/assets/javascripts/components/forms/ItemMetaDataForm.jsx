@@ -1,5 +1,7 @@
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
+var mui = require("material-ui");
+var DropDownMenu = mui.DropDownMenu;
 var EventEmitter = require('../../EventEmitter');
 var StringField = require('./StringField');
 var DateField = require('./DateField');
@@ -16,19 +18,21 @@ var fieldTypeMap = {
 };
 
 var ItemMetaDataForm = React.createClass({
-  mixins: [APIResponseMixin],
+  mixins: [MuiThemeMixin, APIResponseMixin],
   propTypes: {
     authenticityToken: React.PropTypes.string.isRequired,
     method: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
     url: React.PropTypes.string.isRequired,
     objectType: React.PropTypes.string,
+    menuIndex: React.PropTypes.number,
   },
 
   getDefaultProps: function() {
     return {
       method: "post",
       objectType: "item",
+      menuIndex: 0,
       additionalFieldConfiguration: {
         "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"', "type": "multiple", "help": ""},
         "contributor": {"title": "Contributor", "placeholder": '', "type": "multiple", "help": ""},
@@ -185,27 +189,39 @@ var ItemMetaDataForm = React.createClass({
   addFieldsSelectOptions: function () {
     var map_function = function (data, field) {
       if (!this.state.displayedFields[field]) {
-        return (<option key={field} value={field}>{this.props.additionalFieldConfiguration[field].title}</option>);
+        var h = {};
+        h['payload'] = {field};
+        h['text'] = this.props.additionalFieldConfiguration[field].title;
+        return (h);
       }
-      return;
     };
     map_function = _.bind(map_function, this);
+    var all_vals = _.map(this.props.additionalFieldConfiguration, map_function);
 
-    return [<option key="add-option">Add a New Field</option>].concat(_.map(this.props.additionalFieldConfiguration, map_function));
+    var hDefault = {};
+    hDefault['payload'] = '';
+    hDefault['text'] = 'Add a New Field';
+    return [hDefault].concat(_.reject(all_vals, function(val){ return _.isUndefined(val)}));
   },
 
-  changeAddField: function(event) {
-    if (!event.target.value) {
+  changeAddField: function(event, selectedIndex, menuItem) {
+    if (!menuItem.payload.field) {
       return;
     }
 
-    this.state.displayedFields[event.target.value] = true;
+    this.state.displayedFields[menuItem.payload.field] = true;
     this.setState({
       displayedFields: this.state.displayedFields,
     });
   },
 
   render: function () {
+    var dropDownIconStyle = {
+      right: this.muiTheme.spacing.desktopGutterLess,
+    };
+    var underlineStyle = {
+      borderTop: "solid 2px rgb(44, 88, 130)",
+    };
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
         <Panel>
@@ -221,9 +237,8 @@ var ItemMetaDataForm = React.createClass({
 
               {this.additionalFields()}
 
-              <select onChange={this.changeAddField}>
-                {this.addFieldsSelectOptions()}
-              </select>
+              <DropDownMenu menuItems={this.addFieldsSelectOptions()} iconStyle={dropDownIconStyle} underlineStyle={underlineStyle} selectedIndex={this.props.menuIndex} onChange={this.changeAddField} />
+
           </PanelBody>
           <PanelFooter>
             <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
