@@ -9,8 +9,6 @@ var HtmlField = require('./HtmlField');
 var TextField = require('./TextField');
 var MultipleField = require('./MultipleField');
 
-var Spacing = require("material-ui/src/styles/spacing");
-
 var fieldTypeMap = {
   string: StringField,
   date: DateField,
