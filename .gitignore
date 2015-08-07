@@ -26,7 +26,7 @@ config/database.yml
 config/secrets.yml
 
 # Ignore everything related to solr except for the conf
-/solr/*
+/solr/*/*
 !/solr/conf/*
 !/solr/solr.xml
 
