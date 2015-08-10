@@ -40,8 +40,8 @@ RSpec.describe Waggle::Adapters::Sunspot::Search::Hit do
   end
 
   describe "at_id" do
-    it "is a thing" do
-      expect(hit.at_id).to eq("")
+    it "is the @id" do
+      expect(hit.at_id).to eq(data.fetch("@id"))
     end
   end
 
