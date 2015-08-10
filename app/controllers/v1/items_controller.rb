@@ -55,6 +55,7 @@ module V1
         :rights,
         :subject,
         :provenance,
+        :call_number,
         :original_language,
         :uploaded_image,
         date_created: [:value, :year, :month, :day, :bc, :display_text],

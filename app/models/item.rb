@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
           :publisher,
           :alternate_name,
           :rights,
+          :call_number,
           :provenance,
           :subject,
           :original_language,

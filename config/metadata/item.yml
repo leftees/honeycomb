@@ -35,6 +35,9 @@
 - :name: :rights
   :type: :string
   :label: Rights
+- :name: :call_number
+  :type: :string
+  :label: Call Number
 - :name: :provenance
   :type: :string
   :label: Provenance

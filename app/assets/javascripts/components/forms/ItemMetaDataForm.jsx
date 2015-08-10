@@ -39,6 +39,7 @@ var ItemMetaDataForm = React.createClass({
         "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as.", "type": "multiple", "help": ""},
         "rights": {"title": "Rights", "placeholder": 'Example "Copyright held by Hesburgh Libraries"', "type": "string", "help": ""},
         "provenance": {"title": "Provenance", "placeholder": 'Example: "Received as a gift from John Doe"', "type": "string", "help": ""},
+        "call_number": {"title": "Call Number", "placeholder": '', "type": "string", "help": ""},
         "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"', "type": "multiple", "help": ""},
         "subject": {"title": "Subject Keywords", "placeholder": '', "type": "string", "help": ""},
         "original_language": {"title": "Original Language", "placeholder": 'Example: "French"', "type": "string", "help": ""},
