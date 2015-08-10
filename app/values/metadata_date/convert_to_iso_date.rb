@@ -31,7 +31,7 @@ class MetadataDate
     end
 
     def values
-      @values ||= [metadata_date.year, metadata_date.month, metadata_date.day].compact
+      @values ||= [metadata_date.year, metadata_date.month, metadata_date.day].delete_if(&:blank?)
     end
   end
 end
