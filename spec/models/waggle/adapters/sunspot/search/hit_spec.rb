@@ -20,7 +20,7 @@ RSpec.describe Waggle::Adapters::Sunspot::Search::Hit do
 
   before :all do
     unstub_solr
-    Waggle::Adapters::Sunspot.setup_indexers
+    Waggle::Adapters::Sunspot.send(:setup_indexers)
   end
 
   after :all do
