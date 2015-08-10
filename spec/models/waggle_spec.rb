@@ -63,4 +63,25 @@ RSpec.describe Waggle do
       subject
     end
   end
+
+  describe "search" do
+    let(:search_arguments) do
+      {
+        q: "q",
+        facets: nil,
+        sort: nil,
+        rows: nil,
+        start: nil,
+        collection: instance_double(Collection)
+      }
+    end
+
+    subject { described_class.search(**search_arguments) }
+
+    it "calls Waggle::Search::Query.new" do
+      query = instance_double(Waggle::Search::Query, result: "result")
+      expect(Waggle::Search::Query).to receive(:new).with(**search_arguments).and_return(query)
+      expect(subject).to eq(query.result)
+    end
+  end
 end

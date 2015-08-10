@@ -26,4 +26,8 @@ module Waggle
   def self.commit
     adapter.commit
   end
+
+  def self.search(**args)
+    Waggle::Search::Query.new(**args).result
+  end
 end

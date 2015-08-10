@@ -9,7 +9,7 @@ module V1
         start: params[:start],
         collection: collection
       }
-      @search = Waggle::Search::Query.new(search_arguments).result
+      @search = Waggle.search(**search_arguments)
     end
 
     private
