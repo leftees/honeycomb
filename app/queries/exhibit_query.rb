@@ -7,6 +7,10 @@ class ExhibitQuery
 
   delegate :find, to: :relation
 
+  def for_collections(collections:)
+    relation.where(collection: collections)
+  end
+
   def build(args = {})
     relation.build(args)
   end
