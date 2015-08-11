@@ -7,7 +7,7 @@ module CacheKeys
       end
 
       def show(showcase:)
-        CacheKeys::ActiveRecord.new.generate(record: [showcase, showcase.collection, showcase.sections, showcase.items, showcase.next])
+        CacheKeys::ActiveRecord.new.generate(record: [showcase.object, showcase.collection, showcase.sections, showcase.items, showcase.next])
       end
     end
   end
