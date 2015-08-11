@@ -25,7 +25,7 @@ class MetadataDate
     private
 
     def values
-      @values ||= [metadata_date.year, metadata_date.month, metadata_date.day].compact.map(&:to_i)
+      @values ||= [metadata_date.year, metadata_date.month, metadata_date.day].compact.delete_if(&:blank?).map(&:to_i)
     end
   end
 end

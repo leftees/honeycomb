@@ -12,8 +12,18 @@ RSpec.describe MetadataDate::ConvertToRubyDate do
       expect(described_class.new(date).convert!).to eq(Date.new(2010, 10))
     end
 
+    it "converts a date with year, month and empty strings" do
+      date = double(MetadataDate, year: "2010", month: "10", day: "", valid?: true)
+      expect(described_class.new(date).convert!).to eq(Date.new(2010, 10))
+    end
+
     it "converts a date with year" do
       date = double(MetadataDate, year: "2010", day: nil, month: nil, valid?: true)
+      expect(described_class.new(date).convert!).to eq(Date.new(2010))
+    end
+
+    it "converts a date with year and empty strings" do
+      date = double(MetadataDate, year: "2010", day: "", month: "", valid?: true)
       expect(described_class.new(date).convert!).to eq(Date.new(2010))
     end
 
