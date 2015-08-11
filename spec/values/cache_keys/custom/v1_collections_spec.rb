@@ -6,7 +6,7 @@ RSpec.describe CacheKeys::Custom::V1Collections do
     let(:exhibits) { instance_double(Exhibit) }
 
     before(:each) do
-        allow_any_instance_of(ExhibitQuery).to receive(:for_collections).and_return(exhibits)
+      allow_any_instance_of(ExhibitQuery).to receive(:for_collections).and_return(exhibits)
     end
 
     it "uses CacheKeys::ActiveRecord" do
