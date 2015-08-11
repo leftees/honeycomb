@@ -116,7 +116,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   setSavedFailure: function (errors) {
-    EventEmitter.emit("MessageCenterDisplay", "warning", "Please complete the highlighted fields in order to continue.");
+    EventEmitter.emit("MessageCenterDisplay", "warning", "Unable to save the form.  Please correct the issues listed in the form and resave.");
     this.setState({
       formState: "invalid",
       formErrors: errors,
