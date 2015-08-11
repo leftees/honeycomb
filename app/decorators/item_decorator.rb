@@ -59,6 +59,7 @@ class ItemDecorator < Draper::Decorator
         subject: object.subject,
         alternate_name: object.alternate_name,
         rights: object.rights,
+        call_number: object.call_number,
         provenance: object.provenance,
         original_language: object.original_language,
         date_created: object.date_created,

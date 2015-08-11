@@ -17,6 +17,7 @@ RSpec.describe Item do
     :subject,
     :alternate_name,
     :rights,
+    :call_number,
     :provenance,
     :original_language,
     :date_created,
