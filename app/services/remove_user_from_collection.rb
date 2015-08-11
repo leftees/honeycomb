@@ -2,7 +2,7 @@ class RemoveUserFromCollection
   attr_reader :collection, :user
 
   def self.call(collection, user)
-    new(collection, user).destroy
+    new(collection, user).destroy!
   end
 
   def initialize(collection, user)
