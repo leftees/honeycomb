@@ -57,6 +57,7 @@ class ItemDecorator < Draper::Decorator
         creator: object.creator,
         contributor: object.contributor,
         subject: object.subject,
+        publisher: object.publisher,
         alternate_name: object.alternate_name,
         rights: object.rights,
         call_number: object.call_number,
