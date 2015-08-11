@@ -5,5 +5,5 @@ jQuery ->
 jQuery ->
 	$('#trig').on 'click', ->
 		$('#col1').toggleClass 'col-md-0 col-md-1'
-		$('#col2').toggleClass 'col-lg-11 col-lg-10'
+		$('#col2').toggleClass 'col-md-11 col-md-10'
 		$('#switch').toggleClass 'glyphicon-chevron-left glyphicon-chevron-right'

@@ -44,12 +44,12 @@
 <div class="container-fluid content" style="z-index: 100;">
   <div class="row row-fluid">
     <% if content_for?(:left_nav) %>
-      <div class="col-md-2" id="col1">
+      <div class="col-md-2 col-sm-2" id="col1">
         <%= yield(:left_nav) %>
       </div>
-      <div class="col-lg-10" id="col2" style="z-index: 1000;">
+      <div class="col-md-10 col-sm-10" id="col2" style="">
     <% else %>
-      <div class="col-lg-12">
+      <div class="col-md-12">
     <% end%>
       <%= react_component('FormMessageCenter') %>
       <%= yield %>

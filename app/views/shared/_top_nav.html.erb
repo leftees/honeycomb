@@ -9,12 +9,12 @@
         <%= yield :collection_top_nav %>
 
         <ul class="nav navbar-nav navbar-right">
-          <li>
+          <!--<li>
             <%= link_to "#" do %>
               <i class="glyphicon glyphicon-user"></i>
               <%= nav.current_user_display_name %>
             <% end %>
-          </li>
+          </li>-->
           <% admin_only do %>
             <li>
               <%= link_to admin_administrators_path, title: "Administration"  do %>
