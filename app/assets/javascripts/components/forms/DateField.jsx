@@ -64,9 +64,10 @@ var DateField = React.createClass({
     var bc = this.refs.bc.getDOMNode().checked;
     var displayText = "";
     var stateDisplayText = this.state.displayText;
+    var newValue = null;
 
     if (this.state.chooseDisplayText) {
-      var displayText = this.refs.displayText.getDOMNode().value;
+      displayText = this.refs.displayText.getDOMNode().value;
       stateDisplayText = displayText;
     }
 
@@ -79,15 +80,13 @@ var DateField = React.createClass({
     });
 
     if (year) {
-      var newValue = {
+      newValue = {
         year: year,
         month: month,
         day: day,
         bc: bc,
         display_text: displayText,
       };
-    } else {
-      var newValue = null;
     }
 
     this.props.handleFieldChange(this.props.name, newValue);
@@ -114,7 +113,12 @@ var DateField = React.createClass({
     return "";
   },
 
+  bcChecked: function () {
+    return (this.state.bc === true || this.state.bc === 'true');
+  },
+
   render: function () {
+    console.log(this.state);
     return (
       <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
         <fieldset>
@@ -134,7 +138,7 @@ var DateField = React.createClass({
             <div className="form-group">
               <label className="control-label">
                 BC
-                <input type="checkbox" ref="bc" checked={this.state.bc} onChange={this.handleChange} />
+                <input type="checkbox" ref="bc" checked={this.bcChecked()} onChange={this.handleChange} />
               </label>
             </div>
           </div>
