@@ -1,9 +1,9 @@
 class HoneypotImage < ActiveRecord::Base
   serialize :json_response, Hash
 
-  belongs_to :item
-  belongs_to :showcase
-  belongs_to :exhibit
+  belongs_to :item, touch: true
+  belongs_to :showcase, touch: true
+  belongs_to :exhibit, touch: true
 
   validates :name, :json_response, presence: true
 
