@@ -1,7 +1,7 @@
 json.id section.id
 json.name section.name
 json.description section.description
-json.image section.image
+json.image section.item.image
 json.caption section.caption
 json.order section.order
 json.display_type SectionType.new(section).type
