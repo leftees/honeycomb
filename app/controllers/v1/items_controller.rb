@@ -58,13 +58,17 @@ module V1
         :call_number,
         :original_language,
         :uploaded_image,
+        :alternate_name,
+        :contributor,
+        :publisher,
+        :creator,
         date_created: [:value, :year, :month, :day, :bc, :display_text],
         date_modified: [:value, :year, :month, :day, :bc, :display_text],
         date_published: [:value, :year, :month, :day, :bc, :display_text],
-        creator: [],
-        publisher: [],
-        alternate_name: [],
-        contributor: [],
+        creator: [], # both :creator, and creator: [] are required bc it can pass null or an array.
+        publisher: [], # both :publisher, and publisher: [] are required bc it can pass null or an array.
+        alternate_name: [], # both :alternate_name, and alternate_name: [] are required bc it can pass null or an array.
+        contributor: [], # both :contributor, and contributor: [] are required bc it can pass null or an array.
       )
     end
   end

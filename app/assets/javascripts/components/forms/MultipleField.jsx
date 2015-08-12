@@ -38,7 +38,7 @@ var MultipleField = React.createClass({
       css += ' required';
     }
 
-    return css
+    return css;
   },
 
   updateValue: function(index, newValue) {
@@ -67,7 +67,13 @@ var MultipleField = React.createClass({
   handleRemove: function(index) {
     if (index > -1) {
       this.state.values.splice(index, 1);
-      this.props.handleFieldChange(this.props.name, this.state.values);
+      // this check is required because $.ajax does not send empty arrays see
+      // http://stackoverflow.com/questions/9397669/jquery-ajax-jsonp-how-to-actually-send-an-array-even-if-its-empty
+      if (this.state.values.length > 0) {
+        this.props.handleFieldChange(this.props.name, this.state.values);
+      } else {
+        this.props.handleFieldChange(this.props.name, null);
+      }
     }
   },
 
@@ -97,7 +103,7 @@ var MultipleField = React.createClass({
 
   displayValues: function () {
     return _.map(this.state.values, function (value, index) {
-      return (<MultipleFieldDisplayValue key={index} value={value} index={index} handleFieldUpdate={this.updateValue} handleRemove={this.handleRemove} />)
+      return (<MultipleFieldDisplayValue key={index} value={value} index={index} handleFieldUpdate={this.updateValue} handleRemove={this.handleRemove} />);
     }, this);
   },
 

@@ -22,9 +22,9 @@ var MultipleFieldDisplayValue = React.createClass({
     });
   },
 
-  componentDidUpdate(){
-    if (this.refs['input']) {
-      var input = React.findDOMNode(this.refs['input']);
+  componentDidUpdate: function(){
+    if (this.refs.input) {
+      var input = React.findDOMNode(this.refs.input);
       var len = input.value.length;
 
       input.focus();
@@ -35,7 +35,7 @@ var MultipleFieldDisplayValue = React.createClass({
   handleChange: function(event) {
     this.setState( {
       value: event.target.value,
-    })
+    });
   },
 
   handleRemove: function(event) {

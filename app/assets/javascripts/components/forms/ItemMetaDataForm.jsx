@@ -112,7 +112,7 @@ var ItemMetaDataForm = React.createClass({
       utf8: "✓",
       _method: this.props.method,
       authenticity_token: this.props.authenticityToken,
-      item: this.state.formValues
+      item: this.state.formValues,
     });
   },
 
