@@ -1,3 +1,5 @@
+/*jshint esnext: true */
+
 //app/assets/javascripts/components/forms/ItemMetaDataForm.jsx
 var React = require('react');
 var mui = require("material-ui");
@@ -191,8 +193,8 @@ var ItemMetaDataForm = React.createClass({
     var map_function = function (data, field) {
       if (!this.state.displayedFields[field]) {
         var h = {};
-        h['payload'] = {field};
-        h['text'] = this.props.additionalFieldConfiguration[field].title;
+        h.payload = {field};
+        h.text = this.props.additionalFieldConfiguration[field].title;
         return (h);
       }
     };
@@ -200,8 +202,8 @@ var ItemMetaDataForm = React.createClass({
     var all_vals = _.map(this.props.additionalFieldConfiguration, map_function);
 
     var hDefault = {};
-    hDefault['payload'] = '';
-    hDefault['text'] = 'Add a New Field';
+    hDefault.payload = '';
+    hDefault.text = 'Add a New Field';
     return [hDefault].concat(_.reject(all_vals, function(val){ return _.isUndefined(val)}));
   },
 
