@@ -60,7 +60,7 @@ en:
         image: "This image will appear tiled in the background of your showcase"
       exhibit:
         edit:
-          description: "Introduction appears on your website homepage under the title."
+          description: "A more extensive description of this exhibit which will appear on the introduction page"
     placeholders:
       collection:
         description: "Description should be a short description of what the collection is.  (100 Words)"
