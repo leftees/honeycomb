@@ -78,6 +78,11 @@ RSpec.describe PreprocessImage do
       expect(subject.send(:processing_needed?)).to eq(true)
     end
 
+    it "is true if the image is a gif" do
+      expect(subject).to receive(:gif?).and_return(true)
+      expect(subject.send(:processing_needed?)).to eq(true)
+    end
+
     it "is true if the image is exceeds the max pixels" do
       expect(subject).to receive(:exceeds_max_pixels?).and_return(true)
       expect(subject.send(:processing_needed?)).to eq(true)
@@ -93,6 +98,18 @@ RSpec.describe PreprocessImage do
     it "is false otherwise" do
       expect(uploaded_image).to receive(:content_type).and_return("image/jpeg")
       expect(subject.send(:tiff?)).to eq(false)
+    end
+  end
+
+  describe "#gif?" do
+    it "is true if the image is a tiff" do
+      expect(uploaded_image).to receive(:content_type).and_return("image/gif")
+      expect(subject.send(:gif?)).to eq(true)
+    end
+
+    it "is false otherwise" do
+      expect(uploaded_image).to receive(:content_type).and_return("image/jpeg")
+      expect(subject.send(:gif?)).to eq(false)
     end
   end
 
@@ -162,6 +179,11 @@ RSpec.describe PreprocessImage do
     it "converts tiffs to jpgs" do
       expect(subject).to receive(:tiff?).and_return(true)
       expect(subject.send(:processor_style)).to eq(["#{described_class::MAX_PIXELS}@", :jpg])
+    end
+
+    it "converts gifs to pngs" do
+      expect(subject).to receive(:gif?).and_return(true)
+      expect(subject.send(:processor_style)).to eq(["#{described_class::MAX_PIXELS}@", :png])      
     end
   end
 
