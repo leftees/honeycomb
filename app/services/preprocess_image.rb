@@ -28,11 +28,15 @@ class PreprocessImage
   end
 
   def processing_needed?
-    uploaded_image.exists? && (tiff? || exceeds_max_pixels?)
+    uploaded_image.exists? && (tiff? || gif? || exceeds_max_pixels?)
   end
 
   def tiff?
     uploaded_image.content_type == "image/tiff"
+  end
+
+  def gif?
+    uploaded_image.content_type == "image/gif"
   end
 
   def exceeds_max_pixels?
@@ -61,6 +65,8 @@ class PreprocessImage
     style = "#{MAX_PIXELS}@"
     if tiff?
       style = [style, :jpg]
+    elsif gif?
+      style = [style, :png]
     end
     style
   end
