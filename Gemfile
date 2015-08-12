@@ -105,6 +105,8 @@ group :development, :test do
   gem "spring-commands-rspec"
   gem "rake"
 
+  gem "quiet_assets"
+
   gem "guard"
   gem "guard-bundler"
   gem "guard-coffeescript"
