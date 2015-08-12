@@ -35,14 +35,15 @@ module Waggle
             @search ||= ::Sunspot.search Waggle::Item do
               fulltext query.q
               paginate page: page, per_page: per_page
-              if collection
-                with(:collection_id, collection.unique_id)
+
+              filters.each do |key, value|
+                with(key, value)
               end
             end
           end
 
-          def collection
-            query.collection
+          def filters
+            query.filters
           end
         end
       end
