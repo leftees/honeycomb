@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
+
 var ShowcasesPanel = React.createClass({
   mixins: [TitleConcatMixin],
   propTypes: {
@@ -13,10 +14,28 @@ var ShowcasesPanel = React.createClass({
     };
   },
 
-  imageStyle: function() {
-    return {
-      height: '100',
-    };
+  showcaseImageDiv: function (showcase) {
+    if(showcase.image) {
+      return (
+        <div className="image">
+          <HoneypotImage honeypot_image={showcase.image} style="small" />
+        </div>
+      )
+    } else {
+      return (
+        <div className="image" >
+          <img src="/assets/logo.w.svg" style={{ "background-color": "#d9a300"}} />
+        </div>
+      )
+    }
+  },
+
+  showcaseNameDiv: function (showcase) {
+    return (
+      <div className="name">
+        { this.titleConcat(showcase.name_line_1, showcase.name_line_2) }
+      </div>
+    )
   },
 
   showcaseNodes: function () {
@@ -28,12 +47,8 @@ var ShowcasesPanel = React.createClass({
       return (
         <div key={key} className="row">
           <a href={showcase["@id"]}>
-            <div className="image">
-              <HoneypotImage honeypot_image={showcase.image} style="small" />
-            </div>
-            <div className="name">
-              {this.titleConcat(showcase.name_line_1, showcase.name_line_2)}
-            </div>
+            { this.showcaseImageDiv(showcase) }
+            { this.showcaseNameDiv(showcase) }
           </a>
         </div>
       )
@@ -47,7 +62,7 @@ var ShowcasesPanel = React.createClass({
         <PanelHeading>{this.props.panelTitle}</PanelHeading>
         <PanelBody>
           <div className="showcases-panel">
-          {this.showcaseNodes()}
+            {this.showcaseNodes()}
           </div>
         </PanelBody>
       </Panel>
@@ -63,4 +78,5 @@ var ShowcasesPanel = React.createClass({
   }
 
 });
+
 module.exports = ShowcasesPanel;
