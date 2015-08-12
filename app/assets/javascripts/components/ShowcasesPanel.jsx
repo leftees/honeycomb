@@ -1,8 +1,10 @@
 /** @jsx React.DOM */
 var React = require('react');
+var mui = require("material-ui");
+var Avatar = mui.Avatar;
 
 var ShowcasesPanel = React.createClass({
-  mixins: [TitleConcatMixin],
+  mixins: [TitleConcatMixin, MuiThemeMixin],
   propTypes: {
     showcases: React.PropTypes.array.isRequired,
     panelTitle: React.PropTypes.string.isRequired,
@@ -18,13 +20,13 @@ var ShowcasesPanel = React.createClass({
     if(showcase.image) {
       return (
         <div className="image">
-          <HoneypotImage honeypot_image={showcase.image} style="small" />
+          <Avatar src={ showcase.image["thumbnail/small"]["contentUrl"] } />
         </div>
       )
     } else {
       return (
         <div className="image" >
-          <img src="/assets/logo.w.svg" style={{ "background-color": "#d9a300"}} />
+          <Avatar>{ showcase.name_line_1[0].toUpperCase() }</Avatar>
         </div>
       )
     }
