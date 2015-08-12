@@ -362,7 +362,6 @@ div.dataTables_filter {
 }
 
 .showcases-panel {
-
   .row {
     display: inline-block;
     width: 100%;
@@ -370,9 +369,9 @@ div.dataTables_filter {
 
   .image {
     float: left;
-	  margin-right: 10px;
-		width: 40px;
 		height: 40px;
+    margin-right: 10px;
+    width: 40px;
   }
 
   .name {
