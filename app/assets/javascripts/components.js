@@ -14,7 +14,7 @@ MuiThemeMixin = require("./mixins/MuiThemeMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 
 // Page
-PageMessage = require("./components/PageMessage");
+FlashMessage = require("./components/FlashMessage");
 
 
 // themes

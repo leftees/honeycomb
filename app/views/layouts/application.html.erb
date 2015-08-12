@@ -18,6 +18,7 @@
     <%= favicon_link_tag "/images/favicon.ico", rel: "shortcut icon" %>
 
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag 'flash', 'jquery.cookie' %>
   </head>
   <body>
 
@@ -80,7 +81,7 @@
   </div>
 </footer>
 
-<%= DisplayFlashMessage.new(controller.flash).display %>
+<%= react_component("FlashMessage") %>
 
 </body>
 </html>

@@ -90,6 +90,9 @@ GEM
     builder (3.2.2)
     bunny (1.7.0)
       amq-protocol (>= 1.9.2)
+    cacheable_flash (0.3.3)
+      json
+      stackable_flash (>= 0.0.7)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -396,6 +399,7 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stackable_flash (0.0.7)
     sunspot (2.2.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
@@ -447,6 +451,7 @@ DEPENDENCIES
   bootstrap-material-design
   bootstrap-sass (~> 3.3.1)
   browserify-rails (~> 0.7.2)
+  cacheable_flash
   capistrano (~> 3.1)
   capistrano-npm
   capistrano-rails (~> 1.1)

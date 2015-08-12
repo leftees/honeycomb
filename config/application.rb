@@ -41,5 +41,7 @@ module ItemAdmin
     config.active_record.raise_in_transactional_callbacks = true
 
     config.active_job.queue_adapter = :sneakers
+
+    config.middleware.swap ActionDispatch::Flash, CacheableFlash::Middleware
   end
 end
