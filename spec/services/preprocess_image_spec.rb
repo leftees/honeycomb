@@ -183,7 +183,7 @@ RSpec.describe PreprocessImage do
 
     it "converts gifs to pngs" do
       expect(subject).to receive(:gif?).and_return(true)
-      expect(subject.send(:processor_style)).to eq(["#{described_class::MAX_PIXELS}@", :png])      
+      expect(subject.send(:processor_style)).to eq(["#{described_class::MAX_PIXELS}@", :png])
     end
   end
 
