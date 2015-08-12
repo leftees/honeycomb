@@ -86,4 +86,14 @@ RSpec.describe Waggle::Adapters::Sunspot do
       subject
     end
   end
+
+  describe "search_result" do
+    let(:query) { instance_double(Waggle::Search::Query) }
+    subject { described_class.search_result(query) }
+
+    it "returns a new search result" do
+      expect(described_class::Search::Result).to receive(:new).with(query).and_return("result")
+      expect(subject).to eq("result")
+    end
+  end
 end

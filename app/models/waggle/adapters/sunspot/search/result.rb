@@ -17,10 +17,6 @@ module Waggle
             (query.start / per_page) + 1
           end
 
-          def start
-            query.start
-          end
-
           def per_page
             query.rows
           end

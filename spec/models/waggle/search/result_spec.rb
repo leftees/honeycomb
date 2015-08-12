@@ -36,7 +36,7 @@ RSpec.describe Waggle::Search::Result do
     end
   end
 
-  describe "total" do
+  describe "hits" do
     let(:adapter_hits) { ["hit 1", "hit 2"] }
     it "maps the adapter hits to Waggle::Search::Hit instances" do
       expect(adapter_result).to receive(:hits).and_return(adapter_hits)
