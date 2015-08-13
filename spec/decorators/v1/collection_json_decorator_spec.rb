@@ -43,18 +43,18 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
-  describe "#show_page_title" do
+  describe "#display_page_title" do
     let(:exhibit) { instance_double(Exhibit) }
     let(:collection) { instance_double(Collection, exhibit: exhibit) }
 
-    it "returns true value from the exhibit" do
-      expect(exhibit).to receive(:show_page_title?).and_return(true)
-      expect(subject.show_page_title).to eq(true)
+    it "returns true value from the exhibit when the flag is false" do
+      expect(exhibit).to receive(:hide_title_on_home_page?).and_return(false)
+      expect(subject.display_page_title).to eq(true)
     end
 
-    it "returns false when the exhibi is false" do
-      expect(exhibit).to receive(:show_page_title?).and_return(false)
-      expect(subject.show_page_title).to eq(false)
+    it "returns false when the exhibit when the flag is false" do
+      expect(exhibit).to receive(:hide_title_on_home_page?).and_return(true)
+      expect(subject.display_page_title).to eq(false)
     end
   end
 

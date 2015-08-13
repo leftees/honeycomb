@@ -44,8 +44,8 @@ module V1
       end
     end
 
-    def show_page_title
-      object.exhibit.show_page_title?
+    def display_page_title
+      !object.exhibit.hide_title_on_home_page?
     end
 
     def slug
