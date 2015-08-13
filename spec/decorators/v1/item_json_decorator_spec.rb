@@ -41,7 +41,7 @@ RSpec.describe V1::ItemJSONDecorator do
   end
 
   describe "#image" do
-    let(:item) { double(Item, honeypot_image: honeypot_image) }
+    let(:item) { double(Item, honeypot_image: honeypot_image, image_ready?: true) }
     let(:honeypot_image) { double(HoneypotImage, json_response: "json_response") }
 
     it "gets the honeypot_image json_response" do

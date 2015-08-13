@@ -66,6 +66,17 @@ RSpec.describe SaveHoneypotImage do
         expect_any_instance_of(HoneypotImage).to receive(:save).and_return(false)
         expect(subject).to be(false)
       end
+
+      it "sets the image_status if the object has one" do
+        allow(item).to receive(:image_status)
+        expect(item).to receive(:image_status=).with("image_ready")
+        subject
+      end
+
+      it "does not set the image_status if the object does not have one" do
+        expect(item).not_to receive(:image_status=)
+        subject
+      end
     end
   end
 

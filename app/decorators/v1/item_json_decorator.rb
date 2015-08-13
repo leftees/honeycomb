@@ -27,7 +27,7 @@ module V1
     end
 
     def image
-      if object.honeypot_image
+      if object.image_ready? && object.honeypot_image
         object.honeypot_image.json_response
       else
         nil

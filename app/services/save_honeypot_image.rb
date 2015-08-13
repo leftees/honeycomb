@@ -30,6 +30,14 @@ class SaveHoneypotImage
     body = request.body.with_indifferent_access
     honeypot_image.json_response = body
 
+    # I realize this is ugly, but it's either this or add this image status to
+    # all other objects that use honeypot. This will all be resolved whenever we
+    # refactor/normalize the other models by pulling out all of the image data into
+    # an image or media entity, so this seems to introduce less tech debt than
+    # adding to all.
+    if object.respond_to?(:image_status)
+      object.image_status = "image_ready"
+    end
     honeypot_image.save && object.save
   end
 

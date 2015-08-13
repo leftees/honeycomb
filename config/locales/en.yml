@@ -36,6 +36,7 @@ en:
   status:
     complete: "OK"
     processing: "Processing"
+    error: "Error"
   buttons:
     save: 'Save'
     cancel: 'Cancel'
