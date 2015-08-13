@@ -118,7 +118,6 @@ var DateField = React.createClass({
   },
 
   render: function () {
-    console.log(this.state);
     return (
       <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
         <fieldset>
