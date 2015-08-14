@@ -21,32 +21,42 @@ $brand-primary: #2c5882 !default;
   padding-right: 5px;
 }
 
-.help ul {
-  color: #7f7f7f;
+/*
+ * Help Page
+ */
+
+ $darkgrey: #7f7f7f;
+ $black: #000000;
+
+.help {
+  color: $darkgrey;
   font-size: 18px;
   font-weight: bold;
-  list-style-type: none;
+
+  ul {
+    list-style-type: none;
+  }
 
   li {
-    color: #000000;
+    color: $black;
     font-size: 16px;
     padding-bottom: 10px;
     padding-top: 10px;
     width: 70%;
   }
 
-  li .normal {
-    color: #7f7f7f;
+  .normal {
+    color: $darkgrey;
     font-weight: normal;
   }
 
-  li .email,
-  li .phone {
+  .email,
+  .phone {
     padding-left: 10px;
   }
 
-  li .help-contact {
-    border-left: 1px solid #7f7f7f;
+  .help-contact {
+    border-left: 1px solid $darkgrey;
     margin-left: 20px;
     padding-left: 20px;
   }
