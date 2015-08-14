@@ -19,7 +19,7 @@
         </td>
         <td><span class="badge"><%= t('.items_badge', number: collection.items.size) %></span></td>
         <td>
-          <span class="text-success"><i class="glyphicon glyphicon-ok"></i> <%= t('.published') %></span>
+          <%= PublishedText.display(collection) %>          
         </td>
         <td>
            <%= ListTime.display(collection.updated_at) %>
