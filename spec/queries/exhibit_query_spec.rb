@@ -22,4 +22,18 @@ describe ExhibitQuery do
       expect(exhibit.collection_id).to eq(1)
     end
   end
+
+  describe "for_collections" do
+    let(:collections) { [1, 2] }
+
+    it "returns all the exhibits for a collection" do
+      expect(relation).to receive(:where).with(collection: collections[0])
+      subject.for_collections(collections: collections[0])
+    end
+
+    it "returns all the exhibits for a list of collections" do
+      expect(relation).to receive(:where).with(collection: collections)
+      subject.for_collections(collections: collections)
+    end
+  end
 end
