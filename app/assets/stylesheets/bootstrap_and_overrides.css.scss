@@ -21,36 +21,33 @@ $brand-primary: #2c5882 !default;
   padding-right: 5px;
 }
 
-.help {
+.help ul {
+  color: #7f7f7f;
   font-size: 18px;
-  color: #7F7F7F;
+  font-weight: bold;
+  list-style-type: none;
 
-  ul {
-    list-style-type: none;
-    font-weight: bold;
+  li {
+    color: #000000;
+    font-size: 16px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 70%;
+  }
 
-    li {
-      width: 70%;
-      font-size: 16px;
-      padding-bottom: 10px;
-      padding-top: 10px;
-      color: black;
+  li .normal {
+    color: #7f7f7f;
+    font-weight: normal;
+  }
 
-      .normal {
-        font-weight: normal;
-        color: #7F7F7F;
+  li .email,
+  li .phone {
+    padding-left: 10px;
+  }
 
-      }
-
-      .email, .phone {
-        padding-left: 10px;
-      }
-
-      .help_contact {
-        padding-left: 20px;
-        margin-left: 20px;
-        border-left: 1px solid #7F7F7F;
-      }
-    }
+  li .help-contact {
+    border-left: 1px solid #7f7f7f;
+    margin-left: 20px;
+    padding-left: 20px;
   }
 }
