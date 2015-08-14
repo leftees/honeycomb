@@ -20,3 +20,37 @@ $brand-primary: #2c5882 !default;
 .form-inline .form-group {
   padding-right: 5px;
 }
+
+.help {
+  font-size: 18px;
+  color: #7F7F7F;
+
+  ul {
+    list-style-type: none;
+    font-weight: bold;
+
+    li {
+      width: 70%;
+      font-size: 16px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      color: black;
+
+      .normal {
+        font-weight: normal;
+        color: #7F7F7F;
+
+      }
+
+      .email, .phone {
+        padding-left: 10px;
+      }
+
+      .help_contact {
+        padding-left: 20px;
+        margin-left: 20px;
+        border-left: 1px solid #7F7F7F;
+      }
+    }
+  }
+}

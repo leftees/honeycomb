@@ -79,9 +79,9 @@ en:
     recent_collections: 'Collections'
   collections:
     index:
-      title: "Honeycomb: Collections and Exhibits"
+      title: "Digital Exhibits and Collections"
       page_title: 'Collections'
-      description: Honeycomb is an amazing tool for managing your collections !!
+      description: "A platform for curating and publishing digital collections"
       new-button: "New Collection"
     list:
       title: 'Collection'
