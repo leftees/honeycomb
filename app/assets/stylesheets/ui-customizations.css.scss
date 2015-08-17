@@ -210,6 +210,10 @@ div.dataTables_filter {
 	}
 }
 
+.section-container-image img[src=""] {
+  display: none;
+}
+
 .wayfinder {
 	left:0px;
 	top:190px;
