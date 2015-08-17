@@ -61,7 +61,7 @@ en:
         image: "This image will appear tiled in the background of your showcase"
       exhibit:
         edit:
-          description: "Introduction appears on your website homepage under the title."
+          description: "A more extensive description of this exhibit which will appear on the introduction page"
     placeholders:
       collection:
         description: "Description should be a short description of what the collection is.  (100 Words)"
@@ -80,9 +80,9 @@ en:
     recent_collections: 'Collections'
   collections:
     index:
-      title: "Honeycomb: Collections and Exhibits"
+      title: "Digital Exhibits and Collections"
       page_title: 'Collections'
-      description: Honeycomb is an amazing tool for managing your collections !!
+      description: "A platform for curating and publishing digital collections"
       new-button: "New Collection"
     list:
       title: 'Collection'

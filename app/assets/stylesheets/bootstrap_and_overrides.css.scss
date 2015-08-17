@@ -20,3 +20,42 @@ $brand-primary: #2c5882 !default;
 .form-inline .form-group {
   padding-right: 5px;
 }
+
+// Help Page
+
+$darkgrey: #7f7f7f;
+$black: #000000;
+
+.help {
+  color: $darkgrey;
+  font-size: 18px;
+  font-weight: bold;
+
+  ul {
+    list-style-type: none;
+  }
+
+  li {
+    color: $black;
+    font-size: 16px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 70%;
+  }
+
+  .normal {
+    color: $darkgrey;
+    font-weight: normal;
+  }
+
+  .email,
+  .phone {
+    padding-left: 10px;
+  }
+
+  .help-contact {
+    border-left: 1px solid $darkgrey;
+    margin-left: 20px;
+    padding-left: 20px;
+  }
+}

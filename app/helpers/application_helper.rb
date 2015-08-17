@@ -16,7 +16,7 @@ module ApplicationHelper
       page_title += " - #{collection.name_line_1}"
     end
 
-    content_for(:page_title, page_title)
+    content_for(:page_title, page_title.html_safe)
   end
 
   def collection_nav(collection, left_nav_section)
