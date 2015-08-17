@@ -8,7 +8,7 @@ script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
   - bundle exec rspec spec
 before_script:
-  - mysql -e 'create database item_admin_test'
+  - mysql -e 'create database honeycomb_test'
 cache:
   bundler: true
   directories:
