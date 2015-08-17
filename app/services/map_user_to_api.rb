@@ -20,14 +20,28 @@ class MapUserToApi
   private
 
   def map_attributes
-    user.first_name = fetch("first_name")
-    user.last_name = fetch("last_name")
-    user.email = email
-    user.display_name = fetch("full_name")
+    [:first_name, :last_name, :email, :display_name].each do |field|
+      value = send(field)
+      if value.present?
+        user.send("#{field}=", value)
+      end
+    end
   end
 
   def api_attributes
     @api_attributes ||= HesburghAPI::PersonSearch.find(user.username)
+  end
+
+  def first_name
+    fetch("first_name")
+  end
+
+  def last_name
+    fetch("last_name")
+  end
+
+  def display_name
+    fetch("full_name")
   end
 
   def email
