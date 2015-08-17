@@ -123,6 +123,7 @@ end
 # Dalli Caching
 gem "rack-cache"
 gem "dalli"
+gem 'cacheable_flash'
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"

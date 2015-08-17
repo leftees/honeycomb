@@ -25,5 +25,6 @@
 //= require components
 //= require redactor_field
 //= require menu-bar
+//= require flash
+//= require jquery.cookie
 $ = jQuery = require('jquery');
-

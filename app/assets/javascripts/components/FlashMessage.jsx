@@ -3,8 +3,9 @@ var EventEmitter = require('../EventEmitter');
 var mui = require("material-ui");
 var Snackbar = mui.Snackbar;
 
-var PageMessage = React.createClass({
+var FlashMessage = React.createClass({
   mixins: [MuiThemeMixin, DialogMixin],
+  
   getInitialState: function() {
     return {
       messageType: "",
@@ -13,11 +14,15 @@ var PageMessage = React.createClass({
   },
 
   componentDidMount: function () {
-    EventEmitter.emit("MessageCenterDisplay", this.props.messageType, this.props.messageText);
+    Flash.transferFromCookies();
+    for(var key in Flash.data) {
+      EventEmitter.emit("MessageCenterDisplay", key, Flash.data[key].toString().replace(/\+/g, ' '));
+    }
   },
 
   render: function () {
     return ( null );
   }
 });
-module.exports = PageMessage;
+
+module.exports = FlashMessage;
