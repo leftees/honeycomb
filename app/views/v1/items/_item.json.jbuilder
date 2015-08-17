@@ -6,6 +6,7 @@ json.id item_object.unique_id
 json.slug item_object.slug
 json.name item_object.name
 json.description item_object.description.to_s
+json.image_status item_object.object.image_status
 json.image item_object.image
 json.metadata item_object.metadata
 json.last_updated item_object.updated_at

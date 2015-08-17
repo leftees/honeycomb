@@ -23,10 +23,22 @@ RSpec.describe Item do
     :date_created,
     :date_modified,
     :date_published,
+    :image_status
   ].each do |field|
     it "has field, #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")
+    end
+  end
+
+  [
+    :image_ready,
+    :image_invalid,
+    :image_processing
+  ].each do |field|
+    it "has enum, #{field}" do
+      expect(subject).to respond_to("#{field}!")
+      expect(subject).to respond_to("#{field}?")
     end
   end
 

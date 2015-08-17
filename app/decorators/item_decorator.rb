@@ -18,10 +18,12 @@ class ItemDecorator < Draper::Decorator
   end
 
   def status_text
-    if object.honeypot_image
+    if object.image_ready?
       status_text_span(className: "text-success", icon: "ok", text: h.t("status.complete"))
-    else
+    elsif object.image_processing?
       status_text_span(className: "text-info", icon: "minus", text: h.t("status.processing"))
+    else
+      status_text_span(className: "text-danger", icon: "minus", text: h.t("status.error"))
     end
   end
 
@@ -40,7 +42,11 @@ class ItemDecorator < Draper::Decorator
   end
 
   def show_image_box
-    h.react_component "ItemShowImageBox", image: image_json, thumbnailSrc: thumbnail_url, itemID: object.id.to_s
+    h.react_component "ItemShowImageBox",
+                      image: image_json,
+                      itemID: object.id.to_s,
+                      item: object,
+                      itemPath: Rails.application.routes.url_helpers.v1_item_path(object.unique_id)
   end
 
   def item_meta_data_form
@@ -87,7 +93,7 @@ class ItemDecorator < Draper::Decorator
   end
 
   def thumbnail_url
-    if object.image.exists?(:thumb)
+    if object.image_ready? && object.image.exists?(:thumb)
       object.image.url(:thumb)
     else
       return nil
@@ -101,7 +107,7 @@ class ItemDecorator < Draper::Decorator
   private
 
   def image_json
-    if object.honeypot_image
+    if object.image_ready? && object.honeypot_image
       object.honeypot_image.image_json
     else
       {}

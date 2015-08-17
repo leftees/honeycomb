@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"
     t.text     "metadata",                    limit: 4294967295
+    t.integer  "image_status",                limit: 4,          default: 0
   end
 
   add_index "items", ["collection_id"], name: "index_items_on_collection_id", using: :btree

@@ -114,7 +114,13 @@ RSpec.describe ItemDecorator do
     describe "#show_image_box" do
       it "renders a react component" do
         allow(item).to receive(:image).and_return(attachment)
-        expect(subject.show_image_box).to match("<div data-react-class=\"ItemShowImageBox\"")
+        allow(item).to receive(:image_ready?).and_return(true)
+        allow(item).to receive(:unique_id).and_return("unique_id")
+        expect_any_instance_of(Draper::HelperProxy).
+          to receive(:react_component).
+          with("ItemShowImageBox", image: honeypot_image.image_json, itemID: "#{item.id}", item: item, itemPath: "/v1/items/unique_id").
+          and_return(nil)
+        subject.show_image_box
       end
     end
   end
@@ -178,5 +184,34 @@ RSpec.describe ItemDecorator do
 
   it "returns the edit path" do
     expect(subject.edit_path).to eq("/items/1/edit")
+  end
+
+  context "status_text" do
+    it "renders the correct success span when the image is ready" do
+      allow(item).to receive(:image_status).and_return(2)
+      allow(item).to receive(:image_ready?).and_return(true)
+      allow(item).to receive(:image_processing?).and_return(false)
+      allow(item).to receive(:image_invalid?).and_return(false)
+      expect(subject).to receive(:status_text_span).with(className: "text-success", icon: "ok", text: "OK")
+      subject.status_text
+    end
+
+    it "renders the correct success span when the image is invalid" do
+      allow(item).to receive(:image_status).and_return(0)
+      allow(item).to receive(:image_ready?).and_return(false)
+      allow(item).to receive(:image_processing?).and_return(false)
+      allow(item).to receive(:image_invalid?).and_return(true)
+      expect(subject).to receive(:status_text_span).with(className: "text-danger", icon: "minus", text: "Error")
+      subject.status_text
+    end
+
+    it "renders the correct success span when the image is processing" do
+      allow(item).to receive(:image_status).and_return(1)
+      allow(item).to receive(:image_ready?).and_return(false)
+      allow(item).to receive(:image_processing?).and_return(true)
+      allow(item).to receive(:image_invalid?).and_return(false)
+      expect(subject).to receive(:status_text_span).with(className: "text-info", icon: "minus", text: "Processing")
+      subject.status_text
+    end
   end
 end
