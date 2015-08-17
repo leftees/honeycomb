@@ -3,7 +3,14 @@ require "rails_helper"
 describe MapUserToApi do
   subject { MapUserToApi.call(user) }
   let(:user) { double(User, username: "username", "first_name=" => true, "last_name=" => true, "display_name=" => true, "email=" => true) }
-  let(:api_data) { { "first_name" => "first_name", "last_name" => "last_name", "full_name" => "display_name", "contact_information" => { "email" => "email" } } }
+  let(:api_data) do
+    {
+      "first_name" => "first_name",
+      "last_name" => "last_name",
+      "full_name" => "display_name",
+      "contact_information" => { "email" => "email" }
+    }
+  end
 
   before(:each) do
     remove_user_api_stub
