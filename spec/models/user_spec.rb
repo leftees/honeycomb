@@ -18,6 +18,12 @@ RSpec.describe User do
     end
   end
 
+  it "is valid and saves with just a username" do
+    user = described_class.new(username: "testuser")
+    expect(user).to be_valid
+    expect(user.save).to eq(true)
+  end
+
   it "uses MapUserToApi when user saved" do
     expect(MapUserToApi).to receive(:call)
     User.new.save
