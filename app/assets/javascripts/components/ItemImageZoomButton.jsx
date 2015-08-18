@@ -1,5 +1,13 @@
 var React = require('react');
+var mui = require("material-ui");
+var Dialog = mui.Dialog;
+var RaisedButton = mui.RaisedButton;
+var FlatButton = mui.FlatButton;
+var FontIcon = mui.FontIcon;
+
 var ItemImageZoomButton = React.createClass({
+  mixins: [MuiThemeMixin, DialogMixin],
+
   propTypes: {
     image: React.PropTypes.object.isRequired,
     itemID: React.PropTypes.string.isRequired,
@@ -18,22 +26,42 @@ var ItemImageZoomButton = React.createClass({
     });
   },
 
+  showModal: function() {
+    this.refs.imageZoom.show();
+  },
+
+  dismissMessage: function() {
+    this.refs.imageZoom.dismiss();
+  },
+
   render: function() {
     var zoomID = '#hcItemZoom' + this.props.itemID;
     var fullPage = !!this.state.zoomClicked;
+    var buttonStyle = { height: "30px", minWidth: "30px" };
+    var buttonLabel = ( <FontIcon className="mdi-action-search" label="Zoom" /> );
+
     if (this.props.image && this.props.image.contentUrl) {
       return (
-        <div className="hc-image-zoom-button-outer">
-            <a style={{backgroundColor: 'white'}} href="#" data-toggle="modal" data-target="#hc-image-zoom-modal" className="btn btn-default btn-raised hc-image-zoom-button"><span className="glyphicon glyphicon-zoom-in"></span></a>
-            <Modal id="hc-image-zoom-modal" title="Scroll in and out to zoom">
-              <OpenSeadragonViewer image={this.props.image} containerID={zoomID} height={600} />
-            </Modal>
+        <div>
+          <div className="hc-image-zoom-button-outer">
+            <FlatButton
+              onTouchTap={this.showModal}
+              label={ buttonLabel }
+              style={ buttonStyle }
+            />
+          </div>
+          <Dialog
+            ref="imageZoom"
+            actions={this.okDismiss()}
+            openImmediately={false}
+            style={{zIndex: 100}}
+          >
+            <OpenSeadragonViewer image={this.props.image} containerID={zoomID} height={600} />
+          </Dialog>
         </div>
       );
     } else {
-      return (
-        <div />
-      );
+      return (<div />);
     }
   }
 });
