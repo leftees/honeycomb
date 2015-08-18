@@ -55,7 +55,6 @@ var ItemImageZoomButton = React.createClass({
             title={this.props.modalTitle}
             actions={this.okDismiss()}
             openImmediately={false}
-            onDismiss={this.closeCallback}
             style={{zIndex: 100}}
           >
             <OpenSeadragonViewer image={this.props.image} containerID={zoomID} height={600} />
