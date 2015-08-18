@@ -52,7 +52,6 @@ var ItemImageZoomButton = React.createClass({
           </div>
           <Dialog
             ref="imageZoom"
-            title={this.props.modalTitle}
             actions={this.okDismiss()}
             openImmediately={false}
             style={{zIndex: 100}}
