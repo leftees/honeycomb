@@ -49,7 +49,7 @@ class GoogleSession
         hash = Hash.new
         row.each_with_index do |cell, cell_index|
           if cell.present?
-            hash[header_row[cell_index].to_sym] = cell
+            hash[header_row[cell_index]] = cell
           end
         end
         hash

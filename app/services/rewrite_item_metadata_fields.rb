@@ -1,34 +1,25 @@
 # Translates a hash of common property names to valid Item properties
 class RewriteItemMetadataFields
-  attr_accessor :field_map
+  attr_reader :configuration
+  private :configuration
 
-  def initialize(field_map: nil)
-    @field_map = field_map || default_field_map
+  def initialize
+    @configuration = Metadata::Configuration.item_configuration
+  end
+
+  def self.call(item_hash:)
+    new.rewrite(item_hash: item_hash)
   end
 
   def rewrite(item_hash:)
     Hash[
       item_hash.map do |k, v|
-        if field_map.key?(k)
-          [field_map[k], v]
+        if configuration.label?(k)
+          [configuration.label(k).name, v]
         else
           [k, v]
         end
       end
     ]
-  end
-
-  # TODO: Read this from the configs. Map label to item property
-  def default_field_map
-    {
-      Identifier: :user_defined_id,
-      Name: :name,
-      :"Alternative Name" => :alternate_name,
-      Description: :description,
-      :"Date Created" => :date_created,
-      Creator: :creator,
-      Subject: :subject,
-      :"Original Language" => :original_language
-    }
   end
 end

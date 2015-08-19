@@ -85,7 +85,7 @@ RSpec.describe GoogleSession do
   describe "worksheet_to_hash", helpers: :item_meta_helpers do
     let(:rows) do
       [
-        ["Identifier", "Name", "Alternative Name", "Description", "Date Created", "Creator", "Subject", "Original Language"],
+        ["Identifier", "Name", "Alternate Name", "Description", "Date Created", "Creator", "Subject", "Original Language"],
         item_meta_array(item_id: 1),
         item_meta_array(item_id: 2),
         item_meta_array(item_id: 3)
@@ -107,7 +107,7 @@ RSpec.describe GoogleSession do
 
     it "does not return a property if the column has no value" do
       rows[1][3] = nil
-      items[0].delete(:Description)
+      items[0].delete("Description")
       result = subject.worksheet_to_hash(worksheet: worksheet)
       expect(result).to eq(items)
     end

@@ -24,7 +24,9 @@ class ImportController < ApplicationController
     unless worksheet.nil?
       items = session.worksheet_to_hash(worksheet: worksheet)
       unless items.nil?
-        CreateItems.call(collection_id: state_hash["collection_id"], items_hash: items, rewrite_rules: [RewriteItemMetadataFields.new])
+        CreateItems.call(collection_id: state_hash["collection_id"],
+                         items_hash: items,
+                         rewrite_rules: [RewriteItemMetadataFields.new])
       end
     end
 
