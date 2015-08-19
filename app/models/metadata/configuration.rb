@@ -3,10 +3,6 @@ module Metadata
     attr_reader :data
     private :data
 
-    def self.build_fields(data)
-      data.map { |field_data| self::Field.new(**field_data) }
-    end
-
     def self.item_configuration
       @item_configuration ||= new(load_yml(:item))
     end
@@ -17,6 +13,10 @@ module Metadata
 
     def fields
       @fields ||= build_fields
+    end
+
+    def facets
+      @facets ||= build_facets
     end
 
     def field(name)
@@ -44,6 +44,14 @@ module Metadata
 
     def build_fields
       data.fetch(:fields).map { |field_data| Metadata::Configuration::Field.new(**field_data) }
+    end
+
+    def build_facets
+      data.fetch(:facets).map do |facet_data|
+        facet_field = field(facet_data.fetch(:field_name))
+        arguments = facet_data.merge(field: facet_field)
+        Metadata::Configuration::Facet.new(**arguments)
+      end
     end
 
     def field_map

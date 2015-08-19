@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Metadata::Configuration::Facet do
-  let(:field) { instance_double(Metadata::Configuration::Field, name: :my_field, label: "Default Label")}
-  let(:data) { { name: :my_facet, field: field, label: "Custom Label" } }
+  let(:field) { instance_double(Metadata::Configuration::Field, name: :my_field, label: "Default Label") }
+  let(:data) { { name: :my_facet, field_name: :my_field, field: field, label: "Custom Label" } }
   let(:instance) { described_class.new(data) }
   subject { instance }
 
@@ -15,6 +15,12 @@ RSpec.describe Metadata::Configuration::Facet do
   describe "field" do
     it "is the expected value" do
       expect(subject.field).to eq(data.fetch(:field))
+    end
+  end
+
+  describe "field_name" do
+    it "is the expected value" do
+      expect(subject.field_name).to eq(data.fetch(:field_name))
     end
   end
 
