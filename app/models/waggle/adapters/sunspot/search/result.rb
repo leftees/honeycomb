@@ -27,13 +27,22 @@ module Waggle
 
           private
 
-          def search
+          def search # rubocop:disable Metrics/AbcSize
             @search ||= ::Sunspot.search Waggle::Item do
               fulltext query.q
               paginate page: page, per_page: per_page
 
               filters.each do |key, value|
                 with(key, value)
+              end
+
+              query.configuration.facets.each do |facet|
+                facet_indexed_name = "#{facet.name}_facet".to_sym
+                exclude_filters = []
+                if value = query.facet(facet.name)
+                  exclude_filters << with(facet_indexed_name, value)
+                end
+                facet facet_indexed_name, exclude: exclude_filters
               end
             end
           end

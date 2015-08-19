@@ -1,11 +1,10 @@
 RSpec.describe Waggle::Adapters::Sunspot::Search::Result do
   let(:query) do
-    instance_double(
-      Waggle::Search::Query,
+    Waggle::Search::Query.new(
       q: "query",
       start: 60,
       rows: 20,
-      filters: {}
+      filters: {},
     )
   end
   let(:instance) { described_class.new(query: query) }
@@ -55,6 +54,10 @@ RSpec.describe Waggle::Adapters::Sunspot::Search::Result do
   describe "search" do
     subject { instance.send(:search) }
 
+    before do
+      allow_any_instance_of(Sunspot::DSL::Search).to receive(:facet)
+    end
+
     it "works" do
       expect(subject).to be_kind_of(Sunspot::Search::StandardSearch)
     end
@@ -72,6 +75,18 @@ RSpec.describe Waggle::Adapters::Sunspot::Search::Result do
     it "filters" do
       query.filters[:collection_id] = "test_id"
       expect_any_instance_of(Sunspot::DSL::Search).to receive(:with).with(:collection_id, "test_id")
+      subject
+    end
+
+    it "facets" do
+      expect_any_instance_of(Sunspot::DSL::Search).to receive(:facet).with(:creator_facet, exclude: [])
+      subject
+    end
+
+    it "filters on a facet and excludes the filter" do
+      query.facets[:creator] = "bob"
+      expect_any_instance_of(Sunspot::DSL::Search).to receive(:with).with(:creator_facet, "bob").and_return("creator filter")
+      expect_any_instance_of(Sunspot::DSL::Search).to receive(:facet).with(:creator_facet, exclude: ["creator filter"])
       subject
     end
   end
