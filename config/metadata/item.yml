@@ -1,63 +1,68 @@
 ---
-- :name: :user_defined_id
-  :type: :string
-  :label: Identifier
-  :required: true
-- :name: :name
-  :type: :string
-  :label: Name
-  :required: true
-- :name: :alternate_name
-  :type: :string
-  :label: Alternate Name
-  :multiple: true
-- :name: :creator
-  :type: :string
-  :label: Creator
-  :multiple: true
-- :name: :contributor
-  :type: :string
-  :label: Contributor
-  :multiple: true
-- :name: :description
-  :type: :html
-  :label: Description
-- :name: :subject
-  :type: :html
-  :label: Subject
-  :multiple: true
-- :name: :transcription
-  :type: :html
-  :label: Transcription
-- :name: :date_created
-  :type: :date
-  :label: Date Created
-- :name: :date_published
-  :type: :date
-  :label: Date Published
-- :name: :date_modified
-  :type: :date
-  :label: Date Modified
-- :name: :original_language
-  :type: :string
-  :label: Original Language
-  :multiple: true
-- :name: :rights
-  :type: :string
-  :label: Rights
-  :multiple: true
-- :name: :call_number
-  :type: :string
-  :label: Call Number
-  :multiple: true
-- :name: :provenance
-  :type: :string
-  :label: Provenance
-  :multiple: true
-- :name: :publisher
-  :type: :string
-  :label: Publisher
-  :multiple: true
-- :name: :manuscript_url
-  :type: :string
-  :label: Digitized Manuscript
+:fields:
+  - :name: :user_defined_id
+    :type: :string
+    :label: Identifier
+    :required: true
+  - :name: :name
+    :type: :string
+    :label: Name
+    :required: true
+  - :name: :alternate_name
+    :type: :string
+    :label: Alternate Name
+    :multiple: true
+  - :name: :creator
+    :type: :string
+    :label: Creator
+    :multiple: true
+  - :name: :contributor
+    :type: :string
+    :label: Contributor
+    :multiple: true
+  - :name: :description
+    :type: :html
+    :label: Description
+  - :name: :subject
+    :type: :html
+    :label: Subject
+    :multiple: true
+  - :name: :transcription
+    :type: :html
+    :label: Transcription
+  - :name: :date_created
+    :type: :date
+    :label: Date Created
+  - :name: :date_published
+    :type: :date
+    :label: Date Published
+  - :name: :date_modified
+    :type: :date
+    :label: Date Modified
+  - :name: :original_language
+    :type: :string
+    :label: Original Language
+    :multiple: true
+  - :name: :rights
+    :type: :string
+    :label: Rights
+    :multiple: true
+  - :name: :call_number
+    :type: :string
+    :label: Call Number
+    :multiple: true
+  - :name: :provenance
+    :type: :string
+    :label: Provenance
+    :multiple: true
+  - :name: :publisher
+    :type: :string
+    :label: Publisher
+    :multiple: true
+  - :name: :manuscript_url
+    :type: :string
+    :label: Digitized Manuscript
+:facets:
+  - :field: :creator
+  - :field: original_language
+    :label: Language

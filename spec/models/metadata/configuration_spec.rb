@@ -2,10 +2,12 @@ require "rails_helper"
 
 RSpec.describe Metadata::Configuration do
   let(:data) do
-    [
-      { name: :string_field, type: :string, label: "String" },
-      { name: :date_field, type: :date, label: "Date" },
-    ]
+    {
+      fields: [
+        { name: :string_field, type: :string, label: "String" },
+        { name: :date_field, type: :date, label: "Date" },
+      ]
+    }
   end
 
   subject { described_class.new(data) }
@@ -55,11 +57,11 @@ RSpec.describe Metadata::Configuration do
 
   context "self" do
     describe "build_fields" do
-      subject { described_class.build_fields(data) }
+      subject { described_class.build_fields(data.fetch(:fields)) }
 
       it "creates an array of fields" do
-        expect(described_class::Field).to receive(:new).with(data[0]).and_call_original
-        expect(described_class::Field).to receive(:new).with(data[1]).and_call_original
+        expect(described_class::Field).to receive(:new).with(data.fetch(:fields)[0]).and_call_original
+        expect(described_class::Field).to receive(:new).with(data.fetch(:fields)[1]).and_call_original
         expect(subject).to be_kind_of(Array)
         expect(subject.first).to be_kind_of(described_class::Field)
       end
@@ -74,7 +76,7 @@ RSpec.describe Metadata::Configuration do
 
       it "loads configuration from a yml file" do
         described_class.instance_variable_set :@item_configuration, nil
-        expect(YAML).to receive(:load_file).with(Rails.root.join("config/metadata/", "item.yml")).and_return([])
+        expect(YAML).to receive(:load_file).with(Rails.root.join("config/metadata/", "item.yml")).and_return(fields: [])
         expect(subject.fields).to eq([])
       end
 

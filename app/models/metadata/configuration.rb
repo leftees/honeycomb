@@ -12,7 +12,7 @@ module Metadata
     end
 
     def initialize(data)
-      @fields = self.class.build_fields(data)
+      @fields = self.class.build_fields(data.fetch(:fields))
       @field_map = build_field_map
       @label_map = build_label_map
     end
