@@ -97,6 +97,12 @@ RSpec.describe Waggle::Item do
       expect(subject.creator).to eq("creator")
     end
 
+    it "returns the facet value for facet field" do
+      expect(subject.metadata).to receive(:facet?).with(:creator).and_return(true)
+      expect(subject.metadata).to receive(:facet).with(:creator).and_return("creator")
+      expect(subject.creator_facet).to eq("creator")
+    end
+
     it "raises an error for any other missing methods" do
       expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
       expect { subject.creator }.to raise_error(NoMethodError)

@@ -35,12 +35,32 @@ module Metadata
       label(name).present?
     end
 
+    def facet(name)
+      facet_map[name]
+    end
+
+    def facet?(name)
+      facet(name).present?
+    end
+
     def self.load_yml(name)
       YAML.load_file(Rails.root.join("config/metadata/", "#{name}.yml"))
     end
     private_class_method :load_yml
 
     private
+
+    def field_map
+      @field_map ||= build_field_map
+    end
+
+    def facet_map
+      @facet_map ||= build_facet_map
+    end
+
+    def label_map
+      @label_map ||= build_label_map
+    end
 
     def build_fields
       data.fetch(:fields).map { |field_data| Metadata::Configuration::Field.new(**field_data) }
@@ -52,14 +72,6 @@ module Metadata
         arguments = facet_data.merge(field: facet_field)
         Metadata::Configuration::Facet.new(**arguments)
       end
-    end
-
-    def field_map
-      @field_map ||= build_field_map
-    end
-
-    def label_map
-      @label_map ||= build_label_map
     end
 
     def build_field_map
@@ -74,6 +86,14 @@ module Metadata
       {}.tap do |hash|
         fields.each do |field|
           hash[field.label] = field
+        end
+      end
+    end
+
+    def build_facet_map
+      {}.tap do |hash|
+        facets.each do |facet|
+          hash[facet.name] = facet
         end
       end
     end

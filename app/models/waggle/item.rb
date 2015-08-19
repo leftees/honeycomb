@@ -47,15 +47,17 @@ module Waggle
     end
 
     def method_missing(method_name, *args, &block)
-      if metadata.field?(method_name)
-        metadata.value(method_name)
+      if metadata_facet?(method_name)
+        metadata_facet_value(method_name)
+      elsif metadata_field?(method_name)
+        metadata_field_value(method_name)
       else
         super
       end
     end
 
     def respond_to?(method_name, include_private = false)
-      if metadata.field?(method_name)
+      if metadata_facet?(method_name) || metadata_field?(method_name)
         true
       else
         super
@@ -67,6 +69,33 @@ module Waggle
     end
 
     private
+
+    def metadata_field?(method_name)
+      metadata.field?(method_name)
+    end
+
+    def metadata_field_value(method_name)
+      metadata.value(method_name)
+    end
+
+    def metadata_facet?(method_name)
+      name = facet_name(method_name)
+      name && metadata.facet?(name)
+    end
+
+    def metadata_facet_value(method_name)
+      name = facet_name(method_name)
+      if name
+        metadata.facet(name)
+      end
+    end
+
+    # Facet values are available on Waggle::Item by calling waggle_item.<facet name>_facet
+    def facet_name(method_name)
+      if method_name.to_s =~ /_facet$/
+        method_name.to_s.gsub(/_facet$/, "").to_sym
+      end
+    end
 
     def metadata_configuration
       ::Metadata::Configuration.item_configuration

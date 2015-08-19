@@ -21,8 +21,17 @@ module Waggle
         end
       end
 
+      def facet(facet_name)
+        facet = configuration.facet(facet_name)
+        value(facet.field_name)
+      end
+
       def field?(field_name)
         configuration.field?(field_name)
+      end
+
+      def facet?(facet_name)
+        configuration.facet?(facet_name)
       end
     end
   end

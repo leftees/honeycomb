@@ -77,6 +77,28 @@ RSpec.describe Metadata::Configuration do
     end
   end
 
+  describe "facet" do
+    it "finds a facet by its name" do
+      facet = subject.facet(:string_field_facet)
+      expect(facet).to be_kind_of(described_class::Facet)
+      expect(facet.name).to eq(:string_field_facet)
+    end
+
+    it "returns nil if a facet doesn't exist" do
+      expect(subject.field(:fake_facet)).to be_nil
+    end
+  end
+
+  describe "facet?" do
+    it "returns true for a facet that exists" do
+      expect(subject.facet?(:string_field_facet)).to eq(true)
+    end
+
+    it "returns nil if a facet doesn't exist" do
+      expect(subject.facet?(:fake_facet)).to eq(false)
+    end
+  end
+
   describe "facets" do
     subject { instance.facets }
 
