@@ -6,4 +6,6 @@ json.hits do
     json.partial! "v1/search/hit", hit: hit
   end
 end
-json.facets []
+json.facets @search.facets do |facet|
+  json.partial! "v1/search/facet", facet: facet
+end

@@ -23,6 +23,30 @@ module Waggle
         adapter_result.total
       end
 
+      def facets
+        @facets ||= [].tap do |array|
+          array << Waggle::Search::Facet.new(
+            name: "Creator",
+            field: "creator",
+            values: [
+              { name: "Barlow, Dudley", count: 25 },
+              { name: "Pinsker, Sanford", count: 21 },
+              { name: "Salinger, J", count: 4 },
+            ]
+          )
+
+          array << Waggle::Search::Facet.new(
+            name: "Language",
+            field: "original_language",
+            values: [
+              { name: "English", count: 5203 },
+              { name: "Japanese", count: 87 },
+              { name: "French", count: 65 },
+            ]
+          )
+        end
+      end
+
       private
 
       def adapter_result
