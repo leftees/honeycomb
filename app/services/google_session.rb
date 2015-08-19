@@ -39,4 +39,21 @@ class GoogleSession
       spread_sheet.worksheets[0]
     end
   end
+
+  # Worksheet must have a header row to use as keys in the hash
+  def worksheet_to_hash(worksheet:)
+    rows = worksheet.rows
+    unless rows.nil?
+      header_row = rows[0]
+      rows[1..rows.size].map do |row|
+        hash = Hash.new
+        row.each_with_index do |cell, cell_index|
+          if cell.present?
+            hash[header_row[cell_index].to_sym] = cell
+          end
+        end
+        hash
+      end
+    end
+  end
 end

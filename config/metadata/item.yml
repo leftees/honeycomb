@@ -1,13 +1,20 @@
 ---
+- :name: :user_defined_id
+  :type: :string
+  :label: Identifier
+  :required: true
 - :name: :name
   :type: :string
   :label: Name
+  :required: true
 - :name: :alternate_name
   :type: :string
   :label: Alternate Name
+  :multiple: true
 - :name: :creator
   :type: :string
   :label: Creator
+  :multiple: true
 - :name: :contributor
   :type: :string
   :label: Contributor

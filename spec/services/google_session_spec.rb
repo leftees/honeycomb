@@ -1,4 +1,9 @@
 require "rails_helper"
+require "support/item_meta_helpers"
+
+RSpec.configure do |c|
+  c.include ItemMetaHelpers, helpers: :item_meta_helpers
+end
 
 RSpec.describe GoogleSession do
   let(:client) { instance_double(Google::APIClient, authorization: auth) }
@@ -74,6 +79,37 @@ RSpec.describe GoogleSession do
     it "gets the worksheet specified" do
       worksheet = subject.get_worksheet(file: "", sheet: "sheet")
       expect(worksheet).to eq("worksheet_by_title")
+    end
+  end
+
+  describe "worksheet_to_hash", helpers: :item_meta_helpers do
+    let(:rows) do
+      [
+        ["Identifier", "Name", "Alternative Name", "Description", "Date Created", "Creator", "Subject", "Original Language"],
+        item_meta_array(item_id: 1),
+        item_meta_array(item_id: 2),
+        item_meta_array(item_id: 3)
+      ]
+    end
+    let(:items) do
+      [
+        item_meta_hash(item_id: 1),
+        item_meta_hash(item_id: 2),
+        item_meta_hash(item_id: 3),
+      ]
+    end
+    let(:worksheet) { instance_double(GoogleDrive::Worksheet, rows: rows) }
+
+    it "converts to array of item hashes" do
+      result = subject.worksheet_to_hash(worksheet: worksheet)
+      expect(result).to eq(items)
+    end
+
+    it "does not return a property if the column has no value" do
+      rows[1][3] = nil
+      items[0].delete(:Description)
+      result = subject.worksheet_to_hash(worksheet: worksheet)
+      expect(result).to eq(items)
     end
   end
 end

@@ -1,7 +1,6 @@
 class ImportController < ApplicationController
   # Constructs an auth request to google. Packs the collection id, file, and sheet
   # into state data so that this data persists the round trip.
-  # TODO: Move this to client side script if possible to avoid an extra trip
   def get_google_authorization_uri
     session = GoogleSession.new
     authorization_uri = session.auth_request_uri(
@@ -21,13 +20,32 @@ class ImportController < ApplicationController
     state_hash = JSON.parse(Base64::decode64(params[:state]))
     session = GoogleSession.new
     session.connect(auth_code: params[:code], callback_uri: import_google_sheet_callback_collections_url)
-    work_sheet = session.get_worksheet(file: state_hash["file"], sheet: state_hash["sheet"])
+    worksheet = session.get_worksheet(file: state_hash["file"], sheet: state_hash["sheet"])
+    unless worksheet.nil?
+      items = session.worksheet_to_hash(worksheet: worksheet)
+      unless items.nil?
+        CreateItems.call(collection_id: state_hash["collection_id"], items_hash: items, rewrite_rules: [RewriteItemMetadataFields.new])
+      end
+    end
+
+    redirect_to collection_items_path(state_hash["collection_id"])
+    return
+
+
+
 
     # Just as a PoC, print the worksheet data
-    if work_sheet.nil?
+    if worksheet.nil?
       render plain: "Worksheet not found."
     else
-      render plain: "No data has been imported. This is just a demonstration to show that all your cells are belong to us: #{work_sheet.rows}"
+      render plain: "No data has been imported. This is just a demonstration to show that all your cells are belong to us: #{items}"
     end
+
+
+
+  end
+
+  def configuration
+    Metadata::Configuration.item_configuration
   end
 end

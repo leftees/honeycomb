@@ -27,16 +27,32 @@ RSpec.describe ImportController, type: :controller do
     let(:worksheet) { instance_double(GoogleDrive::Worksheet, rows: []) }
 
     it "uses google api to retrieve the worksheet" do
+      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return({})
       allow_any_instance_of(GoogleSession).to receive(:connect)
-      expect_any_instance_of(GoogleSession).to receive(:get_worksheet).with(file: state_hash[:file], sheet: state_hash[:sheet]).and_return(nil)
+      expect_any_instance_of(GoogleSession).to receive(:get_worksheet).with(file: state_hash[:file], sheet: state_hash[:sheet]).and_return(worksheet)
       get :import_google_sheet_callback, state: encoded_state_hash
     end
 
     it "gets the rows of the worksheet" do
       allow_any_instance_of(GoogleSession).to receive(:connect)
       allow_any_instance_of(GoogleSession).to receive(:get_worksheet).and_return(worksheet)
-      expect(worksheet).to receive(:rows)
+      expect_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return({})
       get :import_google_sheet_callback, state: encoded_state_hash
+    end
+
+    it "calls CreateItems with the hash read from the worksheet" do
+      allow_any_instance_of(GoogleSession).to receive(:connect)
+      allow_any_instance_of(GoogleSession).to receive(:get_worksheet).and_return(worksheet)
+      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return([{ item: "item" }])
+      expect(CreateItems).to receive(:call).with(hash_including(items_hash: [{ item: "item" }]))
+      get :import_google_sheet_callback, state: encoded_state_hash
+    end
+
+    it "redirects to the items page" do
+      allow_any_instance_of(GoogleSession).to receive(:connect)
+      allow_any_instance_of(GoogleSession).to receive(:get_worksheet).and_return(worksheet)
+      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return({})
+      expect(get :import_google_sheet_callback, state: encoded_state_hash).to redirect_to(collection_items_path(1))
     end
   end
 end
