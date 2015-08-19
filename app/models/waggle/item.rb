@@ -58,8 +58,7 @@ module Waggle
     end
 
     def self.load(id)
-      raw_data = File.read(Rails.root.join("spec/fixtures/v1/items/#{id}.json"))
-      new(JSON.parse(raw_data).fetch("items"))
+      ItemQuery.new.public_find(id)
     end
 
     private

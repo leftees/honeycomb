@@ -59,17 +59,15 @@ RSpec.describe Waggle::Item do
 
   describe "last_updated" do
     it "is a Time" do
-      expect(subject.last_updated).to eq(Time.parse(data.fetch("last_updated")))
+      expect(subject.last_updated).to eq(Time.zone.parse(data.fetch("last_updated")))
     end
   end
 
   describe "self.load" do
-    it "loads from the file for now" do
-      loaded = described_class.load(item_id)
-      expect(loaded.data).to eq(data)
+    it "load the database record using ItemQuery" do
+      expect_any_instance_of(ItemQuery).to receive(:public_find).with(item_id)
+      described_class.load(item_id)
     end
-
-    it "loads the correct way"
   end
 
   describe "metadata" do
