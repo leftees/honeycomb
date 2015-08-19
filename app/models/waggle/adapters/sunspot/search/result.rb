@@ -13,6 +13,19 @@ module Waggle
             @hits ||= search.hits.map { |sunspot_hit| Waggle::Adapters::Sunspot::Search::Hit.new(sunspot_hit) }
           end
 
+          def facets
+            if @facets.nil?
+              @facets = configuration.facets.map do |facet|
+                sunspot_facet = search.facet("#{facet.name}_facet")
+                if sunspot_facet
+                  Waggle::Adapters::Sunspot::Search::Facet.new(facet_config: facet, sunspot_facet: sunspot_facet)
+                end
+              end
+              @facets.compact!
+            end
+            @facets
+          end
+
           def page
             (query.start / per_page) + 1
           end
@@ -27,7 +40,7 @@ module Waggle
 
           private
 
-          def search # rubocop:disable Metrics/AbcSize
+          def search
             @search ||= ::Sunspot.search Waggle::Item do
               fulltext query.q
               paginate page: page, per_page: per_page
@@ -36,7 +49,7 @@ module Waggle
                 with(key, value)
               end
 
-              query.configuration.facets.each do |facet|
+              configuration.facets.each do |facet|
                 facet_indexed_name = "#{facet.name}_facet".to_sym
                 exclude_filters = []
                 if value = query.facet(facet.name)
@@ -45,6 +58,10 @@ module Waggle
                 facet facet_indexed_name, exclude: exclude_filters
               end
             end
+          end
+
+          def configuration
+            query.configuration
           end
 
           def filters

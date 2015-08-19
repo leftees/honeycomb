@@ -5,9 +5,9 @@ module Waggle
 
       attr_reader :q, :facets, :sort, :rows, :start, :filters
 
-      def initialize(q:, facets: {}, sort: nil, rows: nil, start: nil, filters: {})
+      def initialize(q:, facets: nil, sort: nil, rows: nil, start: nil, filters: {})
         @q = q
-        @facets = facets
+        @facets = facets || {}
         @sort = sort
         @rows = (rows || DEFAULT_ROWS).to_i
         @start = (start || 0).to_i

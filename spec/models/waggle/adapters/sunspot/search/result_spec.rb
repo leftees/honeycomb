@@ -101,6 +101,7 @@ RSpec.describe Waggle::Adapters::Sunspot::Search::Result do
       data = item_instance.data.clone
       data["id"] += "other"
       data["metadata"]["name"]["values"].first["value"] += " pig"
+      data["metadata"]["creator"]["values"].first["value"] += " Jones"
       index_class.new(data)
     end
 
@@ -116,6 +117,7 @@ RSpec.describe Waggle::Adapters::Sunspot::Search::Result do
           boost_fields name: 3.0
           highlight :name
         end
+        facet :creator_facet
       end
 
       # search.hits.each do |hit|
