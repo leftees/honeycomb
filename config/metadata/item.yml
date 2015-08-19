@@ -63,6 +63,8 @@
     :type: :string
     :label: Digitized Manuscript
 :facets:
-  - :field: :creator
-  - :field: original_language
+  - :name: :creator
+    :field: :creator
+  - :name: :language
+    :field: original_language
     :label: Language
