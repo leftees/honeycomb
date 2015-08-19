@@ -21,6 +21,9 @@ module Waggle
                   raise "unknown type #{field.type}"
                 end
               end
+              configuration.facets.each do |facet|
+                string "#{facet.name}_facet".to_sym, multiple: true
+              end
               string :at_id, stored: true
               string :unique_id, stored: true
               string :collection_id, stored: true

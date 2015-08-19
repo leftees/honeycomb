@@ -118,10 +118,11 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
       Sunspot.commit
     end
 
-    shared_examples_for "a searchable field" do |field_name, field_type|
+    shared_examples_for "a searchable field" do |field_name, field_type, indexed_field_name|
+      indexed_field_name ||= field_name
       if field_type == :time
         let(:q) { Time.zone.now - 1.day }
-      elsif field_type == :text
+      elsif [:text, :string].include?(field_type)
         let(:q) { field_name }
       else
         raise "unknown type #{field_type}"
@@ -131,18 +132,20 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
 
       before do
         allow(instance.metadata).to receive(:value).and_call_original
-        expect(instance.metadata).to receive(:value).with(field_name).and_return(expected_value)
+        allow(instance.metadata).to receive(:value).with(field_name).and_return(expected_value)
         Sunspot.index(instance)
         Sunspot.commit
       end
 
-      it "searches #{field_name} as #{field_type}" do
+      it "searches #{indexed_field_name} as #{field_type}" do
         search = Sunspot.search index_class do
           if field_type == :time
-            with(field_name).equal_to q
+            with(indexed_field_name).equal_to q
+          elsif field_type == :string
+            with(indexed_field_name, q)
           elsif field_type == :text
             fulltext q do
-              fields(field_name)
+              fields(indexed_field_name)
             end
           end
         end
@@ -152,13 +155,15 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
       context "nil value" do
         let(:expected_value) { nil }
 
-        it "does not find a result for #{field_name} as #{field_type}" do
+        it "does not find a result for #{indexed_field_name} as #{field_type}" do
           search = Sunspot.search index_class do
             if field_type == :time
-              with(field_name).equal_to q
+              with(indexed_field_name).equal_to q
+            elsif field_type == :string
+              with(indexed_field_name, q)
             elsif field_type == :text
               fulltext q do
-                fields(field_name)
+                fields(indexed_field_name)
               end
             end
           end
@@ -169,10 +174,14 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
 
     Metadata::Configuration.item_configuration.fields.each do |field|
       if field.type == :date
-        it_behaves_like "a searchable field", field.name, :time, multiple: true
+        it_behaves_like "a searchable field", field.name, :time
       else
         it_behaves_like "a searchable field", field.name, :text
       end
+    end
+
+    Metadata::Configuration.item_configuration.facets.each do |facet|
+      it_behaves_like "a searchable field", facet.field_name, :string, "#{facet.name}_facet"
     end
 
     it "is searchable" do
