@@ -70,6 +70,18 @@ RSpec.describe Waggle::Item do
     end
   end
 
+  describe "self.from_item" do
+    let(:decorator) { instance_double(V1::ItemJSONDecorator, to_hash: { test: "test" }) }
+    let(:item) { instance_double(Item) }
+    subject { described_class.from_item(item) }
+
+    it "converts an item to its api hash and instantiates a new waggle item" do
+      expect(V1::ItemJSONDecorator).to receive(:new).with(item).and_return(decorator)
+      expect(described_class).to receive(:new).with(decorator.to_hash).and_return("waggle item")
+      expect(subject).to eq("waggle item")
+    end
+  end
+
   describe "metadata" do
     it "is a Metadata object" do
       expect(Waggle::Metadata::Set).to receive(:new).

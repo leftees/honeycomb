@@ -3,6 +3,11 @@ module Waggle
     TYPE = "Item"
     attr_reader :data
 
+    def self.from_item(item)
+      api_data = V1::ItemJSONDecorator.new(item).to_hash
+      new(api_data)
+    end
+
     def initialize(data)
       @data = data
     end

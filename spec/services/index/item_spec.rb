@@ -49,21 +49,10 @@ RSpec.describe Index::Item do
     end
   end
 
-  describe "api_data" do
-    let(:decorator) { instance_double(V1::ItemJSONDecorator, to_hash: { test: "test" }) }
-    subject { described_class.api_data(item) }
-
-    it "converts an item to a hash" do
-      expect(V1::ItemJSONDecorator).to receive(:new).with(item).and_return(decorator)
-      expect(subject).to eq(decorator.to_hash)
-    end
-  end
-
   describe "item_to_waggle_item" do
-    subject { described_class.item_to_waggle_item(item) }
+    subject { described_class.send(:item_to_waggle_item, item) }
     it "converts an item to a waggle item" do
-      expect(described_class).to receive(:api_data).with(item).and_return(test: "test")
-      expect(Waggle::Item).to receive(:new).with(test: "test").and_return("waggle item")
+      expect(Waggle::Item).to receive(:from_item).with(item).and_return("waggle item")
       expect(subject).to eq("waggle item")
     end
   end

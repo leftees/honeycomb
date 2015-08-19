@@ -14,13 +14,10 @@ module Index
       notify_error(exception: exception, item: item, action: "remove!")
     end
 
-    def self.api_data(item)
-      V1::ItemJSONDecorator.new(item).to_hash
-    end
-
     def self.item_to_waggle_item(item)
-      Waggle::Item.new(api_data(item))
+      Waggle::Item.from_item(item)
     end
+    private_class_method :item_to_waggle_item
 
     def self.notify_error(exception:, item:, action:)
       NotifyError.call(exception: exception, parameters: { item: item }, component: to_s, action: action)
