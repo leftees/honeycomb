@@ -20,18 +20,10 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
       item_meta_hash_remapped(item_id: 3),
     ]
   end
-  let(:remap) do
-    {
-      "Identifier" => :something_else,
-      "Alternate Name" => :alternate_name,
-      "Date Created" => :date_created,
-      "Original Language" => :original_language
-    }
-  end
 
   it "creates new item with the remapped properties" do
     allow(SaveItem).to receive(:call).and_return true
-    rewrites = RewriteItemMetadataFields.new
+    rewrites = RewriteItemMetadata.new
     expect(Item).to receive(:new).with(hash_including(remapped_items[0])).ordered
     expect(Item).to receive(:new).with(hash_including(remapped_items[1])).ordered
     expect(Item).to receive(:new).with(hash_including(remapped_items[2])).ordered
@@ -47,10 +39,25 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
   it "uses the given rewrite_rules on all items" do
     allow(Item).to receive(:new).and_return(nil)
     allow(SaveItem).to receive(:call).and_return true
-    rewrites = RewriteItemMetadataFields.new
+    rewrites = RewriteItemMetadata.new
     expect(rewrites).to receive(:rewrite).with(item_hash: items[0]).ordered.and_return({})
     expect(rewrites).to receive(:rewrite).with(item_hash: items[1]).ordered.and_return({})
     expect(rewrites).to receive(:rewrite).with(item_hash: items[2]).ordered.and_return({})
     described_class.call(collection_id: 1, items_hash: items, rewrite_rules: [rewrites])
+  end
+
+  it "throws an exception if a label is not found" do
+    items[0]["Invalid Field Name"] = "invalid value"
+    rewrites = RewriteItemMetadata.new
+    expect do
+      described_class.call(collection_id: 1, items_hash: items, rewrite_rules: [rewrites])
+    end.to raise_error
+  end
+
+  it "throws an exception if a label is not found" do
+    rewrites = RewriteItemMetadata.new
+    expect do
+      described_class.call(collection_id: 1, items_hash: items, rewrite_rules: [rewrites])
+    end.not_to raise_error
   end
 end

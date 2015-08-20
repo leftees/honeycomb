@@ -26,7 +26,7 @@ class ImportController < ApplicationController
       unless items.nil?
         CreateItems.call(collection_id: state_hash["collection_id"],
                          items_hash: items,
-                         rewrite_rules: [RewriteItemMetadataFields.new])
+                         rewrite_rules: [RewriteItemMetadata.new])
       end
     end
 

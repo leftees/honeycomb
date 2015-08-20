@@ -5,19 +5,19 @@ RSpec.configure do |c|
   c.include ItemMetaHelpers, helpers: :item_meta_helpers
 end
 
-RSpec.describe RewriteItemMetadataFields, helpers: :item_meta_helpers do
+RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
   let(:item) { item_meta_hash(item_id: 1) }
   let(:remapped_item) { item_meta_hash_remapped(item_id: 1) }
-  let(:remap) do
-    {
-      id: :something_else,
-      alternateName: :alternate_name,
-      dateCreated: :date_created,
-      originalLanguage: :original_language
-    }
-  end
 
-  it "remaps the id field" do
+  it "rewrites all fields from labels to field names" do
     expect(described_class.call(item_hash: item)).to eq(remapped_item)
   end
+
+  it "rewrites multiples to an array" do
+    item["Alternate Name"] = "name1||name2"
+    remapped_item[:alternate_name] = ["name1", "name2"]
+    expect(described_class.call(item_hash: item)).to eq(remapped_item)
+  end
+
+  it "rewrites dates"
 end

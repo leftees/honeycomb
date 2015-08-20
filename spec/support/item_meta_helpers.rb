@@ -31,11 +31,11 @@ module ItemMetaHelpers
     {
       user_defined_id: "id#{item_id}",
       name: "name#{item_id}",
-      alternate_name: "alternateName#{item_id}",
+      alternate_name: ["alternateName#{item_id}"],
       description: "description#{item_id}",
       date_created: "2015-01-01",
       # dateCreated: { year: item_id, month: nil, day: nil, bc: nil, display_text: "dateCreated#{item_id}" },
-      creator: "creator#{item_id}",
+      creator: ["creator#{item_id}"],
       subject: "subject#{item_id}",
       original_language: "originalLanguage#{item_id}"
     }
