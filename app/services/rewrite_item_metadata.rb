@@ -27,20 +27,15 @@ class RewriteItemMetadata
   def rewrite_value(field_name:, value:)
     result = value
     field = configuration.field(field_name)
-    
+
     # Rewrite multiples into an array
     if field.multiple
       result = result.split("||")
     end
 
-#    if field.type.to_s == "date"
-#      converter = MetadataDate::ConvertToIsoDate.new(value)
-#      if converter.convert
-#        result = converter.values
-#      else
-#        result = nil
-#      end
-#    end
+    if field.type.to_s == "date"
+      result = MetadataDate.parse(value).to_params
+    end
 
     result
   end

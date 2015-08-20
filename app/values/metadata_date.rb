@@ -49,6 +49,22 @@ class MetadataDate
     }
   end
 
+  def to_params
+    {
+      year: year,
+      month: month,
+      day: day,
+      bc: bc,
+      display_text: display_text,
+    }.stringify_keys
+  end
+
+  def self.parse(string)
+    date = DateTime.parse(string)
+    bc = date.year <= 0
+    new(year: date.year.abs, month: date.month, day: date.day, bc: bc)
+  end
+
   private
 
   def parse_value(value)
