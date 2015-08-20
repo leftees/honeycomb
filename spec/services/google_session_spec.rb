@@ -85,7 +85,7 @@ RSpec.describe GoogleSession do
   describe "worksheet_to_hash", helpers: :item_meta_helpers do
     let(:rows) do
       [
-        ["Identifier", "Name", "Alternate Name", "Description", "Date Created", "Creator", "Subject", "Original Language"],
+        ["Identifier", "Name", "Alternate Name", "Description", "Creator", "Subject", "Original Language"],
         item_meta_array(item_id: 1),
         item_meta_array(item_id: 2),
         item_meta_array(item_id: 3)

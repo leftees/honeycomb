@@ -51,13 +51,6 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
     rewrites = RewriteItemMetadata.new
     expect do
       described_class.call(collection_id: 1, items_hash: items, rewrite_rules: [rewrites])
-    end.to raise_error
-  end
-
-  it "throws an exception if a label is not found" do
-    rewrites = RewriteItemMetadata.new
-    expect do
-      described_class.call(collection_id: 1, items_hash: items, rewrite_rules: [rewrites])
-    end.not_to raise_error
+    end.to raise_error(ActiveRecord::UnknownAttributeError)
   end
 end

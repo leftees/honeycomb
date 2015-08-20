@@ -27,7 +27,7 @@ class RewriteItemMetadata
   def rewrite_value(field_name:, value:)
     result = value
     field = configuration.field(field_name)
-    print "\n\n#{field.type} #{value}\n\n"
+    
     # Rewrite multiples into an array
     if field.multiple
       result = result.split("||")
