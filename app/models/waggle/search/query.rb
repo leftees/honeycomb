@@ -22,6 +22,12 @@ module Waggle
         facets[name]
       end
 
+      def sort_field
+        if sort.present?
+          configuration.sort(sort.to_sym)
+        end
+      end
+
       def result
         @result ||= Waggle::Search::Result.new(query: self)
       end

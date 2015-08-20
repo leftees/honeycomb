@@ -8,7 +8,7 @@ module Waggle
       end
 
       def hits
-        adapter_result.hits.map { |adapter_hit| Waggle::Search::Hit.new(adapter_hit) }
+        @hits ||= adapter_result.hits.map { |adapter_hit| Waggle::Search::Hit.new(adapter_hit) }
       end
 
       def start
@@ -25,6 +25,15 @@ module Waggle
 
       def facets
         adapter_result.facets
+      end
+
+      def sorts
+        @sorts ||= [].tap do |array|
+          array.push Waggle::Search::SortField.new(name: "Relevance", value: "score")
+          query.configuration.sorts.each do |sort_config|
+            array.push Waggle::Search::SortField.from_config(sort_config)
+          end
+        end
       end
 
       private

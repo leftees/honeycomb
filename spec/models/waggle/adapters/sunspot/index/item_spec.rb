@@ -184,6 +184,10 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
       it_behaves_like "a searchable field", facet.field_name, :string, "#{facet.name}_facet"
     end
 
+    Metadata::Configuration.item_configuration.sorts.each do |sort|
+      it_behaves_like "a searchable field", sort.field_name, :string, "#{sort.name}_sort"
+    end
+
     it "is searchable" do
       Sunspot.index(instance)
       Sunspot.index(other_instance)

@@ -24,6 +24,9 @@ module Waggle
               configuration.facets.each do |facet|
                 string "#{facet.name}_facet".to_sym, multiple: true
               end
+              configuration.sorts.each do |sort|
+                string "#{sort.name}_sort".to_sym, multiple: false
+              end
               string :at_id, stored: true
               string :unique_id, stored: true
               string :collection_id, stored: true
