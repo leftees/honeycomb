@@ -103,6 +103,12 @@ RSpec.describe Waggle::Item do
       expect(subject.creator_facet).to eq("creator")
     end
 
+    it "returns the sort value for sort field" do
+      expect(subject.metadata).to receive(:sort?).with(:creator).and_return(true)
+      expect(subject.metadata).to receive(:sort).with(:creator).and_return("creator")
+      expect(subject.creator_sort).to eq("creator")
+    end
+
     it "raises an error for any other missing methods" do
       expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
       expect { subject.creator }.to raise_error(NoMethodError)

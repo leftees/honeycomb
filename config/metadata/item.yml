@@ -68,3 +68,12 @@
   - :name: :language
     :field_name: :original_language
     :label: Language
+:sorts:
+  - :name: :name
+    :field_name: :name
+    :direction: :asc
+    :label: Name
+  - :name: :creator
+    :field_name: :creator
+    :direction: :asc
+    :label: Creator

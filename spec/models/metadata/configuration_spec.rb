@@ -13,10 +13,17 @@ RSpec.describe Metadata::Configuration do
       { name: :string_field_facet_2, field_name: :string_field, label: "Custom Label" },
     ]
   end
+  let(:sort_data) do
+    [
+      { name: :string_field_sort, field_name: :string_field, direction: :asc },
+      { name: :string_field_sort_2, field_name: :string_field, direction: :desc, label: "Descending Label" },
+    ]
+  end
   let(:data) do
     {
       fields: field_data,
-      facets: facet_data
+      facets: facet_data,
+      sorts: sort_data,
     }
   end
   let(:instance) { described_class.new(data) }
@@ -85,7 +92,7 @@ RSpec.describe Metadata::Configuration do
     end
 
     it "returns nil if a facet doesn't exist" do
-      expect(subject.field(:fake_facet)).to be_nil
+      expect(subject.facet(:fake_facet)).to be_nil
     end
   end
 
@@ -107,6 +114,29 @@ RSpec.describe Metadata::Configuration do
       expect(described_class::Facet).to receive(:new).with(facet_data[1].merge(field: kind_of(described_class::Field))).and_call_original
       expect(subject).to be_kind_of(Array)
       expect(subject.first).to be_kind_of(described_class::Facet)
+    end
+  end
+
+  describe "sort" do
+    it "finds a sort by its name" do
+      sort = subject.sort(:string_field_sort)
+      expect(sort).to be_kind_of(described_class::Sort)
+      expect(sort.name).to eq(:string_field_sort)
+    end
+
+    it "returns nil if a sort doesn't exist" do
+      expect(subject.sort(:fake_sort)).to be_nil
+    end
+  end
+
+  describe "sorts" do
+    subject { instance.sorts }
+
+    it "is an array of sorts" do
+      expect(described_class::Sort).to receive(:new).with(sort_data[0].merge(field: kind_of(described_class::Field))).and_call_original
+      expect(described_class::Sort).to receive(:new).with(sort_data[1].merge(field: kind_of(described_class::Field))).and_call_original
+      expect(subject).to be_kind_of(Array)
+      expect(subject.first).to be_kind_of(described_class::Sort)
     end
   end
 

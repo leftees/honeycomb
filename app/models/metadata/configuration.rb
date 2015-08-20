@@ -15,10 +15,6 @@ module Metadata
       @fields ||= build_fields
     end
 
-    def facets
-      @facets ||= build_facets
-    end
-
     def field(name)
       field_map[name]
     end
@@ -35,12 +31,28 @@ module Metadata
       label(name).present?
     end
 
+    def facets
+      @facets ||= build_facets
+    end
+
     def facet(name)
       facet_map[name]
     end
 
     def facet?(name)
       facet(name).present?
+    end
+
+    def sorts
+      @sorts ||= build_sorts
+    end
+
+    def sort(name)
+      sort_map[name]
+    end
+
+    def sort?(name)
+      sort(name).present?
     end
 
     def self.load_yml(name)
@@ -62,6 +74,10 @@ module Metadata
       @label_map ||= build_label_map
     end
 
+    def sort_map
+      @sort_map ||= build_sort_map
+    end
+
     def build_fields
       data.fetch(:fields).map { |field_data| Metadata::Configuration::Field.new(**field_data) }
     end
@@ -71,6 +87,14 @@ module Metadata
         facet_field = field(facet_data.fetch(:field_name))
         arguments = facet_data.merge(field: facet_field)
         Metadata::Configuration::Facet.new(**arguments)
+      end
+    end
+
+    def build_sorts
+      data.fetch(:sorts).map do |sort_data|
+        sort_field = field(sort_data.fetch(:field_name))
+        arguments = sort_data.merge(field: sort_field)
+        Metadata::Configuration::Sort.new(**arguments)
       end
     end
 
@@ -94,6 +118,14 @@ module Metadata
       {}.tap do |hash|
         facets.each do |facet|
           hash[facet.name] = facet
+        end
+      end
+    end
+
+    def build_sort_map
+      {}.tap do |hash|
+        sorts.each do |sort|
+          hash[sort.name] = sort
         end
       end
     end

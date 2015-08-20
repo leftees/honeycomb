@@ -21,17 +21,29 @@ module Waggle
         end
       end
 
+      def field?(field_name)
+        configuration.field?(field_name)
+      end
+
       def facet(facet_name)
         facet = configuration.facet(facet_name)
         value(facet.field_name)
       end
 
-      def field?(field_name)
-        configuration.field?(field_name)
-      end
-
       def facet?(facet_name)
         configuration.facet?(facet_name)
+      end
+
+      def sort(sort_name)
+        sort = configuration.sort(sort_name)
+        sort_value = value(sort.field_name)
+        if sort_value.present?
+          sort_value.first
+        end
+      end
+
+      def sort?(sort_name)
+        configuration.sort?(sort_name)
       end
     end
   end

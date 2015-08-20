@@ -49,6 +49,8 @@ module Waggle
     def method_missing(method_name, *args, &block)
       if metadata_facet?(method_name)
         metadata_facet_value(method_name)
+      elsif metadata_sort_field?(method_name)
+        metadata_sort_value(method_name)
       elsif metadata_field?(method_name)
         metadata_field_value(method_name)
       else
@@ -57,7 +59,7 @@ module Waggle
     end
 
     def respond_to?(method_name, include_private = false)
-      if metadata_facet?(method_name) || metadata_field?(method_name)
+      if metadata_facet?(method_name) || metadata_sort_field?(method_name) || metadata_field?(method_name)
         true
       else
         super
@@ -90,10 +92,29 @@ module Waggle
       end
     end
 
+    def metadata_sort_field?(method_name)
+      name = sort_name(method_name)
+      name && metadata.sort?(name)
+    end
+
+    def metadata_sort_value(method_name)
+      name = sort_name(method_name)
+      if name
+        metadata.sort(name)
+      end
+    end
+
     # Facet values are available on Waggle::Item by calling waggle_item.<facet name>_facet
     def facet_name(method_name)
       if method_name.to_s =~ /_facet$/
         method_name.to_s.gsub(/_facet$/, "").to_sym
+      end
+    end
+
+    # Facet values are available on Waggle::Item by calling waggle_item.<facet name>_facet
+    def sort_name(method_name)
+      if method_name.to_s =~ /_sort$/
+        method_name.to_s.gsub(/_sort$/, "").to_sym
       end
     end
 
