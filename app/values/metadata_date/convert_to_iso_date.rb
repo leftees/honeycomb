@@ -17,6 +17,13 @@ class MetadataDate
 
     def format_date
       if values.present?
+        values.each_with_index do |value, index|
+          padding = 2
+          if index == 0
+            padding = 4
+          end
+          values[index] = value.to_s.rjust(padding, "0")
+        end
         values.join("-")
       else
         raise "Invalid metadata date. I expect this state to be unreachable so there is an error somewhere."
