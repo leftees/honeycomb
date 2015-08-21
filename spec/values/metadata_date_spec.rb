@@ -104,7 +104,7 @@ RSpec.describe MetadataDate do
       expect(date.to_hash).to eq(
         "@type" => "MetadataDate",
         value: "display_text",
-        iso8601: "-2010-2-1",
+        iso8601: "-2010-02-01",
         year: "2010",
         month: "2",
         day: "1",
