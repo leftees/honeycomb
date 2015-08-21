@@ -22,7 +22,7 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
   context "rewrites dates" do
     it "handles bc date" do
       item["Date Created"] = "-2001/01/01"
-      remapped_item[:date_created] = { "year" => "-2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
+      remapped_item[:date_created] = { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
       expect(described_class.call(item_hash: item)).to eq(remapped_item)
     end
   end

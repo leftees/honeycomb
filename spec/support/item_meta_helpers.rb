@@ -33,7 +33,7 @@ module ItemMetaHelpers
       name: "name#{item_id}",
       alternate_name: ["alternateName#{item_id}"],
       description: "description#{item_id}",
-      date_created: { "year" => "2015", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil },
+      date_created: { "year" => "2015", "month" => "1", "day" => "1", "bc" => false, "display_text" => nil },
       creator: ["creator#{item_id}"],
       subject: ["subject#{item_id}"],
       original_language: ["originalLanguage#{item_id}"]

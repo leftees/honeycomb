@@ -126,9 +126,9 @@ RSpec.describe MetadataDate do
         expect(date).to have(1).errors_on(:year)
       end
 
-      it "does allow year 0" do
+      it "does not allow year 0" do
         date = MetadataDate.new(year: "0")
-        expect(date).to have(0).errors_on(:year)
+        expect(date).to have(1).errors_on(:year)
       end
 
       it "does not allow negative numbers" do
@@ -199,6 +199,64 @@ RSpec.describe MetadataDate do
         date = MetadataDate.new(month: "32")
         expect(date).to have(1).errors_on(:month)
       end
+    end
+  end
+
+  context "parse" do
+    describe "bc dates" do
+      it "sets date to a BC year if year < 0" do
+        date = MetadataDate.parse("-200/01/01")
+        expect(date.year).to eq("200")
+        expect(date.bc).to eq(true)
+      end
+
+      it "sets date to an AD year if year > 0" do
+        date = MetadataDate.parse("1000/01/01")
+        expect(date.year).to eq("1000")
+        expect(date.bc).to eq(false)
+      end
+    end
+
+    describe "years" do
+      it "does not allow year 0000" do
+        date = MetadataDate.parse("0000/01/01")
+        expect(date).to have(1).errors_on(:year)
+      end
+
+      it "does not allow year 000" do
+        date = MetadataDate.parse("000/01/01")
+        expect(date).to have(1).errors_on(:year)
+      end
+
+      it "does not allow year 00" do
+        date = MetadataDate.parse("00/01/01")
+        expect(date).to have(1).errors_on(:year)
+      end
+
+      it "does not set year to current millennium with only 1 digit"
+      # do
+      #  date = MetadataDate.parse("1/01/01")
+      #  expect(date.year).to eq("1")
+      # end
+
+      it "does not set year to current millennium with only 2 digits"
+      # do
+      #  date = MetadataDate.parse("10/01/01")
+      #  expect(date.year).to eq(((DateTime.now.year >> 4 << 4) + 10).to_s)
+      # end
+
+      it "sets correct year with only three digits" do
+        date = MetadataDate.parse("100/01/01")
+        expect(date.year).to eq("100")
+      end
+    end
+
+    describe "months" do
+
+    end
+
+    describe "days" do
+
     end
   end
 end

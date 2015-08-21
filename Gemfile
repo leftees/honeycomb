@@ -32,6 +32,9 @@ gem "draper"
 # used to normaize the characters in a title sort
 gem "sort_alphabetical"
 
+# To support m/d/y formats
+gem "american_date"
+
 gem "rb-readline"
 
 gem "devise"

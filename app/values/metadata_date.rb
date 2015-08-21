@@ -3,7 +3,7 @@ class MetadataDate
 
   attr_reader :year, :month, :day, :bc, :display_text
 
-  validates :year, numericality: { only_integer: true, allow_blank: false, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999 }
+  validates :year, numericality: { only_integer: true, allow_blank: false, greater_than: 0, less_than_or_equal_to: 9999 }
   validates :month, numericality: { only_integer: true, allow_blank: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :day, numericality: { only_integer: true, allow_blank: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31 }
   validates :month, presence: true, if: :month_required?

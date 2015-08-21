@@ -59,6 +59,7 @@ GEM
     airbrake (4.1.0)
       builder
       multi_json
+    american_date (1.1.0)
     amq-protocol (1.9.2)
     arel (6.0.3)
     ast (2.0.0)
@@ -485,6 +486,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   airbrake
+  american_date
   autoprefixer-rails
   bootstrap-material-design
   bootstrap-sass (~> 3.3.1)
