@@ -41,27 +41,31 @@ module Waggle
           private
 
           def search # rubocop:disable Metrics/AbcSize
-            @search ||= ::Sunspot.search Waggle::Item do
-              fulltext query.q
-              paginate page: page, per_page: per_page
+            if @search.nil?
+              Waggle::Adapters::Sunspot::Index::Item.setup(configuration)
+              @search = ::Sunspot.search Waggle::Item do
+                fulltext query.q
+                paginate page: page, per_page: per_page
 
-              filters.each do |key, value|
-                with(key, value)
-              end
-
-              if sort_field
-                order_by("#{sort_field.name}_sort", sort_field.direction)
-              end
-
-              configuration.facets.each do |facet|
-                facet_indexed_name = "#{facet.name}_facet".to_sym
-                exclude_filters = []
-                if value = query.facet(facet.name)
-                  exclude_filters << with(facet_indexed_name, value)
+                filters.each do |key, value|
+                  with(key, value)
                 end
-                facet facet_indexed_name, exclude: exclude_filters
+
+                if sort_field
+                  order_by("#{sort_field.name}_sort", sort_field.direction)
+                end
+
+                configuration.facets.each do |facet|
+                  facet_indexed_name = "#{facet.name}_facet".to_sym
+                  exclude_filters = []
+                  if value = query.facet(facet.name)
+                    exclude_filters << with(facet_indexed_name, value)
+                  end
+                  facet facet_indexed_name, exclude: exclude_filters
+                end
               end
             end
+            @search
           end
 
           def sort_field
