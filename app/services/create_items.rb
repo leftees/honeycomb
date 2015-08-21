@@ -16,7 +16,7 @@ class CreateItems
         item = Item.new(item_props)
         unless SaveItem.call(item, item_props)
           # Dumb way to handle presenting invalid records for now
-          raise item.errors.messages.to_s
+          raise "#{item.errors.messages}\n#{item.inspect}"
         end
       end
     end
