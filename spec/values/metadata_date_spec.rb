@@ -250,11 +250,10 @@ RSpec.describe MetadataDate do
         expect(date).to have(1).errors_on(:year)
       end
 
-      it "returns nil if given an empty string"
-      #do
-      #  date = MetadataDate.parse("")
-      #  expect(date).to eq(nil)
-      #end
+      it "returns nil if given an empty string" do
+        date = MetadataDate.parse("")
+        expect(date).to eq(nil)
+      end
 
       it "requires year" do
         date = MetadataDate.parse("/01")

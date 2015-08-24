@@ -61,13 +61,15 @@ class MetadataDate
 
   def self.parse(string)
     date_and_display = string.split(":")
-    display_text = date_and_display.length > 1 ? date_and_display[1] : nil
-    date_array = date_and_display[0].split("/")
-    year = date_array.length >= 1 ? date_array[0].to_i : nil
-    month = date_array.length > 1 ? date_array[1].to_i : nil
-    day = date_array.length > 2 ? date_array[2].to_i : nil
-    bc = (year < 0)
-    new(year: year.abs, month: month, day: day, bc: bc, display_text: display_text)
+    if date_and_display.length > 0
+      display_text = date_and_display.length > 1 ? date_and_display[1] : nil
+      date_array = date_and_display[0].split("/")
+      year = date_array.length >= 1 ? date_array[0].to_i : nil
+      month = date_array.length > 1 ? date_array[1].to_i : nil
+      day = date_array.length > 2 ? date_array[2].to_i : nil
+      bc = (year < 0)
+      new(year: year.abs, month: month, day: day, bc: bc, display_text: display_text)
+    end
   end
 
   private
