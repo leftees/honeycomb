@@ -34,7 +34,7 @@ class ExhibitsController < ApplicationController
       :about,
       :copyright,
       :show_page_title,
-      :hide_title_on_home_page
+      :hide_title_on_home_page,
     ])
   end
 end
