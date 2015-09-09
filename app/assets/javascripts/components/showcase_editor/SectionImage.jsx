@@ -35,13 +35,17 @@ var SectionImage = React.createClass({
     if (this.props.section.caption) {
       caption = (<div className="section-caption" style={this.captionStyle()} dangerouslySetInnerHTML={{__html: this.props.section.caption}}/>)
     }
-
-    return (
-      <div className="section-container section-container-image" style={this.style()}>
-        <img src={this.props.section.image } style={this.imageStyle()} />
-        { caption }
-      </div>
-    );
+    if(this.props.section.image) {
+      return (
+        <div className="section-container section-container-image" style={this.style()}>
+          <img src={this.props.section.image } style={this.imageStyle()} />
+          { caption }
+        </div>
+      );
+    }
+    else {
+      return null;
+    }
   }
 
 });
