@@ -176,18 +176,63 @@ var ItemMetaDataForm = React.createClass({
   },
 
   additionalFields: function() {
+    var dropDownIconStyle = {
+      right: this.muiTheme.spacing.desktopGutterLess,
+    };
+    var dropDownStyle = {
+      display: this.state.dropDown,
+    }
+    var underlineStyle = {
+      borderTop: "solid 2px rgb(44, 88, 130)",
+    };
+    var total_field_count = this.allAdditionalFields().length;
+    var displayed_field_count = 0;
     var map_function = function(fieldConfig, field) {
       if (this.state.displayedFields[field]) {
+        displayed_field_count = ++displayed_field_count;
         var FieldComponent = fieldTypeMap[fieldConfig.type];
-        return (<FieldComponent key={field} objectType={this.props.objectType} name={field} title={fieldConfig.title} value={this.state.formValues[field]} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError(field)} placeholder={fieldConfig.placeholder} help={fieldConfig.help} />);
+        return (
+          <FieldComponent
+            key={field}
+            objectType={this.props.objectType}
+            name={field} title={fieldConfig.title}
+            value={this.state.formValues[field]}
+            handleFieldChange={this.handleFieldChange}
+            errorMsg={this.fieldError(field)}
+            placeholder={fieldConfig.placeholder}
+            help={fieldConfig.help} />
+        );
       }
       return "";
     };
     map_function = _.bind(map_function, this);
+    var additional_fields = _.map(this.props.additionalFieldConfiguration, map_function);
+    var dropdown_menu = (
+      <DropDownMenu
+        style={dropDownStyle}
+        menuItems={this.addFieldsSelectOptions()}
+        iconStyle={dropDownIconStyle}
+        underlineStyle={underlineStyle}
+        selectedIndex={this.props.menuIndex}
+        onChange={this.changeAddField} />
+    );
 
-    return _.map(this.props.additionalFieldConfiguration, map_function);
+    if (displayed_field_count == total_field_count) {
+      return additional_fields;
+    } else {
+      return additional_fields.concat(dropdown_menu);
+    }
   },
 
+  allAdditionalFields: function() {
+    var map_function = function (data, field) {
+      var h = {};
+      h.payload = {field};
+      return (h);
+    };
+    map_function = _.bind(map_function, this);
+    return _.map(this.props.additionalFieldConfiguration, map_function);
+  },
 
   addFieldsSelectOptions: function () {
     var map_function = function (data, field) {
@@ -199,12 +244,8 @@ var ItemMetaDataForm = React.createClass({
       }
     };
     map_function = _.bind(map_function, this);
-    var all_vals = _.map(this.props.additionalFieldConfiguration, map_function);
 
-    var hDefault = {};
-    hDefault.payload = '';
-    hDefault.text = 'Add a New Field';
-    return [hDefault].concat(_.reject(all_vals, function(val){ return _.isUndefined(val)}));
+    return [{ payload: '', text: 'Add a New Field'}].concat(_.reject(_.map(this.props.additionalFieldConfiguration, map_function), function(val){ return _.isUndefined(val)}));
   },
 
   changeAddField: function(event, selectedIndex, menuItem) {
@@ -219,12 +260,6 @@ var ItemMetaDataForm = React.createClass({
   },
 
   render: function () {
-    var dropDownIconStyle = {
-      right: this.muiTheme.spacing.desktopGutterLess,
-    };
-    var underlineStyle = {
-      borderTop: "solid 2px rgb(44, 88, 130)",
-    };
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
         <Panel>
@@ -239,8 +274,6 @@ var ItemMetaDataForm = React.createClass({
               <HtmlField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues.transcription} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('transcription')}  />
 
               {this.additionalFields()}
-
-              <DropDownMenu menuItems={this.addFieldsSelectOptions()} iconStyle={dropDownIconStyle} underlineStyle={underlineStyle} selectedIndex={this.props.menuIndex} onChange={this.changeAddField} />
 
           </PanelBody>
           <PanelFooter>
