@@ -33,7 +33,8 @@ class ExhibitsController < ApplicationController
       :short_description,
       :about,
       :copyright,
-      :show_page_title
+      :show_page_title,
+      :hide_title_on_home_page,
     ])
   end
 end
