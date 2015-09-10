@@ -1,6 +1,3 @@
-/** @jsx React.DOM */
-var Dropzone = require("../dropzone");
-Dropzone.autoDiscover = false;
 var React = require('react');
 var mui = require("material-ui");
 var Dialog = mui.Dialog;
@@ -36,34 +33,10 @@ var ReactDropzone = React.createClass({
     };
   },
 
-  componentDidMount: function() {
-    if (!this.dropzone) {
-      this.dropzone = new Dropzone(this.refs.uploadForm.getDOMNode(), this.options());
-      this.dropzone.on('addedfile', this.checkfileCallback);
-      this.dropzone.on('removedfile', this.checkfileCallback);
-    }
-  },
-
-  componentWillUnmount: function() {
-    this.dropzone.destroy();
-    this.dropzone = null;
-  },
-
-  options: function() {
-    return {
-      paramName: "item[uploaded_image]",
-      acceptedFiles: "image/*",
-      addRemoveLinks: true,
-      autoProcessQueue: true,
-      url: this.props.formUrl,
-      previewsContainer: "#dz-preview-" + this.props.modalId,
-      clickable: "#dz-" + this.props.modalId,
-      parallelUploads: 100,
-      maxFiles: (this.props.multifileUpload ? 100 : 1),
-      dictRemoveFile: "Cancel Upload",
-      someprop: "prop",
-      complete: this.completeCallback,
-    };
+  dropzoneInitialized: function(dropzone) {
+    this.dropzone = dropzone;
+    this.dropzone.on('addedfile', this.checkfileCallback);
+    this.dropzone.on('removedfile', this.checkfileCallback);
   },
 
   closeCallback: function() {
@@ -84,6 +57,7 @@ var ReactDropzone = React.createClass({
   },
 
   checkfileCallback: function () {
+    console.log('checkfileCallback');
     var hasFiles = (this.dropzone.files.length > 0);
     this.setState( { hasFiles: hasFiles } );
   },
@@ -115,20 +89,16 @@ var ReactDropzone = React.createClass({
   dropzoneForm: function() {
     if (!this.state.closed) {
       return (
-        <form method="post" className={this.classes()} ref={"uploadForm"} id={"dz-" + this.props.modalId}>
-          <div>
-            <input name="utf8" type="hidden" value="✓" />
-            <input name="authenticity_token" type="hidden" value={this.props.authenticityToken} />
-            { this.formMethod() }
-          </div>
-          <div className="dz-clickable" onDrop={this.droppedCallback} >
-            <div className="dropzone-previews" id={"dz-preview-" + this.props.modalId}></div>
-            <div className="dz-message">
-              <h4>Drag images here</h4>
-              <p>or <br /> <a className="btn btn-raised">Select images from your computer.</a></p>
-            </div>
-          </div>
-        </form>
+        <DropzoneForm
+          authenticityToken={this.props.authenticityToken}
+          baseID={this.props.modalId}
+          completeCallback={this.completeCallback}
+          formUrl={this.props.formUrl}
+          initializeCallback={this.dropzoneInitialized}
+          method={this.formMethod()}
+          multifileUpload={this.props.multifileUpload}
+          paramName="item[uploaded_image]"
+        />
       );
     } else {
       return null;
@@ -137,9 +107,9 @@ var ReactDropzone = React.createClass({
 
   formMethod: function() {
     if (!this.props.multifileUpload) {
-      return (<input name="_method" type="hidden" value="put" />);
+      return "put"
     } else {
-      return null;
+      return "post";
     }
   },
 
@@ -172,6 +142,8 @@ var ReactDropzone = React.createClass({
           />
         <Dialog
           ref="addItems"
+          autoDetectWindowHeight={true}
+          autoScrollBodyContent={true}
           title={this.props.modalTitle}
           actions={this.okDismiss()}
           openImmediately={false}

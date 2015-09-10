@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 //= require showdown
 var converter = new Showdown.converter()

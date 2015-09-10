@@ -23,7 +23,7 @@ var FormRow = React.createClass({
   },
 
   requiredClass: function() {
-    css = this.props.type + ' control-label'
+    var css = this.props.type + ' control-label'
     if (this.props.required) {
       css += ' required';
     }
@@ -32,7 +32,7 @@ var FormRow = React.createClass({
   },
 
   rowClass: function () {
-    css = "form-group " + this.props.type + ' control-label'
+    var css = "form-group " + this.props.type + ' control-label'
     if (this.props.required) {
       css += ' required';
     }

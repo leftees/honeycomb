@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var ShowcaseEditor = React.createClass({
   mixins: [HorizontalScrollMixin],

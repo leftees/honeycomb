@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var Section = React.createClass({
   mixins: [DraggableMixin],

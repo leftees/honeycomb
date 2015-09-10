@@ -1,7 +1,6 @@
 //app/assets/javascripts/components.js
 //= require_self
 //= require react_ujs
-
 React = require("react");
 
 // mixins
@@ -53,6 +52,7 @@ DateField = require("./components/forms/DateField");
 HtmlField = require("./components/forms/HtmlField");
 MultipleField = require("./components/forms/MultipleField");
 MultipleFieldDisplayValue = require("./components/forms/MultipleFieldDisplayValue");
+DropzoneForm = require("./components/forms/DropzoneForm");
 
 // panel
 Panel = require("./components/panel/Panel");

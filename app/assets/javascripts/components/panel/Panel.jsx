@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var Panel = React.createClass({
   propTypes: {

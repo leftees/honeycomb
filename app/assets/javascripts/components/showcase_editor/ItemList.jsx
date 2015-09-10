@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var ItemList = React.createClass({
   style: function() {
