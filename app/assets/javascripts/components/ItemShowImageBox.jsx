@@ -27,7 +27,6 @@ var ItemShowImageBox = React.createClass({
 
   getInitialState: function() {
     return {
-      image: null,
       imageReady: false,
       requestTimer: 0,
       requestCount: 0,

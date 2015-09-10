@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var UserPanel = React.createClass({
   propTypes: {

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var HoneypotImageMixin = {
   propTypes: {
     honeypot_image: React.PropTypes.object.isRequired,

@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var LEFT_BUTTON = 0;
 var DRAG_THRESHOLD = 3;
 

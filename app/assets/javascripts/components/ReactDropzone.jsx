@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var Dropzone = require("../dropzone");
 Dropzone.autoDiscover = false;
 var React = require('react');
