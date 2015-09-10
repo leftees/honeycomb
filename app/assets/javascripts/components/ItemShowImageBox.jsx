@@ -20,8 +20,8 @@ var ItemShowImageBox = React.createClass({
 
   getDefaultProps: function() {
     return {
-      maxRetries: 3,       // Defaulting to 3 retries, 5s apart, total wait of 15s
-      retryInterval: 5000
+      maxRetries: 3,       // Maximum number of times it will retry to get the image status.
+      retryInterval: 5000  // Time in ms to wait before retrying request for image status.
     };
   },
 
@@ -32,39 +32,57 @@ var ItemShowImageBox = React.createClass({
       requestTimer: 0,
       requestCount: 0,
       image: this.props.image,
+      awaitingResponse: false
     };
   },
 
   checkImageState: function(image) {
-    if(image["items"]["image_status"] == "image_ready") {
-      this.setState({
-        imageReady: true,
-        image: image["items"]["image"],
-      });
-      clearInterval(this.state.requestTimer);
-    } else if(image["items"]["image_status"] == "image_invalid") {
-      EventEmitter.emit("MessageCenterDisplay", "error", "There was a problem loading the media. Try replacing or contacting support.");
-      clearInterval(this.state.requestTimer);
+    switch(image["items"]["image_status"])
+    {
+      case "image_ready":
+        this.setState({
+          imageReady: true,
+          image: image["items"]["image"],
+        });
+        clearInterval(this.state.requestTimer);
+        break;
+      case "image_processing":
+        if(this.state.requestCount >= this.props.maxRetries) {
+          EventEmitter.emit("MessageCenterDisplay", "error", "Media is still being processed. Please try again later.");
+          clearInterval(this.state.requestTimer);
+        }
+        break;
+      default:
+        EventEmitter.emit("MessageCenterDisplay", "error", "There was a problem loading the media. Try replacing or contacting support.");
+        clearInterval(this.state.requestTimer);
+        break;
     }
   },
 
   pingItem: function() {
+    if(this.state.awaitingResponse)
+      return;
+
+    this.setState({
+      awaitingResponse: true,
+      requestCount: this.state.requestCount + 1
+    });
+
     $.ajax({
       url: this.props.itemPath,
       dataType: "json",
       method: "GET",
-      success: this.checkImageState,
+      success: (function(data) {
+        this.checkImageState(data);
+        this.setState({ awaitingResponse: false });
+      }).bind(this),
       error: (function(xhr) {
         EventEmitter.emit("MessageCenterDisplay", "error", "There was a problem loading the media. Please contact support.");
         console.log(xhr);
-      }),
+        clearInterval(this.state.requestTimer);
+        this.setState({ awaitingResponse: false });
+      }).bind(this),
     });
-
-    this.setState({ requestCount: this.state.requestCount + 1 });
-    if(this.state.requestCount >= this.props.maxRetries) {
-      EventEmitter.emit("MessageCenterDisplay", "error", "Media is still being processed. Please try again later.");
-      clearInterval(this.state.requestTimer);
-    }
   },
 
   componentWillMount: function() {
