@@ -172,6 +172,8 @@ var ReactDropzone = React.createClass({
           />
         <Dialog
           ref="addItems"
+          autoDetectWindowHeight={true}
+          autoScrollBodyContent={true}
           title={this.props.modalTitle}
           actions={this.okDismiss()}
           openImmediately={false}
