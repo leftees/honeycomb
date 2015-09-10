@@ -66,7 +66,7 @@ gem "whenever", require: false
 # Javascript assets
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", ">= 1.3.0"
-gem "react-rails", "~> 1.0.0.pre", github: "reactjs/react-rails"
+gem "react-rails"
 gem "browserify-rails", "~>0.7.2"
 gem "underscore-rails"
 gem "showdown-rails"
