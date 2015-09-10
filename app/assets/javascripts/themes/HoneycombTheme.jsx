@@ -1,8 +1,8 @@
 "use strict"
 
-var Colors = require("material-ui/src/styles/colors");
-var Spacing = require("material-ui/src/styles/spacing");
-var ColorManipulator = require("material-ui/src/utils/color-manipulator");
+var Colors = require("material-ui/lib/styles/colors");
+var Spacing = require("material-ui/lib/styles/spacing");
+var ColorManipulator = require("material-ui/lib/utils/color-manipulator");
 
 
 var HoneycombTheme = {
