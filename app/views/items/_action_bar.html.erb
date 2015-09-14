@@ -11,7 +11,15 @@
         primary: true,
       }) %>
     </div>
-    <div style="float: right">
+  </div>
+  <div class="input-group menu-bar">
+    <input type="text" class="item-list-filter form-control">
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-hollow btn-flat btn-search"><i class="glyphicon glyphicon-search"></i></button>
+    </span>
+  </div>
+  <div class="btn-group">
+    <div style="float: left">
       <%= react_component("GoogleImportButton", {
         developerKey: Rails.application.secrets.google["developer_key"],
         clientId: Rails.application.secrets.google["client_id"],
@@ -20,15 +28,8 @@
       }) %>
     </div>
   </div>
-  <div class="input-group menu-bar">
-    <input type="text" class="item-list-filter form-control">
-    <span class="input-group-btn">
-      <button type="button" class="btn btn-hollow btn-flat btn-search"><i class="glyphicon glyphicon-search"></i></button>
-    </span>
-  </div>
 </div>
 <div class="menu-bar selected pull-left">
-
   <%= t('.selected_items', number: '1') %>
 
   <div class="btn-group">

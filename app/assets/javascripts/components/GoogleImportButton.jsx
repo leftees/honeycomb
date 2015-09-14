@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var mui = require("material-ui");
-var RaisedButton = mui.RaisedButton;
+var FlatButton = mui.FlatButton;
 var FontIcon = mui.FontIcon;
 
 var GoogleImportButton = React.createClass({
@@ -11,14 +11,14 @@ var GoogleImportButton = React.createClass({
     var iconStyle = {fontSize: 14, marginRight: ".5em"};
     var buttonLabel = (
       <span>
-        <FontIcon className="glyphicon glyphicon-plus" label="Upload" color="#fff" style={iconStyle}/>
-        <span>Import</span>
+        <FontIcon className="glyphicon glyphicon-plus" label="Upload" color="#000" style={iconStyle}/>
+        <span>Import Metadata</span>
       </span>
     );
     return (
       <div>
-        <RaisedButton
-          primary={true}
+        <FlatButton
+          primary={false}
           onTouchTap={this.loadPicker}
           label={buttonLabel}
         />
