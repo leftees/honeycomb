@@ -14,3 +14,10 @@ cache:
   bundler: true
   directories:
   - node_modules
+notifications:
+  hipchat:
+    on_success: change
+    on_failure: change
+    notify: true
+    rooms:
+      secure: JyXM6Tb27tNx38Pd4BH7ClCRuAYrajmYBWAbFDGRDWSSvpFJyouPIrs90fEgQd3FVnr7QV1Y1qdJsInPAK7NokACXOjk7sEb7ibXyZzy+q4rsGffVK6lL+5eYBEw2JL1ZZwa5O3l5TkDDnyexou3GVbhTAbRS84JmlmunbbZhVs=
