@@ -10,12 +10,9 @@ var GooglePickerMixin = {
     authUri: React.PropTypes.string.isRequired,
   },
 
-  getInitialState: function() {
-    return {
-      pickerApiLoaded: false,
-      oauthToken: null
-    };
-  },
+  oauthToken: null,
+
+  pickerApiLoaded: false,
 
   loadPicker: function() {
     gapi.load("auth", {"callback": this.onAuthApiLoad});
@@ -37,27 +34,25 @@ var GooglePickerMixin = {
   },
 
   onPickerApiLoad: function() {
-    this.setState({
-      pickerApiLoaded: true
-    });
+    this.pickerApiLoaded = true
     this.createPicker();
   },
 
   handleAuthResult: function(authResult) {
     if (authResult && !authResult.error) {
-      this.setState({ oauthToken: authResult.access_token });
+      this.oauthToken = authResult.access_token;
       this.createPicker();
     }
   },
 
   createPicker: function() {
-    if (this.state.pickerApiLoaded && this.state.oauthToken) {
+    if (this.pickerApiLoaded && this.oauthToken) {
       var view = new google.picker.DocsView(google.picker.ViewId.SPREADSHEETS);
       view.setMimeTypes("application/vnd.google-apps.spreadsheet");
       view.setMode(google.picker.DocsViewMode.LIST);
       var picker = new google.picker.PickerBuilder()
           .setAppId(this.props.appId)
-          .setOAuthToken(this.state.oauthToken)
+          .setOAuthToken(this.oauthToken)
           .addView(view)
           .setDeveloperKey(this.props.developerKey)
           .setCallback(this.pickerCallback)
