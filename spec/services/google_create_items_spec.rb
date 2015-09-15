@@ -46,7 +46,6 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
 
   it "throws an exception if a label is not found" do
     items[0]["Invalid Field Name"] = "invalid value"
-    rewrites = RewriteItemMetadata.new
     expect do
       subject
     end.to raise_error(ActiveRecord::UnknownAttributeError)
