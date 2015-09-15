@@ -22,6 +22,9 @@ honeycomb.sublime-workspace
 # Ignore database config
 config/database.yml
 
+# ignore secrets
+config/secrets.yml
+
 # Ignore everything related to solr except for the conf
 /solr/*
 !/solr/conf

@@ -3,7 +3,7 @@ class MetadataDate
 
   attr_reader :year, :month, :day, :bc, :display_text
 
-  validates :year, numericality: { only_integer: true, allow_blank: false, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999 }
+  validates :year, numericality: { only_integer: true, allow_blank: false, greater_than: 0, less_than_or_equal_to: 9999 }
   validates :month, numericality: { only_integer: true, allow_blank: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }
   validates :day, numericality: { only_integer: true, allow_blank: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31 }
   validates :month, presence: true, if: :month_required?
@@ -49,10 +49,43 @@ class MetadataDate
     }
   end
 
+  def to_params
+    {
+      year: year,
+      month: month,
+      day: day,
+      bc: bc,
+      display_text: display_text,
+    }.stringify_keys
+  end
+
+  def self.parse(string)
+    date_and_display = string.split(":")
+    if date_and_display.length > 0
+      display_text = date_and_display.fetch(1, nil)
+      date = parse_date(value: date_and_display[0])
+      new(year: date[:year].abs,
+          month: date[:month],
+          day: date[:day],
+          bc: (date[:year] < 0),
+          display_text: display_text)
+    end
+  end
+
   private
 
   def parse_value(value)
     value ? value.to_s.strip : nil
+  end
+
+  # Parses a date string into hash. Expects format y/m/d
+  def self.parse_date(value:)
+    date_array = value.split("/")
+    {
+      year: date_array.length >= 1 ? date_array[0].to_i : nil,
+      month: date_array.length > 1 ? date_array[1].to_i : nil,
+      day: date_array.length > 2 ? date_array[2].to_i : nil
+    }
   end
 
   def month_required?

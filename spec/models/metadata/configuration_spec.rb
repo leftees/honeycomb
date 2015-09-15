@@ -31,6 +31,27 @@ RSpec.describe Metadata::Configuration do
       expect(subject.field?(:fake_field)).to eq(false)
     end
   end
+  describe "label" do
+    it "finds a field by its label" do
+      field = subject.label("String")
+      expect(field).to be_kind_of(described_class::Field)
+      expect(field.label).to eq("String")
+    end
+
+    it "returns nil if a label doesn't exist" do
+      expect(subject.label("fake_field")).to be_nil
+    end
+  end
+
+  describe "label?" do
+    it "returns true for a field that exists" do
+      expect(subject.label?("String")).to eq(true)
+    end
+
+    it "returns nil if a field doesn't exist" do
+      expect(subject.label?("fake_field")).to eq(false)
+    end
+  end
 
   context "self" do
     describe "build_fields" do
@@ -60,6 +81,12 @@ RSpec.describe Metadata::Configuration do
       it "returns a configuration with an array of fields" do
         expect(subject).to be_kind_of(described_class)
         expect(subject.fields.first).to be_kind_of(described_class::Field)
+      end
+
+      it "maps fields to actual Item fields" do
+        subject.fields.each do |field|
+          expect(Item.new).to respond_to(field.name)
+        end
       end
     end
   end

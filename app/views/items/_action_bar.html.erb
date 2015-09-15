@@ -1,12 +1,16 @@
+<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+
 <div class="items-menu-bar menu-bar default pull-left">
   <div class="btn-group">
-    <%= react_component("ReactDropzone", {
-      formUrl: url_for( @item ),
-      authenticityToken: form_authenticity_token,
-      modalTitle: raw(t(".new")),
-      multifileUpload: true,
-      primary: true,
-  }) %>
+    <div style="float: left;">
+      <%= react_component("ReactDropzone", {
+        formUrl: url_for( @item ),
+        authenticityToken: form_authenticity_token,
+        modalTitle: raw(t(".new")),
+        multifileUpload: true,
+        primary: true,
+      }) %>
+    </div>
   </div>
   <div class="input-group menu-bar">
     <input type="text" class="item-list-filter form-control">
@@ -14,9 +18,18 @@
       <button type="button" class="btn btn-hollow btn-flat btn-search"><i class="glyphicon glyphicon-search"></i></button>
     </span>
   </div>
+  <div class="btn-group">
+    <div style="float: left">
+      <%= react_component("GoogleImportButton", {
+        developerKey: Rails.application.secrets.google["developer_key"],
+        clientId: Rails.application.secrets.google["client_id"],
+        appId: Rails.application.secrets.google["app_id"],
+        authUri: get_google_authorization_uri_collection_path(@collection)
+      }) %>
+    </div>
+  </div>
 </div>
 <div class="menu-bar selected pull-left">
-
   <%= t('.selected_items', number: '1') %>
 
   <div class="btn-group">

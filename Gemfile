@@ -32,6 +32,9 @@ gem "draper"
 # used to normaize the characters in a title sort
 gem "sort_alphabetical"
 
+# To support m/d/y formats
+gem "american_date"
+
 gem "rb-readline"
 
 gem "devise"
@@ -85,6 +88,8 @@ gem "sass-rails", "~> 4.0.3"
 gem "bootstrap-sass", "~> 3.3.1"
 gem "bootstrap-material-design"
 gem "autoprefixer-rails"
+
+gem "google_drive"
 
 group :development, :test do
   gem "rubocop", require: false
