@@ -5,11 +5,11 @@ rvm:
 before_install:
   - npm install
 script:
-  - RAILS_ENV=test bundle exec rake --trace db:migrate test
   - bundle exec rspec spec
 before_script:
   - cp config/secrets.example.yml config/secrets.yml  
   - mysql -e 'create database honeycomb_test'
+  - RAILS_ENV=test bundle exec rake --trace db:migrate test
 cache:
   bundler: true
   directories:
