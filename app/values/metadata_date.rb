@@ -62,13 +62,13 @@ class MetadataDate
   def self.parse(string)
     date_and_display = string.split(":")
     if date_and_display.length > 0
-      display_text = date_and_display.length > 1 ? date_and_display[1] : nil
-      date_array = date_and_display[0].split("/")
-      year = date_array.length >= 1 ? date_array[0].to_i : nil
-      month = date_array.length > 1 ? date_array[1].to_i : nil
-      day = date_array.length > 2 ? date_array[2].to_i : nil
-      bc = (year < 0)
-      new(year: year.abs, month: month, day: day, bc: bc, display_text: display_text)
+      display_text = date_and_display.fetch(1, nil)
+      date = parse_date(value: date_and_display[0])
+      new(year: date[:year].abs,
+          month: date[:month],
+          day: date[:day],
+          bc: (date[:year] < 0),
+          display_text: display_text)
     end
   end
 
@@ -76,6 +76,16 @@ class MetadataDate
 
   def parse_value(value)
     value ? value.to_s.strip : nil
+  end
+
+  # Parses a date string into hash. Expects format y/m/d
+  def self.parse_date(value:)
+    date_array = value.split("/")
+    {
+      year: date_array.length >= 1 ? date_array[0].to_i : nil,
+      month: date_array.length > 1 ? date_array[1].to_i : nil,
+      day: date_array.length > 2 ? date_array[2].to_i : nil
+    }
   end
 
   def month_required?

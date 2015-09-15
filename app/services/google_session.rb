@@ -4,6 +4,9 @@ require "google_drive"
 class GoogleSession
   attr_reader :auth, :session
 
+  # rubocop:disable Metrics/AbcSize
+  # All options to simplify this either make it less readable or
+  # go against our convention of using attr readers
   def initialize(client: nil)
     client = client || Google::APIClient.new
     @auth = client.authorization
@@ -11,6 +14,7 @@ class GoogleSession
     auth.client_secret = Rails.application.secrets.google["client_secret"]
     auth.scope = ["https://www.googleapis.com/auth/drive.file"]
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Creates an authorization request uri to send to google
   def auth_request_uri(state_hash:, callback_uri:)
