@@ -43,21 +43,20 @@ a, a:hover, a:focus {
 
 .input-group.menu-bar {
   display: inline-block;
-  width: 300px;
-  vertical-align: middle;
   margin: 10px 1px;
+  vertical-align: middle;
+  width: 300px;
 
   input {
-    width: 70%;
-    float: left;
-    width: 250px;
+    box-sizing:content-box;
     border-radius: 2px 0 0 2px;
     border:1px solid $charcoal-grey;
-    padding: 8px;
+    float: left;
     font-size: 14px;
-    line-height: 20px;
-    box-sizing:content-box;
     height: 20px;
+    line-height: 20px;
+    padding: 8px;
+    width: 250px;
   }
 
   input:focus {

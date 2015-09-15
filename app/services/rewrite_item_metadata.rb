@@ -39,5 +39,4 @@ class RewriteItemMetadata
 
     result
   end
-
 end
