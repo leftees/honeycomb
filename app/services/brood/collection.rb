@@ -29,6 +29,12 @@ module Brood
       }
     end
 
+    def set_item_defaults(original_item_data)
+      item_data = item_defaults.merge(original_item_data)
+      item_data["user_defined_id"] = item_data["unique_id"]
+      item_data
+    end
+
     def grow!
       set_progress
       grow_collection!
@@ -39,7 +45,7 @@ module Brood
 
     def grow_items!
       items_data.each_with_index do |original_item_data|
-        item_data = item_defaults.merge(original_item_data)
+        item_data = set_item_defaults(original_item_data)
         grow_item!(item_data)
         @item_count += 1
         set_progress
