@@ -8,7 +8,7 @@ RSpec.describe ImportController, type: :controller do
 
   describe "get_authorization_uri" do
     let(:state_hash) { { collection_id: "1", file: "test.file", sheet: "test.sheet" } }
-    let(:param_hash) { { state_hash: state_hash } }
+    let(:param_hash) { { callback_uri: import_google_sheet_callback_collections_url, state_hash: state_hash } }
 
     it "uses google api to request an auth uri" do
       expect_any_instance_of(GoogleSession).to receive(:auth_request_uri).with(hash_including(param_hash))
@@ -23,36 +23,23 @@ RSpec.describe ImportController, type: :controller do
 
   describe "import_google_sheet_callback" do
     let(:state_hash) { { collection_id: "1", file: "test.file", sheet: "test.sheet" } }
+    let(:param_hash) { { auth_code: "auth", callback_uri: import_google_sheet_callback_collections_url } }
     let(:encoded_state_hash) { Base64::encode64(state_hash.to_json) }
-    let(:worksheet) { instance_double(GoogleDrive::Worksheet, rows: []) }
+    let(:subject) { get :import_google_sheet_callback, state: encoded_state_hash, code: "auth" }
 
-    it "uses google api to retrieve the worksheet" do
-      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return({})
-      allow_any_instance_of(GoogleSession).to receive(:connect)
-      expect_any_instance_of(GoogleSession).to receive(:get_worksheet).with(file: state_hash[:file], sheet: state_hash[:sheet]).and_return(worksheet)
-      get :import_google_sheet_callback, state: encoded_state_hash
+    it "calls GoogleCreateItems using the encoded state" do
+      expect(GoogleCreateItems).to receive(:call).with(hash_including(state_hash))
+      subject
     end
 
-    it "gets the rows of the worksheet" do
-      allow_any_instance_of(GoogleSession).to receive(:connect)
-      allow_any_instance_of(GoogleSession).to receive(:get_worksheet).and_return(worksheet)
-      expect_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return({})
-      get :import_google_sheet_callback, state: encoded_state_hash
-    end
-
-    it "calls CreateItems with the hash read from the worksheet" do
-      allow_any_instance_of(GoogleSession).to receive(:connect)
-      allow_any_instance_of(GoogleSession).to receive(:get_worksheet).and_return(worksheet)
-      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return([{ item: "item" }])
-      expect(CreateItems).to receive(:call).with(hash_including(items_hash: [{ item: "item" }]))
-      get :import_google_sheet_callback, state: encoded_state_hash
+    it "calls GoogleCreateItems using the given params" do
+      expect(GoogleCreateItems).to receive(:call).with(hash_including(param_hash))
+      subject
     end
 
     it "redirects to the items page" do
-      allow_any_instance_of(GoogleSession).to receive(:connect)
-      allow_any_instance_of(GoogleSession).to receive(:get_worksheet).and_return(worksheet)
-      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return({})
-      expect(get :import_google_sheet_callback, state: encoded_state_hash).to redirect_to(collection_items_path(1))
+      allow(GoogleCreateItems).to receive(:call)
+      expect(subject).to redirect_to(collection_items_path(1))
     end
   end
 end

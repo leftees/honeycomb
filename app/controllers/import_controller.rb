@@ -18,18 +18,11 @@ class ImportController < ApplicationController
   # to google to read the sheet data
   def import_google_sheet_callback
     state_hash = JSON.parse(Base64::decode64(params[:state]))
-    session = GoogleSession.new
-    session.connect(auth_code: params[:code], callback_uri: import_google_sheet_callback_collections_url)
-    worksheet = session.get_worksheet(file: state_hash["file"], sheet: state_hash["sheet"])
-    unless worksheet.nil?
-      items = session.worksheet_to_hash(worksheet: worksheet)
-      unless items.nil?
-        CreateItems.call(collection_id: state_hash["collection_id"],
-                         items_hash: items,
-                         rewrite_rules: [RewriteItemMetadata.new])
-      end
-    end
-
+    GoogleCreateItems.call(auth_code: params[:code],
+                           callback_uri: import_google_sheet_callback_collections_url,
+                           collection_id: state_hash["collection_id"],
+                           file: state_hash["file"],
+                           sheet: state_hash["sheet"])
     redirect_to collection_items_path(state_hash["collection_id"])
   end
 
