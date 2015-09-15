@@ -48,9 +48,9 @@ a, a:hover, a:focus {
   width: 300px;
 
   input {
-    box-sizing:content-box;
-    border-radius: 2px 0 0 2px;
     border:1px solid $charcoal-grey;
+    border-radius: 2px 0 0 2px;
+    box-sizing: content-box;
     float: left;
     font-size: 14px;
     height: 20px;

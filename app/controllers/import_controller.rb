@@ -31,14 +31,6 @@ class ImportController < ApplicationController
     end
 
     redirect_to collection_items_path(state_hash["collection_id"])
-    return
-
-    # Just as a PoC, print the worksheet data
-    if worksheet.nil?
-      render plain: "Worksheet not found."
-    else
-      render plain: "No data has been imported. This is just a demonstration to show that all your cells are belong to us: #{items}"
-    end
   end
 
   def configuration
