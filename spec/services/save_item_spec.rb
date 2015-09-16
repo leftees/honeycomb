@@ -50,6 +50,24 @@ RSpec.describe SaveItem, type: :model do
     end
   end
 
+  describe "user_defined_id" do
+    before(:each) do
+      allow(item).to receive(:save).and_return(true)
+    end
+
+    it "sets the user_defined_id to the unique_id if none is given" do
+      item.unique_id = "unique id"
+      expect(item).to receive(:user_defined_id=).with("unique id")
+      subject
+    end
+
+    it "does not change the user_defined_id if one is given" do
+      item.user_defined_id = "user defined id"
+      expect(item).not_to receive(:user_defined_id=)
+      subject
+    end
+  end
+
   describe "image processing" do
     it "Queues image processing if the image was updated" do
       params[:uploaded_image] = upload_image
