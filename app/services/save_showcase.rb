@@ -16,7 +16,7 @@ class SaveShowcase
     showcase.attributes = params
     check_unique_id
 
-    if showcase.save && process_uploaded_image  
+    if showcase.save && process_uploaded_image
       true
     else
       false
