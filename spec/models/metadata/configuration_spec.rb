@@ -53,6 +53,13 @@ RSpec.describe Metadata::Configuration do
     end
   end
 
+  describe "to_json" do
+    it "returns a json representation of the file" do
+      expect(subject.to_json).to eq("{\"string_field\":{\"name\":\"string_field\",\"type\":\"string\",\"label\":\"String\",\"multiple\":false,\"required\":false,\"defaultFormField\":true,\"optionalFormField\":false,\"formOrder\":true},\"date_field\":{\"name\":\"date_field\",\"type\":\"date\",\"label\":\"Date\",\"multiple\":false,\"required\":false,\"defaultFormField\":true,\"optionalFormField\":false,\"formOrder\":true}}")
+    end
+
+  end
+
   context "self" do
     describe "item_configuration" do
       subject { described_class.item_configuration }
