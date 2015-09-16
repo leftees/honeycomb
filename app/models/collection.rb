@@ -5,7 +5,7 @@ class Collection < ActiveRecord::Base
   has_many :users, through: :collection_users
   has_many :showcases, through: :exhibit
 
-  validates :name_line_1, presence: true
+  validates :name_line_1, :unique_id, presence: true
 
   has_paper_trail
 

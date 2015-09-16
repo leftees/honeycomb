@@ -15,10 +15,9 @@ class SaveItem
 
     item.attributes = params
     pre_process_name
+    check_unique_id
 
     if item.save && process_uploaded_image
-      check_unique_id
-
       item
     else
       false

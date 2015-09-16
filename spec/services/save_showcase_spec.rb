@@ -51,11 +51,5 @@ RSpec.describe SaveShowcase, type: :model do
       expect(CreateUniqueId).to receive(:call).with(showcase)
       subject
     end
-
-    it "does not call create unique_id if the showcase does not save" do
-      allow(showcase).to receive(:save).and_return(false)
-      expect(CreateUniqueId).to_not receive(:call).with(showcase)
-      subject
-    end
   end
 end
