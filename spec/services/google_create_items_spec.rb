@@ -20,6 +20,7 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
       item_meta_hash_remapped(item_id: 3),
     ]
   end
+  let(:item) { instance_double(Item, valid?: true, changed?: false, new_record?: false, errors: []) }
   let(:worksheet) { instance_double(GoogleDrive::Worksheet) }
   let(:param_hash) { { auth_code: "auth", callback_uri: "callback", collection_id: 1, file: "file", sheet: "sheet" } }
   let(:subject) { described_class.call(param_hash) }
@@ -32,6 +33,8 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
   end
 
   it "creates new item with the remapped properties" do
+    allow(Item).to receive(:new).and_return(item)
+    allow(CreateUniqueId).to receive(:call).and_return(true)
     expect(Item).to receive(:new).with(hash_including(remapped_items[0])).ordered
     expect(Item).to receive(:new).with(hash_including(remapped_items[1])).ordered
     expect(Item).to receive(:new).with(hash_including(remapped_items[2])).ordered
@@ -39,13 +42,14 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
   end
 
   it "uses SaveItem service to save all items" do
-    allow(Item).to receive(:new).and_return(nil)
+    allow(Item).to receive(:new).and_return(item)
+    allow(CreateUniqueId).to receive(:call).and_return(true)
     expect(SaveItem).to receive(:call).exactly(3).and_return true
     subject
   end
 
   it "throws an exception if a label is not found" do
-    items[0]["Invalid Field Name"] = "invalid value"
+    items[0][:InvalidFieldName] = "invalid value"
     expect do
       subject
     end.to raise_error(ActiveRecord::UnknownAttributeError)
@@ -66,5 +70,20 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
     creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
     expect(creator).to receive(:create!).with(hash_including(items_hash: [{ item: "item" }]))
     creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
+  end
+
+  it "returns a hash with summary" do
+    allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return(items)
+    creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
+    results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
+    expected = { summary: { total_count: 3, valid_count: 0, new_count: 0, error_count: 3, changed_count: 0 } }
+    expect(results).to include(expected)
+  end
+
+  it "returns a hash with errors" do
+    allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return(items)
+    creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
+    results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
+    expect(results).to include(:errors)
   end
 end

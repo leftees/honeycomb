@@ -1,0 +1,29 @@
+<div>
+  <h2>Import Results</h2>
+  <div>Of <%= @results[:summary][:total_count] %> total rows:</div>
+  <div><%= @results[:summary][:new_count] %> items were created.</div>
+  <div><%= @results[:summary][:changed_count] %> items were updated.</div>
+  <% if @results[:summary][:error_count] > 0 %>
+    <div><%= @results[:summary][:error_count] %> rows were not imported due to the following errors:</div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Row</th>
+          <th>Errors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @results[:errors].each do |row| %>
+          <tr>
+            <td><%= row[:index] + 2 %></td>
+            <td>
+              <% row[:errors].each do |error| %>
+                <div><%= error %></div>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

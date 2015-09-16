@@ -17,13 +17,19 @@ class ImportController < ApplicationController
   # We'll get an authorization code in the params and use this to make the connection
   # to google to read the sheet data
   def import_google_sheet_callback
-    state_hash = JSON.parse(Base64::decode64(params[:state]))
-    GoogleCreateItems.call(auth_code: params[:code],
-                           callback_uri: import_google_sheet_callback_collections_url,
-                           collection_id: state_hash["collection_id"],
-                           file: state_hash["file"],
-                           sheet: state_hash["sheet"])
-    redirect_to collection_items_path(state_hash["collection_id"])
+    state_hash = decode_state(state_hash: params[:state])
+    @collection = CollectionQuery.new.find(state_hash[:collection_id])
+    check_user_edits!(@collection)
+
+    @results = GoogleCreateItems.call(auth_code: params[:code],
+                                      callback_uri: import_google_sheet_callback_collections_url,
+                                      collection_id: state_hash[:collection_id],
+                                      file: state_hash[:file],
+                                      sheet: state_hash[:sheet])
+  end
+
+  def decode_state(state_hash:)
+    JSON.parse(Base64::decode64(state_hash), symbolize_names: true)
   end
 
   def configuration
