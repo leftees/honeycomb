@@ -16,7 +16,7 @@ class SaveItem
     item.attributes = params
     pre_process_name
     check_unique_id
-    set_user_defined_id
+    check_user_defined_id
 
     if item.save && process_uploaded_image
       item
@@ -40,7 +40,7 @@ class SaveItem
   end
 
   # Sets the user defined id to the unique id if none is given
-  def set_user_defined_id
+  def check_user_defined_id
     unless item.user_defined_id.present?
       item.user_defined_id = item.unique_id
     end
