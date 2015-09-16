@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Metadata::Configuration do
   let(:data) do
     [
-      { name: :string_field, type: :string, label: "String" },
-      { name: :date_field, type: :date, label: "Date" },
+      { name: :string_field, type: :string, label: "String", defaultFormField: true, optionalFormField: false, formOrder: true  },
+      { name: :date_field, type: :date, label: "Date", defaultFormField: true, optionalFormField: false, formOrder: true  },
     ]
   end
 
