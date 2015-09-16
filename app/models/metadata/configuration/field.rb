@@ -19,12 +19,12 @@ module Metadata
         @order = order
       end
 
-      def to_json
-        json = as_json
+      def as_json(options = {})
+        json = super
         json["defaultFormField"] = json.delete("default_form_field")
         json["optionalFormField"] = json.delete("optional_form_field")
 
-        json.to_json
+        json
       end
     end
   end

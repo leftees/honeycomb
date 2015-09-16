@@ -55,7 +55,7 @@ RSpec.describe Metadata::Configuration do
 
   describe "to_json" do
     it "returns a json representation of the file" do
-      expect(subject.to_json).to eq("{\"string_field\":{\"name\":\"string_field\",\"type\":\"string\",\"label\":\"String\",\"multiple\":false,\"required\":false,\"default_form_field\":true,\"optional_form_field\":false,\"order\":true},\"date_field\":{\"name\":\"date_field\",\"type\":\"date\",\"label\":\"Date\",\"multiple\":false,\"required\":false,\"default_form_field\":true,\"optional_form_field\":false,\"order\":true}}")
+      expect(subject.to_json).to eq("{\"@context\":\"http://schema.org\",\"@type\":\"DECMetadataConfiguration\",\"fields\":{\"string_field\":{\"name\":\"string_field\",\"type\":\"string\",\"label\":\"String\",\"multiple\":false,\"required\":false,\"order\":true,\"defaultFormField\":true,\"optionalFormField\":false},\"date_field\":{\"name\":\"date_field\",\"type\":\"date\",\"label\":\"Date\",\"multiple\":false,\"required\":false,\"order\":true,\"defaultFormField\":true,\"optionalFormField\":false}}}")
     end
 
   end
