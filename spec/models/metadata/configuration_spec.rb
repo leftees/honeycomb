@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Metadata::Configuration do
   let(:data) do
     [
-      { name: :string_field, type: :string, label: "String", defaultFormField: true, optionalFormField: false, order: true  },
-      { name: :date_field, type: :date, label: "Date", defaultFormField: true, optionalFormField: false, order: true  },
+      { name: :string_field, type: :string, label: "String", default_form_field: true, optional_form_field: false, order: true  },
+      { name: :date_field, type: :date, label: "Date", default_form_field: true, optional_form_field: false, order: true  },
     ]
   end
 
@@ -55,7 +55,7 @@ RSpec.describe Metadata::Configuration do
 
   describe "to_json" do
     it "returns a json representation of the file" do
-      expect(subject.to_json).to eq("{\"string_field\":{\"name\":\"string_field\",\"type\":\"string\",\"label\":\"String\",\"multiple\":false,\"required\":false,\"defaultFormField\":true,\"optionalFormField\":false,\"order\":true},\"date_field\":{\"name\":\"date_field\",\"type\":\"date\",\"label\":\"Date\",\"multiple\":false,\"required\":false,\"defaultFormField\":true,\"optionalFormField\":false,\"order\":true}}")
+      expect(subject.to_json).to eq("{\"string_field\":{\"name\":\"string_field\",\"type\":\"string\",\"label\":\"String\",\"multiple\":false,\"required\":false,\"default_form_field\":true,\"optional_form_field\":false,\"order\":true},\"date_field\":{\"name\":\"date_field\",\"type\":\"date\",\"label\":\"Date\",\"multiple\":false,\"required\":false,\"default_form_field\":true,\"optional_form_field\":false,\"order\":true}}")
     end
 
   end
