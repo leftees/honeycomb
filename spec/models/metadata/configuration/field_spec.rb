@@ -61,7 +61,7 @@ RSpec.describe Metadata::Configuration::Field do
 
     it "convertes the key option_form_field to optionalFormField" do
       expect(subject.to_json).to include("optionalFormField")
-      expect(subject.to_json).to_not include("option_form_field")      
+      expect(subject.to_json).to_not include("option_form_field")
     end
   end
 end

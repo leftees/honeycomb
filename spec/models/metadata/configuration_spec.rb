@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Metadata::Configuration do
   let(:data) do
     [
-      { name: :string_field, type: :string, label: "String", default_form_field: true, optional_form_field: false, order: true  },
-      { name: :date_field, type: :date, label: "Date", default_form_field: true, optional_form_field: false, order: true  },
+      { name: :string_field, type: :string, label: "String", default_form_field: true, optional_form_field: false, order: true },
+      { name: :date_field, type: :date, label: "Date", default_form_field: true, optional_form_field: false, order: true },
     ]
   end
 
@@ -55,7 +55,8 @@ RSpec.describe Metadata::Configuration do
 
   describe "to_json" do
     it "returns a json representation of the file" do
-      expect(subject.to_json).to eq("{\"@context\":\"http://schema.org\",\"@type\":\"DECMetadataConfiguration\",\"fields\":{\"string_field\":{\"name\":\"string_field\",\"type\":\"string\",\"label\":\"String\",\"multiple\":false,\"required\":false,\"order\":true,\"defaultFormField\":true,\"optionalFormField\":false},\"date_field\":{\"name\":\"date_field\",\"type\":\"date\",\"label\":\"Date\",\"multiple\":false,\"required\":false,\"order\":true,\"defaultFormField\":true,\"optionalFormField\":false}}}")
+      expect_any_instance_of(Hash).to receive(:to_json).and_return("JSON")
+      expect(subject.to_json).to eq("JSON")
     end
 
   end

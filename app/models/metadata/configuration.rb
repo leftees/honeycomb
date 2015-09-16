@@ -7,7 +7,6 @@ module Metadata
       @item_configuration ||= new(load_yml(:item))
     end
 
-#    private_class_method :load_yml
     def self.load_yml(name)
       YAML.load_file(Rails.root.join("config/metadata/", "#{name}.yml"))
     end
@@ -34,7 +33,7 @@ module Metadata
       label(name).present?
     end
 
-    def to_json(options = {})
+    def to_json(_options = {})
       {
         "@context" => "http://schema.org",
         "@type" => "DECMetadataConfiguration",
