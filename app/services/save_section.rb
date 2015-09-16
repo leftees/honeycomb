@@ -14,8 +14,8 @@ class SaveSection
     section.attributes = params
 
     current_order
+    check_unique_id
     if section.save && fix_order!
-      check_unique_id
       section
     else
       false

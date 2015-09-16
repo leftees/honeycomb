@@ -12,9 +12,9 @@ class SaveCollection
 
   def save
     collection.attributes = params
+    check_unique_id
 
     if collection.save
-      check_unique_id
       EnsureCollectionHasExhibit.call(collection)
       true
     else

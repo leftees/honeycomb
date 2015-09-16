@@ -48,12 +48,6 @@ RSpec.describe SaveItem, type: :model do
       expect(CreateUniqueId).to receive(:call).with(item)
       subject
     end
-
-    it "does not call create unique_id if the item does not save" do
-      allow(item).to receive(:save).and_return(false)
-      expect(CreateUniqueId).to_not receive(:call).with(item)
-      subject
-    end
   end
 
   describe "image processing" do

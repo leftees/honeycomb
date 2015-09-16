@@ -30,12 +30,6 @@ RSpec.describe SaveCollection, type: :model do
       expect(CreateUniqueId).to receive(:call).with(collection)
       subject
     end
-
-    it "does not call create unique_id if the collection does not save" do
-      allow(collection).to receive(:save).and_return(false)
-      expect(CreateUniqueId).to_not receive(:call).with(collection)
-      subject
-    end
   end
 
   describe "exhibit" do
