@@ -54,17 +54,6 @@ RSpec.describe Metadata::Configuration do
   end
 
   context "self" do
-    describe "build_fields" do
-      subject { described_class.build_fields(data) }
-
-      it "creates an array of fields" do
-        expect(described_class::Field).to receive(:new).with(data[0]).and_call_original
-        expect(described_class::Field).to receive(:new).with(data[1]).and_call_original
-        expect(subject).to be_kind_of(Array)
-        expect(subject.first).to be_kind_of(described_class::Field)
-      end
-    end
-
     describe "item_configuration" do
       subject { described_class.item_configuration }
 

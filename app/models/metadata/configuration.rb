@@ -3,22 +3,19 @@ module Metadata
     attr_reader :fields, :field_map, :label_map
     private :field_map, :label_map
 
-    def self.build_fields(data)
-      data.map { |field_data| self::Field.new(**field_data) }
-    end
-
     def self.item_configuration
       @item_configuration ||= new(load_yml(:item))
     end
 
-    def initialize(data)
-      @fields = self.class.build_fields(data)
-      @field_map = build_field_map
-      @label_map = build_label_map
-    end
-
+#    private_class_method :load_yml
     def self.load_yml(name)
       YAML.load_file(Rails.root.join("config/metadata/", "#{name}.yml"))
+    end
+
+    def initialize(data)
+      @fields = build_fields(data)
+      @field_map = build_field_map
+      @label_map = build_label_map
     end
 
     def field(name)
@@ -37,9 +34,15 @@ module Metadata
       label(name).present?
     end
 
-    private_class_method :load_yml
+    def to_json
+      build_field_map.to_json
+    end
 
     private
+
+    def build_fields(data)
+      data.map { |field_data| self.class::Field.new(**field_data) }
+    end
 
     def build_field_map
       {}.tap do |hash|

@@ -3,61 +3,113 @@
   :type: :string
   :label: Identifier
   :required: true
+  :defaultFormField: false
+  :optionalFormField: false
+  :formOrder: 100
 - :name: :name
   :type: :string
   :label: Name
   :required: true
+  :defaultFormField: true
+  :optionalFormField: false
+  :formOrder: 1
 - :name: :alternate_name
   :type: :string
   :label: Alternate Name
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 2
 - :name: :creator
   :type: :string
   :label: Creator
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 3
 - :name: :contributor
   :type: :string
   :label: Contributor
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 4
 - :name: :description
   :type: :html
   :label: Description
+  :defaultFormField: true
+  :optionalFormField: false
+  :formOrder: 5
 - :name: :subject
   :type: :html
   :label: Subject
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 6
 - :name: :transcription
   :type: :html
   :label: Transcription
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 7
 - :name: :date_created
   :type: :date
   :label: Date Created
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 8
 - :name: :date_published
   :type: :date
   :label: Date Published
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 9
 - :name: :date_modified
   :type: :date
   :label: Date Modified
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 10
 - :name: :original_language
   :type: :string
   :label: Original Language
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 11
 - :name: :rights
   :type: :string
   :label: Rights
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 12
 - :name: :call_number
   :type: :string
   :label: Call Number
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 13
 - :name: :provenance
   :type: :string
   :label: Provenance
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 14
 - :name: :publisher
   :type: :string
   :label: Publisher
   :multiple: true
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 15
 - :name: :manuscript_url
   :type: :string
   :label: Digitized Manuscript
+  :defaultFormField: false
+  :optionalFormField: true
+  :formOrder: 16
+  

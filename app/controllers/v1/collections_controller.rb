@@ -53,5 +53,9 @@ module V1
         format.json { render json: { status: @return_value }.to_json }
       end
     end
+
+    def metadata_configuration
+      @configuration = Metadata::Configuration.item_configuration
+    end
   end
 end

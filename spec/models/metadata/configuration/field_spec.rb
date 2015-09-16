@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Metadata::Configuration::Field do
-  let(:data) { { name: :string_field, type: :string, label: "String" } }
+  let(:data) { { name: :string_field, type: :string, label: "String", defaultFormField: true, optionalFormField: false, formOrder: true } }
 
   subject { described_class.new(data) }
 
@@ -32,6 +32,24 @@ RSpec.describe Metadata::Configuration::Field do
   describe "label" do
     it "is the expected value" do
       expect(subject.label).to eq(data[:label])
+    end
+  end
+
+  describe "defaultFormField" do
+    it "is the expected value" do
+      expect(subject.defaultFormField).to eq(data[:defaultFormField])
+    end
+  end
+
+  describe "optionalFormField" do
+    it "is the expected value" do
+      expect(subject.optionalFormField).to eq(data[:optionalFormField])
+    end
+  end
+
+  describe "formOrder" do
+    it "is the expected value" do
+      expect(subject.formOrder).to eq(data[:formOrder])
     end
   end
 end
