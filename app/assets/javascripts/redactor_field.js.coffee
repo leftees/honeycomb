@@ -5,7 +5,7 @@ class RedactorField
 
   setupField: ->
     @fieldElement.redactor({
-        buttonSource: true
+        source: true
         focus: true
         formatting: ['p', 'blockquote', 'h3', 'h4', 'h5']
       })
