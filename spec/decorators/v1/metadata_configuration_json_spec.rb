@@ -7,7 +7,6 @@ RSpec.describe V1::MetadataConfigurationJSON do
       { name: :date_field, type: :date, label: "Date", default_form_field: true, optional_form_field: false, order: true },
     ]
   end
-
   let(:configuration) {  Metadata::Configuration.new(data) }
   subject { described_class.new(configuration) }
 
