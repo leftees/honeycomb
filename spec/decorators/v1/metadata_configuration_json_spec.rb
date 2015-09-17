@@ -13,19 +13,23 @@ RSpec.describe V1::MetadataConfigurationJSON do
 
   describe "as_json" do
     it "returns a hash with the fields from the configuration" do
-      field = double(as_json: 'json', name: "name")
+      field = double(as_json: "json", name: "name")
       allow(configuration).to receive(:fields).and_return([field])
-      expect(subject.as_json[:fields]).to eq({"name"=>"json"})
+      expect(subject.as_json[:fields]).to eq("name" => "json")
     end
 
-    it "adds the @type field"
+    it "adds the @context field" do
+      expect(subject.as_json["@context"]).to eq("http://schema.org")
+    end
 
-    it "adds the @context field"
+    it "adds the @type field" do
+      expect(subject.as_json["@type"]).to eq("DECMetadataConfiguration")
+    end
   end
 
   describe "to_json" do
     it "returns a json representation of the file" do
-      expect(subject).to receive(:as_json).and_return({"json" => "json!"})
+      expect(subject).to receive(:as_json).and_return("json" => "json!")
       expect(subject.to_json).to eq("{\"json\":\"json!\"}")
     end
 
@@ -37,5 +41,4 @@ RSpec.describe V1::MetadataConfigurationJSON do
       subject.to_json
     end
   end
-
 end
