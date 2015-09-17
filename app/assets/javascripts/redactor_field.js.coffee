@@ -5,10 +5,10 @@ class RedactorField
 
   setupField: ->
     @fieldElement.redactor({
-        source: true
-        focus: true
-        formatting: ['p', 'blockquote', 'h3', 'h4', 'h5']
-      })
+      source: true
+      focus: true
+      formatting: ['p', 'blockquote', 'h3', 'h4', 'h5']
+    })
 
 
 jQuery ->
