@@ -56,7 +56,8 @@ ActiveRecord::Schema.define(version: 20150916134407) do
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"
     t.text     "copyright",                   limit: 65535
-    t.boolean  "hide_title_on_home_page"
+    t.boolean  "hide_title_on_home_page",     limit: 1
+    t.string   "url",                         limit: 255
   end
 
   add_index "exhibits", ["collection_id"], name: "fk_rails_b56f41d7b6", using: :btree
