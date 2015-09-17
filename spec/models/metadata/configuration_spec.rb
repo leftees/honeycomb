@@ -53,14 +53,6 @@ RSpec.describe Metadata::Configuration do
     end
   end
 
-  describe "to_json" do
-    it "returns a json representation of the file" do
-      expect_any_instance_of(Hash).to receive(:to_json).and_return("JSON")
-      expect(subject.to_json).to eq("JSON")
-    end
-
-  end
-
   context "self" do
     describe "item_configuration" do
       subject { described_class.item_configuration }

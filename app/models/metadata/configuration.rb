@@ -33,26 +33,10 @@ module Metadata
       label(name).present?
     end
 
-    def to_json(_options = {})
-      {
-        "@context" => "http://schema.org",
-        "@type" => "DECMetadataConfiguration",
-        fields: build_json_hash
-      }.to_json
-    end
-
     private
 
     def build_fields(data)
       data.map { |field_data| self.class::Field.new(**field_data) }
-    end
-
-    def build_json_hash
-      {}.tap do |hash|
-        fields.each do |field|
-          hash[field.name] = field.as_json
-        end
-      end
     end
 
     def build_field_map
