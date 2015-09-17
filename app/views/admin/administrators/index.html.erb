@@ -1,8 +1,14 @@
-<%= react_component 'UserPanel', {
-      initialUsers: @administrators.administrator_hashes,
-      createUrl: admin_administrators_path,
-      searchUrl: user_search_admin_administrators_path,
-      title: 'Administrators',
-    },
-    {prerender: false }
-%>
+<div class="col-md-2 col-sm-2" id="col1">
+  <%= render partial: "admin/admin_left_nav" %>
+</div>
+<div class="col-md-10 col-sm-10" id="col2" style="">
+  <h3>Administrative Users</h3>
+  <%= react_component 'UserPanel', {
+        initialUsers: @administrators.administrator_hashes,
+        createUrl: admin_administrators_path,
+        searchUrl: user_search_admin_administrators_path,
+        title: 'Administrators',
+      },
+      {prerender: false }
+  %>
+</div>
