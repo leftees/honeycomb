@@ -11,6 +11,10 @@ class ExhibitQuery
     relation.where(collection: collections)
   end
 
+  def all_external
+    relation.where.not(url: nil)
+  end
+
   def build(args = {})
     relation.build(args)
   end
