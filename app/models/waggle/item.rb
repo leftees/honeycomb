@@ -33,7 +33,7 @@ module Waggle
     end
 
     def last_updated
-      @last_updated ||= Time.zone.parse(data.fetch("last_updated")).utc
+      @last_updated ||= Time.zone.parse(data.fetch("last_updated")).utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     end
 
     def thumbnail_url
@@ -44,6 +44,20 @@ module Waggle
 
     def metadata
       @metadata ||= Waggle::Metadata::Set.new(data.fetch("metadata"), metadata_configuration)
+    end
+
+    def as_solr
+      hash = metadata.as_solr.merge(
+        id: id,
+        at_id_s: at_id,
+        unique_id_s: unique_id,
+        collection_id_s: collection_id,
+        type_s: type,
+        thumbnail_url_s: thumbnail_url,
+        last_updated_dt: last_updated
+      )
+      hash[:title_t] = hash.fetch(:name_t)
+      hash
     end
 
     def method_missing(method_name, *args, &block)
