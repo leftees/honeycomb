@@ -1,0 +1,14 @@
+<%= react_component 'ExternalCollectionForm', {
+  authenticityToken: form_authenticity_token,
+  method: "post",
+  data: {
+    name: @external_collection.name,
+    url: @external_collection.url,
+    description: @external_collection.description,
+    image: @external_collection.image
+  },
+  url: 'http://localhost',
+  objectType: "external_collection",
+},
+{prerender: false }
+%>

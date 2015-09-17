@@ -1,0 +1,30 @@
+<table class="table table-striped datatable" id="external_collections_table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>External Collection</th>
+      <th>URL</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% external_collections.each do |collection| %>
+      <tr>
+        <td>
+          <% if collection.honeypot_image %>
+            <%= HoneypotThumbnail.display(collection.honeypot_image) %>
+          <% end %>
+        </td>
+        <td>
+          <%= raw collection.name %>
+        </td>
+        <td>
+          <%= raw collection.url %>
+        </td>
+        <td>
+          <%= raw collection.description %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
