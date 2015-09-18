@@ -89,7 +89,6 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
     end
   end
 
-
   context "worksheet has no items" do
     it "returns a hash with summary" do
       allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return([])
