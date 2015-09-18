@@ -1,0 +1,15 @@
+default: &default
+  hostname: localhost
+  port: 8982
+  path: /solr/default
+development:
+  <<: *default
+  path: /solr/development
+test:
+  <<: *default
+  port: 8981
+  path: /solr/test
+production:
+  <<: *default
+  port: 8080
+  path: /solr/honeycomb
