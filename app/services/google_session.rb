@@ -44,12 +44,14 @@ class GoogleSession
     end
   end
 
+  # Returns an array of hashes where the hash keys are the column names
   # Worksheet must have a header row to use as keys in the hash
   def worksheet_to_hash(worksheet:)
+    results = []
     rows = worksheet.rows
-    unless rows.nil?
+    if rows.present?
       header_row = rows[0]
-      rows[1..rows.size].map do |row|
+      results = rows[1..rows.size].map do |row|
         hash = Hash.new
         row.each_with_index do |cell, cell_index|
           if cell.present?
@@ -59,5 +61,6 @@ class GoogleSession
         hash
       end
     end
+    results
   end
 end

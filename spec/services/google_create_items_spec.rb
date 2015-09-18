@@ -72,18 +72,38 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
     creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
   end
 
-  it "returns a hash with summary" do
-    allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return(items)
-    creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
-    results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
-    expected = { summary: { total_count: 3, valid_count: 0, new_count: 0, error_count: 3, changed_count: 0 } }
-    expect(results).to include(expected)
+  context "worksheet has items" do
+    it "returns a hash with summary" do
+      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return(items)
+      creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
+      results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
+      expected = { summary: { total_count: 3, valid_count: 0, new_count: 0, error_count: 3, changed_count: 0 } }
+      expect(results).to include(expected)
+    end
+
+    it "returns a hash with errors" do
+      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return(items)
+      creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
+      results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
+      expect(results).to include(:errors)
+    end
   end
 
-  it "returns a hash with errors" do
-    allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return(items)
-    creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
-    results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
-    expect(results).to include(:errors)
+
+  context "worksheet has no items" do
+    it "returns a hash with summary" do
+      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return([])
+      creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
+      results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
+      expected = { summary: { total_count: 0, valid_count: 0, new_count: 0, error_count: 0, changed_count: 0 } }
+      expect(results).to include(expected)
+    end
+
+    it "returns a hash with errors" do
+      allow_any_instance_of(GoogleSession).to receive(:worksheet_to_hash).and_return([])
+      creator = GoogleCreateItems.new(auth_code: param_hash[:auth_code], callback_uri: param_hash[:callback_uri])
+      results = creator.create_from_worksheet!(collection_id: param_hash[:collection_id], file: param_hash[:file], sheet: param_hash[:sheet])
+      expect(results).to include(errors: [])
+    end
   end
 end

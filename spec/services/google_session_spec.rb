@@ -105,6 +105,12 @@ RSpec.describe GoogleSession do
       expect(result).to eq(items)
     end
 
+    it "returns an empty array if there aren't any rows in the worksheet" do
+      allow(worksheet).to receive(:rows).and_return([])
+      result = subject.worksheet_to_hash(worksheet: worksheet)
+      expect(result).to eq([])
+    end
+
     it "does not return a property if the column has no value" do
       rows[1][3] = nil
       items[0].delete("Description")
