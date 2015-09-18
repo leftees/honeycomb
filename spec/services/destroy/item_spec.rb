@@ -50,8 +50,14 @@ describe Destroy::Item do
     let(:item) { FactoryGirl.create(:item) }
     let(:showcase) { FactoryGirl.create(:showcase) }
     let(:exhibit) { FactoryGirl.create(:exhibit) }
-    let(:sections) { [FactoryGirl.create(:section, id: 1, item_id: item.id), FactoryGirl.create(:section, id: 2, item_id: item.id)] }
-    let(:children) { [FactoryGirl.create(:item, id: 3, parent_id: item.id), FactoryGirl.create(:item, id: 4, parent_id: item.id)] }
+    let(:sections) do
+      [FactoryGirl.create(:section, id: 1, item_id: item.id),
+       FactoryGirl.create(:section, id: 2, item_id: item.id)]
+    end
+    let(:children) do
+      [FactoryGirl.create(:item, id: 3, parent_id: item.id, user_defined_id: "three"),
+       FactoryGirl.create(:item, id: 4, parent_id: item.id, user_defined_id: "four")]
+    end
 
     before(:each) do
       collection

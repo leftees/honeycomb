@@ -1,42 +1,51 @@
 # Translates a hash of common property names to valid Item properties
 class RewriteItemMetadata
-  attr_reader :configuration
-  private :configuration
+  attr_reader :configuration, :field_map
+  private :configuration, :field_map
 
   def initialize
     @configuration = Metadata::Configuration.item_configuration
+    @field_map = Hash[Metadata::Configuration.item_configuration.field_names.map { |name| [name, nil] }]
   end
 
-  def self.call(item_hash:)
-    new.rewrite(item_hash: item_hash)
+  def self.call(item_hash:, errors:)
+    new.rewrite(item_hash: item_hash, errors: errors)
   end
 
-  def rewrite(item_hash:)
-    Hash[
-      item_hash.map do |k, v|
-        if configuration.label?(k)
-          new_key = configuration.label(k).name
-          [new_key, rewrite_value(field_name: new_key, value: v)]
-        else
-          [k, v]
-        end
+  def rewrite(item_hash:, errors:)
+    result = Hash.new
+    item_hash.each do |k, v|
+      new_pair = rewrite_pair(key: k, value: v)
+      if Item.method_defined?(new_pair.key)
+        result[new_pair.key] = new_pair.value
+      else
+        errors << "Unknown attribute #{k}"
       end
-    ]
+    end
+    field_map.merge!(result)
   end
 
-  def rewrite_value(field_name:, value:)
-    result = value
-    field = configuration.field(field_name)
+  private
 
-    # Rewrite multiples into an array
-    if field.multiple
-      result = result.split("||")
+  # Maps labels to field names and rewrites some value types
+  # such as multiple value fields and date fields
+  def rewrite_pair(key:, value:)
+    result = OpenStruct.new(key: key.to_sym, value: value)
+    if configuration.label?(key)
+      field = configuration.label(key)
+      result.key = field.name
+      rewrite_values(field: field, pair: result)
     end
-
-    if field.type.to_s == "date"
-      result = MetadataDate.parse(value).to_params
-    end
-
     result
+  end
+
+  def rewrite_values(field:, pair:)
+    if field.multiple
+      pair.value = pair.value.split("||")
+    end
+
+    if field.type == :date
+      pair.value = MetadataDate.parse(pair.value).to_params
+    end
   end
 end
