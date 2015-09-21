@@ -61,9 +61,9 @@ RSpec.describe Waggle::Metadata::Set do
   end
 
   describe "sort" do
-    it "returns the first value of the sort's field" do
+    it "returns the combined value of the sort's field" do
       expect(subject).to receive(:value).with(:creator).and_return(["Bob", "Joe"])
-      expect(subject.sort(:creator)).to eq("Bob")
+      expect(subject.sort(:creator)).to eq("Bob Joe")
     end
   end
 end

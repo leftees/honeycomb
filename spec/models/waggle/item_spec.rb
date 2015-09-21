@@ -58,8 +58,8 @@ RSpec.describe Waggle::Item do
   end
 
   describe "last_updated" do
-    it "is a Time" do
-      expect(subject.last_updated).to eq(Time.zone.parse(data.fetch("last_updated")))
+    it "is a formatted Time" do
+      expect(subject.last_updated).to eq(Time.zone.parse(data.fetch("last_updated")).utc.strftime("%Y-%m-%dT%H:%M:%SZ"))
     end
   end
 

@@ -13,14 +13,6 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
     index_class.new(data)
   end
 
-  before :all do
-    unstub_solr
-  end
-
-  after :all do
-    stub_solr
-  end
-
   describe "self.index_class" do
     it "is Waggle::Item" do
       expect(described_class.index_class).to eq(Waggle::Item)
@@ -100,117 +92,6 @@ RSpec.describe Waggle::Adapters::Sunspot::Index::Item do
       expect(Sunspot::Setup.for(index_class)).to be_kind_of(Sunspot::Setup)
       subject
       expect(Sunspot::Setup.for(index_class)).to be_nil
-    end
-  end
-
-  describe "search" do
-    before :each do
-      described_class.setup
-    end
-
-    before do
-      Sunspot.remove_all(index_class)
-      Sunspot.commit
-    end
-
-    after do
-      Sunspot.remove_all(index_class)
-      Sunspot.commit
-    end
-
-    shared_examples_for "a searchable field" do |field_name, field_type, indexed_field_name|
-      indexed_field_name ||= field_name
-      if field_type == :time
-        let(:q) { Time.zone.now - 1.day }
-      elsif [:text, :string].include?(field_type)
-        let(:q) { field_name }
-      else
-        raise "unknown type #{field_type}"
-      end
-
-      let(:expected_value) { [q] }
-
-      before do
-        allow(instance.metadata).to receive(:value).and_call_original
-        allow(instance.metadata).to receive(:value).with(field_name).and_return(expected_value)
-        Sunspot.index(instance)
-        Sunspot.commit
-      end
-
-      it "searches #{indexed_field_name} as #{field_type}" do
-        search = Sunspot.search index_class do
-          if field_type == :time
-            with(indexed_field_name).equal_to q
-          elsif field_type == :string
-            with(indexed_field_name, q)
-          elsif field_type == :text
-            fulltext q do
-              fields(indexed_field_name)
-            end
-          end
-        end
-        expect(search.total).to eq(1)
-      end
-
-      context "nil value" do
-        let(:expected_value) { nil }
-
-        it "does not find a result for #{indexed_field_name} as #{field_type}" do
-          search = Sunspot.search index_class do
-            if field_type == :time
-              with(indexed_field_name).equal_to q
-            elsif field_type == :string
-              with(indexed_field_name, q)
-            elsif field_type == :text
-              fulltext q do
-                fields(indexed_field_name)
-              end
-            end
-          end
-          expect(search.total).to eq(0)
-        end
-      end
-    end
-
-    Metadata::Configuration.item_configuration.fields.each do |field|
-      if field.type == :date
-        it_behaves_like "a searchable field", field.name, :time
-      else
-        it_behaves_like "a searchable field", field.name, :text
-      end
-    end
-
-    Metadata::Configuration.item_configuration.facets.each do |facet|
-      it_behaves_like "a searchable field", facet.field_name, :string, "#{facet.name}_facet"
-    end
-
-    Metadata::Configuration.item_configuration.sorts.each do |sort|
-      it_behaves_like "a searchable field", sort.field_name, :string, "#{sort.name}_sort"
-    end
-
-    it "is searchable" do
-      Sunspot.index(instance)
-      Sunspot.index(other_instance)
-      Sunspot.commit
-
-      q = "pig"
-
-      search = Sunspot.search index_class do
-        fulltext q do
-          boost_fields name: 3.0
-          highlight :name
-        end
-      end
-
-      # search.hits.each do |hit|
-      #   stored_values = hit.instance_variable_get(:@stored_values)
-      #   pp stored_values
-      # end
-
-      hit = search.hits.detect { |h| h.primary_key == instance.id }
-      expect(hit.highlights.first).to be_kind_of(Sunspot::Search::Highlight)
-      expect(hit.highlights.first.formatted).to eq("<em>pig</em>-in-mud")
-      expect(hit.stored(:name)).to eq(["pig-in-mud"])
     end
   end
 end
