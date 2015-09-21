@@ -10,6 +10,7 @@ var DateField = require('./DateField');
 var HtmlField = require('./HtmlField');
 var TextField = require('./TextField');
 var MultipleField = require('./MultipleField');
+var MetadataConfigurationStore = require('../../stores/MetadataConfigurationStore');
 
 var fieldTypeMap = {
   string: StringField,
@@ -74,6 +75,10 @@ var ItemMetaDataForm = React.createClass({
 
   componentWillUnmount: function() {
     window.removeEventListener("beforeunload", this.unloadMsg);
+  },
+
+  componentWillMount: function () {
+
   },
 
   handleSave: function(event) {
@@ -260,6 +265,8 @@ var ItemMetaDataForm = React.createClass({
   },
 
   render: function () {
+    console.log(MetadataConfigurationStore.getOptionalFields());
+    
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
         <Panel>

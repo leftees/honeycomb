@@ -4,6 +4,7 @@ var CollectionActionTypes = require("../constants/CollectionActionTypes");
 
 class CollectionStore extends EventEmitter {
   constructor() {
+    this.id = null;
     this.title = "";
     this.preview = false;
     this.published = false;
@@ -65,9 +66,10 @@ class CollectionStore extends EventEmitter {
   // Changes a property to a given value and adds it to
   // the open change list
   setProps(collection) {
-    this.preview = collection.preview;
+    this.id = collection.id;
+    this.preview = collection.preview_mode;
     this.published = collection.published;
-    this.title = collection.title;
+    this.title = collection.name_line_1 + ": " + collection.name_line_2;
     this.emitChange("CollectionStoreChanged");
   }
 
