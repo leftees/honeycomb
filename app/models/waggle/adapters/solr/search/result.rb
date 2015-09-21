@@ -3,7 +3,7 @@ module Waggle
     module Solr
       module Search
         class Result
-          attr_reader :query
+          attr_reader :query, :filters
 
           def initialize(query: query)
             @query = query
@@ -44,7 +44,20 @@ module Waggle
             {
               q: query.q,
               fl: "*",
+              fq: filters,
             }
+          end
+
+          def filters
+            filters = []
+            query.filters.each do |key, value|
+              filters.push(format_filter("#{key}_s", value))
+            end
+            filters.join(" ")
+          end
+
+          def format_filter(field, value)
+            "+#{field}:#{value}"
           end
 
           def connection
@@ -93,10 +106,6 @@ module Waggle
 
           def configuration
             query.configuration
-          end
-
-          def filters
-            query.filters
           end
         end
       end
