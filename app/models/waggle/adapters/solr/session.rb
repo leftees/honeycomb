@@ -12,6 +12,28 @@ module Waggle
           @connection ||= build_connection
         end
 
+        def index(*objects)
+          connection.add(*objects.map(&:as_solr))
+        end
+
+        def index!(*objects)
+          index(*objects)
+          commit
+        end
+
+        def commit
+          connection.commit
+        end
+
+        def remove(*objects)
+          connection.delete_by_id(*objects.map(&:index_id))
+        end
+
+        def remove!(*objects)
+          remove(*objects)
+          commit
+        end
+
         private
 
         def load_configuration

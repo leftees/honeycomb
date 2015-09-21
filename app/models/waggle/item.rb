@@ -16,6 +16,10 @@ module Waggle
       data.fetch("id")
     end
 
+    def index_id
+      "#{id} #{TYPE}"
+    end
+
     def unique_id
       id
     end
@@ -48,7 +52,7 @@ module Waggle
 
     def as_solr
       hash = metadata.as_solr.merge(
-        id: id,
+        id: index_id,
         at_id_s: at_id,
         unique_id_s: unique_id,
         collection_id_s: collection_id,
