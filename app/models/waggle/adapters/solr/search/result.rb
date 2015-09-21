@@ -43,7 +43,7 @@ module Waggle
           def solr_params
             {
               q: query.q,
-              fl: "*",
+              fl: "score *",
               fq: filters,
             }
           end
@@ -57,7 +57,7 @@ module Waggle
           end
 
           def format_filter(field, value)
-            "+#{field}:#{value}"
+            "+#{field}:\"#{value}\""
           end
 
           def connection
