@@ -26,7 +26,7 @@ module Waggle
           configuration.sorts.each do |sort|
             sort_value = sort(sort.name)
             if sort_value.present?
-              hash["#{sort.name}_sort".to_sym] = sort_value
+              hash["#{sort.field_name}_sort".to_sym] = sort_value
             end
           end
         end

@@ -45,7 +45,16 @@ module Waggle
               q: query.q,
               fl: "score *",
               fq: filters,
+              sort: sort,
             }
+          end
+
+          def sort
+            if sort_field
+              "#{sort_field.field_name}_sort #{sort_field.direction}"
+            else
+              "score asc"
+            end
           end
 
           def filters
