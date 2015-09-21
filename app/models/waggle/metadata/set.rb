@@ -9,7 +9,7 @@ module Waggle
         @configuration = configuration
       end
 
-      def as_solr
+      def as_solr # rubocop:disable Metrics/AbcSize
         {}.tap do |hash|
           configuration.fields.each do |field|
             field_value = value(field.name)

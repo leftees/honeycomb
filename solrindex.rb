@@ -8,4 +8,5 @@ solr.add(i.as_solr)
 solr.commit
 search = Waggle.search(q: "horse")
 result = search.send(:adapter_result)
-result
+response = result.result
+response
