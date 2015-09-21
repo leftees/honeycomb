@@ -62,11 +62,20 @@ module Waggle
             query.filters.each do |key, value|
               filters.push(format_filter("#{key}_s", value))
             end
-            filters.join(" ")
+            configuration.facets.each do |facet|
+              if value = query.facet(facet.name)
+                filters.push(format_filter("#{facet.name}_facet", value, true))
+              end
+            end
+            filters
           end
 
-          def format_filter(field, value)
-            "+#{field}:\"#{value}\""
+          def format_filter(field, value, tag = false)
+            filter = "#{field}:\"#{value}\""
+            if tag
+              filter = "{!tag=#{field}}#{filter}"
+            end
+            filter
           end
 
           def connection
