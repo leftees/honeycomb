@@ -17,8 +17,9 @@ GIT
     hesburgh_infrastructure (0.2.5)
       rails
 
-PATH
-  remote: ../honeycomb_solr
+GIT
+  remote: git://github.com/ndlib/honeycomb_solr.git
+  revision: 8314f30fee5e6776e957ffa1955ef3540e9ef01b
   specs:
     honeycomb_solr (0.1.0)
       jettywrapper (~> 2.0.3)
