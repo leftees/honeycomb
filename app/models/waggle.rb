@@ -4,7 +4,7 @@ module Waggle
   end
 
   def self.adapter
-    self::Adapters::Sunspot
+    self::Adapters::Solr
   end
 
   def self.index(*objects)
