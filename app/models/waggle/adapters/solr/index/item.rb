@@ -58,7 +58,7 @@ module Waggle
           end
 
           def text_as_solr(value)
-            Waggle::Adapters::Solr::Types::Text.value(value)
+            Waggle::Adapters::Solr::Types::Text.as_solr(value)
           end
 
           def string_field_name(name)
@@ -66,7 +66,7 @@ module Waggle
           end
 
           def string_as_solr(value)
-            Waggle::Adapters::Solr::Types::String.value(value)
+            Waggle::Adapters::Solr::Types::String.as_solr(value)
           end
 
           def datetime_field_name(name)
@@ -74,7 +74,7 @@ module Waggle
           end
 
           def datetime_as_solr(value)
-            Waggle::Adapters::Solr::Types::DateTime.value(value)
+            Waggle::Adapters::Solr::Types::DateTime.as_solr(value)
           end
         end
       end

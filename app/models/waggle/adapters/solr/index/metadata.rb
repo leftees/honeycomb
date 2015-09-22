@@ -60,7 +60,7 @@ module Waggle
           end
 
           def text_as_solr(value)
-            Waggle::Adapters::Solr::Types::Text.value(value)
+            Waggle::Adapters::Solr::Types::Text.as_solr(value)
           end
 
           def facet_field_name(name)
@@ -68,7 +68,7 @@ module Waggle
           end
 
           def facet_as_solr(value)
-            Waggle::Adapters::Solr::Types::Facet.value(value)
+            Waggle::Adapters::Solr::Types::Facet.as_solr(value)
           end
 
           def sort_field_name(name)
@@ -76,7 +76,7 @@ module Waggle
           end
 
           def sort_as_solr(value)
-            Waggle::Adapters::Solr::Types::Sort.value(value)
+            Waggle::Adapters::Solr::Types::Sort.as_solr(value)
           end
         end
       end

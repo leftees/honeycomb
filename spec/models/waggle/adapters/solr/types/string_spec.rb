@@ -6,17 +6,23 @@ RSpec.describe Waggle::Adapters::Solr::Types::String do
     end
   end
 
-  describe "value" do
+  describe "as_solr" do
     it "returns the value" do
-      expect(subject.value("Cat")).to eq("Cat")
+      expect(subject.as_solr("Cat")).to eq("Cat")
     end
 
     it "converts an array to a single value" do
-      expect(subject.value(["Cat", "Dog"])).to eq("Cat Dog")
+      expect(subject.as_solr(["Cat", "Dog"])).to eq("Cat Dog")
     end
 
     it "converts a value to a string" do
-      expect(subject.value(123)).to eq("123")
+      expect(subject.as_solr(123)).to eq("123")
+    end
+  end
+
+  describe "from_solr" do
+    it "is the value" do
+      expect(subject.from_solr("Rabbit")).to eq("Rabbit")
     end
   end
 end

@@ -12,7 +12,11 @@ module Waggle
               "#{name}_#{self::SUFFIX}".to_sym
             end
 
-            def value(value)
+            def as_solr(value)
+              value
+            end
+
+            def from_solr(value)
               value
             end
           end

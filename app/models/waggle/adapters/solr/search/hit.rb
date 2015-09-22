@@ -15,34 +15,49 @@ module Waggle
           end
 
           def name
-            fetch(:name_t)
+            fetch_text(:name)
           end
 
           def at_id
-            fetch(:at_id_s)
+            fetch_string(:at_id)
           end
 
           def unique_id
-            fetch(:unique_id_s)
+            fetch_string(:unique_id)
           end
 
           def collection_id
-            fetch(:collection_id_s)
+            fetch_string(:collection_id)
           end
 
           def type
-            fetch(:type_s)
+            fetch_string(:type)
           end
 
           def thumbnail_url
-            fetch(:thumbnail_url_s)
+            fetch_string(:thumbnail_url)
           end
 
           def last_updated
-            fetch(:last_updated_dt)
+            fetch_datetime(:last_updated)
           end
 
           private
+
+          def fetch_text(field)
+            fetch(Waggle::Adapters::Solr::Types::Text.field_name(field))
+          end
+
+          def fetch_string(field)
+            fetch(Waggle::Adapters::Solr::Types::String.field_name(field))
+          end
+
+          def fetch_datetime(field)
+            value = fetch(Waggle::Adapters::Solr::Types::DateTime.field_name(field))
+            if value.present?
+              Waggle::Adapters::Solr::Types::DateTime.from_solr(value)
+            end
+          end
 
           def fetch(field)
             value = solr_doc.fetch(field.to_s, nil)
@@ -51,10 +66,6 @@ module Waggle
             else
               value
             end
-          end
-
-          def fetch_raw(base_field)
-            solr_doc.fetch("#{base_field}_t", nil) || solr_doc.fetch("#{base_field}_s", nil) || solr_doc.fetch("#{base_field}_dt", nil)
           end
         end
       end

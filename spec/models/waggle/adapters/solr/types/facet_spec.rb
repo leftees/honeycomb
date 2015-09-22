@@ -6,13 +6,19 @@ RSpec.describe Waggle::Adapters::Solr::Types::Facet do
     end
   end
 
-  describe "value" do
+  describe "as_solr" do
     it "returns the value" do
-      expect(subject.value("Cat")).to eq("Cat")
+      expect(subject.as_solr("Cat")).to eq("Cat")
     end
 
     it "can be multivalued" do
-      expect(subject.value(["Cat", "Dog"])).to eq(["Cat", "Dog"])
+      expect(subject.as_solr(["Cat", "Dog"])).to eq(["Cat", "Dog"])
+    end
+  end
+
+  describe "from_solr" do
+    it "is the value" do
+      expect(subject.from_solr("Rabbit")).to eq("Rabbit")
     end
   end
 end

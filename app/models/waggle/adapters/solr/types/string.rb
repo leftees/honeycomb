@@ -6,7 +6,7 @@ module Waggle
           SUFFIX = :s
           include parent::Base
 
-          def self.value(value)
+          def self.as_solr(value)
             if value.is_a?(Array)
               value.join(" ")
             else
