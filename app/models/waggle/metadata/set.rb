@@ -9,29 +9,6 @@ module Waggle
         @configuration = configuration
       end
 
-      def as_solr # rubocop:disable Metrics/AbcSize
-        {}.tap do |hash|
-          configuration.fields.each do |field|
-            field_value = value(field.name)
-            if field_value.present?
-              hash["#{field.name}_t".to_sym] = field_value
-            end
-          end
-          configuration.facets.each do |facet|
-            facet_value = facet(facet.name)
-            if facet_value.present?
-              hash["#{facet.name}_facet".to_sym] = facet_value
-            end
-          end
-          configuration.sorts.each do |sort|
-            sort_value = sort(sort.name)
-            if sort_value.present?
-              hash["#{sort.field_name}_sort".to_sym] = sort_value
-            end
-          end
-        end
-      end
-
       def value(field_name)
         if field(field_name)
           field(field_name).values.map(&:value)
