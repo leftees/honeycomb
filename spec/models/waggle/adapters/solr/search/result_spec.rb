@@ -59,7 +59,8 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
   end
 
   describe "solr_params" do
-    subject { instance.send(:solr_params) }
+    let(:solr_params) { instance.send(:solr_params) }
+    subject { solr_params }
 
     it "returns the expected params" do
       expect(subject).to eq(
@@ -73,6 +74,69 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
           "{!ex=language_facet}language_facet"
         ]
       )
+    end
+
+    describe "q" do
+      subject { solr_params.fetch(:q) }
+
+      it "is the q value from the query" do
+        expect(subject).to eq(query.q)
+      end
+    end
+
+    describe "fl" do
+      subject { solr_params.fetch(:fl) }
+
+      it "is the score along with all stored fields" do
+        expect(subject).to eq("score *")
+      end
+    end
+
+    describe "facet" do
+      subject { solr_params.fetch(:facet) }
+
+      it "is true" do
+        expect(subject).to eq(true)
+      end
+    end
+
+    describe "facet.fields" do
+      subject { solr_params.fetch(:"facet.field") }
+
+      it "is the configured facet fields, excluding their relevant filter" do
+        expect(subject).to eq([
+          "{!ex=creator_facet}creator_facet",
+          "{!ex=language_facet}language_facet"
+        ])
+      end
+    end
+
+    describe "sort" do
+      subject { solr_params.fetch(:sort) }
+
+      it "defaults to the score" do
+        expect(subject).to eq("score asc")
+      end
+
+      it "can be set to another configured sort" do
+        allow(query).to receive(:sort).and_return("name")
+        expect(subject).to eq("name_sort asc")
+      end
+    end
+
+    describe "fq" do
+      subject { solr_params.fetch(:fq) }
+
+      it "sets fq values for filters" do
+        expect(query).to receive(:filters).and_return(collection_id: "animals")
+        expect(subject).to eq(["collection_id_s:\"animals\""])
+      end
+
+      it "sets fq values for selected facets and tags the filter" do
+        allow(query).to receive(:facet)
+        expect(query).to receive(:facet).with(:creator).and_return("Steve")
+        expect(subject).to eq(["{!tag=creator_facet}creator_facet:\"Steve\""])
+      end
     end
   end
 end
