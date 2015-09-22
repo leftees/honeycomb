@@ -4,7 +4,7 @@ reload!
 session = Waggle.adapter.session
 i = Waggle::Item.from_item(Item.first)
 session.index!(i)
-search = Waggle.search(q: "horse")
+search = Waggle.search(q: "flower")
 result = search.send(:adapter_result)
 response = result.result
 response
