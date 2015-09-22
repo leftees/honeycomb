@@ -16,10 +16,6 @@ module Waggle
       data.fetch("id")
     end
 
-    def index_id
-      "#{id} #{TYPE}"
-    end
-
     def unique_id
       id
     end
@@ -48,20 +44,6 @@ module Waggle
 
     def metadata
       @metadata ||= Waggle::Metadata::Set.new(data.fetch("metadata"), metadata_configuration)
-    end
-
-    def as_solr
-      hash = metadata.as_solr.merge(
-        id: index_id,
-        at_id_s: at_id,
-        unique_id_s: unique_id,
-        collection_id_s: collection_id,
-        type_s: type,
-        thumbnail_url_s: thumbnail_url,
-        last_updated_dt: last_updated
-      )
-      hash[:title_t] = hash.fetch(:name_t)
-      hash
     end
 
     def method_missing(method_name, *args, &block)

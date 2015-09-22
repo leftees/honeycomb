@@ -13,7 +13,7 @@ module Waggle
         end
 
         def index(*objects)
-          connection.add(*objects.map(&:as_solr))
+          connection.add(*solr_objects(objects).map(&:as_solr))
         end
 
         def index!(*objects)
@@ -26,7 +26,7 @@ module Waggle
         end
 
         def remove(*objects)
-          connection.delete_by_id(*objects.map(&:index_id))
+          connection.delete_by_id(*solr_objects(objects).map(&:id))
         end
 
         def remove!(*objects)
@@ -35,6 +35,10 @@ module Waggle
         end
 
         private
+
+        def solr_objects(objects)
+          objects.map { |waggle_item| Waggle::Adapters::Solr::Index::Item.new(waggle_item: waggle_item) }
+        end
 
         def load_configuration
           YAML.load_file(File.join(Rails.root, "config", "solr.yml")).fetch(Rails.env)

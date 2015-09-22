@@ -9,6 +9,73 @@ module Waggle
           def initialize(waggle_item:)
             @waggle_item = waggle_item
           end
+
+          def id
+            "#{waggle_item.id} #{waggle_item.type}"
+          end
+
+          def metadata
+            @metadata ||= Waggle::Adapters::Solr::Index::Metadata.new(metadata_set: waggle_item.metadata)
+          end
+
+          def as_solr
+            @as_solr ||= metadata.as_solr.clone.tap do |hash|
+              hash[:id] = id
+              hash[text_field_name(:title)] = hash.fetch(text_field_name(:name))
+              hash.merge!(string_fields)
+              hash.merge!(datetime_fields)
+            end
+          end
+
+          private
+
+          def string_fields
+            {}.tap do |hash|
+              [
+                :at_id,
+                :unique_id,
+                :collection_id,
+                :type,
+                :thumbnail_url
+              ].each do |field|
+                hash[string_field_name(field)] = string_as_solr(waggle_item.send(field))
+              end
+            end
+          end
+
+          def datetime_fields
+            {}.tap do |hash|
+              [
+                :last_updated
+              ].each do |field|
+                hash[datetime_field_name(field)] = datetime_as_solr(waggle_item.send(field))
+              end
+            end
+          end
+
+          def text_field_name(name)
+            Waggle::Adapters::Solr::Types::Text.field_name(name)
+          end
+
+          def text_as_solr(value)
+            Waggle::Adapters::Solr::Types::Text.value(value)
+          end
+
+          def string_field_name(name)
+            Waggle::Adapters::Solr::Types::String.field_name(name)
+          end
+
+          def string_as_solr(value)
+            Waggle::Adapters::Solr::Types::String.value(value)
+          end
+
+          def datetime_field_name(name)
+            Waggle::Adapters::Solr::Types::DateTime.field_name(name)
+          end
+
+          def datetime_as_solr(value)
+            Waggle::Adapters::Solr::Types::DateTime.value(value)
+          end
         end
       end
     end
