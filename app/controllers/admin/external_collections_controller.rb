@@ -6,6 +6,7 @@ module Admin
 
     def new
       check_admin_or_admin_masquerading_permission!
+      @form_action = admin_external_collections_path
       @external_collection = Exhibition.new
     end
 
@@ -17,6 +18,7 @@ module Admin
 
     def edit
       exhibit = Exhibit.find(params[:id])
+      @form_action = admin_external_collection_path(exhibit)
       @external_collection = Exhibition.new(exhibit: exhibit)
       @honeypot_image = exhibit.honeypot_image[:json_response]["thumbnail/small"]["contentUrl"]
     end

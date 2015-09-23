@@ -30,7 +30,7 @@ class ExternalCollectionDataTable
 
     @table = @tableElement.DataTable(
       language:
-        emptyTable: "There are no external collections  <br> Please click the add button to add a new external collection."
+        emptyTable: "There are no external collections<br/><br/>Please click the add button to add a new external collection."
       dom: "ftlpi",
       lengthChange: false
       deferRender: true
