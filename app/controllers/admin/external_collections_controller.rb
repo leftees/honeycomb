@@ -27,6 +27,12 @@ module Admin
       redirect_to action: "index"
     end
 
+    def destroy
+      exhibition = Exhibition.new(exhibit: Exhibit.find(params[:id]))
+      Destroy::Collection.new.cascade!(collection: exhibition.collection)
+      redirect_to action: "index"
+    end
+
     private
 
     def build_collection

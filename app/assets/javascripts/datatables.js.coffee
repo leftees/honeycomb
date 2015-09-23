@@ -10,9 +10,11 @@ ItemDataTablesIndexes =
   originalFilename: 8
 
 ExternalCollectionDataTablesIndexes =
-  name: 0
-  url: 1
-  description: 2
+  image: 0
+  name: 1
+  url: 2
+  description: 3
+  delete: 4
 
 class ExternalCollectionDataTable
   constructor: (@tableElement) ->
@@ -37,6 +39,10 @@ class ExternalCollectionDataTable
       order: [[ ExternalCollectionDataTablesIndexes['name'], "asc" ]]
       infoCallback: infoCallback
       columnDefs: [
+        targets: ExternalCollectionDataTablesIndexes['image']
+        sortable: false
+        searchable: false
+      ,
         targets: ExternalCollectionDataTablesIndexes['name']
         sortable: true
         searchable: true
@@ -48,7 +54,10 @@ class ExternalCollectionDataTable
         targets: ExternalCollectionDataTablesIndexes['description']
         sortable: true
         searchable: true
-        visible: true
+      ,
+        targets: ExternalCollectionDataTablesIndexes['delete']
+        sortable: false
+        searchable: false
       ]
     )
 
