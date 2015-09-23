@@ -209,11 +209,11 @@ var ItemMetaDataForm = React.createClass({
   },
 
   changeAddField: function(event, selectedIndex, menuItem) {
-    if (!menuItem.payload.field) {
+    if (!menuItem.payload) {
       return;
     }
 
-    this.state.displayedFields[menuItem.payload.field] = true;
+    this.state.displayedFields[menuItem.payload] = true;
     this.setState({
       displayedFields: this.state.displayedFields,
     });
@@ -238,7 +238,9 @@ var ItemMetaDataForm = React.createClass({
 
               <ItemMetaDataSelectAdditionalFields
                 displayedFields={this.state.displayedFields}
-                selectableFields={this.state.optionalFormFields} />
+                selectableFields={this.state.optionalFormFields}
+                onChangeHandler={this.changeAddField} />
+
           </PanelBody>
           <PanelFooter>
             <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />

@@ -10,6 +10,7 @@ var ItemMetaDataSelectAdditionalFields = React.createClass({
   propTypes: {
     displayedFields: React.PropTypes.any,
     selectableFields: React.PropTypes.any,
+    onChangeHandler: React.PropTypes.func.isRequired,
   },
 
   getDefaultProps: function() {
@@ -52,13 +53,14 @@ var ItemMetaDataSelectAdditionalFields = React.createClass({
       borderTop: "solid 2px rgb(44, 88, 130)",
     };
     var options = this.addFieldsSelectOptions();
+    
     var dropdown_menu = (
       <DropDownMenu
         menuItems={options}
         iconStyle={dropDownIconStyle}
         underlineStyle={underlineStyle}
         selectedIndex={this.props.menuIndex}
-        onChange={this.changeAddField} />
+        onChange={this.props.onChangeHandler} />
     );
 
     if (options.length > 1) {
