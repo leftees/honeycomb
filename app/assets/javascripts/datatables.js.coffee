@@ -19,7 +19,9 @@ class ExternalCollectionDataTable
     @filterDescriptions = []
     if @tableElement.length > 0
       @setupTable()
-    setupTable: ->
+      @setupFilters()
+
+  setupTable: ->
     object = @
     infoCallback = (settings, start, end, max, total, pre) ->
       object.infoCallback(settings, start, end, max, total, pre)
@@ -70,7 +72,7 @@ class ExternalCollectionDataTable
     text
 
   numberWithCommas: (x) ->
-    x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")    @setupFilters()
+    x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
 class ItemDataTable
   constructor: (@tableElement) ->

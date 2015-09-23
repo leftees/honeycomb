@@ -57,6 +57,7 @@ UploadFileField = require("./components/forms/UploadFileField");
 MultipleField = require("./components/forms/MultipleField");
 MultipleFieldDisplayValue = require("./components/forms/MultipleFieldDisplayValue");
 DropzoneForm = require("./components/forms/DropzoneForm");
+ButtonRaised = require("./components/forms/ButtonRaised");
 
 // panel
 Panel = require("./components/panel/Panel");

@@ -37,7 +37,7 @@ var UploadFileField = React.createClass({
 
   render: function () {
     return (
-      <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
+      <FormRow id={this.formId()} type="file" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
         <input name={this.formName()} type="file" className={this.requiredClass()} id={this.formId()} />
       </FormRow>
     );

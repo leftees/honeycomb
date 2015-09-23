@@ -94,10 +94,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/", to: "administration#index"
-    scope "/external-collections", as: "external_collections" do
-      get "/", to: "external_collections#index"
-      get "/new", to: "external_collections#new"
-    end
+    resources :external_collections
     resources :administrators, only: [:index, :create, :destroy] do
       collection do
         get :user_search

@@ -52,6 +52,7 @@ class Exhibition
   def initialize(exhibit: self.exhibit)
     @exhibit = exhibit
     @collection = collection
+    collection.exhibit = @exhibit
   end
 
   def external?
@@ -67,9 +68,10 @@ class Exhibition
 
   def save!
     ActiveRecord::Base.transaction do
-      SaveCollection.call(collection, collection.attributes)
       exhibit.collection = collection
-      SaveExhibit.call(exhibit, exhibit.attributes)
+      exhibit_attrs = exhibit.as_json.merge(uploaded_image: exhibit.uploaded_image)
+      SaveExhibit.call(exhibit, exhibit_attrs)
+      SaveCollection.call(collection, collection.as_json)
     end
   end
 

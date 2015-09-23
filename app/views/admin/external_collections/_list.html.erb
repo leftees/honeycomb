@@ -1,10 +1,21 @@
+<h3 style="display: inline-block; float: left;">External Collections</h3>
+<%= react_component "ButtonRaised", {
+  buttonLabel: "Add External Collection",
+  buttonLink: true,
+  buttonUrl: new_admin_external_collection_path(),
+  primaryFlag: true,
+},
+{prerender: false }
+%>
+<br/><br/><br/>
 <table class="table table-striped datatable" id="external_collections_table">
   <thead>
     <tr>
-      <th></th>
-      <th>External Collection</th>
+      <th>Cover Image</th>
+      <th>Name</th>
       <th>URL</th>
       <th>Description</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -12,17 +23,20 @@
       <tr>
         <td>
           <% if collection.honeypot_image %>
-            <%= HoneypotThumbnail.display(collection.honeypot_image) %>
+            <a href="<%= raw collection.url %>"><%= HoneypotThumbnail.display(collection.honeypot_image) %></a>
           <% end %>
         </td>
         <td>
-          <%= raw collection.name %>
+          <a href="<%= edit_admin_external_collection_path(collection.exhibit) %>"><%= raw collection.name %></a>
         </td>
         <td>
-          <%= raw collection.url %>
+          <a href="<%= raw collection.url %>"><%= raw collection.url %></a>
         </td>
         <td>
           <%= raw collection.description %>
+        </td>
+        <td>
+          <span class="glyphicon glyphicon-trash"></span>
         </td>
       </tr>
     <% end %>
