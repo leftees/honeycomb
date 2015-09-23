@@ -11,6 +11,7 @@ var HtmlField = require('./HtmlField');
 var TextField = require('./TextField');
 var MultipleField = require('./MultipleField');
 var MetadataConfigurationStore = require('../../stores/MetadataConfigurationStore');
+var ItemMetaDataSelectAdditionalFields = require('./ItemMetaDataSelectAdditionalFields');
 
 var fieldTypeMap = {
   string: StringField,
@@ -55,6 +56,8 @@ var ItemMetaDataForm = React.createClass({
 
   getInitialState: function() {
     return {
+      optionalFormFields: null,
+      defaultFormFields: null,
       formValues: this.props.data,
       formState: "new",
       dataState: "clean",
@@ -78,7 +81,8 @@ var ItemMetaDataForm = React.createClass({
   },
 
   componentWillMount: function () {
-
+    MetadataConfigurationStore.getOptionalFields(this.setOptionalFields);
+    MetadataConfigurationStore.getDefaultFields(this.setDefaultFields);
   },
 
   handleSave: function(event) {
@@ -181,26 +185,21 @@ var ItemMetaDataForm = React.createClass({
   },
 
   additionalFields: function() {
-    var dropDownIconStyle = {
-      right: this.muiTheme.spacing.desktopGutterLess,
-    };
-    var dropDownStyle = {
-      display: this.state.dropDown,
-    }
-    var underlineStyle = {
-      borderTop: "solid 2px rgb(44, 88, 130)",
-    };
-    var total_field_count = this.allAdditionalFields().length;
-    var displayed_field_count = 0;
-    var map_function = function(fieldConfig, field) {
+    var map_function = function(fieldConfig, index) {
+      var field = fieldConfig.name;
       if (this.state.displayedFields[field]) {
         displayed_field_count = ++displayed_field_count;
         var FieldComponent = fieldTypeMap[fieldConfig.type];
+        if (fieldConfig.multiple) {
+          FieldComponent = MultipleField;
+        }
+
         return (
           <FieldComponent
             key={field}
             objectType={this.props.objectType}
-            name={field} title={fieldConfig.title}
+            name={field}
+            title={fieldConfig.label}
             value={this.state.formValues[field]}
             handleFieldChange={this.handleFieldChange}
             errorMsg={this.fieldError(field)}
@@ -211,46 +210,13 @@ var ItemMetaDataForm = React.createClass({
       return "";
     };
     map_function = _.bind(map_function, this);
-    var additional_fields = _.map(this.props.additionalFieldConfiguration, map_function);
-    var dropdown_menu = (
-      <DropDownMenu
-        style={dropDownStyle}
-        menuItems={this.addFieldsSelectOptions()}
-        iconStyle={dropDownIconStyle}
-        underlineStyle={underlineStyle}
-        selectedIndex={this.props.menuIndex}
-        onChange={this.changeAddField} />
-    );
+    var additional_fields = _.map(this.state.optionalFormFields, map_function);
 
     if (displayed_field_count == total_field_count) {
       return additional_fields;
     } else {
       return additional_fields.concat(dropdown_menu);
     }
-  },
-
-  allAdditionalFields: function() {
-    var map_function = function (data, field) {
-      var h = {};
-      h.payload = {field};
-      return (h);
-    };
-    map_function = _.bind(map_function, this);
-    return _.map(this.props.additionalFieldConfiguration, map_function);
-  },
-
-  addFieldsSelectOptions: function () {
-    var map_function = function (data, field) {
-      if (!this.state.displayedFields[field]) {
-        var h = {};
-        h.payload = {field};
-        h.text = this.props.additionalFieldConfiguration[field].title;
-        return (h);
-      }
-    };
-    map_function = _.bind(map_function, this);
-
-    return [{ payload: '', text: 'Add a New Field'}].concat(_.reject(_.map(this.props.additionalFieldConfiguration, map_function), function(val){ return _.isUndefined(val)}));
   },
 
   changeAddField: function(event, selectedIndex, menuItem) {
@@ -264,9 +230,16 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
+  setOptionalFields: function(optionalFields) {
+    this.setState({ optionalFormFields: optionalFields });
+  },
+
+  setDefaultFields: function(defaultFields) {
+    this.setState({ defaultFormFields: defaultFields });
+  },
+
   render: function () {
-    console.log(MetadataConfigurationStore.getOptionalFields());
-    
+    console.log(this.state);
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
         <Panel>
@@ -280,8 +253,9 @@ var ItemMetaDataForm = React.createClass({
 
               <HtmlField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues.transcription} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('transcription')}  />
 
-              {this.additionalFields()}
-
+              <ItemMetaDataSelectAdditionalFields
+                displayedFields={this.state.displayedFields}
+                selectableFields={this.state.optionalFormFields} />
           </PanelBody>
           <PanelFooter>
             <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
