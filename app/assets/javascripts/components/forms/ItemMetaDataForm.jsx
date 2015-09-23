@@ -30,6 +30,7 @@ var ItemMetaDataForm = React.createClass({
     url: React.PropTypes.string.isRequired,
     objectType: React.PropTypes.string,
     menuIndex: React.PropTypes.number,
+    defaultFields: React.PropTypes.array,
   },
 
   getDefaultProps: function() {
@@ -37,20 +38,7 @@ var ItemMetaDataForm = React.createClass({
       method: "post",
       objectType: "item",
       menuIndex: 0,
-      additionalFieldConfiguration: {
-        "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"', "type": "multiple", "help": ""},
-        "contributor": {"title": "Contributor", "placeholder": '', "type": "multiple", "help": ""},
-        "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as.", "type": "multiple", "help": ""},
-        "rights": {"title": "Rights", "placeholder": 'Example "Copyright held by Hesburgh Libraries"', "type": "string", "help": ""},
-        "provenance": {"title": "Provenance", "placeholder": 'Example: "Received as a gift from John Doe"', "type": "string", "help": ""},
-        "call_number": {"title": "Call Number", "placeholder": '', "type": "string", "help": ""},
-        "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"', "type": "multiple", "help": ""},
-        "subject": {"title": "Subject Keywords", "placeholder": '', "type": "string", "help": ""},
-        "original_language": {"title": "Original Language", "placeholder": 'Example: "French"', "type": "string", "help": ""},
-        "date_published": {"title": "Date Published", "placeholder": '', "type": "date", "help": ""},
-        "date_modified": {"title": "Date Modified", "placeholder": '', "type": "date", "help": ""},
-        "manuscript_url": {"title": "Digitized Manuscript URL", "placeholder": 'http://', "type": "string", "help": "Link to externally hosted manuscript viewer." },
-      }
+      defaultFields: [ "name", "description", "creator" ],
     };
   },
 
@@ -184,39 +172,40 @@ var ItemMetaDataForm = React.createClass({
     return [];
   },
 
-  additionalFields: function() {
-    var map_function = function(fieldConfig, index) {
+  fieldDisplayed: function(field) {
+    return (this.state.displayedFields[field] || this.props.defaultFields.indexOf(field) !== -1)
+  },
+
+  formFields: function() {
+    var map_function = function(fieldConfig) {
       var field = fieldConfig.name;
-      if (this.state.displayedFields[field]) {
-        displayed_field_count = ++displayed_field_count;
-        var FieldComponent = fieldTypeMap[fieldConfig.type];
-        if (fieldConfig.multiple) {
-          FieldComponent = MultipleField;
-        }
-
-        return (
-          <FieldComponent
-            key={field}
-            objectType={this.props.objectType}
-            name={field}
-            title={fieldConfig.label}
-            value={this.state.formValues[field]}
-            handleFieldChange={this.handleFieldChange}
-            errorMsg={this.fieldError(field)}
-            placeholder={fieldConfig.placeholder}
-            help={fieldConfig.help} />
-        );
+      if (!this.fieldDisplayed(field)) {
+        return "";
       }
-      return "";
-    };
-    map_function = _.bind(map_function, this);
-    var additional_fields = _.map(this.state.optionalFormFields, map_function);
+      var FieldComponent = fieldTypeMap[fieldConfig.type];
+      if (fieldConfig.multiple) {
+        FieldComponent = MultipleField;
+      }
 
-    if (displayed_field_count == total_field_count) {
-      return additional_fields;
-    } else {
-      return additional_fields.concat(dropdown_menu);
-    }
+      return (
+        <FieldComponent
+          key={field}
+          objectType={this.props.objectType}
+          name={field}
+          title={fieldConfig.label}
+          value={this.state.formValues[field]}
+          handleFieldChange={this.handleFieldChange}
+          errorMsg={this.fieldError(field)}
+          placeholder={fieldConfig.placeholder}
+          required={fieldConfig.required}
+          help={fieldConfig.help} />
+      );
+    };
+
+    map_function = _.bind(map_function, this);
+    var defaultFields = _.map(this.state.defaultFormFields, map_function);
+    var optionalFields = _.map(this.state.optionalFormFields, map_function);
+    return defaultFields.concat(optionalFields);
   },
 
   changeAddField: function(event, selectedIndex, menuItem) {
@@ -239,19 +228,13 @@ var ItemMetaDataForm = React.createClass({
   },
 
   render: function () {
-    console.log(this.state);
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
         <Panel>
           <PanelHeading>{this.state.formValues.name} Meta Data</PanelHeading>
           <PanelBody>
-              <StringField objectType={this.props.objectType} name="name" required={true} title="Name" value={this.state.formValues.name} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('name')} />
 
-              <HtmlField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues.description} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('description')} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
-
-              <DateField objectType={this.props.objectType} name="date_created" title="Date Created" value={this.state.formValues.date_created} handleFieldChange={this.handleFieldChange} placeholder="" errorMsg={this.fieldError('date_created')} />
-
-              <HtmlField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues.transcription} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('transcription')}  />
+              { this.formFields() }
 
               <ItemMetaDataSelectAdditionalFields
                 displayedFields={this.state.displayedFields}
