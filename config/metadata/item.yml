@@ -20,13 +20,15 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 2
+  :placeholder: An additional name this work is known as.
 - :name: :creator
   :type: :string
   :label: Creator
   :multiple: true
   :default_form_field: false
   :optional_form_field: true
-  :order: 3
+  :order: 8
+  :placeholder: "Example: \"Leonardo da Vinci\""
 - :name: :contributor
   :type: :string
   :label: Contributor
@@ -40,6 +42,7 @@
   :default_form_field: true
   :optional_form_field: false
   :order: 5
+  :placeholder: "Example: \"Also known as \'La Giaconda\' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.\""
 - :name: :subject
   :type: :html
   :label: Subject
@@ -56,9 +59,9 @@
 - :name: :date_created
   :type: :date
   :label: Date Created
-  :default_form_field: false
-  :optional_form_field: true
-  :order: 8
+  :default_form_field: true
+  :optional_form_field: false
+  :order: 3
 - :name: :date_published
   :type: :date
   :label: Date Published
@@ -78,6 +81,7 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 11
+  :placeholder: "Example: \"French\""
 - :name: :rights
   :type: :string
   :label: Rights
@@ -85,6 +89,7 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 12
+  :placeholder: "Example \"Copyright held by Hesburgh Libraries\""
 - :name: :call_number
   :type: :string
   :label: Call Number
@@ -99,6 +104,7 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 14
+  :placeholder: "Example: \"Received as a gift from John Doe\""
 - :name: :publisher
   :type: :string
   :label: Publisher
@@ -106,9 +112,12 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 15
+  :placeholder: "Example: \"Ballantine Books\""
 - :name: :manuscript_url
   :type: :string
   :label: Digitized Manuscript
   :default_form_field: false
   :optional_form_field: true
   :order: 16
+  :placeholder: "http://"
+  :help: Link to externally hosted manuscript viewer.
