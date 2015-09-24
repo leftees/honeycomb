@@ -29,7 +29,7 @@ class MetadataConfigurationStore extends EventEmitter {
     if (!this._promise) {
       this._promise = axios.get(url)
         .catch(function (response) {
-          console.log("AJAX ERROR:");
+          EventEmitter.emit("MessageCenterDisplay", "error", "Server Error");
         });
     }
 
