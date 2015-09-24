@@ -21,6 +21,9 @@ module Index
 
     def self.notify_error(exception:, item:, action:)
       NotifyError.call(exception: exception, parameters: { item: item }, component: to_s, action: action)
+      if Rails.env.development?
+        raise exception
+      end
     end
     private_class_method :notify_error
   end

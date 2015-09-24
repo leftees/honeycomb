@@ -3,6 +3,13 @@ module Waggle
     module Solr
       module Search
         class Result
+          FIELD_BOOSTS = {
+            name: 10,
+            alternate_name: 5,
+            subject: 3,
+            creator: 2,
+          }
+
           attr_reader :query
 
           def initialize(query: query)
@@ -53,11 +60,30 @@ module Waggle
             {
               q: query.q,
               fl: "score *",
+              qf: solr_query_fields,
+              pf: solr_phrase_fields,
               fq: solr_filters,
               sort: solr_sort,
+              spellcheck: true,
               facet: true,
               :"facet.field" => facet_fields,
             }
+          end
+
+          def solr_query_fields
+            fields = []
+            FIELD_BOOSTS.each do |field_name, boost|
+              [:unstem_search, :t].each do |suffix|
+                fields << "#{field_name}_#{suffix}^#{boost}"
+              end
+            end
+            fields << "text"
+            fields << "text_unstem_search"
+            fields.join " "
+          end
+
+          def solr_phrase_fields
+            solr_query_fields
           end
 
           def facet_fields
@@ -71,7 +97,7 @@ module Waggle
             if sort_field
               "#{sort_field.field_name}_sort #{sort_field.direction}"
             else
-              "score asc"
+              "score desc"
             end
           end
 

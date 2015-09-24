@@ -63,11 +63,15 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
     subject { solr_params }
 
     it "returns the expected params" do
+      allow(instance).to receive(:solr_phrase_fields).and_return("phrase_fields")
+      allow(instance).to receive(:solr_query_fields).and_return("query_fields")
       expect(subject).to eq(
         q: "query",
         fl: "score *",
         fq: [],
-        sort: "score asc",
+        qf: "query_fields",
+        pf: "phrase_fields",
+        sort: "score desc",
         facet: true,
         :"facet.field" => [
           "{!ex=creator_facet}creator_facet",
@@ -115,7 +119,7 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
       subject { solr_params.fetch(:sort) }
 
       it "defaults to the score" do
-        expect(subject).to eq("score asc")
+        expect(subject).to eq("score desc")
       end
 
       it "can be set to another configured sort" do
@@ -136,6 +140,23 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
         allow(query).to receive(:facet)
         expect(query).to receive(:facet).with(:creator).and_return("Steve")
         expect(subject).to eq(["{!tag=creator_facet}creator_facet:\"Steve\""])
+      end
+    end
+
+    describe "qf" do
+      subject { solr_params.fetch(:qf) }
+      let(:fields) { subject.split(" ") }
+
+      it "includes the catch-all text search fields" do
+        expect(fields).to include("text")
+        expect(fields).to include("text_unstem_search")
+      end
+
+      Waggle::Adapters::Solr::Search::Result::FIELD_BOOSTS.each do |field_name, boost|
+        it "includes the #{field_name} field" do
+          expect(fields).to include("#{field_name}_t^#{boost}")
+          expect(fields).to include("#{field_name}_unstem_search^#{boost}")
+        end
       end
     end
   end
