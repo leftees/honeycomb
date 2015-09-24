@@ -69,7 +69,11 @@ class Exhibition
   def save!
     ActiveRecord::Base.transaction do
       exhibit.collection = collection
-      exhibit_attrs = exhibit.as_json.merge(uploaded_image: exhibit.uploaded_image)
+      if exhibit.uploaded_image.size
+        exhibit_attrs = exhibit.as_json.merge(uploaded_image: exhibit.uploaded_image)
+      else
+        exhibit_attrs = exhibit.as_json
+      end
       SaveExhibit.call(exhibit, exhibit_attrs)
       SaveCollection.call(collection, collection.as_json)
     end

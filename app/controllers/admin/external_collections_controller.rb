@@ -20,7 +20,7 @@ module Admin
       exhibit = Exhibit.find(params[:id])
       @form_action = admin_external_collection_path(exhibit)
       @external_collection = Exhibition.new(exhibit: exhibit)
-      @honeypot_image = exhibit.honeypot_image[:json_response]["thumbnail/small"]["contentUrl"]
+      @honeypot_image = exhibit.honeypot_image[:json_response]["thumbnail/small"]["contentUrl"] if exhibit.honeypot_image
     end
 
     def update
