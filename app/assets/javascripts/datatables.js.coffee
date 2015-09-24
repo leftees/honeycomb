@@ -30,7 +30,8 @@ class ExternalCollectionDataTable
 
     @table = @tableElement.DataTable(
       language:
-        emptyTable: "There are no external collections<br/><br/>Please click the add button to add a new external collection."
+        emptyTable: "There are no external collections<br/><br/> \
+          Please click the add button to add a new external collection."
       dom: "ftlpi",
       lengthChange: false
       deferRender: true
@@ -75,7 +76,8 @@ class ExternalCollectionDataTable
     if end == 0
       text = ""
     else
-      text = "Showing #{@numberWithCommas(start)} to #{@numberWithCommas(end)} of #{@numberWithCommas(total)} items"
+      text = "Showing #{@numberWithCommas(start)} to \
+        #{@numberWithCommas(end)} of #{@numberWithCommas(total)} items"
     if total < max
       text += " (filtered from #{@numberWithCommas(max)} total items)"
     text
@@ -180,7 +182,7 @@ jQuery ->
       new ItemDataTable(table)
 
   setupExternalCollectionDatatable = () ->
-    table = $("#external_collections_table")
+    table = $("#external-collections-table")
     if table.size() > 0
       new ExternalCollectionDataTable(table)
 

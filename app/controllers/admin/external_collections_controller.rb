@@ -37,6 +37,7 @@ module Admin
 
     private
 
+    # rubocop:disable Metrics/AbcSize
     def build_collection
       exhibition = Exhibition.new
       exhibition.name_line_1 = params[:external_collection]["name"]
@@ -46,7 +47,9 @@ module Admin
       exhibition.description = params[:external_collection]["description"]
       exhibition
     end
+    # rubocop:enable Metrics/AbcSize
 
+    # rubocop:disable Metrics/AbcSize
     def update_collection(exhibition)
       exhibition.name_line_1 = params[:external_collection]["name"]
       exhibition.url = params[:external_collection]["url"]
@@ -54,5 +57,6 @@ module Admin
       exhibition.description = params[:external_collection]["description"]
       exhibition
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

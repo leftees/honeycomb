@@ -66,6 +66,7 @@ class Exhibition
     @collection ||= get_collection
   end
 
+  # rubocop:disable Metrics/AbcSize
   def save!
     ActiveRecord::Base.transaction do
       exhibit.collection = collection
@@ -78,6 +79,7 @@ class Exhibition
       SaveCollection.call(collection, collection.as_json)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def exhibit
     @exhibit ||= Exhibit.new

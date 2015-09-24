@@ -2,7 +2,6 @@ class ProcessUploadedImage
   attr_reader :object, :upload_field, :image_field
 
   def self.call(*args)
-    puts "ProcessUploadedImage called"
     new(*args).process
   end
 

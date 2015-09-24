@@ -55,7 +55,7 @@ var ExternalCollectionForm = React.createClass({
   thumbnailImage: function () {
       if (this.props.honeypotImage) {
         return (
-          <div className="honeypot_image">
+          <div className="honeypot-image">
             <img src={this.props.honeypotImage} />
           </div>
         );
