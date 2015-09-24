@@ -79,7 +79,7 @@ module Metadata
     end
 
     def build_fields
-      data.fetch(:fields).map { |field_data| Metadata::Configuration::Field.new(**field_data) }
+      data.fetch(:fields).map { |field_data| self.class::Field.new(**field_data) }
     end
 
     def build_facets

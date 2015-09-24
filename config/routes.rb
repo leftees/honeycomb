@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       put :publish, defaults: { format: :json }
       put :unpublish, defaults: { format: :json }
       put :preview_mode, defaults: { format: :json }
+      get :metadata_configuration, defaults: { format: :json }
       resources :search, only: [:index], defaults: { format: :json }
       resources :items, only: [:index], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }

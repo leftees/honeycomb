@@ -31,19 +31,45 @@ var HtmlField = React.createClass({
   },
 
   componentDidMount: function() {
-    if (!this.redactor) {
-      this.redactor = jQuery("#" + this.formId()).redactor({
-        changeCallback: this.handleChange,
+    if (!this.element) {
+      this.element = jQuery(React.findDOMNode(this.refs.textarea));
+      this.element.redactor({
+        changeCallback: this.redactorChange,
+        blurCallback: this.redactorBlur,
       });
     }
   },
 
-  changeCallback: function () {
-
+  // Triggered when the HTML editor is changed
+  redactorChange: function() {
+    this.updateFieldValue(this.redactorValue());
   },
 
+  // Triggered when the HTML editor is blurred
+  redactorBlur: function(event) {
+    this.handleBlur(event);
+  },
+
+  // Triggered when the textarea (aka source) is changed.
+  //   We want to use the raw user input since the user is typing directly in
+  //   the textarea, and any changes to the value will disrupt that flow.
   handleChange: function(event) {
-    this.props.handleFieldChange(this.props.name, this.redactor.redactor('code.get'));
+    this.updateFieldValue(event.target.value);
+  },
+
+  // When either the textarea or HTML editor blur we want to get the HTML value
+  //   directly from redactor.  This will potentially avoid some problems with
+  //   bad markup.
+  handleBlur: function(event) {
+    this.updateFieldValue(this.redactorValue());
+  },
+
+  updateFieldValue: function(value) {
+    this.props.handleFieldChange(this.props.name, value);
+  },
+
+  redactorValue: function() {
+    return this.element.redactor('code.get');
   },
 
   formName: function() {
@@ -56,8 +82,24 @@ var HtmlField = React.createClass({
 
   render: function () {
     return (
-      <FormRow id={this.formId()} type="string" required={this.props.required} title={this.props.title} help={this.props.help} errorMsg={this.props.errorMsg} >
-        <textarea name={this.formName()} className={this.requiredClass()} id={this.formId()} onChange={this.handleChange} placeholder={this.props.placeholder} value={this.props.value} />
+      <FormRow
+        id={this.formId()}
+        type="string"
+        required={this.props.required}
+        title={this.props.title}
+        help={this.props.help}
+        errorMsg={this.props.errorMsg}
+      >
+        <textarea
+          ref="textarea"
+          name={this.formName()}
+          className={this.requiredClass()}
+          id={this.formId()}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}
+          placeholder={this.props.placeholder}
+          value={this.props.value}
+        />
       </FormRow>
     );
   }

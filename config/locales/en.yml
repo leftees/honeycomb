@@ -103,6 +103,9 @@ en:
     delete_panel:
       heading: Delete this Collection
       message: "Proceed with caution. This will also remove all items, exhibits, and showcases."
+  import:
+    import_google_sheet_callback:
+      title: "Import Results"
   items:
     index:
       title: "Items"
