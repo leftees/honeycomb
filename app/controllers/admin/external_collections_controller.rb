@@ -41,6 +41,7 @@ module Admin
       exhibition = Exhibition.new
       exhibition.name_line_1 = params[:external_collection]["name"]
       exhibition.url = params[:external_collection]["url"]
+      exhibition.published = true
       exhibition.uploaded_image = params[:external_collection]["uploaded_image"]
       exhibition.description = params[:external_collection]["description"]
       exhibition
