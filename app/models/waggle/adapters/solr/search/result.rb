@@ -64,7 +64,6 @@ module Waggle
               pf: solr_phrase_fields,
               fq: solr_filters,
               sort: solr_sort,
-              spellcheck: true,
               facet: true,
               :"facet.field" => facet_fields,
             }

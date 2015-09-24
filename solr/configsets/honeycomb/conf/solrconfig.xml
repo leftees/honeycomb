@@ -453,6 +453,10 @@
       <str name="name">default</str>
       <str name="field">spell</str>
       <str name="spellcheckIndexDir">./spell</str>
+      <!-- NOTE: Building on commit is very expensive and is discouraged for most production systems.
+      For large indexes, one commit may take minutes since the building of spellcheck dictionary is single threaded.
+      Use buildOnOptimize or explicit build instead. -->
+      <!-- <str name="buildOnCommit">true</str> -->
       <str name="buildOnOptimize">true</str>
     </lst>
     <lst name="spellchecker">
