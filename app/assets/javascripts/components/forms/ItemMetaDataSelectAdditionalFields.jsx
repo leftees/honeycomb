@@ -35,7 +35,7 @@ var ItemMetaDataSelectAdditionalFields = React.createClass({
   },
 
   fieldInForm: function (field) {
-    return this.props.displayedFields[field.name];
+    return this.props.displayedFields[field.name] || field.defaultFormField;
   },
 
   selectableFieldsLoaded: function() {
@@ -53,7 +53,7 @@ var ItemMetaDataSelectAdditionalFields = React.createClass({
       borderTop: "solid 2px rgb(44, 88, 130)",
     };
     var options = this.addFieldsSelectOptions();
-    
+
     var dropdown_menu = (
       <DropDownMenu
         menuItems={options}

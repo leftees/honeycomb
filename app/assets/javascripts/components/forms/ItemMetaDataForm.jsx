@@ -29,23 +29,18 @@ var ItemMetaDataForm = React.createClass({
     data: React.PropTypes.object.isRequired,
     url: React.PropTypes.string.isRequired,
     objectType: React.PropTypes.string,
-    menuIndex: React.PropTypes.number,
-    defaultFields: React.PropTypes.array,
   },
 
   getDefaultProps: function() {
     return {
       method: "post",
       objectType: "item",
-      menuIndex: 0,
-      defaultFields: [ "name", "description", "creator" ],
     };
   },
 
   getInitialState: function() {
     return {
-      optionalFormFields: null,
-      defaultFormFields: null,
+      formFields: null,
       formValues: this.props.data,
       formState: "new",
       dataState: "clean",
@@ -69,8 +64,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   componentWillMount: function () {
-    MetadataConfigurationStore.getOptionalFields(this.setOptionalFields);
-    MetadataConfigurationStore.getDefaultFields(this.setDefaultFields);
+    MetadataConfigurationStore.getAll(this.setFormFields);
   },
 
   handleSave: function(event) {
@@ -173,13 +167,13 @@ var ItemMetaDataForm = React.createClass({
   },
 
   fieldDisplayed: function(field) {
-    return (this.state.displayedFields[field] || this.props.defaultFields.indexOf(field) !== -1)
+    return (this.state.displayedFields[field.name] || field.defaultFormField)
   },
 
   formFields: function() {
     var map_function = function(fieldConfig) {
       var field = fieldConfig.name;
-      if (!this.fieldDisplayed(field)) {
+      if (!this.fieldDisplayed(fieldConfig)) {
         return "";
       }
       var FieldComponent = fieldTypeMap[fieldConfig.type];
@@ -203,9 +197,8 @@ var ItemMetaDataForm = React.createClass({
     };
 
     map_function = _.bind(map_function, this);
-    var defaultFields = _.map(this.state.defaultFormFields, map_function);
-    var optionalFields = _.map(this.state.optionalFormFields, map_function);
-    return defaultFields.concat(optionalFields);
+    console.log(this.state.formFields);
+    return _.map(this.state.formFields, map_function);
   },
 
   changeAddField: function(event, selectedIndex, menuItem) {
@@ -219,12 +212,10 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
-  setOptionalFields: function(optionalFields) {
-    this.setState({ optionalFormFields: optionalFields });
-  },
-
-  setDefaultFields: function(defaultFields) {
-    this.setState({ defaultFormFields: defaultFields });
+  setFormFields: function(configurationFields) {
+    this.setState({
+      formFields: _.sortBy(configurationFields, 'order'),
+    });
   },
 
   render: function () {
@@ -238,7 +229,7 @@ var ItemMetaDataForm = React.createClass({
 
               <ItemMetaDataSelectAdditionalFields
                 displayedFields={this.state.displayedFields}
-                selectableFields={this.state.optionalFormFields}
+                selectableFields={this.state.formFields}
                 onChangeHandler={this.changeAddField} />
 
           </PanelBody>

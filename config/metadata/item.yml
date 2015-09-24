@@ -4,7 +4,7 @@
   :label: Identifier
   :required: true
   :default_form_field: false
-  :optional_form_field: false
+  :optional_form_field: true
   :order: 100
 - :name: :name
   :type: :string
@@ -13,13 +13,26 @@
   :default_form_field: true
   :optional_form_field: false
   :order: 1
+- :name: :description
+  :type: :html
+  :label: Description
+  :default_form_field: true
+  :optional_form_field: false
+  :order: 2
+  :placeholder: "Example: \"Also known as \'La Giaconda\' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.\""
+- :name: :date_created
+  :type: :date
+  :label: Date Created
+  :default_form_field: true
+  :optional_form_field: false
+  :order: 3
 - :name: :alternate_name
   :type: :string
   :label: Alternate Name
   :multiple: true
   :default_form_field: false
   :optional_form_field: true
-  :order: 2
+  :order: 5
   :placeholder: An additional name this work is known as.
 - :name: :creator
   :type: :string
@@ -36,13 +49,6 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 4
-- :name: :description
-  :type: :html
-  :label: Description
-  :default_form_field: true
-  :optional_form_field: false
-  :order: 5
-  :placeholder: "Example: \"Also known as \'La Giaconda\' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.\""
 - :name: :subject
   :type: :html
   :label: Subject
@@ -56,12 +62,6 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 7
-- :name: :date_created
-  :type: :date
-  :label: Date Created
-  :default_form_field: true
-  :optional_form_field: false
-  :order: 3
 - :name: :date_published
   :type: :date
   :label: Date Published

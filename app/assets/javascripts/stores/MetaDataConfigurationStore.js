@@ -41,24 +41,6 @@ class MetadataConfigurationStore extends EventEmitter {
 
     return this._promise;
   }
-
-  getOptionalFields(successFunction) {
-    var callback = function(allConfigs) {
-      var optionalConfigs = _.reject(allConfigs, function (field) { return !field.optionalFormField });
-      successFunction(optionalConfigs);
-    }
-
-    return this.getAll(callback);
-  }
-
-  getDefaultFields(successFunction) {
-    var callback = function(allConfigs) {      
-      var defaultConfigs = _.reject(allConfigs, function (field) { return !field.defaultFormField });
-      successFunction(defaultConfigs);
-    }
-
-    return this.getAll(callback);
-  }
 }
 
 var metadataConfigurationStore = new MetadataConfigurationStore();
