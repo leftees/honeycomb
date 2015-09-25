@@ -108,7 +108,7 @@ RSpec.describe Exhibition do
 
   describe ".all" do
     it "returns all exhibition objects" do
-      Collection.new(name_line_1: "test").save!
+      Collection.new(name_line_1: "test", unique_id: "abc123").save!
       Exhibit.new(url: "http://test", collection: Collection.find(Collection.last.id)).save!
       Exhibit.new(url: "http://test2", collection: Collection.find(Collection.last.id)).save!
       Exhibit.new(collection: Collection.find(Collection.last.id)).save!

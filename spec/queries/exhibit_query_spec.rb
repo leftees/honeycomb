@@ -39,7 +39,7 @@ describe ExhibitQuery do
 
   describe "all_external" do
     it "returns all external exhibits" do
-      Collection.new(name_line_1: "test").save!
+      Collection.new(name_line_1: "test", unique_id: "abc123").save!
       Exhibit.new(url: "http://test", collection: Collection.find(Collection.last.id)).save!
       Exhibit.new(collection: Collection.find(Collection.last.id)).save!
       expect(subject.all_external).to have(1).item
