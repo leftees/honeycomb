@@ -1,4 +1,4 @@
-# coffeelint: disable=max_line_length
+# coffeelint: disable=no_stand_alone_at
 ItemDataTablesIndexes =
   checkbox: 0
   image: 1
@@ -181,7 +181,7 @@ jQuery ->
     if table.size() > 0
       new ItemDataTable(table)
 
-  setupExternalCollectionDatatable = () ->
+  setupExternalCollectionDatatable = ->
     table = $("#external-collections-table")
     if table.size() > 0
       new ExternalCollectionDataTable(table)
@@ -193,4 +193,5 @@ jQuery ->
 
   $(document).ready ->
     ready()
-# coffeelint: enable=max_line_length
+
+# coffeelint: enable=no_stand_alone_at
