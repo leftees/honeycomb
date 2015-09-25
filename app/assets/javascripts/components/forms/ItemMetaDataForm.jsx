@@ -10,6 +10,8 @@ var DateField = require('./DateField');
 var HtmlField = require('./HtmlField');
 var TextField = require('./TextField');
 var MultipleField = require('./MultipleField');
+var MetadataConfigurationStore = require('../../stores/MetadataConfigurationStore');
+var ItemMetaDataSelectAdditionalFields = require('./ItemMetaDataSelectAdditionalFields');
 
 var fieldTypeMap = {
   string: StringField,
@@ -27,33 +29,18 @@ var ItemMetaDataForm = React.createClass({
     data: React.PropTypes.object.isRequired,
     url: React.PropTypes.string.isRequired,
     objectType: React.PropTypes.string,
-    menuIndex: React.PropTypes.number,
   },
 
   getDefaultProps: function() {
     return {
       method: "post",
       objectType: "item",
-      menuIndex: 0,
-      additionalFieldConfiguration: {
-        "creator": {"title": "Creator", "placeholder": 'Example "Leonardo da Vinci"', "type": "multiple", "help": ""},
-        "contributor": {"title": "Contributor", "placeholder": '', "type": "multiple", "help": ""},
-        "alternate_name": {"title": "Alternate Name", "placeholder": "An additional name this work is known as.", "type": "multiple", "help": ""},
-        "rights": {"title": "Rights", "placeholder": 'Example "Copyright held by Hesburgh Libraries"', "type": "string", "help": ""},
-        "provenance": {"title": "Provenance", "placeholder": 'Example: "Received as a gift from John Doe"', "type": "string", "help": ""},
-        "call_number": {"title": "Call Number", "placeholder": '', "type": "string", "help": ""},
-        "publisher": {"title": "Publisher", "placeholder": 'Example "Ballantine Books"', "type": "multiple", "help": ""},
-        "subject": {"title": "Subject Keywords", "placeholder": '', "type": "string", "help": ""},
-        "original_language": {"title": "Original Language", "placeholder": 'Example: "French"', "type": "string", "help": ""},
-        "date_published": {"title": "Date Published", "placeholder": '', "type": "date", "help": ""},
-        "date_modified": {"title": "Date Modified", "placeholder": '', "type": "date", "help": ""},
-        "manuscript_url": {"title": "Digitized Manuscript URL", "placeholder": 'http://', "type": "string", "help": "Link to externally hosted manuscript viewer." },
-      }
     };
   },
 
   getInitialState: function() {
     return {
+      formFields: null,
       formValues: this.props.data,
       formState: "new",
       dataState: "clean",
@@ -74,6 +61,16 @@ var ItemMetaDataForm = React.createClass({
 
   componentWillUnmount: function() {
     window.removeEventListener("beforeunload", this.unloadMsg);
+  },
+
+  componentWillMount: function () {
+    MetadataConfigurationStore.getAll(this.setFormFieldsFromConfiguration);
+  },
+
+  setFormFieldsFromConfiguration: function(configurationFields) {
+    this.setState({
+      formFields: _.sortBy(configurationFields, 'order'),
+    });
   },
 
   handleSave: function(event) {
@@ -175,85 +172,45 @@ var ItemMetaDataForm = React.createClass({
     return [];
   },
 
-  additionalFields: function() {
-    var dropDownIconStyle = {
-      right: this.muiTheme.spacing.desktopGutterLess,
-    };
-    var dropDownStyle = {
-      display: this.state.dropDown,
-    }
-    var underlineStyle = {
-      borderTop: "solid 2px rgb(44, 88, 130)",
-    };
-    var total_field_count = this.allAdditionalFields().length;
-    var displayed_field_count = 0;
-    var map_function = function(fieldConfig, field) {
-      if (this.state.displayedFields[field]) {
-        displayed_field_count = ++displayed_field_count;
-        var FieldComponent = fieldTypeMap[fieldConfig.type];
-        return (
-          <FieldComponent
-            key={field}
-            objectType={this.props.objectType}
-            name={field} title={fieldConfig.title}
-            value={this.state.formValues[field]}
-            handleFieldChange={this.handleFieldChange}
-            errorMsg={this.fieldError(field)}
-            placeholder={fieldConfig.placeholder}
-            help={fieldConfig.help} />
-        );
-      }
+  fieldDisplayed: function(field) {
+    return (this.state.displayedFields[field.name] || field.defaultFormField);
+  },
+
+  buildDynamicField: function(fieldConfig) {
+    var field = fieldConfig.name;
+    if (!this.fieldDisplayed(fieldConfig)) {
       return "";
-    };
-    map_function = _.bind(map_function, this);
-    var additional_fields = _.map(this.props.additionalFieldConfiguration, map_function);
-    var dropdown_menu = (
-      <DropDownMenu
-        style={dropDownStyle}
-        menuItems={this.addFieldsSelectOptions()}
-        iconStyle={dropDownIconStyle}
-        underlineStyle={underlineStyle}
-        selectedIndex={this.props.menuIndex}
-        onChange={this.changeAddField} />
-    );
-
-    if (displayed_field_count == total_field_count) {
-      return additional_fields;
-    } else {
-      return additional_fields.concat(dropdown_menu);
     }
+    var FieldComponent = fieldTypeMap[fieldConfig.type];
+    if (fieldConfig.multiple) {
+      FieldComponent = MultipleField;
+    }
+
+    return (
+      <FieldComponent
+        key={field}
+        objectType={this.props.objectType}
+        name={field}
+        title={fieldConfig.label}
+        value={this.state.formValues[field]}
+        handleFieldChange={this.handleFieldChange}
+        errorMsg={this.fieldError(field)}
+        placeholder={fieldConfig.placeholder}
+        required={fieldConfig.required}
+        help={fieldConfig.help} />
+    );
   },
 
-  allAdditionalFields: function() {
-    var map_function = function (data, field) {
-      var h = {};
-      h.payload = {field};
-      return (h);
-    };
-    map_function = _.bind(map_function, this);
-    return _.map(this.props.additionalFieldConfiguration, map_function);
-  },
-
-  addFieldsSelectOptions: function () {
-    var map_function = function (data, field) {
-      if (!this.state.displayedFields[field]) {
-        var h = {};
-        h.payload = {field};
-        h.text = this.props.additionalFieldConfiguration[field].title;
-        return (h);
-      }
-    };
-    map_function = _.bind(map_function, this);
-
-    return [{ payload: '', text: 'Add a New Field'}].concat(_.reject(_.map(this.props.additionalFieldConfiguration, map_function), function(val){ return _.isUndefined(val)}));
+  dynamicFormFields: function() {
+    return _.map(this.state.formFields, this.buildDynamicField);
   },
 
   changeAddField: function(event, selectedIndex, menuItem) {
-    if (!menuItem.payload.field) {
+    if (!menuItem.payload) {
       return;
     }
 
-    this.state.displayedFields[menuItem.payload.field] = true;
+    this.state.displayedFields[menuItem.payload] = true;
     this.setState({
       displayedFields: this.state.displayedFields,
     });
@@ -265,16 +222,11 @@ var ItemMetaDataForm = React.createClass({
         <Panel>
           <PanelHeading>{this.state.formValues.name} Meta Data</PanelHeading>
           <PanelBody>
-              <StringField objectType={this.props.objectType} name="name" required={true} title="Name" value={this.state.formValues.name} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('name')} />
-
-              <HtmlField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues.description} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('description')} placeholder="Example: &quot;Also known as 'La Giaconda' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.&quot;" />
-
-              <DateField objectType={this.props.objectType} name="date_created" title="Date Created" value={this.state.formValues.date_created} handleFieldChange={this.handleFieldChange} placeholder="" errorMsg={this.fieldError('date_created')} />
-
-              <HtmlField objectType={this.props.objectType} name="transcription" title="Transcription" value={this.state.formValues.transcription} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('transcription')}  />
-
-              {this.additionalFields()}
-
+            { this.dynamicFormFields() }
+            <ItemMetaDataSelectAdditionalFields
+              displayedFields={this.state.displayedFields}
+              selectableFields={this.state.formFields}
+              onChangeHandler={this.changeAddField} />
           </PanelBody>
           <PanelFooter>
             <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
