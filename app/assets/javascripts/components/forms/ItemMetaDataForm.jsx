@@ -64,7 +64,13 @@ var ItemMetaDataForm = React.createClass({
   },
 
   componentWillMount: function () {
-    MetadataConfigurationStore.getAll(this.setFormFields);
+    MetadataConfigurationStore.getAll(this.setFormFieldsFromConfiguration);
+  },
+
+  setFormFieldsFromConfiguration: function(configurationFields) {
+    this.setState({
+      formFields: _.sortBy(configurationFields, 'order'),
+    });
   },
 
   handleSave: function(event) {
@@ -167,38 +173,36 @@ var ItemMetaDataForm = React.createClass({
   },
 
   fieldDisplayed: function(field) {
-    return (this.state.displayedFields[field.name] || field.defaultFormField)
+    return (this.state.displayedFields[field.name] || field.defaultFormField);
   },
 
-  formFields: function() {
-    var map_function = function(fieldConfig) {
-      var field = fieldConfig.name;
-      if (!this.fieldDisplayed(fieldConfig)) {
-        return "";
-      }
-      var FieldComponent = fieldTypeMap[fieldConfig.type];
-      if (fieldConfig.multiple) {
-        FieldComponent = MultipleField;
-      }
+  buildDynamicField: function(fieldConfig) {
+    var field = fieldConfig.name;
+    if (!this.fieldDisplayed(fieldConfig)) {
+      return "";
+    }
+    var FieldComponent = fieldTypeMap[fieldConfig.type];
+    if (fieldConfig.multiple) {
+      FieldComponent = MultipleField;
+    }
 
-      return (
-        <FieldComponent
-          key={field}
-          objectType={this.props.objectType}
-          name={field}
-          title={fieldConfig.label}
-          value={this.state.formValues[field]}
-          handleFieldChange={this.handleFieldChange}
-          errorMsg={this.fieldError(field)}
-          placeholder={fieldConfig.placeholder}
-          required={fieldConfig.required}
-          help={fieldConfig.help} />
-      );
-    };
+    return (
+      <FieldComponent
+        key={field}
+        objectType={this.props.objectType}
+        name={field}
+        title={fieldConfig.label}
+        value={this.state.formValues[field]}
+        handleFieldChange={this.handleFieldChange}
+        errorMsg={this.fieldError(field)}
+        placeholder={fieldConfig.placeholder}
+        required={fieldConfig.required}
+        help={fieldConfig.help} />
+    );
+  },
 
-    map_function = _.bind(map_function, this);
-    console.log(this.state.formFields);
-    return _.map(this.state.formFields, map_function);
+  dynamicFormFields: function() {
+    return _.map(this.state.formFields, this.buildDynamicField);
   },
 
   changeAddField: function(event, selectedIndex, menuItem) {
@@ -212,26 +216,17 @@ var ItemMetaDataForm = React.createClass({
     });
   },
 
-  setFormFields: function(configurationFields) {
-    this.setState({
-      formFields: _.sortBy(configurationFields, 'order'),
-    });
-  },
-
   render: function () {
     return (
       <Form id="meta_data_form" url={this.props.url} authenticityToken={this.props.authenticityToken} method={this.props.method} >
         <Panel>
           <PanelHeading>{this.state.formValues.name} Meta Data</PanelHeading>
           <PanelBody>
-
-              { this.formFields() }
-
-              <ItemMetaDataSelectAdditionalFields
-                displayedFields={this.state.displayedFields}
-                selectableFields={this.state.formFields}
-                onChangeHandler={this.changeAddField} />
-
+            { this.dynamicFormFields() }
+            <ItemMetaDataSelectAdditionalFields
+              displayedFields={this.state.displayedFields}
+              selectableFields={this.state.formFields}
+              onChangeHandler={this.changeAddField} />
           </PanelBody>
           <PanelFooter>
             <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
