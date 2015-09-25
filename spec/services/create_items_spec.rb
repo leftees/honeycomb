@@ -28,7 +28,7 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
   let(:creator) { instance_double(FindOrCreateItem, using: item, new_record?: true, changed?: false, save: true, item: item) }
   let(:item) { instance_double(Item, valid?: true, changed?: false, new_record?: false, errors: item_errors) }
   let(:subject) do
-    described_class.call(collection_id: 1, find_by:[], items_hash: items, counts: counts, errors: errors)
+    described_class.call(collection_id: 1, find_by: [], items_hash: items, counts: counts, errors: errors)
   end
 
   before (:each) do

@@ -3,7 +3,11 @@
 # attempting to create the item.
 class CreateItems
   def self.call(collection_id:, find_by:, items_hash:, counts:, errors:)
-    new.create_or_update!(collection_id: collection_id, find_by: find_by, items_hash: items_hash, counts: counts, errors: errors) do |item_props, rewrite_errors|
+    new.create_or_update!(collection_id: collection_id,
+                          find_by: find_by,
+                          items_hash: items_hash,
+                          counts: counts,
+                          errors: errors) do |item_props, rewrite_errors|
       if block_given?
         yield(item_props, rewrite_errors)
       else
