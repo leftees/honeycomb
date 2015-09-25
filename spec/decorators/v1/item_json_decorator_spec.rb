@@ -50,22 +50,6 @@ RSpec.describe V1::ItemJSONDecorator do
     end
   end
 
-  context "nil collection" do
-    let(:item) { instance_double(Item, collection: nil) }
-
-    describe "#collection_id" do
-      it "is nil" do
-        expect(subject.collection_id).to be_nil
-      end
-    end
-
-    describe "#collection_url" do
-      it "returns nil" do
-        expect(subject.collection_url).to be_nil
-      end
-    end
-  end
-
   describe "#slug" do
     let(:item) { double(Item, name: "sluggish") }
 

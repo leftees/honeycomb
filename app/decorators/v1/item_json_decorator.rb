@@ -11,13 +11,11 @@ module V1
     end
 
     def collection_url
-      if collection_id
-        h.v1_collection_url(collection_id)
-      end
+      h.v1_collection_url(collection_id)
     end
 
     def collection_id
-      object.collection.try(:unique_id)
+      object.collection.unique_id
     end
 
     def description
