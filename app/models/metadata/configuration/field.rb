@@ -5,7 +5,19 @@ module Metadata
 
       attr_reader :name, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost
 
-      def initialize(name:, type:, label:, default_form_field:, optional_form_field:, boost: 1, order:, help: "", placeholder: "", multiple: false, required: false)
+      def initialize(
+        name:,
+        type:,
+        label:,
+        default_form_field:,
+        optional_form_field:,
+        boost: 1,
+        order:,
+        help: "",
+        placeholder: "",
+        multiple: false,
+        required: false
+      )
         unless TYPES.include?(type.to_sym)
           raise ArgumentError, "Invalid type: #{type}.  Must be one of #{TYPES.join(', ')}"
         end
