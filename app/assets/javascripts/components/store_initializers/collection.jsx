@@ -7,12 +7,9 @@ var CollectionStoreInitializer = React.createClass({
   },
 
   componentWillMount: function() {
-    CollectionActions.setState({
-      preview: this.props.collection.preview_mode,
-      published: this.props.collection.published,
-      title: this.props.collection.title
-    });
+    CollectionActions.setState(this.props.collection);
   },
+
   render: function() {
     return <div/>
   }
