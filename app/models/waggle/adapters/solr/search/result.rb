@@ -3,13 +3,6 @@ module Waggle
     module Solr
       module Search
         class Result
-          FIELD_BOOSTS = {
-            name: 10,
-            alternate_name: 5,
-            subject: 3,
-            creator: 2,
-          }
-
           attr_reader :query
 
           def initialize(query: query)
@@ -71,9 +64,9 @@ module Waggle
 
           def solr_query_fields
             fields = []
-            FIELD_BOOSTS.each do |field_name, boost|
+            fields_with_boost.each do |field|
               [:unstem_search, :t].each do |suffix|
-                fields << "#{field_name}_#{suffix}^#{boost}"
+                fields << "#{field.name}_#{suffix}^#{field.boost}"
               end
             end
             fields << "text"
@@ -83,6 +76,10 @@ module Waggle
 
           def solr_phrase_fields
             solr_query_fields
+          end
+
+          def fields_with_boost
+            query.configuration.fields.select { |field| field.boost.present? && field.boost != 1 }
           end
 
           def facet_fields

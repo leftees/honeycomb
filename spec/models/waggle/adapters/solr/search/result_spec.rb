@@ -152,10 +152,11 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
         expect(fields).to include("text_unstem_search")
       end
 
-      Waggle::Adapters::Solr::Search::Result::FIELD_BOOSTS.each do |field_name, boost|
-        it "includes the #{field_name} field" do
-          expect(fields).to include("#{field_name}_t^#{boost}")
-          expect(fields).to include("#{field_name}_unstem_search^#{boost}")
+      it "includes configured boosts" do
+        fields_with_boost = query.configuration.fields.select { |field| field.boost.present? && field.boost != 1 }
+        fields_with_boost.each do |field|
+          expect(fields).to include("#{field.name}_t^#{field.boost}")
+          expect(fields).to include("#{field.name}_unstem_search^#{field.boost}")
         end
       end
     end
