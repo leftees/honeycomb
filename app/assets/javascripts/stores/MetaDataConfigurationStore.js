@@ -9,7 +9,7 @@ class MetadataConfigurationStore extends EventEmitter {
     AppDispatcher.register(this.receiveAction.bind(this));
   }
 
-  receiveAction(_action) {
+  receiveAction() {
     // held for use when actions are sent back to the object.
   }
 
@@ -19,7 +19,7 @@ class MetadataConfigurationStore extends EventEmitter {
 
     if (!this._promise) {
       this._promise = axios.get(url)
-        .catch(function (_response) {
+        .catch(function () {
           EventEmitter.emit("MessageCenterDisplay", "error", "Server Error");
       });
     }

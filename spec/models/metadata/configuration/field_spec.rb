@@ -1,16 +1,18 @@
 require "rails_helper"
 
 RSpec.describe Metadata::Configuration::Field do
-  let(:data) { {
-    name: :string_field,
-    type: :string,
-    label: "String",
-    placeholder: "placeholder",
-    help: "help",
-    default_form_field: true,
-    optional_form_field: false,
-    order: true
-  } }
+  let(:data) do
+    {
+      name: :string_field,
+      type: :string,
+      label: "String",
+      placeholder: "placeholder",
+      help: "help",
+      default_form_field: true,
+      optional_form_field: false,
+      order: true
+    }
+  end
 
   subject { described_class.new(data) }
 
