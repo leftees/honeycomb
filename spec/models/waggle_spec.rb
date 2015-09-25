@@ -6,15 +6,6 @@ RSpec.describe Waggle do
     end
   end
 
-  describe "setup" do
-    subject { described_class.setup }
-
-    it "calls setup on the adapter" do
-      expect(described_class.adapter).to receive(:setup)
-      subject
-    end
-  end
-
   context "indexing" do
     let(:instances) { [instance_double(Waggle::Item), instance_double(Waggle::Item)] }
 

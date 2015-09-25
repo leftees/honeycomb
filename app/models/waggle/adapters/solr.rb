@@ -1,9 +1,6 @@
 module Waggle
   module Adapters
     module Solr
-      def self.setup
-      end
-
       def self.session
         @session ||= self::Session.new
       end
