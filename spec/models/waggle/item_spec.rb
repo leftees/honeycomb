@@ -44,12 +44,6 @@ RSpec.describe Waggle::Item do
     end
   end
 
-  describe "name" do
-    it "is the name in an array" do
-      expect(subject.name).to eq([data.fetch("name")])
-    end
-  end
-
   describe "thumbnail_url" do
     it "is the correct value" do
       expect(subject.thumbnail_url).to be_present
@@ -87,43 +81,6 @@ RSpec.describe Waggle::Item do
       expect(Waggle::Metadata::Set).to receive(:new).
         with(data.fetch("metadata"), Metadata::Configuration.item_configuration).and_call_original
       expect(subject.metadata).to be_kind_of(Waggle::Metadata::Set)
-    end
-  end
-
-  describe "method_missing" do
-    it "returns the metadata value for a metadata field" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(true)
-      expect(subject.metadata).to receive(:value).with(:creator).and_return("creator")
-      expect(subject.creator).to eq("creator")
-    end
-
-    it "returns the facet value for facet field" do
-      expect(subject.metadata).to receive(:facet?).with(:creator).and_return(true)
-      expect(subject.metadata).to receive(:facet).with(:creator).and_return("creator")
-      expect(subject.creator_facet).to eq("creator")
-    end
-
-    it "returns the sort value for sort field" do
-      expect(subject.metadata).to receive(:sort?).with(:creator).and_return(true)
-      expect(subject.metadata).to receive(:sort).with(:creator).and_return("creator")
-      expect(subject.creator_sort).to eq("creator")
-    end
-
-    it "raises an error for any other missing methods" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
-      expect { subject.creator }.to raise_error(NoMethodError)
-    end
-  end
-
-  describe "respond_to?" do
-    it "is true for a metadata field" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(true)
-      expect(subject.respond_to?(:creator)).to eq(true)
-    end
-
-    it "raises an error for any other missing methods" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
-      expect(subject.respond_to?(:creator)).to eq(false)
     end
   end
 end
