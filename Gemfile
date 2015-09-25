@@ -24,6 +24,7 @@ gem "fastimage"
 gem "hesburgh_infrastructure", github: "ndlib/hesburgh_infrastructure"
 gem "hesburgh_api", github: "ndlib/hesburgh_api"
 gem "honeycomb_solr", github: "ndlib/honeycomb_solr"
+gem "guard-honeycomb_solr", github: "ndlib/guard-honeycomb-solr"
 
 gem "simple_form", "~> 3.1.0"
 

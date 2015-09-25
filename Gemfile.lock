@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/ndlib/guard-honeycomb-solr.git
+  revision: ace5219add2c401b618733cc5f390716448f0964
+  specs:
+    guard-honeycomb_solr (0.0.1)
+      guard (>= 1.8)
+
+GIT
   remote: git://github.com/ndlib/hesburgh_api.git
   revision: 7e65d334a0e3262ad51c02670792da44aaa98c3b
   specs:
@@ -523,6 +530,7 @@ DEPENDENCIES
   guard
   guard-bundler
   guard-coffeescript
+  guard-honeycomb_solr!
   guard-npm
   guard-rails
   guard-rspec
