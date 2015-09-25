@@ -71,5 +71,23 @@ RSpec.describe Waggle::Adapters::Solr::Session do
         subject
       end
     end
+
+    describe "remove!" do
+      subject { instance.remove!(*items) }
+
+      it "calls remove and commit" do
+        expect(instance).to receive(:remove).with(*items)
+        expect(instance).to receive(:commit)
+        subject
+      end
+    end
+
+    describe "commit" do
+      subject { instance.commit }
+      it "calls commit on the connection" do
+        expect(connection).to receive(:commit)
+        subject
+      end
+    end
   end
 end
