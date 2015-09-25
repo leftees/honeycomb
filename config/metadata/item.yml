@@ -89,7 +89,7 @@
   :default_form_field: false
   :optional_form_field: true
   :order: 12
-  :placeholder: "Example \"Copyright held by Hesburgh Libraries\""
+  :placeholder: "Example: \"Copyright held by Hesburgh Libraries\""
 - :name: :call_number
   :type: :string
   :label: Call Number

@@ -20,18 +20,22 @@ var ItemMetaDataSelectAdditionalFields = React.createClass({
     }
   },
 
-  addFieldsSelectOptions: function () {
-    var map_function = function (field) {
-      if (!this.fieldInForm(field)) {
-        var h = {};
-        h.payload = field.name;
-        h.text = field.label;
+  mapFieldToOption: function(field) {
+    if (!this.fieldInForm(field)) {
+      var h = {};
+      h.payload = field.name;
+      h.text = field.label;
 
-        return (h);
-      }
-    };
-    map_function = _.bind(map_function, this);
-    return [{ payload: '', text: 'Add a New Field'}].concat(_.reject(_.map(this.props.selectableFields, map_function), function(val){ return _.isUndefined(val)}));
+      return (h);
+    }
+  },
+
+  addFieldsSelectOptions: function () {
+    var options = _.map(this.props.selectableFields, this.mapFieldToOption);
+    options = _.reject(options, function(val){ return _.isUndefined(val)})
+    options = [{ payload: '', text: 'Add a New Field'}].concat(options);
+
+    return options
   },
 
   fieldInForm: function (field) {
