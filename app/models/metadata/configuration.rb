@@ -33,6 +33,10 @@ module Metadata
       label(name).present?
     end
 
+    def field_names
+      field_map.keys
+    end
+
     private
 
     def build_fields(data)

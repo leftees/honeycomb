@@ -32,11 +32,20 @@ module ItemMetaHelpers
       user_defined_id: "id#{item_id}",
       name: "name#{item_id}",
       alternate_name: ["alternateName#{item_id}"],
-      description: "description#{item_id}",
-      date_created: { "year" => "2015", "month" => "1", "day" => "1", "bc" => false, "display_text" => nil },
       creator: ["creator#{item_id}"],
+      contributor: nil,
+      description: "description#{item_id}",
       subject: ["subject#{item_id}"],
-      original_language: ["originalLanguage#{item_id}"]
+      transcription: nil,
+      date_created: { "year" => "2015", "month" => "1", "day" => "1", "bc" => false, "display_text" => nil },
+      date_published: nil,
+      date_modified: nil,
+      original_language: ["originalLanguage#{item_id}"],
+      rights: nil,
+      call_number: nil,
+      provenance: nil,
+      publisher: nil,
+      manuscript_url: nil
     }
   end
 end

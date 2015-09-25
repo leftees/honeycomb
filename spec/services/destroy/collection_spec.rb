@@ -57,8 +57,8 @@ describe Destroy::Collection do
        FactoryGirl.create(:collection_user, id: 2, collection_id: collection.id)]
     end
     let(:items) do
-      [FactoryGirl.create(:item, id: 1, collection_id: collection.id),
-       FactoryGirl.create(:item, id: 2, collection_id: collection.id)]
+      [FactoryGirl.create(:item, id: 1, collection_id: collection.id, user_defined_id: "one"),
+       FactoryGirl.create(:item, id: 2, collection_id: collection.id, user_defined_id: "two")]
     end
 
     before(:each) do
