@@ -1,3 +1,4 @@
+# coffeelint: disable=max_line_length
 ItemDataTablesIndexes =
   checkbox: 0
   image: 1
@@ -173,10 +174,9 @@ class ItemDataTable
   numberWithCommas: (x) ->
     x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
-
 jQuery ->
 
-  setupItemDatatable = () ->
+  setupItemDatatable = ->
     table = $(".datatable.item-list")
     if table.size() > 0
       new ItemDataTable(table)
@@ -193,3 +193,4 @@ jQuery ->
 
   $(document).ready ->
     ready()
+# coffeelint: enable=max_line_length
