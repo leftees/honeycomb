@@ -5,6 +5,7 @@ var CollectionActionTypes = require("../constants/CollectionActionTypes");
 class CollectionStore extends EventEmitter {
   constructor() {
     this.id = null;
+    this.unique_id = null;
     this.title = "";
     this.preview = false;
     this.published = false;
@@ -67,6 +68,7 @@ class CollectionStore extends EventEmitter {
   // the open change list
   setProps(collection) {
     this.id = collection.id;
+    this.unique_id = collection.unique_id;
     this.preview = collection.preview_mode;
     this.published = collection.published;
     this.title = collection.name_line_1 + ": " + collection.name_line_2;

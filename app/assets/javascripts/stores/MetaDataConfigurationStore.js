@@ -6,10 +6,7 @@ var axios = require('axios');
 
 class MetadataConfigurationStore extends EventEmitter {
   constructor() {
-    this._configuration = null;
-    this._optionalConfigurations = null;
-    this._defaultConfigurations = null;
-
+    this._promise = null;
     AppDispatcher.register(this.receiveAction.bind(this));
   }
 
@@ -23,14 +20,14 @@ class MetadataConfigurationStore extends EventEmitter {
   }
 
   getAll(succesFunction) {
-    var id = CollectionStore.id;
-    var url = "/v1/collections/animals/metadata_configuration";
+    var id = CollectionStore.unique_id;
+    var url = "/v1/collections/" + id + "/metadata_configuration";
 
     if (!this._promise) {
       this._promise = axios.get(url)
         .catch(function (response) {
           EventEmitter.emit("MessageCenterDisplay", "error", "Server Error");
-        });
+      });
     }
 
     // add the then to the promise
