@@ -1,5 +1,5 @@
 RSpec.describe Waggle::Search::Result do
-  let(:adapter_result) { instance_double(Waggle::Adapters::Sunspot::Search::Result) }
+  let(:adapter_result) { instance_double(Waggle::Adapters::Solr::Search::Result) }
   let(:query) { instance_double(Waggle::Search::Query) }
   let(:instance) { described_class.new(query: query) }
 

@@ -1,7 +1,7 @@
 RSpec.describe Waggle do
   describe "adapter" do
     subject { described_class.adapter }
-    it "is the sunspot adapter" do
+    it "is the Solr adapter" do
       expect(subject).to eq(described_class::Adapters::Solr)
     end
   end
