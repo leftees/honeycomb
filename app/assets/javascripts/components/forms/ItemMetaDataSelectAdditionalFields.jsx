@@ -66,7 +66,7 @@ var ItemMetaDataSelectAdditionalFields = React.createClass({
     if (options.length > 1) {
       return dropdown_menu;
     } else {
-      return (<p>Not loading</p>);
+      return (<div></div>);
     }
   }
 });
