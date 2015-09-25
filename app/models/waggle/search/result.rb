@@ -29,14 +29,27 @@ module Waggle
 
       def sorts
         @sorts ||= [].tap do |array|
-          array.push Waggle::Search::SortField.new(name: "Relevance", value: "score")
-          query.configuration.sorts.each do |sort_config|
+          array.push relevancy_sort
+          configured_sorts.each do |sort_config|
             array.push Waggle::Search::SortField.from_config(sort_config)
           end
         end
       end
 
       private
+
+      # The relevancy sort is purely for display purposes, since the default search sort is score.
+      def relevancy_sort
+        @relevancy_sort ||= Waggle::Search::SortField.new(name: "Relevance", value: "score")
+      end
+
+      def configured_sorts
+        configuration.sorts
+      end
+
+      def configuration
+        query.configuration
+      end
 
       def adapter_result
         @adapter_result ||= Waggle.adapter.search_result(query: query)

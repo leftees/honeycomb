@@ -1,6 +1,7 @@
 RSpec.describe Waggle::Search::Result do
   let(:adapter_result) { instance_double(Waggle::Adapters::Solr::Search::Result) }
-  let(:query) { instance_double(Waggle::Search::Query) }
+  let(:query) { instance_double(Waggle::Search::Query, configuration: configuration) }
+  let(:configuration) { instance_double(Metadata::Configuration) }
   let(:instance) { described_class.new(query: query) }
 
   subject { instance }
@@ -33,6 +34,28 @@ RSpec.describe Waggle::Search::Result do
     it "is the result total" do
       expect(adapter_result).to receive(:total).and_return(100)
       expect(subject.total).to eq(100)
+    end
+  end
+
+  describe "facets" do
+    it "returns the adapter facets" do
+      expect(adapter_result).to receive(:facets).and_return([:facets])
+      expect(subject.facets).to eq([:facets])
+    end
+  end
+
+  describe "sorts" do
+    let(:configuration) { Metadata::Configuration.item_configuration }
+
+    it "includes the relevancy sort and the configured sorts" do
+      expect(subject.sorts.count).to eq(3)
+      relevancy = subject.sorts.first
+      expect(relevancy.name).to eq("Relevance")
+      expect(relevancy.value).to eq("score")
+      configuration.sorts.each_with_index do |sort_config, index|
+        expect(subject.sorts[index + 1].name).to eq(sort_config.label)
+        expect(subject.sorts[index + 1].value).to eq(sort_config.name)
+      end
     end
   end
 
