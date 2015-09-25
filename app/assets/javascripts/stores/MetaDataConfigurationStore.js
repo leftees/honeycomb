@@ -1,8 +1,7 @@
 var AppDispatcher = require("../dispatcher/AppDispatcher");
 var EventEmitter = require("events").EventEmitter;
-var CollectionActionTypes = require("../constants/CollectionActionTypes");
-var CollectionStore = require('stores/Collection');
-var axios = require('axios');
+var CollectionStore = require("stores/Collection");
+var axios = require("axios");
 
 class MetadataConfigurationStore extends EventEmitter {
   constructor() {
@@ -10,22 +9,17 @@ class MetadataConfigurationStore extends EventEmitter {
     AppDispatcher.register(this.receiveAction.bind(this));
   }
 
-  receiveAction(action) {
-
-  }
-
-  getConfig() {
-    // this maynot be completed
-    return getAll(function () {});
+  receiveAction(_action) {
+    // held for use when actions are sent back to the object.
   }
 
   getAll(succesFunction) {
-    var id = CollectionStore.unique_id;
+    var id = CollectionStore.uniqueId;
     var url = "/v1/collections/" + id + "/metadata_configuration";
 
     if (!this._promise) {
       this._promise = axios.get(url)
-        .catch(function (response) {
+        .catch(function (_response) {
           EventEmitter.emit("MessageCenterDisplay", "error", "Server Error");
       });
     }
