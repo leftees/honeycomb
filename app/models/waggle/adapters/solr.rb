@@ -21,7 +21,7 @@ module Waggle
       end
 
       def self.remove!(*objects)
-        session.remove(*objects)
+        session.remove!(*objects)
       end
 
       def self.commit
