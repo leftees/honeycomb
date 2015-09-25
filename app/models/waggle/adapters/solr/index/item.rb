@@ -57,10 +57,6 @@ module Waggle
             Waggle::Adapters::Solr::Types::Text.field_name(name)
           end
 
-          def text_as_solr(value)
-            Waggle::Adapters::Solr::Types::Text.as_solr(value)
-          end
-
           def string_field_name(name)
             Waggle::Adapters::Solr::Types::String.field_name(name)
           end
