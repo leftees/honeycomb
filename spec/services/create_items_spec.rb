@@ -25,10 +25,10 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
       unchanged_count: 0
     }
   end
-  let(:creator) { instance_double(FindOrCreateItem, by_user_defined_id: item, new_record?: true, changed?: false, save: true) }
+  let(:creator) { instance_double(FindOrCreateItem, using: item, new_record?: true, changed?: false, save: true, item: item) }
   let(:item) { instance_double(Item, valid?: true, changed?: false, new_record?: false, errors: item_errors) }
   let(:subject) do
-    described_class.call(collection_id: 1, items_hash: items, counts: counts, errors: errors)
+    described_class.call(collection_id: 1, find_by:[], items_hash: items, counts: counts, errors: errors)
   end
 
   before (:each) do
@@ -43,14 +43,14 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
     expect(FindOrCreateItem).to receive(:new).with(props: { collection_id: 1, item_name: rewritten[0][:name] }).and_return(creator).ordered
     expect(FindOrCreateItem).to receive(:new).with(props: { collection_id: 1, item_name: rewritten[1][:name] }).and_return(creator).ordered
     expect(FindOrCreateItem).to receive(:new).with(props: { collection_id: 1, item_name: rewritten[2][:name] }).and_return(creator).ordered
-    described_class.call(collection_id: 1, items_hash: items, counts: counts, errors: errors) do |item_props, _rewrite_errors|
+    described_class.call(collection_id: 1, find_by: [], items_hash: items, counts: counts, errors: errors) do |item_props, _rewrite_errors|
       { item_name: item_props[:name] }
     end
   end
 
   context "when it receives errors from the injected block" do
     let(:subject) do
-      described_class.call(collection_id: 1, items_hash: items, counts: counts, errors: errors) do |item_props, rewrite_errors|
+      described_class.call(collection_id: 1, find_by: [], items_hash: items, counts: counts, errors: errors) do |item_props, rewrite_errors|
         rewrite_errors << ["Rewrite error 1 on #{item_props[:name]}", "Rewrite error 2 on #{item_props[:name]}"]
         item_props
       end
@@ -112,7 +112,7 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
 
     context "that validate successfully as changed items" do
       let(:item_errors) { instance_double(ActiveModel::Errors, full_messages: []) }
-      let(:creator) { instance_double(FindOrCreateItem, by_user_defined_id: item, new_record?: false, changed?: true, save: true) }
+      let(:creator) { instance_double(FindOrCreateItem, using: item, new_record?: false, changed?: true, save: true, item: item) }
       let(:item) { instance_double(Item, valid?: true, changed?: false, new_record?: false, errors: item_errors, validate: true) }
 
       it "returns correct summary" do
@@ -129,7 +129,7 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
 
     context "that validate successfully as unchanged items" do
       let(:item_errors) { instance_double(ActiveModel::Errors, full_messages: []) }
-      let(:creator) { instance_double(FindOrCreateItem, by_user_defined_id: item, new_record?: false, changed?: false, save: true) }
+      let(:creator) { instance_double(FindOrCreateItem, using: item, new_record?: false, changed?: false, save: true, item: item) }
       let(:item) { instance_double(Item, valid?: true, changed?: false, new_record?: false, errors: item_errors, validate: true) }
 
       it "returns correct summary" do
@@ -145,7 +145,7 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
     end
 
     context "that do not validate successfully" do
-      let(:creator) { instance_double(FindOrCreateItem, by_user_defined_id: item, new_record?: true, changed?: false, valid?: false, save: false) }
+      let(:creator) { instance_double(FindOrCreateItem, using: item, new_record?: true, changed?: false, valid?: false, save: false, item: item) }
       let(:item_errors) { instance_double(ActiveModel::Errors, full_messages: ["Item validation error"]) }
       let(:item) { instance_double(Item, valid?: false, changed?: false, new_record?: false, errors: item_errors) }
 

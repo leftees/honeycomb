@@ -22,7 +22,7 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
   end
   let(:errors) { instance_double(ActiveModel::Errors, full_messages: []) }
   let(:item) { instance_double(Item, valid?: true, changed?: false, new_record?: false, errors: errors, validate: true) }
-  let(:item_creator) { instance_double(FindOrCreateItem, by_user_defined_id: item, save: true, new_record?: true) }
+  let(:item_creator) { instance_double(FindOrCreateItem, using: item, save: true, new_record?: true, item: item) }
   let(:worksheet) { instance_double(GoogleDrive::Worksheet) }
   let(:param_hash) { { auth_code: "auth", callback_uri: "callback", collection_id: 1, file: "file", sheet: "sheet" } }
   let(:subject) { described_class.call(param_hash) }

@@ -29,7 +29,11 @@ class GoogleCreateItems
     worksheet = session.get_worksheet(file: file, sheet: sheet)
     if worksheet.present?
       items = session.worksheet_to_hash(worksheet: worksheet)
-      CreateItems.call(collection_id: collection_id, items_hash: items, counts: counts, errors: errors) do |item_props, rewrite_errors|
+      CreateItems.call(collection_id: collection_id,
+                       find_by: [:collection_id, :user_defined_id],
+                       items_hash: items,
+                       counts: counts,
+                       errors: errors) do |item_props, rewrite_errors|
         RewriteItemMetadata.call(item_hash: item_props, errors: rewrite_errors)
       end
     end

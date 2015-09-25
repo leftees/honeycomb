@@ -17,10 +17,15 @@ describe FindOrCreateItem do
     allow(Item).to receive(:find_or_create_by).and_return(item)
   end
 
-  context "by_user_defined_id" do
+  context "using method" do
     it "uses both collection id and user defined id to find the item" do
       expect(Item).to receive(:find_or_create_by).with(collection_id: 1, user_defined_id: "item").and_return(item)
-      subject.by_user_defined_id
+      subject.using(prop_keys: [:collection_id, :user_defined_id])
+    end
+
+    it "uses empty hash to find the item when no prop_keys are given" do
+      expect(Item).to receive(:find_or_create_by).with({}).and_return(item)
+      subject.using(prop_keys: [])
     end
   end
 
@@ -88,26 +93,26 @@ describe FindOrCreateItem do
   context "when saving the created item" do
     it "uses SaveItem to save the item" do
       expect(SaveItem).to receive(:call).with(item, {})
-      subject.by_user_defined_id
+      subject.find_or_create_by(criteria: {})
       subject.save
     end
 
     it "only saves the item if it's valid" do
       allow(item).to receive(:valid?).and_return(false)
       expect(SaveItem).not_to receive(:call)
-      subject.by_user_defined_id
+      subject.find_or_create_by(criteria: {})
       subject.save
     end
 
     it "returns false if SaveItem fails" do
       allow(SaveItem).to receive(:call).and_return(false)
-      subject.by_user_defined_id
+      subject.find_or_create_by(criteria: {})
       expect(subject.save).to eq(false)
     end
 
     it "true if SaveItem succeeds" do
       allow(SaveItem).to receive(:call).and_return(item)
-      subject.by_user_defined_id
+      subject.find_or_create_by(criteria: {})
       expect(subject.save).to eq(true)
     end
   end

@@ -2,17 +2,18 @@ class FindOrCreateItem
   attr_reader :props, :item, :is_new_record, :is_changed, :is_valid
   private :is_new_record, :is_changed, :is_valid
 
+  def self.call(props:, find_by:)
+    instance = new(props: props)
+    instance.using(prop_keys: find_by)
+    instance
+  end
+
   def initialize(props:)
     @item = nil
     @props = props
     @is_new_record = false
     @is_changed = false
     @is_valid = false
-  end
-
-  def by_user_defined_id
-    find_or_create_by(criteria: { collection_id: props[:collection_id],
-                                  user_defined_id: props[:user_defined_id] })
   end
 
   def new_record?
@@ -36,6 +37,16 @@ class FindOrCreateItem
     else
       false
     end
+  end
+
+  # Calls find_or_create_by using the specified key/value pairs given in the props
+  # when this class was instantiated. Ex:
+  #   creator = FindOrCreateItem.new(props: { collection_id: 1, name: "name", description: "something" } )
+  #   creator.using([:collection_id, :name])
+  # will call find_or_create_by with criteria: { collection_id: 1, name: "name" }
+  def using(prop_keys:)
+    criteria = Hash[prop_keys.map { |key| [key, props[key]] }]
+    find_or_create_by(criteria: criteria)
   end
 
   def find_or_create_by(criteria:)
