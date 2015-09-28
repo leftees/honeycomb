@@ -1,0 +1,67 @@
+class FindOrCreateItem
+  attr_reader :props, :item, :is_new_record, :is_changed, :is_valid
+  private :is_new_record, :is_changed, :is_valid
+
+  def self.call(props:, find_by:)
+    instance = new(props: props)
+    instance.using(prop_keys: find_by)
+    instance
+  end
+
+  def initialize(props:)
+    @item = nil
+    @props = props
+    @is_new_record = false
+    @is_changed = false
+    @is_valid = false
+  end
+
+  def new_record?
+    is_new_record
+  end
+
+  # Returns true if the Item previously existed in the database and was changed.
+  # This is different from just calling Item.changed? since a new item can appear
+  # to have changed after assigning the attributes to the new item
+  def changed?
+    is_changed
+  end
+
+  def valid?
+    is_valid
+  end
+
+  def save
+    if is_valid && SaveItem.call(item, {})
+      true
+    else
+      false
+    end
+  end
+
+  # Calls find_or_create_by using the specified key/value pairs given in the props
+  # when this class was instantiated. Ex:
+  #   creator = FindOrCreateItem.new(props: { collection_id: 1, name: "name", description: "something" } )
+  #   creator.using([:collection_id, :name])
+  # will call find_or_create_by with criteria: { collection_id: 1, name: "name" }
+  def using(prop_keys:)
+    criteria = Hash[prop_keys.map { |key| [key, props[key]] }]
+    find_or_create_by(criteria: criteria)
+  end
+
+  def find_or_create_by(criteria:)
+    @item = Item.find_or_create_by(criteria)
+    @is_new_record = item.new_record?
+    update_props
+    @is_changed = !item.new_record? && item.changed?
+    item
+  end
+
+  private
+
+  def update_props
+    item.assign_attributes(props)
+    CreateUniqueId.call(item)
+    @is_valid = item.valid?
+  end
+end

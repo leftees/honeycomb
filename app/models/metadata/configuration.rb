@@ -60,6 +60,10 @@ module Metadata
     end
     private_class_method :load_yml
 
+    def field_names
+      field_map.keys
+    end
+
     private
 
     def field_map
