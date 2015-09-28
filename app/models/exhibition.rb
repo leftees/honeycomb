@@ -8,7 +8,6 @@ class Exhibition
 
   collection_methods = [
     :items,
-    :name,
     :name_line_1,
     :name_line_2,
     :unique_id,
@@ -20,6 +19,7 @@ class Exhibition
   ]
   exhibit_methods = [
     :image,
+    :name,
     :honeypot_image,
     :uploaded_image,
     :showcases,
@@ -69,6 +69,7 @@ class Exhibition
   # rubocop:disable Metrics/AbcSize
   def save!
     ActiveRecord::Base.transaction do
+      SaveCollection.call(collection, collection.as_json)
       exhibit.collection = collection
       if exhibit.uploaded_image.size
         exhibit_attrs = exhibit.as_json.merge(uploaded_image: exhibit.uploaded_image)
@@ -76,7 +77,6 @@ class Exhibition
         exhibit_attrs = exhibit.as_json
       end
       SaveExhibit.call(exhibit, exhibit_attrs)
-      SaveCollection.call(collection, collection.as_json)
     end
   end
   # rubocop:enable Metrics/AbcSize
