@@ -4,7 +4,7 @@ var mui = require("material-ui");
 var RaisedButton = mui.RaisedButton;
 var FontIcon = mui.FontIcon;
 
-var ButtonRaised = React.createClass({
+var ButtonLink = React.createClass({
   mixins: [MuiThemeMixin],
 
   propTypes: {
@@ -35,4 +35,4 @@ var ButtonRaised = React.createClass({
   }
 });
 
-module.exports = ButtonRaised;
+module.exports = ButtonLink;
