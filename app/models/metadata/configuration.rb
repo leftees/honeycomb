@@ -64,6 +64,10 @@ module Metadata
       field_map.keys
     end
 
+    def field_labels
+      field_map.map { |_key, value| value.label }
+    end
+
     private
 
     def field_map

@@ -59,6 +59,16 @@ class MetadataDate
     }.stringify_keys
   end
 
+  def to_string
+    result = ""
+    result << "-" if bc?
+    result << year.to_s.rjust(4, "0") if year.present?
+    result << "/#{month.to_s.rjust(2, "0")}" if month.present?
+    result << "/#{day.to_s.rjust(2, "0")}" if day.present?
+    result << ":#{display_text}" if display_text.present?
+    result
+  end
+
   def self.parse(string)
     date_and_display = string.split(":")
     if date_and_display.length > 0
@@ -82,7 +92,7 @@ class MetadataDate
   def self.parse_date(value:)
     date_array = value.split("/")
     {
-      year: date_array.length >= 1 ? date_array[0].to_i : nil,
+      year: date_array.length >= 1 ? date_array[0].tr("'", "").to_i : nil,
       month: date_array.length > 1 ? date_array[1].to_i : nil,
       day: date_array.length > 2 ? date_array[2].to_i : nil
     }
