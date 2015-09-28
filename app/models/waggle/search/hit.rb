@@ -1,36 +1,19 @@
 module Waggle
   module Search
-    class Hit < Draper::Decorator
-      delegate :name
+    class Hit
+      attr_reader :adapter_hit
+      private :adapter_hit
 
-      def at_id
-        h.v1_item_url(object.unique_id)
-      end
+      delegate :name, :at_id, :type, :thumbnail_url, :last_updated, to: :adapter_hit
 
-      def type
-        "Item"
-      end
-
-      def name
-        object.name
+      def initialize(adapter_hit)
+        @adapter_hit = adapter_hit
       end
 
       def short_description
-        "Short Description"
       end
 
       def description
-        object.description.to_s
-      end
-
-      def thumbnail_url
-        if object.honeypot_image
-          object.honeypot_image.json_response["thumbnail/small"]["contentUrl"]
-        end
-      end
-
-      def updated
-        object.updated_at.as_json
       end
     end
   end

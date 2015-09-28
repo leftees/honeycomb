@@ -8,7 +8,7 @@ module Waggle
       end
 
       def hits
-        items.map { |item| Waggle::Search::Hit.new(item) }
+        @hits ||= adapter_result.hits.map { |adapter_hit| Waggle::Search::Hit.new(adapter_hit) }
       end
 
       def start
@@ -20,21 +20,39 @@ module Waggle
       end
 
       def total
-        @total ||= item_relation.count
+        adapter_result.total
+      end
+
+      def facets
+        adapter_result.facets
+      end
+
+      def sorts
+        @sorts ||= [].tap do |array|
+          array.push relevancy_sort
+          configured_sorts.each do |sort_config|
+            array.push Waggle::Search::SortField.from_config(sort_config)
+          end
+        end
       end
 
       private
 
-      def collection
-        query.collection
+      # The relevancy sort is purely for display purposes, since the default search sort is score.
+      def relevancy_sort
+        @relevancy_sort ||= Waggle::Search::SortField.new(name: "Relevance", value: "score")
       end
 
-      def items
-        item_relation.limit(rows).offset(start)
+      def configured_sorts
+        configuration.sorts
       end
 
-      def item_relation
-        collection ? collection.items : Item.all
+      def configuration
+        query.configuration
+      end
+
+      def adapter_result
+        @adapter_result ||= Waggle.adapter.search_result(query: query)
       end
     end
   end

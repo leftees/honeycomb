@@ -76,6 +76,17 @@ RSpec.describe Metadata::Configuration::Field do
     end
   end
 
+  describe "boost" do
+    it "defaults to 1" do
+      expect(subject.boost).to eq(1)
+    end
+
+    it "can be set" do
+      data[:boost] = 10
+      expect(subject.boost).to eq(10)
+    end
+  end
+
   describe "to_json" do
     it "converts default_form_field to defaultFormField" do
       expect(subject.to_json).to include("defaultFormField")

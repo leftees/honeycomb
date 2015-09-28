@@ -25,10 +25,8 @@ config/database.yml
 # ignore secrets
 config/secrets.yml
 
-# Ignore everything related to solr except for the conf
-/solr/*
-!/solr/conf
-!/solr/solr.xml
+# Ignore solr data directories
+/solr/*/data
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

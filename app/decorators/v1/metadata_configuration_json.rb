@@ -10,7 +10,9 @@ module V1
       {
         "@context" => "http://schema.org",
         "@type" => "DECMetadataConfiguration",
-        fields: build_json_hash
+        fields: build_json_hash,
+        facets: configuration.facets,
+        sorts: configuration.sorts,
       }
     end
 

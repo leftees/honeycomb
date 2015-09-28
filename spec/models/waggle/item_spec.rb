@@ -20,9 +20,27 @@ RSpec.describe Waggle::Item do
     end
   end
 
-  describe "name" do
-    it "is the name in an array" do
-      expect(subject.name).to eq([data.fetch("name")])
+  describe "unique_id" do
+    it "is the id" do
+      expect(subject.unique_id).to eq(data.fetch("id"))
+    end
+  end
+
+  describe "at_id" do
+    it "is the @id" do
+      expect(subject.at_id).to eq(data.fetch("@id"))
+    end
+  end
+
+  describe "collection_id" do
+    it "is the @id" do
+      expect(subject.collection_id).to eq(data.fetch("collection_id"))
+    end
+  end
+
+  describe "type" do
+    it "is Item" do
+      expect(subject.type).to eq("Item")
     end
   end
 
@@ -34,18 +52,28 @@ RSpec.describe Waggle::Item do
   end
 
   describe "last_updated" do
-    it "is a Time" do
-      expect(subject.last_updated).to eq(Time.parse(data.fetch("last_updated")))
+    it "is a formatted Time" do
+      expect(subject.last_updated).to eq(Time.zone.parse(data.fetch("last_updated")).utc.strftime("%Y-%m-%dT%H:%M:%SZ"))
     end
   end
 
   describe "self.load" do
-    it "loads from the file for now" do
-      loaded = described_class.load(item_id)
-      expect(loaded.data).to eq(data)
+    it "load the database record using ItemQuery" do
+      expect_any_instance_of(ItemQuery).to receive(:public_find).with(item_id)
+      described_class.load(item_id)
     end
+  end
 
-    it "loads the correct way"
+  describe "self.from_item" do
+    let(:decorator) { instance_double(V1::ItemJSONDecorator, to_hash: { test: "test" }) }
+    let(:item) { instance_double(Item) }
+    subject { described_class.from_item(item) }
+
+    it "converts an item to its api hash and instantiates a new waggle item" do
+      expect(V1::ItemJSONDecorator).to receive(:new).with(item).and_return(decorator)
+      expect(described_class).to receive(:new).with(decorator.to_hash).and_return("waggle item")
+      expect(subject).to eq("waggle item")
+    end
   end
 
   describe "metadata" do
@@ -53,31 +81,6 @@ RSpec.describe Waggle::Item do
       expect(Waggle::Metadata::Set).to receive(:new).
         with(data.fetch("metadata"), Metadata::Configuration.item_configuration).and_call_original
       expect(subject.metadata).to be_kind_of(Waggle::Metadata::Set)
-    end
-  end
-
-  describe "method_missing" do
-    it "returns the metadata value for a metadata field" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(true)
-      expect(subject.metadata).to receive(:value).with(:creator).and_return("creator")
-      expect(subject.creator).to eq("creator")
-    end
-
-    it "raises an error for any other missing methods" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
-      expect { subject.creator }.to raise_error(NoMethodError)
-    end
-  end
-
-  describe "respond_to?" do
-    it "is true for a metadata field" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(true)
-      expect(subject.respond_to?(:creator)).to eq(true)
-    end
-
-    it "raises an error for any other missing methods" do
-      expect(subject.metadata).to receive(:field?).with(:creator).and_return(false)
-      expect(subject.respond_to?(:creator)).to eq(false)
     end
   end
 end

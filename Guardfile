@@ -26,3 +26,8 @@ end
 
 hesburgh_guard.npm do
 end
+
+guard "honeycomb_solr" do
+  watch("config/solr.yml")
+  watch(%r{^solr/(.+)\.(xml|json|properties|txt)$})
+end

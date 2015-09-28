@@ -7,6 +7,11 @@ RSpec.describe MetadataDate::ConvertToIsoDate do
       expect(described_class.new(date).convert).to eq("2010-10-10")
     end
 
+    it "pads year, month, day" do
+      date = MetadataDate.new(year: "1", month: "2", day: "3", bc: false)
+      expect(described_class.new(date).convert).to eq("0001-02-03")
+    end
+
     it "converts a date with year, month" do
       date = MetadataDate.new(year: "2010", month: "10", day: nil, bc: false)
       expect(described_class.new(date).convert).to eq("2010-10")

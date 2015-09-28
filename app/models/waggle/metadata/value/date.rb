@@ -3,7 +3,7 @@ module Waggle
     module Value
       class Date < Base
         def value
-          @value ||= ::DateTime.iso8601(iso8601)
+          @value ||= ::DateTime.iso8601(iso8601).utc
         end
 
         private
