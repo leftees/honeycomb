@@ -62,6 +62,10 @@ class Exhibition
     false
   end
 
+  def full_name
+    collection.name
+  end
+
   def collection
     @collection ||= get_collection
   end

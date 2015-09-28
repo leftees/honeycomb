@@ -36,7 +36,7 @@ RSpec.describe Exhibition do
     end
   end
 
-  describe "#name" do
+  describe "#full_name" do
     it "requires the name_line_1 field " do
       expect(subject).to have(1).error_on(:name_line_1)
     end
@@ -45,13 +45,13 @@ RSpec.describe Exhibition do
       subject.name_line_1 = "name line 1"
       subject.name_line_2 = "name line 2"
 
-      expect(subject.name).to eq("name line 1 name line 2")
+      expect(subject.full_name).to eq("name line 1 name line 2")
     end
 
     it "does not concatintate name_line_2 if there is no name_line_2" do
       subject.name_line_1 = "name line 1"
 
-      expect(subject.name).to eq("name line 1")
+      expect(subject.full_name).to eq("name line 1")
     end
   end
 
