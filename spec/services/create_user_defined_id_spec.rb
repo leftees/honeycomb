@@ -1,11 +1,11 @@
 require "rails_helper"
 
-describe CreateUniqueId do
+describe CreateUserDefinedId do
   subject { described_class.new(object) }
-  let(:object) { double(id: 1, class: "Class", unique_id: nil, "unique_id=" => true, save: true) }
+  let(:object) { double(id: 1, class: "Class", user_defined_id: nil, "user_defined_id=" => true, save: true) }
 
   it "generates a id" do
-    expect(object).to receive(:unique_id=).with(anything)
+    expect(object).to receive(:user_defined_id=).with(anything)
     subject.create
   end
 
@@ -15,7 +15,7 @@ describe CreateUniqueId do
   end
 
   it "sets a unique_id when it is saved and one does not exist" do
-    expect(object).to receive(:unique_id=)
+    expect(object).to receive(:user_defined_id=)
     subject.create
   end
 
@@ -26,11 +26,11 @@ describe CreateUniqueId do
 
   describe "existing unique_id" do
     before(:each) do
-      allow(object).to receive(:unique_id).and_return("1231232")
+      allow(object).to receive(:user_defined_id).and_return("1231232")
     end
 
-    it "does not set unique_id when it is saved and one exists" do
-      expect(object).to_not receive(:unique_id=)
+    it "does not set user_defined_id when it is saved and one exists" do
+      expect(object).to_not receive(:user_defined_id=)
       subject.create
     end
 

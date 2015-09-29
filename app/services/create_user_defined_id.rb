@@ -1,6 +1,6 @@
 require "digest/md5"
 
-class CreateUniqueId
+class CreateUserDefinedId
   attr_reader :object
 
   def self.call(object)
@@ -13,10 +13,10 @@ class CreateUniqueId
   end
 
   def create
-    if object.unique_id.nil?
-      object.unique_id = unique_id
+    if object.user_defined_id.nil?
+      object.user_defined_id = unique_id
     else
-      object.unique_id
+      object.user_defined_id
     end
   end
 
@@ -27,8 +27,8 @@ class CreateUniqueId
   end
 
   def validate_interface!
-    unless object.respond_to?("unique_id=") && object.respond_to?(:unique_id) && object.respond_to?(:save)
-      fail "Object passed to CreateUniqueId is not valid"
+    unless object.respond_to?("user_defined_id=") && object.respond_to?(:user_defined_id) && object.respond_to?(:save)
+      fail "Object passed to CreateUserDefinedId is not valid"
     end
   end
 end
