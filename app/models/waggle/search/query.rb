@@ -1,7 +1,7 @@
 module Waggle
   module Search
     class Query
-      DEFAULT_ROWS = 10
+      DEFAULT_ROWS = 12
 
       attr_reader :q, :facets, :sort, :rows, :start, :filters
 
