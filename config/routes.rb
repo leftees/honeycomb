@@ -93,6 +93,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    get "/", to: "administration#index"
+    resources :external_collections
     resources :administrators, only: [:index, :create, :destroy] do
       collection do
         get :user_search

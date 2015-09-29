@@ -1,0 +1,53 @@
+<h3 style="display: inline-block; float: left;">External Collections</h3>
+<%= react_component "ButtonLink", {
+  buttonLabel: "Add External Collection",
+  buttonLink: true,
+  buttonUrl: new_admin_external_collection_path(),
+  primaryFlag: true,
+},
+{prerender: false }
+%>
+<br/><br/><br/>
+<table class="table table-striped datatable" id="external-collections-table">
+  <thead>
+    <tr>
+      <th>Cover Image</th>
+      <th>Name</th>
+      <th>URL</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% external_collections.each do |collection| %>
+      <tr>
+        <td>
+          <% if collection.honeypot_image %>
+            <a href="<%= raw collection.url %>"><%= HoneypotThumbnail.display(collection.honeypot_image) %></a>
+          <% end %>
+        </td>
+        <td>
+          <a href="<%= edit_admin_external_collection_path(collection.exhibit) %>">
+            <span class="glyphicon glyphicon-edit"></span>
+            <%= raw collection.full_name %>
+          </a>
+        </td>
+        <td>
+          <a href="<%= raw collection.url %>"><%= raw collection.url %></a>
+        </td>
+        <td>
+          <%= raw collection.description %>
+        </td>
+        <td>
+          <a className="remove-external-collection"
+            data-confirm="Are you sure?"
+            data-method="delete"
+            href="<%= admin_external_collection_path(collection.exhibit) %>"
+            rel="nofollow">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
