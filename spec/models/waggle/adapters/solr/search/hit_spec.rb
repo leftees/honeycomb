@@ -48,17 +48,6 @@ RSpec.describe Waggle::Adapters::Solr::Search::Hit do
     end
   end
 
-  describe "description" do
-    it "it is text" do
-      expect(subject.description).to be_kind_of(String)
-    end
-
-    it "fetches the description" do
-      expect(subject).to receive(:fetch_text).with(:description)
-      subject.description
-    end
-  end
-
   describe "creator" do
     it "it is text" do
       expect(subject.creator).to be_kind_of(String)
