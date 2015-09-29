@@ -14,6 +14,18 @@ module Index
       notify_error(exception: exception, item: item, action: "remove!")
     end
 
+    def self.remove_all!(items)
+      items.each do |item|
+        remove!(item)
+      end
+    end
+
+    def self.index_all!(items)
+      items.each do |item|
+        index!(item)
+      end
+    end
+
     def self.item_to_waggle_item(item)
       Waggle::Item.from_item(item)
     end
