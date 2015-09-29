@@ -40,11 +40,8 @@ class SaveItem
     item.new_record? && item.name.blank?
   end
 
-  # Sets the user defined id to the unique id if none is given
   def check_user_defined_id
-    unless item.user_defined_id.present?
-      item.user_defined_id = item.unique_id
-    end
+    CreateUserDefinedId.call(item)
   end
 
   def fix_image_param!

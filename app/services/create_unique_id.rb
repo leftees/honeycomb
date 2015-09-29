@@ -23,7 +23,7 @@ class CreateUniqueId
   private
 
   def unique_id
-    Digest::MD5.hexdigest("#{object.id}-#{object.class}")[0...10]
+    SecureRandom.hex(5)
   end
 
   def validate_interface!

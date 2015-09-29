@@ -176,6 +176,9 @@ RSpec.describe CreateItems, helpers: :item_meta_helpers do
       expect(counts).to include(expected)
     end
 
-    it "returns a hash with errors"
+    it "returns a hash with errors" do
+      subject
+      expect(errors).to eq([])
+    end
   end
 end
