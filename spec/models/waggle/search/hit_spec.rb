@@ -1,6 +1,16 @@
 RSpec.describe Waggle::Search::Hit do
-
-  let(:adapter_hit) { double(name: 'name', at_id: 'at_id', type: "Item", description: "Description", date_created: "date_created", creator: "creator", thumbnail_url: "thumbnail", last_updated: "last_updated")}
+  let(:adapter_hit) do
+    double(
+      name: "name",
+      at_id: "at_id",
+      type: "Item",
+      description: "Description",
+      date_created: "date_created",
+      creator: "creator",
+      thumbnail_url: "thumbnail",
+      last_updated: "last_updated"
+    )
+  end
   subject { described_class.new(adapter_hit) }
 
   [
@@ -11,8 +21,8 @@ RSpec.describe Waggle::Search::Hit do
     :date_created,
     :creator,
     :thumbnail_url,
-    :last_updated
-  ].each do | field |
+    :last_updated,
+  ].each do |field|
     describe "##{field}" do
       it "calls the appropriate method on the adapter_hit" do
         expect(adapter_hit).to receive(field)
