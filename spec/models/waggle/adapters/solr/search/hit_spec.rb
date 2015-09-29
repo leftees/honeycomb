@@ -59,7 +59,6 @@ RSpec.describe Waggle::Adapters::Solr::Search::Hit do
     end
   end
 
-
   describe "creator" do
     it "it is text" do
       expect(subject.creator).to be_kind_of(String)
