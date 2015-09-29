@@ -36,4 +36,49 @@ RSpec.describe Waggle::Adapters::Solr::Search::Hit do
       expect(subject.last_updated).to be_kind_of(DateTime)
     end
   end
+
+  describe "description" do
+    it "it is text" do
+      expect(subject.description).to be_kind_of(String)
+    end
+
+    it "feteches the description" do
+      expect(subject).to receive(:fetch_text).with(:description)
+      subject.description
+    end
+  end
+
+  describe "description" do
+    it "it is text" do
+      expect(subject.description).to be_kind_of(String)
+    end
+
+    it "fetches the description" do
+      expect(subject).to receive(:fetch_text).with(:description)
+      subject.description
+    end
+  end
+
+
+  describe "creator" do
+    it "it is text" do
+      expect(subject.creator).to be_kind_of(String)
+    end
+
+    it "feteches the description" do
+      expect(subject).to receive(:fetch_text).with(:creator)
+      subject.creator
+    end
+  end
+
+  describe "date_created" do
+    it "it is String" do
+      expect(subject.date_created).to be_kind_of(String)
+    end
+
+    it "feteches the date_created" do
+      expect(subject).to receive(:fetch_text).with(:date_created)
+      subject.date_created
+    end
+  end
 end

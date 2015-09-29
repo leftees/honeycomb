@@ -42,6 +42,18 @@ module Waggle
             fetch_datetime(:last_updated)
           end
 
+          def description
+            fetch_text(:description)
+          end
+
+          def creator
+            fetch_text(:creator)
+          end
+
+          def date_created
+            fetch_text(:date_created)
+          end
+
           private
 
           def fetch_text(field)
