@@ -38,3 +38,5 @@ config/secrets.yml
 /public/assets
 /coverage
 /node_modules
+
+/.rubocop.yml
