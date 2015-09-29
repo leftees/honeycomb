@@ -23,7 +23,7 @@ class CreateUniqueId
   private
 
   def unique_id
-    SecureRandom.uuid
+    SecureRandom.hex(5)
   end
 
   def validate_interface!

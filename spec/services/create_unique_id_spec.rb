@@ -10,7 +10,7 @@ describe CreateUniqueId do
   end
 
   it "uses the SecureRandom lib to generate the id " do
-    expect(SecureRandom).to receive(:uuid)
+    expect(SecureRandom).to receive(:hex)
     subject.create
   end
 
@@ -20,8 +20,8 @@ describe CreateUniqueId do
   end
 
   it "returns the generated id" do
-    allow(SecureRandom).to receive(:uuid).and_return("uuid")
-    expect(subject.create).to eq("uuid")
+    allow(SecureRandom).to receive(:hex).and_return("unique_id")
+    expect(subject.create).to eq("unique_id")
   end
 
   describe "existing unique_id" do
