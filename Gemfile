@@ -28,7 +28,6 @@ gem "guard-honeycomb_solr", github: "ndlib/guard-honeycomb-solr"
 
 gem "simple_form", "~> 3.1.0"
 
-gem "curly-templates"
 gem "draper"
 
 # used to normaize the characters in a title sort

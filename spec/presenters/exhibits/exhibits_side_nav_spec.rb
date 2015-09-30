@@ -1,11 +1,15 @@
 require "rails_helper"
 
-RSpec.describe Exhibits::SideNavPresenter do
+RSpec.describe ExhibitsSideNav do
   let(:exhibit) { double(Exhibit, id: 1) }
 
   describe "#site_intro_link" do
     let(:context) { double("context", edit_exhibit_path: "path", link_to: "link") }
-    let(:presenter) { described_class.new(context, exhibit: exhibit, form: nil) }
+    let(:presenter) { described_class.new(exhibit: exhibit, form: nil) }
+
+    before(:each) do
+      allow(presenter).to receive(:h).and_return(context)
+    end
 
     it "returns a link to the site_introduction_form" do
       expect(presenter.site_intro_link).to eq("link")
@@ -19,7 +23,11 @@ RSpec.describe Exhibits::SideNavPresenter do
 
   describe "#exhibit_introduction_link" do
     let(:context) { double("context", edit_exhibit_form_exhibit_path: "path", link_to: "link") }
-    let(:presenter) { described_class.new(context, exhibit: exhibit, form: nil) }
+    let(:presenter) { described_class.new(exhibit: exhibit, form: nil) }
+
+    before(:each) do
+      allow(presenter).to receive(:h).and_return(context)
+    end
 
     it "returns a link to the exhibit_introduction_form" do
       expect(presenter.exhibit_introduction_link).to eq("link")
@@ -33,7 +41,11 @@ RSpec.describe Exhibits::SideNavPresenter do
 
   describe "#about_text_link" do
     let(:context) { double("context", edit_exhibit_form_exhibit_path: "path", link_to: "link") }
-    let(:presenter) { described_class.new(context, exhibit: exhibit, form: nil) }
+    let(:presenter) { described_class.new(exhibit: exhibit, form: nil) }
+
+    before(:each) do
+      allow(presenter).to receive(:h).and_return(context)
+    end
 
     it "returns a link to the about_text_form" do
       expect(presenter.about_text_link).to eq("link")
@@ -47,7 +59,11 @@ RSpec.describe Exhibits::SideNavPresenter do
 
   describe "#copyright_link" do
     let(:context) { double("context", edit_exhibit_form_exhibit_path: "path", link_to: "link") }
-    let(:presenter) { described_class.new(context, exhibit: exhibit, form: nil) }
+    let(:presenter) { described_class.new(exhibit: exhibit, form: nil) }
+
+    before(:each) do
+      allow(presenter).to receive(:h).and_return(context)
+    end
 
     it "returns a link to the copyright_link" do
       expect(presenter.copyright_link).to eq("link")
@@ -61,7 +77,11 @@ RSpec.describe Exhibits::SideNavPresenter do
 
   describe "#active_tab_class" do
     let(:context) { double("context") }
-    let(:presenter) { described_class.new(context, exhibit: exhibit, form: "form") }
+    let(:presenter) { described_class.new(exhibit: exhibit, form: "form") }
+
+    before(:each) do
+      allow(presenter).to receive(:h).and_return(context)
+    end
 
     it "returns active when the tab == the form " do
       expect(presenter.active_tab_class(tab: "form")).to eq("active")
@@ -72,7 +92,7 @@ RSpec.describe Exhibits::SideNavPresenter do
     end
 
     it "returns active if the form is nil and the tab == edit " do
-      presenter = described_class.new(context, exhibit: exhibit, form: nil)
+      presenter = described_class.new(exhibit: exhibit, form: nil)
       expect(presenter.active_tab_class(tab: "edit")).to eq("active")
     end
   end
