@@ -19,12 +19,12 @@ RSpec.describe Waggle::Metadata::Value::Date do
 
   describe "value" do
     it "is a datetime" do
-      expect(subject.value).to eq(DateTime.new(2013, 3, 24).utc.strftime(date_format))
+      expect(subject.value).to eq("2013-03-24")
     end
 
     it "can be in bc" do
       data["iso8601"] = "-2010-10-15"
-      expect(subject.value).to eq(DateTime.new(-2010, 10, 15).utc.strftime(date_format))
+      expect(subject.value).to eq("-2010-10-15")
     end
   end
 end
