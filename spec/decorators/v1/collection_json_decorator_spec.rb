@@ -63,12 +63,12 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { instance_double(Collection, exhibit: exhibit) }
 
     it "returns what enable_search says on exhibt" do
-      expect(exhibit).to receive(:enable_search).and_return("enable")
-      expect(subject.enable_search).to eq("enable")
+      expect(exhibit).to receive(:enable_search).and_return(true)
+      expect(subject.enable_search).to eq(true)
     end
 
     it "converts null to false" do
-      allow(exhibit).to receive(:enable_search).and_return(null)
+      allow(exhibit).to receive(:enable_search).and_return(nil)
       expect(subject.enable_search).to eq(false)
     end
   end
@@ -78,12 +78,12 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { instance_double(Collection, exhibit: exhibit) }
 
     it "returns what enable_browse says on exhibt" do
-      expect(exhibit).to receive(:enable_browse).and_return("enable")
-      expect(subject.enable_browse).to eq("enable")
+      expect(exhibit).to receive(:enable_browse).and_return(true)
+      expect(subject.enable_browse).to eq(true)
     end
 
     it "converts null to false" do
-      allow(exhibit).to receive(:enable_browse).and_return(null)
+      allow(exhibit).to receive(:enable_browse).and_return(nil)
       expect(subject.enable_browse).to eq(false)
     end
   end
