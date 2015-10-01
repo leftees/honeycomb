@@ -27,6 +27,14 @@ module V1
       object.description.to_s
     end
 
+    def enable_search
+      !!object.exhibit.enable_search
+    end
+
+    def enable_browse
+      !!object.exhibit.enable_browse
+    end
+
     def site_intro
       object.exhibit.description.to_s
     end

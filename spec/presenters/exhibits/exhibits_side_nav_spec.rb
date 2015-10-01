@@ -89,7 +89,7 @@ RSpec.describe ExhibitsSideNav do
 
     it "calls the correct path method" do
       expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, form: "search_and_browse")
-      presenter.copyright_link
+      presenter.search_and_browse_link
     end
   end
 

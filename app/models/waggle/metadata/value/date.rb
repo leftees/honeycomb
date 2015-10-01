@@ -3,9 +3,6 @@ module Waggle
     module Value
       class Date < Base
         def value
-          puts "value --->"
-          puts iso8601
-          puts "===="
           @value ||= ::DateTime.iso8601(iso8601).utc
         end
 

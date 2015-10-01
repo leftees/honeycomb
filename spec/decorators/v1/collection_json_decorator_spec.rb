@@ -58,6 +58,36 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#enable_search" do
+    let(:exhibit) { instance_double(Exhibit) }
+    let(:collection) { instance_double(Collection, exhibit: exhibit) }
+
+    it "returns what enable_search says on exhibt" do
+      expect(exhibit).to receive(:enable_search).and_return("enable")
+      expect(subject.enable_search).to eq("enable")
+    end
+
+    it "converts null to false" do
+      allow(exhibit).to receive(:enable_search).and_return(null)
+      expect(subject.enable_search).to eq(false)
+    end
+  end
+
+  describe "#enable_browse" do
+    let(:exhibit) { instance_double(Exhibit) }
+    let(:collection) { instance_double(Collection, exhibit: exhibit) }
+
+    it "returns what enable_browse says on exhibt" do
+      expect(exhibit).to receive(:enable_browse).and_return("enable")
+      expect(subject.enable_browse).to eq("enable")
+    end
+
+    it "converts null to false" do
+      allow(exhibit).to receive(:enable_browse).and_return(null)
+      expect(subject.enable_browse).to eq(false)
+    end
+  end
+
   describe "#copyright" do
     let(:exhibit) { double(Exhibit) }
     let(:collection) { double(Collection, exhibit: exhibit) }
