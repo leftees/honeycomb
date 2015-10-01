@@ -46,7 +46,7 @@ Rails.application.routes.draw do
 
   resources :exhibits, only: [:show, :edit, :update] do
     member do
-      get "edit/:form", to: "exhibits#edit", as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text/ }
+      get "edit/:form", to: "exhibits#edit", as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text|search_and_browse/ }
     end
 
     resources :showcases, only: [:index, :new, :create]

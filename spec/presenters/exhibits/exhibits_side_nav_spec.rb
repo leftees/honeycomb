@@ -75,6 +75,24 @@ RSpec.describe ExhibitsSideNav do
     end
   end
 
+  describe "#search_and_browse_link" do
+    let(:context) { double("context", edit_exhibit_form_exhibit_path: "path", link_to: "link") }
+    let(:presenter) { described_class.new(exhibit: exhibit, form: nil) }
+
+    before(:each) do
+      allow(presenter).to receive(:h).and_return(context)
+    end
+
+    it "returns a link to the copyright_link" do
+      expect(presenter.search_and_browse_link).to eq("link")
+    end
+
+    it "calls the correct path method" do
+      expect(context).to receive(:edit_exhibit_form_exhibit_path).with(exhibit, form: "search_and_browse")
+      presenter.copyright_link
+    end
+  end
+
   describe "#active_tab_class" do
     let(:context) { double("context") }
     let(:presenter) { described_class.new(exhibit: exhibit, form: "form") }

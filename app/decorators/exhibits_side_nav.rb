@@ -22,6 +22,10 @@ class ExhibitsSideNav < Draper::Decorator
     h.link_to("Copyright Text", h.edit_exhibit_form_exhibit_path(exhibit, form: "copyright_text"))
   end
 
+  def search_and_browse_link
+    h.link_to("Search and Browse", h.edit_exhibit_form_exhibit_path(exhibit, form: "search_and_browse"))
+  end
+
   def active_tab_class(tab:)
     return "active" if tab == form
     return "active" if tab == "edit" && form.nil?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918201430) do
+ActiveRecord::Schema.define(version: 20151001004812) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 20150918201430) do
     t.text     "copyright",                   limit: 65535
     t.boolean  "hide_title_on_home_page"
     t.string   "url",                         limit: 255
+    t.boolean  "enable_search"
+    t.boolean  "enable_browse"
   end
 
   add_index "exhibits", ["collection_id"], name: "fk_rails_b56f41d7b6", using: :btree
