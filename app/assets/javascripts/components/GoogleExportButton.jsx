@@ -46,7 +46,7 @@ var GoogleExportButton = React.createClass({
     var iconStyle = {fontSize: 14, marginRight: ".5em"};
     var buttonLabel = (
       <span>
-        <FontIcon className="glyphicon glyphicon-plus" label="Download" color="#000" style={iconStyle}/>
+        <FontIcon className="glyphicon glyphicon-export" label="Download" color="#000" style={iconStyle}/>
         <span>Export Metadata</span>
       </span>
     );

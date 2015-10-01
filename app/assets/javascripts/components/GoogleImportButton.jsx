@@ -11,7 +11,7 @@ var GoogleImportButton = React.createClass({
     var iconStyle = {fontSize: 14, marginRight: ".5em"};
     var buttonLabel = (
       <span>
-        <FontIcon className="glyphicon glyphicon-plus" label="Upload" color="#000" style={iconStyle}/>
+        <FontIcon className="glyphicon glyphicon-import" label="Upload" color="#000" style={iconStyle}/>
         <span>Import Metadata</span>
       </span>
     );
