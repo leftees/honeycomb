@@ -59,12 +59,12 @@ class MetadataDate
     }.stringify_keys
   end
 
-  def to_string
+  def to_string # rubocop:disable Metrics/AbcSize
     result = ""
     result << "-" if bc?
     result << year.to_s.rjust(4, "0") if year.present?
-    result << "/#{month.to_s.rjust(2, "0")}" if month.present?
-    result << "/#{day.to_s.rjust(2, "0")}" if day.present?
+    result << "/#{month.to_s.rjust(2, '0')}" if month.present?
+    result << "/#{day.to_s.rjust(2, '0')}" if day.present?
     result << ":#{display_text}" if display_text.present?
     result
   end
