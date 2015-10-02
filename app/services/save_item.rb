@@ -54,6 +54,10 @@ class SaveItem
       item.image_processing!
       QueueJob.call(ProcessImageJob, object: item)
     else
+      if item.image_invalid?
+        item.no_image!
+      end
+
       true
     end
   end

@@ -36,6 +36,7 @@ var ItemShowImageBox = React.createClass({
   },
 
   checkImageState: function(image) {
+    console.log(image["items"]);
     switch(image["items"]["image_status"])
     {
       case "image_ready":
@@ -51,6 +52,9 @@ var ItemShowImageBox = React.createClass({
           clearInterval(this.state.requestTimer);
         }
         break;
+      case "no_image":
+        console.log("no image")
+
       default:
         EventEmitter.emit("MessageCenterDisplay", "error", "There was a problem loading the media. Try replacing or contacting support.");
         clearInterval(this.state.requestTimer);
