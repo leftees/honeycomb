@@ -23,6 +23,10 @@ module V1
       h.v1_collection_metadata_configuration_url(object.unique_id)
     end
 
+    def external_url
+      object.exhibit.url ? object.exhibit.url : ""
+    end
+
     def description
       object.description.to_s
     end
