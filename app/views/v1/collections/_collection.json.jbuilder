@@ -7,6 +7,7 @@ json.set! "hasPart/metadataConfiguration", collection_object.metadata_configurat
 json.id collection_object.unique_id
 json.slug collection_object.slug
 json.name collection_object.name
+json.external_url collection_object.external_url
 json.name_line_1 collection_object.name_line_1
 json.name_line_2 collection_object.name_line_2
 json.short_description collection_object.short_intro
