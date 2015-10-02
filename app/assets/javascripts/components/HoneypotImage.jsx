@@ -5,11 +5,14 @@ var HoneypotImage = React.createClass({
   getDefaultProps: function() {
     return {
       cssStyle: {},
+      alt: "",
+      title: "",
     };
   },
 
   render: function() {
-    return (<img src={this.src()} style={this.props.cssStyle} />)
+    console.log(this.props)
+    return (<img src={this.src()} style={this.props.cssStyle} title={this.props.title} alt={this.props.alt} />)
   },
 });
 module.exports = HoneypotImage;
