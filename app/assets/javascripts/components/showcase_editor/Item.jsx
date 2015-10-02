@@ -29,7 +29,6 @@ var Item = React.createClass({
     if (honeypot_image == null) {
       return null;
     }
-    console.log(this.props.item);
     var dragContent = (
       <HoneypotImage honeypot_image={honeypot_image} style="small" cssStyle={{height: '100px', margin: '5px'}} title={this.props.item.name} />
     );
