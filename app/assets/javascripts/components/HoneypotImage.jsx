@@ -11,7 +11,6 @@ var HoneypotImage = React.createClass({
   },
 
   render: function() {
-    console.log(this.props)
     return (<img src={this.src()} style={this.props.cssStyle} title={this.props.title} alt={this.props.alt} />)
   },
 });
