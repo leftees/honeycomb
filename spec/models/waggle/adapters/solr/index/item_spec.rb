@@ -20,7 +20,7 @@ RSpec.describe Waggle::Adapters::Solr::Index::Item do
         name_t: ["pig-in-mud"],
         creator_t: ["Bob"],
         description_t: ["Source: https://pixabay.com/en/pig-sow-animal-portrait-752555/"],
-        date_published_t: ["2013-03-24T00:00:00+00:00"],
+        date_published_t: ["2013-03-24"],
         creator_facet: ["Bob"],
         name_sort: "pig-in-mud",
         creator_sort: "Bob",
