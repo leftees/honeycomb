@@ -59,7 +59,6 @@ module V1
     private
 
     def set_json_keys(json) # rubocop:disable Metrics/AbcSize
-      json.partial! "/v1/items/item", item_object: self
       json.set! "@context", "http://schema.org"
       json.set! "@type", "CreativeWork"
       json.set! "@id", at_id
