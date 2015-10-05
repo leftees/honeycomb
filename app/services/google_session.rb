@@ -63,4 +63,33 @@ class GoogleSession
     end
     results
   end
+
+  # Populates a worksheet with an array of hashes where the hash keys are
+  # used as the column names
+  def hashes_to_worksheet(worksheet:, hashes:)
+    header_row = []
+    rows = [header_row]
+    hashes.each do |hash|
+      # See if this hash has any new columns. If so, append it to the end
+      hash.keys.each do |key|
+        unless header_row.include?(key)
+          header_row << key
+        end
+      end
+
+      # Populate the row with values based on the order of the header row
+      row = []
+      header_row.each do |header|
+        if hash.include?(header)
+          row << hash[header]
+        else
+          row << ""
+        end
+      end
+      rows << row
+    end
+    rows[0] = header_row
+    worksheet.update_cells(1, 1, rows)
+    worksheet.save
+  end
 end

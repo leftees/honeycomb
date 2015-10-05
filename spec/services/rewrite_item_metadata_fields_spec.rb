@@ -27,6 +27,12 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
       remapped_item[:date_created] = { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
       expect(subject).to eq(remapped_item)
     end
+
+    it "can handle string literal indicator" do
+      item["Date Created"] = "'-2001/01/01"
+      remapped_item[:date_created] = { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
+      expect(subject).to eq(remapped_item)
+    end
   end
 
   it "adds to the given errors array when a label is not found" do

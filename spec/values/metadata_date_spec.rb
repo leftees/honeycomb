@@ -203,6 +203,15 @@ RSpec.describe MetadataDate do
   end
 
   describe "parse" do
+    it "handles leading string literal character" do
+      date = MetadataDate.parse("'2001/01/01:display this instead")
+      expect(date.year).to eq("2001")
+      expect(date.month).to eq("1")
+      expect(date.day).to eq("1")
+      expect(date.bc).to eq(false)
+      expect(date.display_text).to eq("display this instead")
+    end
+
     context "with display text" do
       it "gets display text if given with a :" do
         date = MetadataDate.parse("2001/01/01:display this instead")
@@ -313,6 +322,33 @@ RSpec.describe MetadataDate do
         date = MetadataDate.parse("100")
         expect(date.day).to eq(nil)
       end
+    end
+  end
+
+  describe "to_string" do
+    it "adds :display_text when available" do
+      date = MetadataDate.new(year: "2001", month: nil, day: nil, bc: false, display_text: "display this instead")
+      expect(date.to_string).to eq("2001:display this instead")
+    end
+
+    it "adds the year when available" do
+      date = MetadataDate.new(year: "2001", month: nil, day: nil, bc: false, display_text: nil)
+      expect(date.to_string).to eq("2001")
+    end
+
+    it "adds the month when available" do
+      date = MetadataDate.new(year: "2001", month: "01", day: nil, bc: false, display_text: nil)
+      expect(date.to_string).to eq("2001/01")
+    end
+
+    it "adds the day when available" do
+      date = MetadataDate.new(year: "2001", month: "01", day: "02", bc: false, display_text: nil)
+      expect(date.to_string).to eq("2001/01/02")
+    end
+
+    it "adds - to bc dates when available" do
+      date = MetadataDate.new(year: "2001", month: nil, day: nil, bc: true, display_text: nil)
+      expect(date.to_string).to eq("-2001")
     end
   end
 end
