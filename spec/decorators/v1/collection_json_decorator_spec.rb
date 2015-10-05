@@ -165,6 +165,26 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#external_url" do
+    context "when exhibit url is populated" do
+      let(:exhibit) { double(Exhibit, url: "http://nosite.com") }
+      let(:collection) { double(Collection, exhibit: exhibit) }
+
+      it "returns a url" do
+        expect(subject.external_url).to eq "http://nosite.com"
+      end
+    end
+
+    context "when exibit url is nil" do
+      let(:exhibit) { double(Exhibit, url: nil) }
+      let(:collection) { double(Collection, exhibit: exhibit) }
+
+      it "returns an empty string" do
+        expect(subject.external_url).to eq ""
+      end
+    end
+  end
+
   describe "#slug" do
     let(:collection) { double(Collection, name_line_1: "sluggish") }
 
