@@ -14,12 +14,13 @@ var Section = React.createClass({
   },
 
   style: function() {
+    console.log(this.props);
     return {
       border: '1px solid lightgrey',
       display: 'inline-block',
       verticalAlign: 'top',
       position: 'relative',
-      marginLeft: '10px',
+      marginLeft: (this.props.section.has_spacer ? '15em;' : '10px'),
       marginRight: '10px',
       height: '100%',
     }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813172206) do
+ActiveRecord::Schema.define(version: 20151005195020) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.string   "name_line_1",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted",      limit: 1,     default: false
+    t.boolean  "deleted",                    default: false
     t.text     "description",  limit: 65535
     t.string   "unique_id",    limit: 255
-    t.boolean  "published",    limit: 1
+    t.boolean  "published"
     t.string   "name_line_2",  limit: 255
-    t.boolean  "preview_mode", limit: 1
+    t.boolean  "preview_mode"
   end
 
   add_index "collections", ["preview_mode"], name: "index_collections_on_preview_mode", using: :btree
@@ -56,7 +56,10 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"
     t.text     "copyright",                   limit: 65535
-    t.boolean  "hide_title_on_home_page",     limit: 1
+    t.boolean  "hide_title_on_home_page"
+    t.string   "url",                         limit: 255
+    t.boolean  "enable_search"
+    t.boolean  "enable_browse"
   end
 
   add_index "exhibits", ["collection_id"], name: "fk_rails_b56f41d7b6", using: :btree
@@ -86,7 +89,7 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.text     "sortable_name",               limit: 65535
     t.integer  "parent_id",                   limit: 4
     t.string   "manuscript_url",              limit: 255
-    t.boolean  "published",                   limit: 1
+    t.boolean  "published"
     t.string   "unique_id",                   limit: 255
     t.text     "transcription",               limit: 65535
     t.string   "uploaded_image_file_name",    limit: 255
@@ -95,8 +98,10 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.datetime "uploaded_image_updated_at"
     t.text     "metadata",                    limit: 4294967295
     t.integer  "image_status",                limit: 4,          default: 0
+    t.string   "user_defined_id",             limit: 255,                    null: false
   end
 
+  add_index "items", ["collection_id", "user_defined_id"], name: "index_items_on_collection_id_and_user_defined_id", unique: true, using: :btree
   add_index "items", ["collection_id"], name: "index_items_on_collection_id", using: :btree
   add_index "items", ["parent_id"], name: "index_items_on_parent_id", using: :btree
   add_index "items", ["published"], name: "index_items_on_published", using: :btree
@@ -113,6 +118,7 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.string   "unique_id",   limit: 255
     t.datetime "updated_at"
     t.datetime "created_at"
+    t.boolean  "has_spacer"
   end
 
   add_index "sections", ["item_id"], name: "fk_rails_921f48e5e7", using: :btree
@@ -129,7 +135,7 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.datetime "image_updated_at"
     t.datetime "updated_at"
     t.datetime "created_at"
-    t.boolean  "published",                   limit: 1
+    t.boolean  "published"
     t.string   "unique_id",                   limit: 255
     t.integer  "order",                       limit: 4
     t.string   "name_line_2",                 limit: 255
@@ -157,7 +163,7 @@ ActiveRecord::Schema.define(version: 20150813172206) do
     t.string   "username",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",              limit: 1
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
