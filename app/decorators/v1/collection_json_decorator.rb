@@ -27,6 +27,10 @@ module V1
       object.exhibit.url ? object.exhibit.url : ""
     end
 
+    def additional_type
+      object.exhibit.url ? "https://github.com/ndlib/honeycomb/wiki/ExternalCollection": "https://github.com/ndlib/honeycomb/wiki/DecCollection"
+    end
+
     def description
       object.description.to_s
     end

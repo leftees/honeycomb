@@ -1,6 +1,7 @@
-json.set! "@context", "http://schema.org"
-json.set! "@type", "CreativeWork"
+json.set! "@context", "http://bib.schema.org"
+json.set! "@type", "Collection"
 json.set! "@id", collection_object.at_id
+json.set! "additionalType", collection_object.additional_type
 json.set! "hasPart/items", collection_object.items_url
 json.set! "hasPart/showcases", collection_object.showcases_url
 json.set! "hasPart/metadataConfiguration", collection_object.metadata_configuration_url
