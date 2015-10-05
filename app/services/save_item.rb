@@ -11,8 +11,7 @@ class SaveItem
   end
 
   def save
-    fix_image_param!
-
+    fix_params
     item.attributes = params
     pre_process_name
     check_unique_id
@@ -27,6 +26,11 @@ class SaveItem
   end
 
   private
+
+  def fix_params
+    fix_image_param!
+    ParamCleaner.call(hash: params)
+  end
 
   def pre_process_name
     if name_should_be_filename?
