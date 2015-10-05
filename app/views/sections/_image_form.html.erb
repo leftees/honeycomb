@@ -1,6 +1,10 @@
 <div class="row">
   <div class="col-md-9">
     <%= f.input :caption, input_html: { class: 'honeycomb_redactor' }, as: :text %>
+
+    <%= f.input :has_spacer, as: :boolean, label: false, hint: "Adds space in front of this section." do %>
+      <label><%= f.check_box :has_spacer %> Has Spacer</label>
+    <% end %>    
   </div>
 
   <div class="col-md-3">
