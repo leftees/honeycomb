@@ -113,12 +113,12 @@ RSpec.describe ItemDecorator do
 
     describe "#show_image_box" do
       it "renders a react component" do
-        allow(item).to receive(:image).and_return(attachment)
-        allow(item).to receive(:image_ready?).and_return(true)
         allow(item).to receive(:unique_id).and_return("unique_id")
-        expect_any_instance_of(Draper::HelperProxy).
+        expect_any_instance_of(V1::ItemJSONDecorator).to receive(:to_hash).and_return("ITEMHASH")
+
+        expect(subject.h).
           to receive(:react_component).
-          with("ItemShowImageBox", image: honeypot_image.image_json, itemID: "#{item.id}", item: item, itemPath: "/v1/items/unique_id").
+          with("ItemShowImageBox", item: "ITEMHASH", itemPath: "/v1/items/unique_id").
           and_return(nil)
         subject.show_image_box
       end

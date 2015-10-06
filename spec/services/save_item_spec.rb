@@ -11,6 +11,7 @@ RSpec.describe SaveItem, type: :model do
     allow(SaveHoneypotImage).to receive(:call).and_return(true)
     allow(CreateUniqueId).to receive(:call).and_return(true)
     allow(Index::Item).to receive(:index!).and_return(true)
+    allow_any_instance_of(described_class).to receive(:set_no_image).and_return(nil)
   end
 
   it "returns when the item save is successful" do

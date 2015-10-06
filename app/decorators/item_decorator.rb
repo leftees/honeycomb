@@ -46,10 +46,9 @@ class ItemDecorator < Draper::Decorator
   end
 
   def show_image_box
+    json = V1::ItemJSONDecorator.new(object)
     h.react_component "ItemShowImageBox",
-                      image: image_json,
-                      itemID: object.id.to_s,
-                      item: object,
+                      item: json.to_hash,
                       itemPath: Rails.application.routes.url_helpers.v1_item_path(object.unique_id)
   end
 
