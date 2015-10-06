@@ -187,29 +187,33 @@ RSpec.describe ItemDecorator do
   end
 
   context "status_text" do
-    it "renders the correct success span when the image is ready" do
-      allow(item).to receive(:image_status).and_return(2)
-      allow(item).to receive(:image_ready?).and_return(true)
+    before(:each) do
+      allow(item).to receive(:image_ready?).and_return(false)
+      allow(item).to receive(:no_image?).and_return(false)
       allow(item).to receive(:image_processing?).and_return(false)
       allow(item).to receive(:image_invalid?).and_return(false)
+    end
+
+    it "renders the correct success span when the image is ready" do
+      expect(item).to receive(:image_ready?).and_return(true)
       expect(subject).to receive(:status_text_span).with(className: "text-success", icon: "ok", text: "OK")
       subject.status_text
     end
 
     it "renders the correct success span when the image is invalid" do
-      allow(item).to receive(:image_status).and_return(0)
-      allow(item).to receive(:image_ready?).and_return(false)
-      allow(item).to receive(:image_processing?).and_return(false)
-      allow(item).to receive(:image_invalid?).and_return(true)
+      expect(item).to receive(:image_invalid?).and_return(true)
       expect(subject).to receive(:status_text_span).with(className: "text-danger", icon: "minus", text: "Error")
       subject.status_text
     end
 
+    it "renders the correct success span when the image is invalid" do
+      expect(item).to receive(:no_image?).and_return(true)
+      expect(subject).to receive(:status_text_span).with(className: "text-success", icon: "ok", text: "No Image")
+      subject.status_text
+    end
+
     it "renders the correct success span when the image is processing" do
-      allow(item).to receive(:image_status).and_return(1)
-      allow(item).to receive(:image_ready?).and_return(false)
-      allow(item).to receive(:image_processing?).and_return(true)
-      allow(item).to receive(:image_invalid?).and_return(false)
+      expect(item).to receive(:image_processing?).and_return(true)
       expect(subject).to receive(:status_text_span).with(className: "text-info", icon: "minus", text: "Processing")
       subject.status_text
     end
