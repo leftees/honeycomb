@@ -61,7 +61,7 @@ class SectionsController < ApplicationController
   protected
 
   def section_params
-    params.require(:section).permit(:name, :image, :item_id, :description, :order, :caption)
+    params.require(:section).permit(:name, :image, :item_id, :description, :order, :caption, :has_spacer)
   end
 
   def showcase

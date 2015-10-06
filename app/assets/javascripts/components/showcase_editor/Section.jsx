@@ -19,7 +19,7 @@ var Section = React.createClass({
       display: 'inline-block',
       verticalAlign: 'top',
       position: 'relative',
-      marginLeft: '10px',
+      marginLeft: (this.props.section.has_spacer ? '15em;' : '10px'),
       marginRight: '10px',
       height: '100%',
     }

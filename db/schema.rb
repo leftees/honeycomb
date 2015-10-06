@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20151001004812) do
 
+
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
     t.integer  "collection_id", limit: 4, null: false
@@ -118,6 +119,7 @@ ActiveRecord::Schema.define(version: 20151001004812) do
     t.string   "unique_id",   limit: 255
     t.datetime "updated_at"
     t.datetime "created_at"
+    t.boolean  "has_spacer"
   end
 
   add_index "sections", ["item_id"], name: "fk_rails_921f48e5e7", using: :btree
