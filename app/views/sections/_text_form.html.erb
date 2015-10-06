@@ -4,6 +4,9 @@
 
 <%= f.input :description, input_html: { class: 'honeycomb_redactor' }, as: :text %>
 
+<%= f.input :has_spacer, as: :boolean, label: false, hint: "Add space in front of this section." do %>
+  <label><%= f.check_box :has_spacer %> Has Spacer</label>
+<% end %>
+
 <%= f.hidden_field :display_type, value: 'text'%>
 <%= f.hidden_field :order %>
-

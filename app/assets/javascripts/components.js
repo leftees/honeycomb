@@ -12,6 +12,7 @@ HorizontalScrollMixin = require("./mixins/HorizontalScrollMixin");
 MuiThemeMixin = require("./mixins/MuiThemeMixin");
 TitleConcatMixin = require("./mixins/TitleConcatMixin");
 GooglePickerMixin = require("./mixins/GooglePickerMixin");
+GoogleCreatorMixin = require("./mixins/GoogleCreatorMixin");
 
 // Page
 FlashMessage = require("./components/FlashMessage");
@@ -35,6 +36,7 @@ ReactDropzone = require("./components/ReactDropzone");
 ShowcasesPanel = require("./components/ShowcasesPanel");
 Thumbnail = require("./components/Thumbnail");
 GoogleImportButton = require("./components/GoogleImportButton");
+GoogleExportButton = require("./components/GoogleExportButton");
 
 // embed
 EmbedCode = require("./components/embed/EmbedCode");

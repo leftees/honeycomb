@@ -118,4 +118,75 @@ RSpec.describe GoogleSession do
       expect(result).to eq(items)
     end
   end
+
+  describe "hashes to worksheet", helpers: :item_meta_helpers do
+    let(:rows) do
+      [
+        ["Identifier", "Name", "Alternate Name", "Description", "Date Created", "Creator", "Subject", "Original Language"],
+        item_meta_array(item_id: 1),
+        item_meta_array(item_id: 2),
+        item_meta_array(item_id: 3)
+      ]
+    end
+    let(:items) do
+      [
+        item_meta_hash(item_id: 1),
+        item_meta_hash(item_id: 2),
+        item_meta_hash(item_id: 3),
+      ]
+    end
+    let(:worksheet) { instance_double(GoogleDrive::Worksheet, rows: rows, save: true) }
+
+    it "updates the cells then saves the worksheet" do
+      expect(worksheet).to receive(:update_cells).ordered
+      expect(worksheet).to receive(:save).ordered
+      subject.hashes_to_worksheet(worksheet: worksheet, hashes: items)
+    end
+
+    it "converts objects to 2d array with first row as header for all object fields" do
+      expect(worksheet).to receive(:update_cells).with(1, 1, rows)
+      subject.hashes_to_worksheet(worksheet: worksheet, hashes: items)
+    end
+
+    it "handles non uniform columns" do
+      items = [
+        {
+          "Identifier" => "id1",
+          "Name" => "name1",
+          "Alternate Name" => "alternateName1",
+          "Description" => "description1",
+          "Date Created" => "2015/01/01",
+          "Creator" => "creator1",
+          "Subject" => "subject1",
+          "Language" => "originalLanguage1",
+          "Other Column" => "someValue1"
+        },
+        {
+          "Identifier" => "id2",
+          "Name" => "name2",
+          "Alternate Name" => "alternateName2",
+          "Description" => "description2",
+          "Date Created" => "2015/01/01",
+          "Subject" => "subject2",
+          "Language" => "originalLanguage2"
+        },
+        {
+          "Identifier" => "id3",
+          "Name" => "name3",
+          "Description" => "description3",
+          "Date Created" => "2015/01/01",
+          "New Column" => "newColumn3",
+          "Creator" => "creator3",
+          "Subject" => "subject3",
+          "Language" => "originalLanguage3",
+        }
+      ]
+      expected = [["Identifier", "Name", "Alternate Name", "Description", "Date Created", "Creator", "Subject", "Language", "Other Column", "New Column"]]
+      expected << ["id1", "name1", "alternateName1", "description1", "2015/01/01", "creator1", "subject1", "originalLanguage1", "someValue1"]
+      expected << ["id2", "name2", "alternateName2", "description2", "2015/01/01", "", "subject2", "originalLanguage2", ""]
+      expected << ["id3", "name3", "", "description3", "2015/01/01", "creator3", "subject3", "originalLanguage3", "", "newColumn3"]
+      expect(worksheet).to receive(:update_cells).with(1, 1, expected)
+      subject.hashes_to_worksheet(worksheet: worksheet, hashes: items)
+    end
+  end
 end

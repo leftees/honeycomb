@@ -5,7 +5,7 @@ class RewriteItemMetadata
 
   def initialize
     @configuration = Metadata::Configuration.item_configuration
-    @field_map = Hash[Metadata::Configuration.item_configuration.field_names.map { |name| [name, nil] }]
+    @field_map = Hash[configuration.field_names.map { |name| [name, nil] }]
   end
 
   def self.call(item_hash:, errors:)
@@ -34,7 +34,9 @@ class RewriteItemMetadata
     if configuration.label?(key)
       field = configuration.label(key)
       result.key = field.name
-      rewrite_values(field: field, pair: result)
+      if result.value.present?
+        rewrite_values(field: field, pair: result)
+      end
     end
     result
   end

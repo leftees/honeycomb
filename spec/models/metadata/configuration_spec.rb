@@ -58,6 +58,12 @@ RSpec.describe Metadata::Configuration do
     end
   end
 
+  describe "field_labels" do
+    it "returns an array of field labels" do
+      expect(subject.field_labels).to eq(data[:fields].map { |f| f[:label] })
+    end
+  end
+
   describe "label" do
     it "finds a field by its label" do
       field = subject.label("String")

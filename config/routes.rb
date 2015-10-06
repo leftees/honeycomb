@@ -19,12 +19,14 @@ Rails.application.routes.draw do
 
     collection do
       get :import_google_sheet_callback, controller: "import"
+      get :export_google_sheet_callback, controller: "export"
     end
 
     member do
       put :publish
       put :unpublish
-      post :get_google_authorization_uri, controller: "import"
+      post :get_google_import_authorization_uri, controller: "import"
+      post :get_google_export_authorization_uri, controller: "export"
     end
 
     resources :items, only: [:index, :new, :create]

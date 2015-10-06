@@ -9,6 +9,7 @@ json.slug collection_object.slug
 json.name collection_object.name
 json.enable_browse collection_object.enable_browse
 json.enable_search collection_object.enable_search
+json.external_url collection_object.external_url
 json.name_line_1 collection_object.name_line_1
 json.name_line_2 collection_object.name_line_2
 json.short_description collection_object.short_intro

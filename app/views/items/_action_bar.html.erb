@@ -24,7 +24,16 @@
         developerKey: Rails.application.secrets.google["developer_key"],
         clientId: Rails.application.secrets.google["client_id"],
         appId: Rails.application.secrets.google["app_id"],
-        authUri: get_google_authorization_uri_collection_path(@collection)
+        authUri: get_google_import_authorization_uri_collection_path(@collection)
+      }) %>
+    </div>
+    <div style="float: left">
+      <%= react_component("GoogleExportButton", {
+        developerKey: Rails.application.secrets.google["developer_key"],
+        clientId: Rails.application.secrets.google["client_id"],
+        appId: Rails.application.secrets.google["app_id"],
+        authUri: get_google_export_authorization_uri_collection_path(@collection),
+        collection: @collection
       }) %>
     </div>
   </div>
