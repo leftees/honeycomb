@@ -14,7 +14,6 @@ var Section = React.createClass({
   },
 
   style: function() {
-    console.log(this.props);
     return {
       border: '1px solid lightgrey',
       display: 'inline-block',
