@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/ndlib/guard-honeycomb-solr.git
+  revision: ace5219add2c401b618733cc5f390716448f0964
+  specs:
+    guard-honeycomb_solr (0.0.1)
+      guard (>= 1.8)
+
+GIT
   remote: git://github.com/ndlib/hesburgh_api.git
   revision: 7e65d334a0e3262ad51c02670792da44aaa98c3b
   specs:
@@ -16,6 +23,13 @@ GIT
   specs:
     hesburgh_infrastructure (0.2.5)
       rails
+
+GIT
+  remote: git://github.com/ndlib/honeycomb_solr.git
+  revision: 20fa09946c5ea76d62a7250b162a8902963d6185
+  specs:
+    honeycomb_solr (0.1.0)
+      jettywrapper (~> 2.0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -59,11 +73,16 @@ GEM
     airbrake (4.1.0)
       builder
       multi_json
+    american_date (1.1.0)
     amq-protocol (1.9.2)
     arel (6.0.3)
     ast (2.0.0)
     astrolabe (1.3.1)
       parser (~> 2.2)
+    autoparse (0.3.3)
+      addressable (>= 2.3.1)
+      extlib (>= 0.9.15)
+      multi_json (>= 1.0.0)
     autoprefixer-rails (5.1.11)
       execjs
       json
@@ -107,6 +126,8 @@ GEM
       xpath (~> 2.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    childprocess (0.5.6)
+      ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
     chronic (0.10.2)
     climate_control (0.0.3)
@@ -130,8 +151,6 @@ GEM
       term-ansicolor
       thor
     crass (1.0.2)
-    curly-templates (2.4.1)
-      actionpack (>= 3.1, < 5.0)
     dalli (2.7.4)
     debug_inspector (0.0.2)
     devise (3.4.1)
@@ -156,6 +175,7 @@ GEM
       ffi (>= 1.3.0)
     excon (0.45.3)
     execjs (2.6.0)
+    extlib (0.9.16)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
@@ -169,10 +189,26 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     fastimage (1.6.4)
       addressable (~> 2.3, >= 2.3.5)
-    ffi (1.9.6)
+    ffi (1.9.10)
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    google-api-client (0.7.1)
+      addressable (>= 2.3.2)
+      autoparse (>= 0.3.3)
+      extlib (>= 0.9.15)
+      faraday (>= 0.9.0)
+      jwt (>= 0.1.5)
+      launchy (>= 2.1.1)
+      multi_json (>= 1.0.0)
+      retriable (>= 1.4)
+      signet (>= 0.5.0)
+      uuidtools (>= 2.1.0)
+    google_drive (1.0.1)
+      google-api-client (>= 0.7.0)
+      nokogiri (>= 1.4.4, != 1.5.2, != 1.5.1)
+      oauth (>= 0.3.6)
+      oauth2 (>= 0.5.0)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -201,6 +237,12 @@ GEM
     jbuilder (2.2.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jettywrapper (2.0.3)
+      activesupport (>= 3.0.0)
+      childprocess
+      i18n
+      logger
+      rubyzip
     jquery-datatables-rails (3.3.0)
       actionpack (>= 3.1)
       jquery-rails
@@ -212,11 +254,15 @@ GEM
     jquery-ui-rails (5.0.2)
       railties (>= 3.2.16)
     json (1.8.3)
+    jwt (1.5.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     libv8 (3.16.14.7)
     listen (2.7.11)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    logger (1.2.8)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
@@ -225,7 +271,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
-    minitest (5.8.0)
+    minitest (5.8.1)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -239,6 +285,13 @@ GEM
       mini_portile (~> 0.6.0)
     nokogumbo (1.4.1)
       nokogiri
+    oauth (0.4.7)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
     orm_adapter (0.5.0)
     paper_trail (4.0.0.beta2)
       activerecord (>= 3.0, < 6.0)
@@ -251,13 +304,14 @@ GEM
     parser (2.2.2.6)
       ast (>= 1.1, < 3.0)
     powerpack (0.1.1)
-    pr_geohash (1.0.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -314,6 +368,7 @@ GEM
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    retriable (2.0.2)
     rsolr (1.0.12)
       builder (>= 2.1.2)
     rspec (3.1.0)
@@ -348,6 +403,7 @@ GEM
     ruby-progressbar (1.7.5)
     rubycas-client (2.3.9)
       activesupport
+    rubyzip (1.1.7)
     sanitize (4.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -367,6 +423,12 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
     sigdump (0.2.2)
+    signet (0.6.1)
+      addressable (~> 2.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      jwt (~> 1.5)
+      multi_json (~> 1.10)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -400,14 +462,6 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stackable_flash (0.0.7)
-    sunspot (2.2.0)
-      pr_geohash (~> 1.0)
-      rsolr (~> 1.0.7)
-    sunspot_rails (2.2.0)
-      nokogiri
-      rails (>= 3)
-      sunspot (= 2.2.0)
-    sunspot_solr (2.2.0)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
     therubyracer (0.12.1)
@@ -429,6 +483,7 @@ GEM
       json (>= 1.8.0)
     underscore-rails (1.8.2)
     unicode_utils (1.4.0)
+    uuidtools (2.1.5)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.0.0)
@@ -447,6 +502,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   airbrake
+  american_date
   autoprefixer-rails
   bootstrap-material-design
   bootstrap-sass (~> 3.3.1)
@@ -458,7 +514,6 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   coveralls
-  curly-templates
   dalli
   devise
   devise_cas_authenticatable
@@ -468,15 +523,18 @@ DEPENDENCIES
   faraday
   faraday_middleware
   fastimage
+  google_drive
   guard
   guard-bundler
   guard-coffeescript
+  guard-honeycomb_solr!
   guard-npm
   guard-rails
   guard-rspec
   guard-spring
   hesburgh_api!
   hesburgh_infrastructure!
+  honeycomb_solr!
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.3.0)
   jquery-rails (= 3.1.2)
@@ -488,6 +546,7 @@ DEPENDENCIES
   paperclip
   pry
   pry-nav
+  quiet_assets
   rack-cache
   rails (~> 4.2.0)
   rails-erd
@@ -495,6 +554,7 @@ DEPENDENCIES
   rb-readline
   react-rails
   responders (~> 2.0)
+  rsolr
   rspec-collection_matchers
   rspec-rails
   rubocop
@@ -507,9 +567,6 @@ DEPENDENCIES
   sort_alphabetical
   spring
   spring-commands-rspec
-  sunspot
-  sunspot_rails
-  sunspot_solr
   therubyracer
   uglifier (>= 1.3.0)
   underscore-rails

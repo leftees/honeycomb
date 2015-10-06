@@ -11,14 +11,17 @@ var CollectionPreviewModeToggle = React.createClass({
     previewModePath: React.PropTypes.string.isRequired,
     onToggle: React.PropTypes.func
   },
+  
   componentWillMount: function() {
     CollectionStore.on("CollectionStoreChanged", this.collectionStoreChanged);
   },
+
   collectionStoreChanged: function() {
     this.setState({
       preview_mode: CollectionStore.preview,
     }, this.stateChanged);
   },
+
   getInitialState: function() {
     return {
       preview_mode: CollectionStore.preview,

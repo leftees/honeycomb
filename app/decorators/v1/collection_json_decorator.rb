@@ -19,8 +19,24 @@ module V1
       h.v1_collection_showcases_url(object.unique_id)
     end
 
+    def metadata_configuration_url
+      h.v1_collection_metadata_configuration_url(object.unique_id)
+    end
+
+    def external_url
+      object.exhibit.url ? object.exhibit.url : ""
+    end
+
     def description
       object.description.to_s
+    end
+
+    def enable_search
+      !!object.exhibit.enable_search
+    end
+
+    def enable_browse
+      !!object.exhibit.enable_browse
     end
 
     def site_intro

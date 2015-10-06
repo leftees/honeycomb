@@ -3,7 +3,7 @@ class Section < ActiveRecord::Base
   belongs_to :item
   has_one :collection, through: :showcase
 
-  validates :showcase, presence: true
+  validates :showcase, :unique_id, presence: true
 
   has_paper_trail
 

@@ -58,6 +58,36 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#enable_search" do
+    let(:exhibit) { instance_double(Exhibit) }
+    let(:collection) { instance_double(Collection, exhibit: exhibit) }
+
+    it "returns what enable_search says on exhibt" do
+      expect(exhibit).to receive(:enable_search).and_return(true)
+      expect(subject.enable_search).to eq(true)
+    end
+
+    it "converts null to false" do
+      allow(exhibit).to receive(:enable_search).and_return(nil)
+      expect(subject.enable_search).to eq(false)
+    end
+  end
+
+  describe "#enable_browse" do
+    let(:exhibit) { instance_double(Exhibit) }
+    let(:collection) { instance_double(Collection, exhibit: exhibit) }
+
+    it "returns what enable_browse says on exhibt" do
+      expect(exhibit).to receive(:enable_browse).and_return(true)
+      expect(subject.enable_browse).to eq(true)
+    end
+
+    it "converts null to false" do
+      allow(exhibit).to receive(:enable_browse).and_return(nil)
+      expect(subject.enable_browse).to eq(false)
+    end
+  end
+
   describe "#copyright" do
     let(:exhibit) { double(Exhibit) }
     let(:collection) { double(Collection, exhibit: exhibit) }
@@ -124,6 +154,34 @@ RSpec.describe V1::CollectionJSONDecorator do
 
     it "returns the path to the items" do
       expect(subject.items_url).to eq("http://test.host/v1/collections/adsf/items")
+    end
+  end
+
+  describe "#metadata_configuration_url" do
+    let(:collection) { double(Collection, unique_id: "adsf") }
+
+    it "returns the path to the items" do
+      expect(subject.metadata_configuration_url).to eq("http://test.host/v1/collections/adsf/metadata_configuration")
+    end
+  end
+
+  describe "#external_url" do
+    context "when exhibit url is populated" do
+      let(:exhibit) { double(Exhibit, url: "http://nosite.com") }
+      let(:collection) { double(Collection, exhibit: exhibit) }
+
+      it "returns a url" do
+        expect(subject.external_url).to eq "http://nosite.com"
+      end
+    end
+
+    context "when exibit url is nil" do
+      let(:exhibit) { double(Exhibit, url: nil) }
+      let(:collection) { double(Collection, exhibit: exhibit) }
+
+      it "returns an empty string" do
+        expect(subject.external_url).to eq ""
+      end
     end
   end
 

@@ -12,7 +12,7 @@ describe ExhibitQuery do
   end
 
   describe "build" do
-    it "builds a object off of the relation" do
+    it "builds an object off of the relation" do
       expect(relation).to receive(:build)
       subject.build
     end
@@ -34,6 +34,15 @@ describe ExhibitQuery do
     it "returns all the exhibits for a list of collections" do
       expect(relation).to receive(:where).with(collection: collections)
       subject.for_collections(collections: collections)
+    end
+  end
+
+  describe "all_external" do
+    it "returns all external exhibits" do
+      Collection.new(name_line_1: "test", unique_id: "abc123").save!
+      Exhibit.new(url: "http://test", collection: Collection.find(Collection.last.id)).save!
+      Exhibit.new(collection: Collection.find(Collection.last.id)).save!
+      expect(subject.all_external).to have(1).item
     end
   end
 end

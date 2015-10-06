@@ -32,4 +32,38 @@ RSpec.describe Waggle::Metadata::Set do
       expect(subject.value(:fake_field)).to be_nil
     end
   end
+
+  describe "facet?" do
+    it "is true for a facet that exists" do
+      expect(subject.facet?(:creator)).to eq(true)
+    end
+
+    it "is false for a facet that doesn't exist" do
+      expect(subject.facet?(:fake_facet)).to eq(false)
+    end
+  end
+
+  describe "facet" do
+    it "returns the value of the facet's field" do
+      expect(subject).to receive(:value).with(:creator).and_return(["Bob"])
+      expect(subject.facet(:creator)).to eq(["Bob"])
+    end
+  end
+
+  describe "sort?" do
+    it "is true for a sort that exists" do
+      expect(subject.sort?(:creator)).to eq(true)
+    end
+
+    it "is false for a sort that doesn't exist" do
+      expect(subject.sort?(:fake_sort)).to eq(false)
+    end
+  end
+
+  describe "sort" do
+    it "returns the combined value of the sort's field" do
+      expect(subject).to receive(:value).with(:creator).and_return(["Bob", "Joe"])
+      expect(subject.sort(:creator)).to eq("Bob Joe")
+    end
+  end
 end

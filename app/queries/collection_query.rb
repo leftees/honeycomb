@@ -9,11 +9,12 @@ class CollectionQuery
     for_editor(user).order(updated_at: :desc).where.not(id: collection.id)
   end
 
+  # where collection != external collection
   def for_editor(user)
     if UserIsAdmin.call(user)
-      relation.all
+      relation.all.joins(:exhibit).where(exhibits: { url: nil }) if relation.all
     else
-      user.collections
+      user.collections.joins(:exhibit).where(exhibits: { url: nil }) if user.collections
     end
   end
 

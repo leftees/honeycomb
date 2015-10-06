@@ -17,9 +17,16 @@ Rails.application.routes.draw do
             only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     get :exhibit
 
+    collection do
+      get :import_google_sheet_callback, controller: "import"
+      get :export_google_sheet_callback, controller: "export"
+    end
+
     member do
       put :publish
       put :unpublish
+      post :get_google_import_authorization_uri, controller: "import"
+      post :get_google_export_authorization_uri, controller: "export"
     end
 
     resources :items, only: [:index, :new, :create]
@@ -41,7 +48,7 @@ Rails.application.routes.draw do
 
   resources :exhibits, only: [:show, :edit, :update] do
     member do
-      get "edit/:form", to: "exhibits#edit", as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text/ }
+      get "edit/:form", to: "exhibits#edit", as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text|search_and_browse/ }
     end
 
     resources :showcases, only: [:index, :new, :create]
@@ -65,6 +72,7 @@ Rails.application.routes.draw do
       put :publish, defaults: { format: :json }
       put :unpublish, defaults: { format: :json }
       put :preview_mode, defaults: { format: :json }
+      get :metadata_configuration, defaults: { format: :json }
       resources :search, only: [:index], defaults: { format: :json }
       resources :items, only: [:index], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
@@ -87,6 +95,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    get "/", to: "administration#index"
+    resources :external_collections
     resources :administrators, only: [:index, :create, :destroy] do
       collection do
         get :user_search

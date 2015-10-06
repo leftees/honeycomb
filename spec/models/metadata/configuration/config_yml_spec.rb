@@ -13,7 +13,7 @@ RSpec.describe Metadata::Configuration do
       end
 
       it "doesn't contain duplicate fields" do
-        fields = data.map { |hash| hash[:name] }
+        fields = data.fetch(:fields).map { |hash| hash[:name] }
         expect(fields).to eq(fields.uniq)
       end
     end

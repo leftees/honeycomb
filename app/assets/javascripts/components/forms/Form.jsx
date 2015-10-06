@@ -30,7 +30,7 @@ var Form = React.createClass({
 
   render: function () {
     return (
-      <form action={this.props.url} method={ this.formMethod() } >
+      <form action={this.props.url} method={ this.formMethod() } encType="multipart/form-data">
         <input name="utf8" type="hidden" value="✓" />
         <input type="hidden" name="_method" value={this.props.method} />
         <input type="hidden" name="authenticity_token" value={this.props.authenticityToken} />

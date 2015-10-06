@@ -143,7 +143,7 @@ RSpec.describe Item do
         FactoryGirl.create(:exhibit)
         FactoryGirl.create(:showcase)
         subject = FactoryGirl.create(:item)
-        FactoryGirl.create(:item, id: 2, parent_id: 1)
+        FactoryGirl.create(:item, id: 2, parent_id: 1, user_defined_id: "two")
         expect { subject.destroy }.to raise_error
       end
     end

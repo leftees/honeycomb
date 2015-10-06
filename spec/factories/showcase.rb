@@ -3,6 +3,7 @@ FactoryGirl.define do
     id { 1 }
     exhibit_id { 1 }
     name_line_1 { "Showcase One" }
+    unique_id { "one" }
     image_file_name "one.jpg"
     image_content_type "image/jpeg"
     image_file_size 1.megabyte

@@ -5,27 +5,23 @@ describe CreateUniqueId do
   let(:object) { double(id: 1, class: "Class", unique_id: nil, "unique_id=" => true, save: true) }
 
   it "generates a id" do
-    expect(object).to receive(:unique_id=).with("6187bbca38")
-    subject.create!
+    expect(object).to receive(:unique_id=).with(anything)
+    subject.create
   end
 
-  it "uses the md5 lib to generate the id " do
-    expect(Digest::MD5).to receive(:hexdigest).with("#{object.id}-#{object.class}").and_return("adfadfafsdadsdasdafs")
-    subject.create!
+  it "uses the SecureRandom lib to generate the id " do
+    expect(SecureRandom).to receive(:hex)
+    subject.create
   end
 
   it "sets a unique_id when it is saved and one does not exist" do
     expect(object).to receive(:unique_id=)
-    subject.create!
+    subject.create
   end
 
-  it "returns true on save succes" do
-    expect(subject.create!).to eq(true)
-  end
-
-  it "returns false on save failure" do
-    allow(object).to receive(:save).and_return(false)
-    expect(subject.create!).to eq(false)
+  it "returns the generated id" do
+    allow(SecureRandom).to receive(:hex).and_return("unique_id")
+    expect(subject.create).to eq("unique_id")
   end
 
   describe "existing unique_id" do
@@ -35,11 +31,11 @@ describe CreateUniqueId do
 
     it "does not set unique_id when it is saved and one exists" do
       expect(object).to_not receive(:unique_id=)
-      subject.create!
+      subject.create
     end
 
-    it "returns true" do
-      expect(subject.create!).to eq(true)
+    it "returns the existing id" do
+      expect(subject.create).to eq("1231232")
     end
   end
 
@@ -51,7 +47,7 @@ describe CreateUniqueId do
 
   describe "#call" do
     it "calls publish!" do
-      expect_any_instance_of(described_class).to receive(:create!)
+      expect_any_instance_of(described_class).to receive(:create)
       described_class.call(object)
     end
   end

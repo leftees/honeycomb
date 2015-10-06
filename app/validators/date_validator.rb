@@ -1,7 +1,7 @@
 # Validator to make sure submitted date is correctly formatted
 class DateValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    return if !value
+    return if !value.present?
 
     date = MetadataDate.new(value.symbolize_keys)
     if !date.valid?

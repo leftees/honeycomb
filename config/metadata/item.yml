@@ -1,49 +1,143 @@
 ---
-- :name: :name
-  :type: :string
-  :label: Name
-- :name: :alternate_name
-  :type: :string
-  :label: Alternate Name
-- :name: :creator
-  :type: :string
-  :label: Creator
-- :name: :contributor
-  :type: :string
-  :label: Contributor
-- :name: :description
-  :type: :html
-  :label: Description
-- :name: :subject
-  :type: :html
-  :label: Subject
-- :name: :transcription
-  :type: :html
-  :label: Transcription
-- :name: :date_created
-  :type: :date
-  :label: Date Created
-- :name: :date_published
-  :type: :date
-  :label: Date Published
-- :name: :date_modified
-  :type: :date
-  :label: Date Modified
-- :name: :original_language
-  :type: :string
-  :label: Original Language
-- :name: :rights
-  :type: :string
-  :label: Rights
-- :name: :call_number
-  :type: :string
-  :label: Call Number
-- :name: :provenance
-  :type: :string
-  :label: Provenance
-- :name: :publisher
-  :type: :string
-  :label: Publisher
-- :name: :manuscript_url
-  :type: :string
-  :label: Digitized Manuscript
+:fields:
+  - :name: :user_defined_id
+    :type: :string
+    :label: Identifier
+    :required: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 100
+  - :name: :name
+    :type: :string
+    :label: Name
+    :required: true
+    :default_form_field: true
+    :optional_form_field: false
+    :order: 1
+    :boost: 10
+  - :name: :description
+    :type: :html
+    :label: Description
+    :default_form_field: true
+    :optional_form_field: false
+    :order: 2
+    :placeholder: "Example: \"Also known as \'La Giaconda\' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.\""
+  - :name: :date_created
+    :type: :date
+    :label: Date Created
+    :default_form_field: true
+    :optional_form_field: false
+    :order: 3
+  - :name: :alternate_name
+    :type: :string
+    :label: Alternate Name
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 5
+    :boost: 5
+    :placeholder: An additional name this work is known as.
+  - :name: :creator
+    :type: :string
+    :label: Creator
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 8
+    :boost: 2
+    :placeholder: "Example: \"Leonardo da Vinci\""
+  - :name: :contributor
+    :type: :string
+    :label: Contributor
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 4
+  - :name: :subject
+    :type: :html
+    :label: Subject
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 6
+    :boost: 3
+  - :name: :transcription
+    :type: :html
+    :label: Transcription
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 7
+  - :name: :date_published
+    :type: :date
+    :label: Date Published
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 9
+  - :name: :date_modified
+    :type: :date
+    :label: Date Modified
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 10
+  - :name: :original_language
+    :type: :string
+    :label: Original Language
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 11
+    :placeholder: "Example: \"French\""
+  - :name: :rights
+    :type: :string
+    :label: Rights
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 12
+    :placeholder: "Example: \"Copyright held by Hesburgh Libraries\""
+  - :name: :call_number
+    :type: :string
+    :label: Call Number
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 13
+  - :name: :provenance
+    :type: :string
+    :label: Provenance
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 14
+    :placeholder: "Example: \"Received as a gift from John Doe\""
+  - :name: :publisher
+    :type: :string
+    :label: Publisher
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 15
+    :placeholder: "Example: \"Ballantine Books\""
+  - :name: :manuscript_url
+    :type: :string
+    :label: Digitized Manuscript
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 16
+    :placeholder: "http://"
+    :help: Link to externally hosted manuscript viewer.
+:facets:
+  - :name: :creator
+    :field_name: :creator
+  - :name: :language
+    :field_name: :original_language
+    :label: Language
+:sorts:
+  - :name: :name
+    :field_name: :name
+    :direction: :asc
+    :label: Name
+  - :name: :creator
+    :field_name: :creator
+    :direction: :asc
+    :label: Creator

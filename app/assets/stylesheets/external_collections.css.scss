@@ -1,0 +1,23 @@
+// scss-lint:disable IdSelector
+$light-grey: #d4d4d4;
+
+#external-collections-table {
+  clear: left;
+  font-size: 18px;
+  margin-top: 20px;
+  width: 90%;
+
+  td {
+    padding: 20px;
+    vertical-align: middle;
+  }
+
+  img {
+    border: 2px solid $light-grey;
+  }
+}
+
+.honeypot-image {
+  margin-bottom: 20px;
+}
+// scss-lint:enable IdSelector

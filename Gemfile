@@ -23,14 +23,18 @@ gem "fastimage"
 
 gem "hesburgh_infrastructure", github: "ndlib/hesburgh_infrastructure"
 gem "hesburgh_api", github: "ndlib/hesburgh_api"
+gem "honeycomb_solr", github: "ndlib/honeycomb_solr"
+gem "guard-honeycomb_solr", github: "ndlib/guard-honeycomb-solr"
 
 gem "simple_form", "~> 3.1.0"
 
-gem "curly-templates"
 gem "draper"
 
 # used to normaize the characters in a title sort
 gem "sort_alphabetical"
+
+# To support m/d/y formats
+gem "american_date"
 
 gem "rb-readline"
 
@@ -47,12 +51,9 @@ gem "paper_trail", "~> 4.0.0.beta2"
 gem "faraday"
 gem "faraday_middleware"
 
-gem "sanitize"
+gem "rsolr"
 
-gem "sunspot"
-# Include the sunspot_rails gem but don't require it because we only want the configuration
-gem "sunspot_rails", require: false
-gem "sunspot_solr"
+gem "sanitize"
 
 # Background processing
 gem "sneakers"
@@ -86,6 +87,8 @@ gem "bootstrap-sass", "~> 3.3.1"
 gem "bootstrap-material-design"
 gem "autoprefixer-rails"
 
+gem "google_drive"
+
 group :development, :test do
   gem "rubocop", require: false
 
@@ -99,6 +102,8 @@ group :development, :test do
   gem "spring"
   gem "spring-commands-rspec"
   gem "rake"
+
+  gem "quiet_assets"
 
   gem "guard"
   gem "guard-bundler"

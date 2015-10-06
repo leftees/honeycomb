@@ -13,7 +13,7 @@ class Showcase < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates_attachment_content_type :uploaded_image, content_type: /\Aimage\/.*\Z/
 
-  validates :name_line_1, :exhibit, presence: true
+  validates :name_line_1, :exhibit, :unique_id, presence: true
 
   has_paper_trail
 

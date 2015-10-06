@@ -4,7 +4,7 @@ class CreateUniqueId
   attr_reader :object
 
   def self.call(object)
-    new(object).create!
+    new(object).create
   end
 
   def initialize(object)
@@ -12,19 +12,18 @@ class CreateUniqueId
     validate_interface!
   end
 
-  def create!
+  def create
     if object.unique_id.nil?
       object.unique_id = unique_id
-      return object.save
+    else
+      object.unique_id
     end
-
-    true
   end
 
   private
 
   def unique_id
-    Digest::MD5.hexdigest("#{object.id}-#{object.class}")[0...10]
+    SecureRandom.hex(5)
   end
 
   def validate_interface!

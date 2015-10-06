@@ -10,10 +10,11 @@ RSpec.describe SaveItem, type: :model do
     # stub the call to the external service
     allow(SaveHoneypotImage).to receive(:call).and_return(true)
     allow(CreateUniqueId).to receive(:call).and_return(true)
+    allow(Index::Item).to receive(:index!).and_return(true)
   end
 
   it "returns when the item save is successful" do
-    expect(item).to receive(:save).and_return(true)
+    expect(item).to receive(:save).at_least(:once).and_return(true)
     expect(subject).to be_kind_of(Item)
   end
 
@@ -44,14 +45,32 @@ RSpec.describe SaveItem, type: :model do
       allow(item).to receive(:save).and_return(true)
     end
 
-    it "uses the class to generate the id" do
+    it "uses the CreateUniqueId service class to generate the id" do
       expect(CreateUniqueId).to receive(:call).with(item)
       subject
     end
+  end
 
-    it "does not call create unique_id if the item does not save" do
-      allow(item).to receive(:save).and_return(false)
-      expect(CreateUniqueId).to_not receive(:call).with(item)
+  describe "user_defined_id" do
+    before(:each) do
+      allow(item).to receive(:save).and_return(true)
+    end
+
+    it "uses the CreateUserDefinedId service class to generate the id" do
+      expect(CreateUserDefinedId).to receive(:call).with(item)
+      subject
+    end
+  end
+
+  describe "index_item" do
+    let(:item) { Item.new(unique_id: "12345") }
+
+    before do
+      allow(item).to receive(:save).and_return(true)
+    end
+
+    it "indexes" do
+      expect(Index::Item).to receive(:index!).and_call_original
       subject
     end
   end
@@ -60,8 +79,16 @@ RSpec.describe SaveItem, type: :model do
     it "Queues image processing if the image was updated" do
       params[:uploaded_image] = upload_image
       allow(item).to receive(:image_processing!).and_return(true)
-      expect(item).to receive(:save).and_return(true)
+      allow(item).to receive(:save).and_return(true)
       expect(QueueJob).to receive(:call).with(ProcessImageJob, object: item).and_return(true)
+      subject
+    end
+
+    it "returns the item if the image was updated" do
+      params[:uploaded_image] = upload_image
+      allow(item).to receive(:image_processing!).and_return(true)
+      allow(item).to receive(:save).and_return(true)
+      allow(QueueJob).to receive(:call).with(ProcessImageJob, object: item).and_return(true)
       expect(subject).to eq(item)
     end
 
@@ -75,8 +102,14 @@ RSpec.describe SaveItem, type: :model do
 
     it "is not called if the image is not changed" do
       params[:uploaded_image] = nil
-      expect(item).to receive(:save).and_return(true)
+      allow(item).to receive(:save).and_return(true)
       expect(QueueJob).to_not receive(:call)
+      subject
+    end
+
+    it "returns the item even if the image is not changed" do
+      params[:uploaded_image] = nil
+      allow(item).to receive(:save).and_return(true)
       expect(subject).to eq(item)
     end
   end

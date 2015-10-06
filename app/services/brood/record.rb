@@ -63,6 +63,8 @@ module Brood
           find_record(value["relationship"])
         elsif value["file"]
           open_file(value["file"])
+        else
+          value
         end
       else
         value

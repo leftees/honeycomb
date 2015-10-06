@@ -15,10 +15,11 @@ class SaveItem
 
     item.attributes = params
     pre_process_name
+    check_unique_id
+    check_user_defined_id
 
     if item.save && process_uploaded_image
-      check_unique_id
-
+      index_item
       item
     else
       false
@@ -39,6 +40,10 @@ class SaveItem
     item.new_record? && item.name.blank?
   end
 
+  def check_user_defined_id
+    CreateUserDefinedId.call(item)
+  end
+
   def fix_image_param!
     # sometimes the form is sending an empty image value and this is causing paperclip to delete the image.
     params.delete(:uploaded_image) if params[:uploaded_image].nil?
@@ -55,5 +60,9 @@ class SaveItem
 
   def check_unique_id
     CreateUniqueId.call(item)
+  end
+
+  def index_item
+    Index::Item.index!(item)
   end
 end

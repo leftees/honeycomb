@@ -34,7 +34,7 @@ class Item < ActiveRecord::Base
   has_attached_file :uploaded_image,
                     restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
 
-  validates :name, :collection, presence: true
+  validates :name, :collection, :unique_id, :user_defined_id, presence: true
   validates :date_created, :date_modified, :date_published, date: true
   validate :manuscript_url_is_valid_uri
 
