@@ -65,7 +65,8 @@ RSpec.describe ItemDecorator do
         provenance: "provenance",
         date_created: "date_created",
         date_modified: "date_modified",
-        date_published: "date_published")
+        date_published: "date_published",
+        user_defined_id: 1)
     end
 
     it "renders the react component" do
@@ -92,6 +93,7 @@ RSpec.describe ItemDecorator do
           date_created: "date_created",
           date_modified: "date_modified",
           date_published: "date_published",
+          user_defined_id: 1
         }
       )
 
