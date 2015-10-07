@@ -60,24 +60,7 @@ class ItemDecorator < Draper::Decorator
 
   def meta_data
     data = {}
-    [
-      :name,
-      :description,
-      :transcription,
-      :manuscript_url,
-      :creator,
-      :contributor,
-      :subject,
-      :publisher,
-      :alternate_name,
-      :rights,
-      :call_number,
-      :provenance,
-      :original_language,
-      :date_created,
-      :date_published,
-      :date_modified,
-    ].each do |key|
+    Metadata::Configuration.item_configuration.field_names.each do |key|
       value = object.send(key)
       if !value.nil?
         data[key] = value
