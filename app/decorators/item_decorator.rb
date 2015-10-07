@@ -55,24 +55,18 @@ class ItemDecorator < Draper::Decorator
       authenticityToken: h.form_authenticity_token,
       url: h.v1_item_path(object.unique_id),
       method: "put",
-      data: {
-        name: object.name,
-        description: object.description,
-        transcription: object.transcription,
-        manuscript_url: object.manuscript_url,
-        creator: object.creator,
-        contributor: object.contributor,
-        subject: object.subject,
-        publisher: object.publisher,
-        alternate_name: object.alternate_name,
-        rights: object.rights,
-        call_number: object.call_number,
-        provenance: object.provenance,
-        original_language: object.original_language,
-        date_created: object.date_created,
-        date_published: object.date_published,
-        date_modified: object.date_modified,
-      })
+      data: meta_data)
+  end
+
+  def meta_data
+    data = {}
+    Metadata::Configuration.item_configuration.field_names.each do |key|
+      value = object.send(key)
+      if !value.nil?
+        data[key] = value
+      end
+    end
+    data
   end
 
   def showcases_json

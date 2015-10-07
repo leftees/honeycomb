@@ -23,6 +23,12 @@ RSpec.describe SaveItem, type: :model do
     expect(subject).to be false
   end
 
+  it "uses the param cleaner before setting item attributes" do
+    expect(ParamCleaner).to receive(:call).with(hash: params).ordered
+    expect(item).to receive(:attributes=).with(params).ordered
+    subject
+  end
+
   it "sets the attributes of the item to be the passed in attributes " do
     expect(item).to receive(:attributes=).with(params)
     subject
