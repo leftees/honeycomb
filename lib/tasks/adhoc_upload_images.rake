@@ -10,7 +10,9 @@ namespace :adhoc do
   # $ cat image_paths.txt
   # /Users/jgondron/Documents/1.tif
   # /Users/jgondron/Documents/2.tif
-  # $
+  #
+  # Example usage:
+  # bundle exec rake adhoc:upload_images[49,"image_paths.txt"]
   task :upload_images, [:collection_id, :file_path] => :environment do |_t, args|
     paths_file = File.new(args[:file_path], "r")
     while (line = paths_file.gets)
