@@ -185,6 +185,26 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#additional_type" do
+    context "when exhibit url is populated" do
+      let(:exhibit) { double(Exhibit, url: "http://nosite.com") }
+      let(:collection) { double(Collection, exhibit: exhibit) }
+
+      it "returns link to ExternalCollection definition" do
+        expect(subject.additional_type).to eq "https://github.com/ndlib/honeycomb/wiki/ExternalCollection"
+      end
+    end
+
+    context "when exibit url is nil" do
+      let(:exhibit) { double(Exhibit, url: nil) }
+      let(:collection) { double(Collection, exhibit: exhibit) }
+
+      it "returns link to DecCollection definition" do
+        expect(subject.additional_type).to eq "https://github.com/ndlib/honeycomb/wiki/DecCollection"
+      end
+    end
+  end
+
   describe "#slug" do
     let(:collection) { double(Collection, name_line_1: "sluggish") }
 
