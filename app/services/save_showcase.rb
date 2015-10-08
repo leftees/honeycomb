@@ -37,8 +37,14 @@ class SaveShowcase
   def process_uploaded_image
     if params[:uploaded_image]
       QueueJob.call(ProcessImageJob, object: showcase)
-    else
-      true
     end
+    if params[:uploaded_background_image]
+      QueueJob.call(ProcessImageJob,
+                    object: showcase,
+                    upload_field: "uploaded_background_image",
+                    image_field: "background_image",
+                    process_dzi: false)
+    end
+    true
   end
 end

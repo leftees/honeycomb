@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Showcase do
-  [:name_line_1, :description, :unique_id, :image, :exhibit, :sections, :published, :collection].each do |field|
+  [:name_line_1, :description, :unique_id, :image, :background_image, :exhibit, :sections, :published, :collection].each do |field|
     it "has the field #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")

@@ -10,6 +10,11 @@ class Showcase < ActiveRecord::Base
   has_attached_file :uploaded_image,
                     restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
 
+  has_attached_file :background_image,
+                    restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
+  has_attached_file :uploaded_background_image,
+                    restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
+
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates_attachment_content_type :uploaded_image, content_type: /\Aimage\/.*\Z/
 

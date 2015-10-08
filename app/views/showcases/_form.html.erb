@@ -9,3 +9,5 @@
 
 <%= f.input :uploaded_image, as: :file, required: true %>
 <%= HoneypotThumbnail.display(f.object.honeypot_image) %>
+
+<%= f.input :uploaded_background_image, as: :file, required: true %>

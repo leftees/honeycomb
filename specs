@@ -1,0 +1,45 @@
+Update Beehive UX
+  1.  Add New card design to home page.
+  2.  Add options in honeycomb for new cards
+  3.  Change the beehive home page start arrow.
+      a) if showcases go to first showcase
+      b) if browse enabled go to browse.
+      c) if search enabled go to search.
+  4. Move about to the top of the bar and make into a page.
+  6. Update the showcase page to use the new cards.
+  7. update showcases to have 2 image options.  representational and background.
+  8. add a standard footer to the bottom of the home page.
+  9. If browse is enabled add a browse link to the top nav
+  10. Show and hide the search box based on search enabled.
+  11. If there is some way we can simplify the css constraints we have currently it feels to complicated.
+      This may just be making a proposal so we can evaluate it.
+  Phone view.
+    1.  Test new layouts in phone view.
+    2.  Fix the problems.
+
+Andy
+  1. Work on the design of the search and browse page.
+  2. Adjust styles on search box to be a bit bolder.
+  3. Build an example of a spacer card.
+
+Refactor
+  1.  Update exhibts and collections to be one table.
+     a. do database work
+     b. update api json decorator
+     c. update the exhibits update section.
+     d. update the collection creation
+     e. update the external collection creation.
+
+  2. Refactor the show case editor so that errors from the server are printed shown on the page.
+  3. Refactor the showcase editor to use the api.
+  4. Update honeycomb so that it checks if the session has expired and redirects if it has.
+     a.  consider creating a keep alive api end point that checks this.  but research to see how it should be done.
+  5. Load collections from the api.
+  6. Update message when you are logged out and responds directly to that case. 
+
+Import.
+  Fix the descrepency in metadata between the form and update.
+
+
+Testing
+   1.  do testing as a unit.

@@ -108,6 +108,7 @@ class ShowcasesController < ApplicationController
       :name_line_2,
       :description,
       :uploaded_image,
+      :uploaded_background_image,
       :order
     ])
   end
