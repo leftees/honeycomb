@@ -13,10 +13,22 @@ namespace :adhoc do
   #
   # Example usage:
   # bundle exec rake adhoc:upload_images[49,"image_paths.txt"]
+  #
+  # If it encounters an error importing a file, it will append that file to an error file
+  # of the same name as the given file with .err added. Ex:
+  #   bundle exec rake adhoc:upload_images[49,"image_paths.txt"]
+  # will create a image_paths.txt.err file with a list of files that were not imported.
   task :upload_images, [:collection_id, :file_path] => :environment do |_t, args|
     paths_file = File.new(args[:file_path], "r")
     while (line = paths_file.gets)
-      local_upload(collection_id: args[:collection_id], file_path: line.chomp)
+      begin
+        local_upload(collection_id: args[:collection_id], file_path: line.chomp)
+      rescue
+        open("#{args[:file_path]}.err", "a") do |f|
+          f << "#{line}\n"
+        end
+        next
+      end
     end
     paths_file.close
   end
