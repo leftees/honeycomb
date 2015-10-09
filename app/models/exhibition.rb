@@ -15,7 +15,8 @@ class Exhibition
     :description,
     :published,
     :preview_mode,
-    :updated_at
+    :updated_at,
+    :url
   ]
   exhibit_methods = [
     :image,
@@ -26,8 +27,7 @@ class Exhibition
     :about,
     :copyright,
     :hide_title_on_home_page,
-    :short_description,
-    :url
+    :short_description
   ]
 
   delegate *collection_methods, to: :collection
@@ -56,7 +56,7 @@ class Exhibition
   end
 
   def external?
-    if !@exhibit.url.blank?
+    if !@collection.url.blank?
       return true
     end
     false
