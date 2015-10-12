@@ -71,7 +71,7 @@ en:
   collection_left_nav:
     items: 'Items'
     showcases: 'Showcases'
-    settings: 'Collection'
+    settings: 'Settings'
     website: 'Site Setup'
     editors: 'Editors'
     live_site: 'Live Site'

@@ -23,8 +23,10 @@ Rails.application.routes.draw do
     end
 
     member do
+      get "edit/:form", to: "collections#site_setup", as: :edit_collection_form, constraints: { form: /collection_introduction|about_text/ }
       put :publish
       put :unpublish
+      get :site_setup
       post :get_google_import_authorization_uri, controller: "import"
       post :get_google_export_authorization_uri, controller: "export"
     end

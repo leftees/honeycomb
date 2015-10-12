@@ -62,6 +62,16 @@ class CollectionsController < ApplicationController
     redirect_to collections_path
   end
 
+  def site_setup
+    @collection = CollectionQuery.new.find(params[:id])
+    check_user_edits!(@collection)
+
+    cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Collections,
+                                        action: "site_setup",
+                                        collection: @collection)
+    fresh_when(etag: cache_key.generate)
+  end
+
   def publish
     collection = CollectionQuery.new.find(params[:id])
     check_user_edits!(collection)

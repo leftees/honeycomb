@@ -9,6 +9,10 @@ module CacheKeys
       def edit(collection:)
         CacheKeys::ActiveRecord.new.generate(record: collection)
       end
+
+      def site_setup(collection:)
+        CacheKeys::ActiveRecord.new.generate(record: collection)
+      end
     end
   end
 end
