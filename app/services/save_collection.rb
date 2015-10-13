@@ -11,10 +11,11 @@ class SaveCollection
   end
 
   def save
+    fix_image_param!
     collection.attributes = params
     check_unique_id
 
-    if collection.save
+    if collection.save && process_uploaded_image
       EnsureCollectionHasExhibit.call(collection)
       true
     else
@@ -26,5 +27,18 @@ class SaveCollection
 
   def check_unique_id
     CreateUniqueId.call(collection)
+  end
+
+  def fix_image_param!
+    # sometimes the form is sending an empty image value and this is causing paperclip to delete the image.
+    params.delete(:uploaded_image) if params[:uploaded_image].nil?
+  end
+
+  def process_uploaded_image
+    if params[:uploaded_image]
+      QueueJob.call(ProcessImageJob, object: exhibit)
+    else
+      true
+    end
   end
 end
