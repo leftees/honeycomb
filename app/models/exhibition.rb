@@ -20,7 +20,6 @@ class Exhibition
   ]
   exhibit_methods = [
     :image,
-    :name,
     :honeypot_image,
     :uploaded_image,
     :showcases,
