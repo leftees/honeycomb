@@ -15,7 +15,9 @@ class Exhibition
     :description,
     :published,
     :preview_mode,
-    :updated_at,
+    :short_intro,
+    :site_intro,
+    :updated_at
     :url
   ]
   exhibit_methods = [
@@ -26,7 +28,6 @@ class Exhibition
     :about,
     :copyright,
     :hide_title_on_home_page,
-    :short_description
   ]
 
   delegate *collection_methods, to: :collection

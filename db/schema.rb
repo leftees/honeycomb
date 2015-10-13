@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20151009171750) do
 ActiveRecord::Schema.define(version: 20151008201702) do
 
   create_table "collection_users", force: :cascade do |t|
@@ -34,6 +35,8 @@ ActiveRecord::Schema.define(version: 20151008201702) do
     t.string   "name_line_2",  limit: 255
     t.boolean  "preview_mode"
     t.string   "url",          limit: 255
+    t.text     "site_intro",   limit: 65535
+    t.text     "short_intro",  limit: 65535
   end
 
   add_index "collections", ["preview_mode"], name: "index_collections_on_preview_mode", using: :btree
