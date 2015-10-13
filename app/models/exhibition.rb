@@ -17,7 +17,7 @@ class Exhibition
     :preview_mode,
     :short_intro,
     :site_intro,
-    :updated_at
+    :updated_at,
     :url
   ]
   exhibit_methods = [
