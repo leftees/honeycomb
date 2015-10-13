@@ -35,6 +35,8 @@ class ExhibitsController < ApplicationController
       :copyright,
       :show_page_title,
       :hide_title_on_home_page,
+      :enable_search,
+      :enable_browse,
     ])
   end
 end
