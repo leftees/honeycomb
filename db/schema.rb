@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009171750) do
+ActiveRecord::Schema.define(version: 20151012201503) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20151009171750) do
     t.boolean  "published"
     t.string   "name_line_2",  limit: 255
     t.boolean  "preview_mode"
+    t.boolean  "enable_browse"
     t.string   "url",          limit: 255
     t.text     "site_intro",   limit: 65535
     t.text     "short_intro",  limit: 65535
