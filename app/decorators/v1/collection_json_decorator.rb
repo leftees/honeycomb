@@ -24,11 +24,11 @@ module V1
     end
 
     def external_url
-      object.exhibit.url ? object.exhibit.url : ""
+      object.url ? object.url : ""
     end
 
     def additional_type
-      object.exhibit.url ? "https://github.com/ndlib/honeycomb/wiki/ExternalCollection" : "https://github.com/ndlib/honeycomb/wiki/DecCollection"
+      object.url ? "https://github.com/ndlib/honeycomb/wiki/ExternalCollection" : "https://github.com/ndlib/honeycomb/wiki/DecCollection"
     end
 
     def description
@@ -40,15 +40,15 @@ module V1
     end
 
     def enable_browse
-      !!object.exhibit.enable_browse
+      !!object.enable_browse
     end
 
     def site_intro
-      object.exhibit.description.to_s
+      object.site_intro.to_s
     end
 
     def short_intro
-      object.exhibit.short_description.to_s
+      object.short_intro.to_s
     end
 
     def about

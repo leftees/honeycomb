@@ -74,16 +74,15 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#enable_browse" do
-    let(:exhibit) { instance_double(Exhibit) }
-    let(:collection) { instance_double(Collection, exhibit: exhibit) }
+    let(:collection) { instance_double(Collection) }
 
     it "returns what enable_browse says on exhibt" do
-      expect(exhibit).to receive(:enable_browse).and_return(true)
+      allow(collection).to receive(:enable_browse).and_return(true)
       expect(subject.enable_browse).to eq(true)
     end
 
     it "converts null to false" do
-      allow(exhibit).to receive(:enable_browse).and_return(nil)
+      allow(collection).to receive(:enable_browse).and_return(nil)
       expect(subject.enable_browse).to eq(false)
     end
   end
@@ -113,29 +112,27 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#site_intro" do
-    let(:exhibit) { double(Exhibit, description: nil) }
-    let(:collection) { double(Collection, exhibit: exhibit) }
+    let(:collection) { double(Collection, site_intro: nil) }
 
     it "converts null to empty string" do
       expect(subject.site_intro).to eq("")
     end
 
-    it "gets the value from the exhibit" do
-      expect(exhibit).to receive(:description).and_return("intro")
+    it "gets the value from #site_intro" do
+      expect(subject).to receive(:site_intro).and_return("intro")
       expect(subject.site_intro).to eq("intro")
     end
   end
 
   describe "#short_intro" do
-    let(:exhibit) { double(Exhibit, short_description: nil) }
-    let(:collection) { double(Collection, exhibit: exhibit) }
+    let(:collection) { double(Collection, short_intro: nil) }
 
     it "converts null to empty string" do
       expect(subject.short_intro).to eq("")
     end
 
-    it "gets the value from the exhibit" do
-      expect(exhibit).to receive(:short_description).and_return("intro")
+    it "gets the value from #short_intro" do
+      expect(subject).to receive(:short_intro).and_return("intro")
       expect(subject.short_intro).to eq("intro")
     end
   end
@@ -165,18 +162,16 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#external_url" do
-    context "when exhibit url is populated" do
-      let(:exhibit) { double(Exhibit, url: "http://nosite.com") }
-      let(:collection) { double(Collection, exhibit: exhibit) }
+    context "when collection url is populated" do
+      let(:collection) { double(Collection, url: "http://nosite.com") }
 
       it "returns a url" do
         expect(subject.external_url).to eq "http://nosite.com"
       end
     end
 
-    context "when exibit url is nil" do
-      let(:exhibit) { double(Exhibit, url: nil) }
-      let(:collection) { double(Collection, exhibit: exhibit) }
+    context "when collection url is nil" do
+      let(:collection) { double(Collection, url: nil) }
 
       it "returns an empty string" do
         expect(subject.external_url).to eq ""
@@ -185,18 +180,16 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#additional_type" do
-    context "when exhibit url is populated" do
-      let(:exhibit) { double(Exhibit, url: "http://nosite.com") }
-      let(:collection) { double(Collection, exhibit: exhibit) }
+    context "when collection url is populated" do
+      let(:collection) { double(Collection, url: "http://nosite.com") }
 
       it "returns link to ExternalCollection definition" do
         expect(subject.additional_type).to eq "https://github.com/ndlib/honeycomb/wiki/ExternalCollection"
       end
     end
 
-    context "when exibit url is nil" do
-      let(:exhibit) { double(Exhibit, url: nil) }
-      let(:collection) { double(Collection, exhibit: exhibit) }
+    context "when collection url is nil" do
+      let(:collection) { double(Collection, url: nil) }
 
       it "returns link to DecCollection definition" do
         expect(subject.additional_type).to eq "https://github.com/ndlib/honeycomb/wiki/DecCollection"
