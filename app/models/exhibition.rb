@@ -15,6 +15,7 @@ class Exhibition
     :description,
     :published,
     :preview_mode,
+    :copyright,
     :short_intro,
     :site_intro,
     :updated_at,
@@ -26,7 +27,6 @@ class Exhibition
     :uploaded_image,
     :showcases,
     :about,
-    :copyright,
     :hide_title_on_home_page,
   ]
 
