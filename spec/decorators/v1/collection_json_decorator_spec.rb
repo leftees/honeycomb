@@ -46,12 +46,12 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { instance_double(Collection) }
 
     it "returns true value from the collection when the flag is false" do
-      expect(collection).to receive(:hide_title_on_home_page?).and_return(false)
+      allow(collection).to receive(:hide_title_on_home_page?).and_return(false)
       expect(subject.display_page_title).to eq(true)
     end
 
     it "returns false when the collection when the flag is false" do
-      expect(collection).to receive(:hide_title_on_home_page?).and_return(true)
+      allow(collection).to receive(:hide_title_on_home_page?).and_return(true)
       expect(subject.display_page_title).to eq(false)
     end
   end
