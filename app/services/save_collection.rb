@@ -14,7 +14,11 @@ class SaveCollection
     fix_image_param!
     collection.attributes = params
     check_unique_id
-    collection.save
+    if collection.save && process_uploaded_image
+      true
+    else
+      false
+    end
   end
 
   private
