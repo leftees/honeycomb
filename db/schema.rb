@@ -24,21 +24,29 @@ ActiveRecord::Schema.define(version: 20151015142141) do
   add_index "collection_users", ["user_id"], name: "index_collection_users_on_user_id", using: :btree
 
   create_table "collections", force: :cascade do |t|
-    t.string   "name_line_1",  limit: 255
+    t.string   "name_line_1",                 limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted",                    default: false
-    t.text     "description",  limit: 65535
-    t.string   "unique_id",    limit: 255
+    t.boolean  "deleted",                                   default: false
+    t.text     "description",                 limit: 65535
+    t.string   "unique_id",                   limit: 255
     t.boolean  "published"
-    t.string   "name_line_2",  limit: 255
+    t.string   "name_line_2",                 limit: 255
     t.boolean  "preview_mode"
+    t.string   "url",                         limit: 255
+    t.text     "site_intro",                  limit: 65535
+    t.text     "short_intro",                 limit: 65535
+    t.string   "image_file_name",             limit: 255
+    t.string   "image_content_type",          limit: 255
+    t.integer  "image_file_size",             limit: 4
+    t.datetime "image_updated_at"
+    t.string   "uploaded_image_file_name",    limit: 255
+    t.string   "uploaded_image_content_type", limit: 255
+    t.integer  "uploaded_image_file_size",    limit: 4
+    t.datetime "uploaded_image_updated_at"
     t.text     "about",        limit: 65535
     t.text     "copyright",    limit: 65535
     t.boolean  "enable_browse"
-    t.string   "url",          limit: 255
-    t.text     "site_intro",   limit: 65535
-    t.text     "short_intro",  limit: 65535
     t.boolean  "enable_search"
     t.boolean  "hide_title_on_home_page"
   end
@@ -80,6 +88,7 @@ ActiveRecord::Schema.define(version: 20151015142141) do
     t.datetime "updated_at"
     t.integer  "showcase_id",   limit: 4
     t.integer  "exhibit_id",    limit: 4
+    t.integer  "collection_id", limit: 4
   end
 
   add_index "honeypot_images", ["item_id"], name: "index_honeypot_images_on_item_id", using: :btree

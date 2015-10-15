@@ -81,10 +81,8 @@ module V1
     end
 
     def image
-      if object.exhibit.honeypot_image
-        object.exhibit.honeypot_image.json_response
-      else
-        nil
+      if object.honeypot_image
+        object.honeypot_image.json_response
       end
     end
 

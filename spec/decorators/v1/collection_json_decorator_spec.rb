@@ -224,8 +224,7 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#image" do
-    let(:exhibit) { double(Exhibit, honeypot_image: honeypot_image) }
-    let(:collection) { double(Collection, exhibit: exhibit) }
+    let(:collection) { double(Collection, honeypot_image: honeypot_image) }
     let(:honeypot_image) { double(HoneypotImage, json_response: "json_response") }
 
     it "gets the honeypot_image json_response" do
@@ -233,8 +232,8 @@ RSpec.describe V1::CollectionJSONDecorator do
       expect(subject.image).to eq("json_response")
     end
 
-    it "gets the honeypot_image from the exhibit" do
-      expect(exhibit).to receive(:honeypot_image).and_return(honeypot_image)
+    it "gets the honeypot_image" do
+      expect(collection).to receive(:honeypot_image).and_return(honeypot_image)
       subject.image
     end
   end
