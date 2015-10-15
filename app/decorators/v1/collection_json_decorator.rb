@@ -36,11 +36,11 @@ module V1
     end
 
     def enable_search
-      !!object.exhibit.enable_search
+      !!object.enable_search
     end
 
     def enable_browse
-      !!object.exhibit.enable_browse
+      !!object.enable_browse
     end
 
     def site_intro
@@ -52,20 +52,20 @@ module V1
     end
 
     def about
-      object.exhibit.about.to_s
+      object.about.to_s
     end
 
     def copyright
-      exhibit_copyright = object.exhibit.copyright.to_s
-      if exhibit_copyright.empty?
+      collection_copyright = object.copyright.to_s
+      if collection_copyright.empty?
         "<p><a href=\"http://www.nd.edu/copyright/\">Copyright</a> #{Date.today.year} <a href=\"http://www.nd.edu\">University of Notre Dame</a></p>"
       else
-        exhibit_copyright
+        collection_copyright
       end
     end
 
     def display_page_title
-      !object.exhibit.hide_title_on_home_page?
+      !object.hide_title_on_home_page?
     end
 
     def slug

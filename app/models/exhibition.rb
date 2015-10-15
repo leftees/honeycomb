@@ -13,21 +13,21 @@ class Exhibition
     :unique_id,
     :exhibit,
     :description,
+    :about,
     :published,
     :preview_mode,
+    :copyright,
     :short_intro,
     :site_intro,
     :updated_at,
     :image,
     :honeypot_image,
     :uploaded_image,
+    :hide_title_on_home_page,
+    :showcases,
     :url
   ]
   exhibit_methods = [
-    :showcases,
-    :about,
-    :copyright,
-    :hide_title_on_home_page,
   ]
 
   delegate *collection_methods, to: :collection
