@@ -34,7 +34,7 @@ class SaveCollection
 
   def process_uploaded_image
     if params[:uploaded_image]
-      QueueJob.call(ProcessImageJob, object: exhibit)
+      QueueJob.call(ProcessImageJob, object: collection)
     else
       true
     end
