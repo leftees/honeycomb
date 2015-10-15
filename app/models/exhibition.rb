@@ -20,6 +20,7 @@ class Exhibition
     :short_intro,
     :site_intro,
     :updated_at,
+    :hide_title_on_home_page,
     :url
   ]
   exhibit_methods = [
@@ -27,7 +28,6 @@ class Exhibition
     :honeypot_image,
     :uploaded_image,
     :showcases,
-    :hide_title_on_home_page,
   ]
 
   delegate *collection_methods, to: :collection
