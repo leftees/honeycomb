@@ -40,15 +40,4 @@ RSpec.describe Exhibit do
     expect(subject).to respond_to(:paper_trail_enabled_for_model?)
     expect(subject.paper_trail_enabled_for_model?).to be(true)
   end
-
-  context "foreign key constraints" do
-    describe "#destroy" do
-      it "fails if a Showcase references it" do
-        FactoryGirl.create(:collection)
-        subject = FactoryGirl.create(:exhibit)
-        FactoryGirl.create(:showcase)
-        expect { subject.destroy }.to raise_error
-      end
-    end
-  end
 end

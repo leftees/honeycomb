@@ -11,7 +11,7 @@ class Exhibition
     :name_line_1,
     :name_line_2,
     :unique_id,
-    :exhibit,
+    :showcases,
     :description,
     :about,
     :published,
@@ -41,10 +41,6 @@ class Exhibition
     delegate (method.to_s + "=").to_sym, to: :exhibit
   end
 
-  def self.by_collection_id(collection_id)
-    new(exhibit: CollectionQuery.new.public_find(collection_id).exhibit)
-  end
-
   def self.all
     ExhibitQuery.new.all_external.map { |exhibit| new(exhibit: exhibit) }
   end
@@ -52,7 +48,7 @@ class Exhibition
   def initialize(exhibit: self.exhibit)
     @exhibit = exhibit
     @collection = collection
-    collection.exhibit = @exhibit
+    # collection.exhibit = @exhibit
   end
 
   def external?

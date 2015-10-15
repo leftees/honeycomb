@@ -14,9 +14,7 @@ class SaveCollection
     fix_image_param!
     collection.attributes = params
     check_unique_id
-
     if collection.save && process_uploaded_image
-      EnsureCollectionHasExhibit.call(collection)
       true
     else
       false
@@ -36,7 +34,7 @@ class SaveCollection
 
   def process_uploaded_image
     if params[:uploaded_image]
-      QueueJob.call(ProcessImageJob, object: exhibit)
+      QueueJob.call(ProcessImageJob, object: collection)
     else
       true
     end
