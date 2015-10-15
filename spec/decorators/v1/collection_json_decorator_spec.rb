@@ -232,7 +232,7 @@ RSpec.describe V1::CollectionJSONDecorator do
       expect(subject.image).to eq("json_response")
     end
 
-    it "gets the honeypot_image from the collection" do
+    it "gets the honeypot_image" do
       expect(collection).to receive(:honeypot_image).and_return(honeypot_image)
       subject.image
     end

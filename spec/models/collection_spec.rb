@@ -34,6 +34,16 @@ RSpec.describe Collection do
     end
   end
 
+  describe "#has honeypot image interface" do
+    it "responds to image" do
+      expect(subject).to respond_to(:image)
+    end
+
+    it "responds to honeypot_image" do
+      expect(subject).to respond_to(:honeypot_image)
+    end
+  end
+
   context "foreign key constraints" do
     describe "#destroy" do
       it "fails if a CollectionUser references it" do

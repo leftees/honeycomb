@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20151015142141) do
     t.boolean  "enable_browse"
     t.boolean  "enable_search"
     t.boolean  "hide_title_on_home_page"
+    t.string   "image_file_name",             limit: 255
+    t.string   "image_content_type",          limit: 255
+    t.integer  "image_file_size",             limit: 4
+    t.datetime "image_updated_at"
+    t.string   "uploaded_file_name",          limit: 255
+    t.string   "uploaded_image_content_type", limit: 255
+    t.integer  "uploaded_image_file_size",    limit: 4
+    t.datetime "uploaded_image_updated_at"
   end
 
   add_index "collections", ["preview_mode"], name: "index_collections_on_preview_mode", using: :btree
@@ -80,6 +88,7 @@ ActiveRecord::Schema.define(version: 20151015142141) do
     t.datetime "updated_at"
     t.integer  "showcase_id",   limit: 4
     t.integer  "exhibit_id",    limit: 4
+    t.integer  "collection_id", limit: 4
   end
 
   add_index "honeypot_images", ["item_id"], name: "index_honeypot_images_on_item_id", using: :btree
