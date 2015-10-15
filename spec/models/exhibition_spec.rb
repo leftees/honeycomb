@@ -7,7 +7,6 @@ RSpec.describe Exhibition do
     :items,
     :description,
     :unique_id,
-    :exhibit,
     :published,
     :preview_mode,
     :updated_at,
@@ -94,16 +93,6 @@ RSpec.describe Exhibition do
     it "returns true when exhibit url present" do
       subject.url = "http://nowhere.com"
       expect(subject.external?).to be_truthy
-    end
-  end
-
-  describe ".by_collection_id" do
-    it "returns exhibitions related to specific collection" do
-      Collection.new(name_line_1: "test", unique_id: "abc", preview_mode: 1).save!
-      Exhibit.new(url: "http://test", collection: Collection.find(Collection.last.id)).save!
-      Collection.new(name_line_1: "test2", unique_id: "def", preview_mode: 1).save!
-      Exhibit.new(url: "http://test2", collection: Collection.find(Collection.last.id)).save!
-      expect(Exhibition.by_collection_id("def").name_line_1).to eq "test2"
     end
   end
 
