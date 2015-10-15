@@ -20,10 +20,11 @@ class Exhibition
     :short_intro,
     :site_intro,
     :updated_at,
-    :hide_title_on_home_page,
     :image,
     :honeypot_image,
     :uploaded_image,
+    :hide_title_on_home_page,
+    :showcases,
     :url
   ]
   exhibit_methods = [

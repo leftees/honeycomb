@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20151015142141) do
     t.string   "image_content_type",          limit: 255
     t.integer  "image_file_size",             limit: 4
     t.datetime "image_updated_at"
-    t.string   "uploaded_file_name",          limit: 255
+    t.string   "uploaded_image_file_name",    limit: 255
     t.string   "uploaded_image_content_type", limit: 255
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"

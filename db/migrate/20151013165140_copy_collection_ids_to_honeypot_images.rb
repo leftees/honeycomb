@@ -1,11 +1,8 @@
-class MigrateHoneypotImageToCollections < ActiveRecord::Migration
-  class HoneypotImage < ActiveRecord::Base
-  end
+class CopyCollectionIdsToHoneypotImages < ActiveRecord::Migration
   class Exhibit < ActiveRecord::Base
   end
 
   def up
-    add_column :honeypot_images, :collection_id, :integer
     Exhibit.find_each do |exhibit|
       collection_id = exhibit.collection_id
       exhibit_id = exhibit.id
@@ -13,13 +10,9 @@ class MigrateHoneypotImageToCollections < ActiveRecord::Migration
     end
 
     Exhibit.reset_column_information
-    Collection.reset_column_information
   end
 
   def down
-    remove_column :honeypot_images, :collection_id
-
     Exhibit.reset_column_information
-    Collection.reset_column_information
   end
 end
