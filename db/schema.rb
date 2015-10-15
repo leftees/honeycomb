@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20151015142141) do
     t.string   "url",          limit: 255
     t.text     "site_intro",   limit: 65535
     t.text     "short_intro",  limit: 65535
+    t.boolean  "enable_search"
     t.boolean  "hide_title_on_home_page"
   end
 

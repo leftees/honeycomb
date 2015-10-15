@@ -36,7 +36,7 @@ module V1
     end
 
     def enable_search
-      !!object.exhibit.enable_search
+      !!object.enable_search
     end
 
     def enable_browse
