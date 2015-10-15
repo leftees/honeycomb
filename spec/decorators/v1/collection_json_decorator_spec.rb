@@ -59,8 +59,8 @@ RSpec.describe V1::CollectionJSONDecorator do
   describe "#enable_search" do
     let(:collection) { instance_double(Collection) }
 
-    it "returns what enable_search says on exhibt" do
-      expect(collection).to receive(:enable_search).and_return(true)
+    it "returns what enable_search says on collection" do
+      allow(collection).to receive(:enable_search).and_return(true)
       expect(subject.enable_search).to eq(true)
     end
 
