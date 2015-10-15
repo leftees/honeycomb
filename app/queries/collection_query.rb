@@ -40,7 +40,7 @@ class CollectionQuery
   def all_external
     relation.where.not(url: nil)
   end
-  
+
   delegate :find, to: :relation
 
   delegate :build, to: :relation
