@@ -10,7 +10,7 @@ class CopyImagesFromExhibitsToCollections < ActiveRecord::Migration
     Exhibit.reset_column_information
   end
 
-  def copy_image(exhibit:)
+  def copy_image(exhibit:) # rubocop:disable Metrics/AbcSize
     file_name = exhibit.image_file_name.nil? ? "NULL" : "'#{exhibit.image_file_name}'"
     content_type = exhibit.image_content_type.nil? ? "NULL" : "'#{exhibit.image_content_type}'"
     file_size = exhibit.image_file_size.nil? ? "NULL" : "'#{exhibit.image_file_size}'"
@@ -23,7 +23,7 @@ class CopyImagesFromExhibitsToCollections < ActiveRecord::Migration
             WHERE id = #{exhibit.collection_id}"
   end
 
-  def copy_uploaded_image(exhibit:)
+  def copy_uploaded_image(exhibit:) # rubocop:disable Metrics/AbcSize
     uploaded_file_name = exhibit.uploaded_image_file_name.nil? ? "NULL" : "'#{exhibit.uploaded_image_file_name}'"
     uploaded_content_type = exhibit.uploaded_image_content_type.nil? ? "NULL" : "'#{exhibit.uploaded_image_content_type}'"
     uploaded_file_size = exhibit.uploaded_image_file_size.nil? ? "NULL" : "'#{exhibit.uploaded_image_file_size}'"
