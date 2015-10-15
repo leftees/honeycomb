@@ -43,31 +43,29 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#display_page_title" do
-    let(:exhibit) { instance_double(Exhibit) }
-    let(:collection) { instance_double(Collection, exhibit: exhibit) }
+    let(:collection) { instance_double(Collection) }
 
-    it "returns true value from the exhibit when the flag is false" do
-      expect(exhibit).to receive(:hide_title_on_home_page?).and_return(false)
+    it "returns true value from the collection when the flag is false" do
+      expect(collection).to receive(:hide_title_on_home_page?).and_return(false)
       expect(subject.display_page_title).to eq(true)
     end
 
-    it "returns false when the exhibit when the flag is false" do
-      expect(exhibit).to receive(:hide_title_on_home_page?).and_return(true)
+    it "returns false when the collection when the flag is false" do
+      expect(collection).to receive(:hide_title_on_home_page?).and_return(true)
       expect(subject.display_page_title).to eq(false)
     end
   end
 
   describe "#enable_search" do
-    let(:exhibit) { instance_double(Exhibit) }
-    let(:collection) { instance_double(Collection, exhibit: exhibit) }
+    let(:collection) { instance_double(Collection) }
 
     it "returns what enable_search says on exhibt" do
-      expect(exhibit).to receive(:enable_search).and_return(true)
+      expect(collection).to receive(:enable_search).and_return(true)
       expect(subject.enable_search).to eq(true)
     end
 
     it "converts null to false" do
-      allow(exhibit).to receive(:enable_search).and_return(nil)
+      allow(collection).to receive(:enable_search).and_return(nil)
       expect(subject.enable_search).to eq(false)
     end
   end
@@ -226,8 +224,7 @@ RSpec.describe V1::CollectionJSONDecorator do
   end
 
   describe "#image" do
-    let(:exhibit) { double(Exhibit, honeypot_image: honeypot_image) }
-    let(:collection) { double(Collection, exhibit: exhibit) }
+    let(:collection) { double(Collection, honeypot_image: honeypot_image) }
     let(:honeypot_image) { double(HoneypotImage, json_response: "json_response") }
 
     it "gets the honeypot_image json_response" do
@@ -235,8 +232,8 @@ RSpec.describe V1::CollectionJSONDecorator do
       expect(subject.image).to eq("json_response")
     end
 
-    it "gets the honeypot_image from the exhibit" do
-      expect(exhibit).to receive(:honeypot_image).and_return(honeypot_image)
+    it "gets the honeypot_image from the collection" do
+      expect(collection).to receive(:honeypot_image).and_return(honeypot_image)
       subject.image
     end
   end

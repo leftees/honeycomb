@@ -13,13 +13,7 @@ class SaveCollection
   def save
     collection.attributes = params
     check_unique_id
-
-    if collection.save
-      EnsureCollectionHasExhibit.call(collection)
-      true
-    else
-      false
-    end
+    collection.save
   end
 
   private

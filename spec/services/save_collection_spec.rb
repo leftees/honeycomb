@@ -31,11 +31,4 @@ RSpec.describe SaveCollection, type: :model do
       subject
     end
   end
-
-  describe "exhibit" do
-    it "calls EnsureCollectionHasExhibit" do
-      expect(EnsureCollectionHasExhibit).to receive(:call).with(collection)
-      subject
-    end
-  end
 end

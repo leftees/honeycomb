@@ -20,8 +20,8 @@ module Destroy
         collection.collection_users.each do |child|
           @destroy_collection_user.cascade!(collection_user: child)
         end
-        collection.collection.each do |child|
-          @destroy_showcase.cascade!(exhibit: collection.exhibit)
+        collection.showcases.each do |child|
+          @destroy_showcase.cascade!(showcase: child)
         end
         collection.items.each do |child|
           @destroy_item.cascade!(item: child)
