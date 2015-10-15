@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013165130) do
+ActiveRecord::Schema.define(version: 20151013165140) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20151013165130) do
     t.string   "image_content_type",          limit: 255
     t.integer  "image_file_size",             limit: 4
     t.datetime "image_updated_at"
-    t.string   "uploaded_file_name",          limit: 255
+    t.string   "uploaded_image_file_name",    limit: 255
     t.string   "uploaded_image_content_type", limit: 255
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"
