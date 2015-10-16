@@ -48,7 +48,6 @@ class Exhibition
   def initialize(exhibit: self.exhibit)
     @exhibit = exhibit
     @collection = collection
-    # collection.exhibit = @exhibit
   end
 
   def external?
