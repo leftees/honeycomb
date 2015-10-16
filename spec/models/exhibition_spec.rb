@@ -96,15 +96,15 @@ RSpec.describe Exhibition do
     end
   end
 
-  describe ".all" do
-    it "returns all exhibition objects" do
-      Collection.new(name_line_1: "test", unique_id: "abc123").save!
-      Exhibit.new(url: "http://test", collection: Collection.find(Collection.last.id)).save!
-      Exhibit.new(url: "http://test2", collection: Collection.find(Collection.last.id)).save!
-      Exhibit.new(collection: Collection.find(Collection.last.id)).save!
-      expect(Exhibition.all).to have(2).items
-    end
-  end
+  # describe ".all" do
+  #   it "returns all exhibition objects" do
+  #     Collection.new(name_line_1: "test", unique_id: "abc123").save!
+  #     Exhibit.new(url: "http://test", collection: Collection.find(Collection.last.id)).save!
+  #     Exhibit.new(url: "http://test2", collection: Collection.find(Collection.last.id)).save!
+  #     Exhibit.new(collection: Collection.find(Collection.last.id)).save!
+  #     expect(Exhibition.all).to have(2).items
+  #   end
+  # end
 
   describe "#save!" do
     let(:subject) { Exhibition.new }
@@ -116,11 +116,11 @@ RSpec.describe Exhibition do
       expect(collection.id).to eq Collection.last.id
     end
 
-    it "persists a exhibit record" do
-      subject.name_line_1 = "test"
-      subject.save!
-      exhibit = Exhibit.find(subject.exhibit.id)
-      expect(exhibit.id).to eq Exhibit.last.id
-    end
+    # it "persists a exhibit record" do
+    #   subject.name_line_1 = "test"
+    #   subject.save!
+    #   exhibit = Exhibit.find(subject.exhibit.id)
+    #   expect(exhibit.id).to eq Exhibit.last.id
+    # end
   end
 end
