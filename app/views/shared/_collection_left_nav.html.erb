@@ -1,7 +1,7 @@
 <div class="nav-panel ">
   <ul class="well">
     <li class="<%= nav.active_section_css(:items) %>"><a href="<%= collection_items_path(nav.collection) %>"><i class="glyphicon glyphicon-picture"></i> <%= t('collection_left_nav.items') %></a></li>
-    <li class="<%= nav.active_section_css(:showcases) %>"><a href="<%= collection_exhibit_path(nav.collection) %>"><i class="glyphicon glyphicon-film"></i> <%= t('collection_left_nav.showcases') %></a></li>
+    <li class="<%= nav.active_section_css(:showcases) %>"><a href="<%= collection_showcases_path(nav.collection) %>"><i class="glyphicon glyphicon-film"></i> <%= t('collection_left_nav.showcases') %></a></li>
     <li class="<%= nav.active_section_css(:website) %>"><a href="<%= site_setup_collection_path(nav.collection) %>"><i class="glyphicon mdi-av-web"></i> <%= t('collection_left_nav.website') %></a></li>
     <li role="presentation" class="divider"></li>
     <li class="<%= nav.active_section_css(:settings) %>"><a href="<%= edit_collection_path(nav.collection) %>"><i class="glyphicon glyphicon-list-alt"></i> <%= t('collection_left_nav.settings') %></a></li>

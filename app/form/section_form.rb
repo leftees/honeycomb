@@ -41,7 +41,7 @@ class SectionForm
   end
 
   def collection
-    section.showcase.exhibit.collection
+    section.showcase.collection
   end
 
   delegate :showcase, to: :section

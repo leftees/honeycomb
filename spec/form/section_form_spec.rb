@@ -2,8 +2,7 @@ require "rails_helper"
 
 describe SectionForm do
   let(:collection) { double(Collection, id: 1) }
-  let(:exhibit) { double(Exhibit, id: 1, collection: collection) }
-  let(:showcase) { double(Showcase, id: 1, exhibit: exhibit, sections: sections) }
+  let(:showcase) { double(Showcase, id: 1, collection: collection, sections: sections) }
   let(:section) { double(Section, id: 1, order: 1, item_id: 1, showcase: showcase, "order=" => true, name: "the section") }
   let(:sections) { double(build: true) }
 

@@ -6,12 +6,12 @@ class SectionsController < ApplicationController
   end
 
   def new
-    check_user_edits!(showcase.exhibit.collection)
+    check_user_edits!(showcase.collection)
     @section_form = SectionForm.build_from_params(self)
   end
 
   def create
-    check_user_edits!(showcase.exhibit.collection)
+    check_user_edits!(showcase.collection)
     @section = SectionQuery.new(showcase.sections).build
 
     respond_to do |format|
@@ -36,7 +36,7 @@ class SectionsController < ApplicationController
 
   def update
     @section = SectionQuery.new.find(params[:id])
-    check_user_edits!(@section.showcase.exhibit.collection)
+    check_user_edits!(@section.showcase.collection)
 
     respond_to do |format|
       if SaveSection.call(@section, section_params)
@@ -51,7 +51,7 @@ class SectionsController < ApplicationController
 
   def destroy
     @section = SectionQuery.new.find(params[:id])
-    check_user_edits!(@section.showcase.exhibit.collection)
+    check_user_edits!(@section.showcase.collection)
     Destroy::Section.new.cascade!(section: @section)
 
     flash[:notice] = t(".success")
