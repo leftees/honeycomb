@@ -1,8 +1,6 @@
-<h3>Search and Browse</h3>
-<%= f.input :enable_search, as: :boolean, label: false, hint: "Select this box to enable search on the site." do %>
-  <label><%= f.check_box :enable_search %> Enable Site Search</label>
+<%= f.input :enable_search, as: :boolean, label: false, hint: "Select this box to enable search for this collection" do %>
+<label><%= f.check_box :enable_search %> Enable Site Search</label>
 <% end %>
-
 <%= f.input :enable_browse, as: :boolean, label: false, hint: "This will enable a browse page with all items listed." do %>
   <label><%= f.check_box :enable_search %> Enable Item Browse</label>
 <% end %>

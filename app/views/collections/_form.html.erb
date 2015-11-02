@@ -2,5 +2,4 @@
 
 <%= f.input :name_line_1 %>
 <%= f.input :name_line_2 %>
-
-<h3>TODO: Add Search and Browse Here</h3>
+<%= render partial: 'search_and_browse_form', locals: { f: f } %>
