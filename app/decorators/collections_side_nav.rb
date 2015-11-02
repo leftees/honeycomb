@@ -7,16 +7,19 @@ class CollectionsSideNav < Draper::Decorator
   end
 
   def homepage_link
-    "TODO: Homepage link"
+    h.link_to("Homepage", h.site_setup_form_collection_path(collection, form: "homepage"))
   end
 
   def collection_introduction_link
-    "TODO: Introduction link"
-    #h.link_to("Collection Introduction", h.edit_collection_form_collection_path(collection, form: "collection_introduction"))
+    h.link_to("Introduction", h.site_setup_form_collection_path(collection, form: "collection_introduction"))
+  end
+
+  def copyright_text_link
+    h.link_to("Copyright", h.site_setup_form_collection_path(collection, form: "copyright_text"))
   end
 
   def about_text_link
-    h.link_to("About Text", h.edit_collection_form_collection_path(collection, form: "about_text"))
+    h.link_to("About", h.site_setup_form_collection_path(collection, form: "about_text"))
   end
 
   def active_tab_class(tab:)

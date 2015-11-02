@@ -72,6 +72,18 @@ class CollectionsController < ApplicationController
     fresh_when(etag: cache_key.generate)
   end
 
+  def site_setup_update
+    @collection = CollectionQuery.new.find(params[:id])
+    check_user_edits!(@collection)
+
+    if SaveCollection.call(@collection, save_params)
+      flash[:notice] = t(".success")
+      redirect_to site_setup_form_collection_path(@collection, form: params[:form])
+    else
+      render :site_setup
+    end
+  end
+
   def publish
     collection = CollectionQuery.new.find(params[:id])
     check_user_edits!(collection)
@@ -99,6 +111,18 @@ class CollectionsController < ApplicationController
   protected
 
   def save_params
-    params.require(:collection).permit(:name_line_1, :name_line_2, :description, :id, :enable_search, :enable_browse)
+    params.require(:collection).permit(
+      :name_line_1,
+      :name_line_2,
+      :description,
+      :id,
+      :enable_search,
+      :enable_browse,
+      :site_intro,
+      :short_intro,
+      :hide_title_on_home_page,
+      :uploaded_image,
+      :about,
+      :copyright)
   end
 end

@@ -47,6 +47,8 @@ en:
       collection:
         name_line_1: 'Name Line 1'
         name_line_2: 'Name Line 2'
+        site_intro: 'Site Introduction'
+        short_intro: 'Short Introduction'
       exhibit:
         edit:
           description: "Collection/Exhibit Introduction"
@@ -64,7 +66,8 @@ en:
           description: "A more extensive description of this exhibit which will appear on the introduction page"
     placeholders:
       collection:
-        description: "Description should be a short description of what the collection is.  (100 Words)"
+        site_intro: "Create an introduction page to your site."
+        short_intro: "Create a short introduction. Try to limit this to around 200 characters."
       exhibit:
         edit:
           description: "Around 200 characters"
@@ -97,6 +100,8 @@ en:
     create:
       success: 'Collection created'
     update:
+      success: 'Collection updated'
+    site_setup_update:
       success: 'Collection updated'
     destroy:
       success: "Collection deleted"

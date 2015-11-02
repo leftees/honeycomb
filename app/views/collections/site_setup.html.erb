@@ -1,11 +1,9 @@
 <% page_title(@collection.name) %>
 <%= collection_nav(@collection, :website) %>
 
-<%= back_action_bar(edit_exhibit_path(@collection.id), '#' ) %>
-
 <div class="row">
   <div class="col-md-10">
-    <%= simple_form_for @collection do |f| %>
+    <%= simple_form_for @collection, :url => site_setup_update_form_collection_path(@collection, form: (params[:form] ? "#{params[:form]}" : 'homepage')) do |f| %>
       <%= display_errors(f.object) %>
 
       <div class="panel panel-default">

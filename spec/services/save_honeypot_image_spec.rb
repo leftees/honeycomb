@@ -22,8 +22,8 @@ RSpec.describe SaveHoneypotImage do
   end
 
   let(:honeypot_image) { HoneypotImage.new(item_id: 1) }
-  let(:collection) { double(Collection, id: 1) }
-  let(:item) { double(Item, id: 1, collection: collection, image: image, honeypot_image: honeypot_image, save: true) }
+  let(:collection) { double(Collection, id: 100, image: image, honeypot_image: honeypot_image, save: true) }
+  let(:item) { double(Item, id: 10, collection: collection, image: image, honeypot_image: honeypot_image, save: true) }
   let(:image) { double(path: Rails.root.join("spec/fixtures/test.jpg").to_s, content_type: "image/jpeg") }
   let(:faraday_response) { double(success?: true, body: honeypot_json) }
 
@@ -33,7 +33,7 @@ RSpec.describe SaveHoneypotImage do
     end
 
     it "sends a request to the json api" do
-      expect(connection).to receive(:post).with("/api/images", application_id: "honeycomb", group_id: 1, item_id: 1, image: kind_of(Faraday::UploadIO)).and_return(faraday_response)
+      expect(connection).to receive(:post).with("/api/images", application_id: "honeycomb", group_id: 100, item_id: 10, image: kind_of(Faraday::UploadIO)).and_return(faraday_response)
 
       subject.save!
     end
@@ -110,6 +110,18 @@ RSpec.describe SaveHoneypotImage do
   describe "#api_url" do
     it "returns a url to the honeypot application" do
       expect(subject.send(:api_url)).to eq("http://localhost:3019")
+    end
+  end
+
+  context "group id" do
+    it "uses the collection id as the group id when the object is a collection" do
+      subject = described_class.new(object: collection)
+      expect(subject.send(:group_id)).to eq(collection.id)
+    end
+
+    it "uses the collection id as the group id when the object has a collection method" do
+      subject = described_class.new(object: item)
+      expect(subject.send(:group_id)).to eq(collection.id)
     end
   end
 end
