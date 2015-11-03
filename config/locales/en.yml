@@ -74,7 +74,7 @@ en:
   collection_left_nav:
     items: 'Items'
     showcases: 'Showcases'
-    settings: 'Collection Settings'
+    settings: 'Settings'
     website: 'Site Setup'
     editors: 'Editors'
     live_site: 'Live Site'
@@ -96,7 +96,7 @@ en:
     new:
       title: 'New Collection'
     edit:
-      title: 'Collection Settings'
+      title: 'Settings'
     create:
       success: 'Collection created'
     update:
