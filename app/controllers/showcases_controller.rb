@@ -75,7 +75,7 @@ class ShowcasesController < ApplicationController
     Destroy::Showcase.new.cascade!(showcase: @showcase)
 
     flash[:notice] = t(".success")
-    redirect_to collection_path(@showcase.collection)
+    redirect_to collection_showcases_path(@showcase.collection)
   end
 
   def publish
