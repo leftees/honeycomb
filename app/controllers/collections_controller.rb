@@ -67,12 +67,12 @@ class CollectionsController < ApplicationController
     check_user_edits!(@collection)
 
     cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::Collections,
-                                        action: "site_setup",
-                                        collection: @collection)
+                                         action: "site_setup",
+                                         collection: @collection)
     fresh_when(etag: cache_key.generate)
   end
 
-  def site_setup_update
+  def site_setup_update # rubocop:disable Metrics/AbcSize
     @collection = CollectionQuery.new.find(params[:id])
     check_user_edits!(@collection)
 

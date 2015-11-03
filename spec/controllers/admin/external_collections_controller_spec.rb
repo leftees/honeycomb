@@ -2,8 +2,16 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe Admin::ExternalCollectionsController, type: :controller do
-  let(:collection) { instance_double(Collection, id: 1, name_line_1: "COLLECTION", destroy!: true, collection_users: [], showcases: [], items: [], honeypot_image: nil) }
-
+  let(:collection) do
+    instance_double(Collection,
+                    id: 1,
+                    name_line_1: "COLLECTION",
+                    destroy!: true,
+                    collection_users: [],
+                    showcases: [],
+                    items: [],
+                    honeypot_image: nil)
+  end
   let(:create_params) { { external_collection: { name_line_1: "TITLE!!" } } }
   let(:update_params) { { id: "1", published: true, external_collection: { name_line_1: "TITLE!!" } } }
 

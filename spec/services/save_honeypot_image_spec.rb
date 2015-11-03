@@ -33,7 +33,12 @@ RSpec.describe SaveHoneypotImage do
     end
 
     it "sends a request to the json api" do
-      expect(connection).to receive(:post).with("/api/images", application_id: "honeycomb", group_id: 100, item_id: 10, image: kind_of(Faraday::UploadIO)).and_return(faraday_response)
+      expect(connection).to receive(:post).with("/api/images",
+                                                application_id: "honeycomb",
+                                                group_id: 100,
+                                                item_id: 10,
+                                                image: kind_of(Faraday::UploadIO)).
+        and_return(faraday_response)
 
       subject.save!
     end
