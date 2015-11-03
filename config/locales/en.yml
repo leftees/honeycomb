@@ -215,3 +215,13 @@ en:
     attributes:
       item:
         manuscript_url: "Digitized Manuscript URL"
+  admin:
+    external_collections:
+      create:
+        success: 'Collection created'
+      update:
+        success: 'Collection updated'
+      site_setup_update:
+        success: 'Collection updated'
+      destroy:
+        success: 'Collection deleted'
