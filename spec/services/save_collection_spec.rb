@@ -8,7 +8,6 @@ RSpec.describe SaveCollection, type: :model do
 
   before(:each) do
     allow(CreateUniqueId).to receive(:call).and_return(true)
-    allow(EnsureCollectionHasExhibit).to receive(:call).and_return(true)
   end
 
   it "returns when the collection save is successful" do

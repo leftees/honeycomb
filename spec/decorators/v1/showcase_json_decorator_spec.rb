@@ -62,7 +62,7 @@ RSpec.describe V1::ShowcaseJSONDecorator do
       expect(subject.image).to eq("json_response")
     end
 
-    it "gets the honeypot_image from the exhibit" do
+    it "gets the honeypot_image from the showcase" do
       expect(showcase).to receive(:honeypot_image).and_return(honeypot_image)
       subject.image
     end

@@ -29,7 +29,7 @@ class ShowcaseQuery
 
   def next(showcase)
     relation.
-      where(exhibit_id: showcase.exhibit_id).
+      where(collection_id: showcase.collection_id).
       where("`#{relation.table_name}`.order > ?", showcase.order).
       order(:order).
       first
@@ -37,7 +37,7 @@ class ShowcaseQuery
 
   def previous(showcase)
     relation.
-      where(exhibit_id: showcase.exhibit_id).
+      where(collection_id: showcase.collection_id).
       where("`#{relation.table_name}`.order < ?", showcase.order).
       order(order: :desc).
       first

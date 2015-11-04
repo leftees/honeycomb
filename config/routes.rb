@@ -15,7 +15,6 @@ Rails.application.routes.draw do
 
   resources :collections,
             only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    get :exhibit
 
     collection do
       get :import_google_sheet_callback, controller: "import"
@@ -51,14 +50,6 @@ Rails.application.routes.draw do
       put :unpublish
     end
     resources :children, controller: "item_children", only: [:new, :create]
-  end
-
-  resources :exhibits, only: [:show, :edit, :update] do
-    member do
-      get "edit/:form", to: "exhibits#edit", as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text|search_and_browse/ }
-    end
-
-    resources :showcases, only: [:index, :new, :create]
   end
 
   resources :showcases, only: [:show, :edit, :update, :destroy] do

@@ -19,7 +19,6 @@ describe Destroy::Section do
 
   context "cascade transaction" do
     let(:collection) { FactoryGirl.create(:collection) }
-    let(:exhibit) { FactoryGirl.create(:exhibit) }
     let(:showcase) { FactoryGirl.create(:showcase) }
     let(:section) { FactoryGirl.create(:section) }
 
@@ -31,7 +30,6 @@ describe Destroy::Section do
 
     it "rolls back if an error occurs with Section.destroy!" do
       collection
-      exhibit
       showcase
       allow(section).to receive(:destroy!).and_raise("error")
       expect { subject.cascade!(section: section) }.to raise_error("error")

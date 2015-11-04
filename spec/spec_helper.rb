@@ -72,7 +72,6 @@ RSpec.configure do |config|
     # Preload the fields for ActiveRecord objects to allow use of instance_double
     [
       Collection,
-      Exhibit,
       Item,
       HoneypotImage,
       User,

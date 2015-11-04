@@ -1,8 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Nav::CollectionLeft do
-  let(:exhibit) { double(Exhibit, id: 1) }
-  let(:collection) { double(Collection, id: 1, name_line_1: "Name Line 1", exhibit: exhibit) }
+  let(:collection) { double(Collection, id: 1, name_line_1: "Name Line 1") }
   subject { Nav::CollectionLeft.new(collection) }
 
   before(:each) do
