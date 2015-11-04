@@ -30,13 +30,13 @@ module Admin
       @honeypot_image = external_collection.honeypot_image[:json_response]["thumbnail/small"]["contentUrl"] if external_collection.honeypot_image
     end
 
-    def update # rubocop:disable Metrics/AbcSize
+    def update
       check_admin_or_admin_masquerading_permission!
       @external_collection = CollectionQuery.new.find(params[:id])
 
-      if SaveCollection.call(external_collection, save_params)
+      if SaveCollection.call(@external_collection, save_params)
         flash[:notice] = t(".success")
-        redirect_to edit_admin_external_collection_path(external_collection)
+        redirect_to edit_admin_external_collection_path(@external_collection)
       else
         render :edit
       end
