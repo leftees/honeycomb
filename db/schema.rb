@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103154957) do
+ActiveRecord::Schema.define(version: 20151104211754) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20151103154957) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted",                                   default: false
-    t.text     "description",                 limit: 65535
     t.string   "unique_id",                   limit: 255
     t.boolean  "published"
     t.string   "name_line_2",                 limit: 255
