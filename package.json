@@ -14,7 +14,7 @@
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "react-scroll": "^0.18.0",
-    "react-tap-event-plugin": "^0.1.7",
+    "react-tap-event-plugin": "0.1.7",
     "reactify": "^0.17.1"
   },
   "devDependencies": {
