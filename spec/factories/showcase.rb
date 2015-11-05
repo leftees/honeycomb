@@ -8,9 +8,9 @@ FactoryGirl.define do
     image_content_type "image/jpeg"
     image_file_size 1.megabyte
 
-    factory :showcase_with_exhibit do
+    factory :showcase_with_collection do
       after(:build, :create) do |s|
-        s.exhibit = build(:exhibit_with_collection)
+        s.collection = build(:collection)
       end
     end
   end

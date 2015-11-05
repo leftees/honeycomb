@@ -131,7 +131,6 @@ RSpec.describe Item do
     describe "#destroy" do
       it "fails if a section references it" do
         FactoryGirl.create(:collection)
-        FactoryGirl.create(:exhibit)
         FactoryGirl.create(:showcase)
         subject = FactoryGirl.create(:item)
         FactoryGirl.create(:section, id: 1, item_id: 1)
@@ -140,7 +139,6 @@ RSpec.describe Item do
 
       it "fails if a child item references it" do
         FactoryGirl.create(:collection)
-        FactoryGirl.create(:exhibit)
         FactoryGirl.create(:showcase)
         subject = FactoryGirl.create(:item)
         FactoryGirl.create(:item, id: 2, parent_id: 1, user_defined_id: "two")

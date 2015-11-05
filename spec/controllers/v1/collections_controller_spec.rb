@@ -8,7 +8,6 @@ RSpec.describe V1::CollectionsController, type: :controller do
   before(:each) do
     allow_any_instance_of(CollectionQuery).to receive(:public_collections).and_return(collections)
     allow_any_instance_of(CollectionQuery).to receive(:public_find).and_return(collection)
-    allow_any_instance_of(ExhibitQuery).to receive(:for_collections).and_return([])
   end
 
   describe "#index" do

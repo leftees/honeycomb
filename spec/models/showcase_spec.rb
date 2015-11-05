@@ -65,7 +65,6 @@ RSpec.describe Showcase do
     describe "#destroy" do
       it "fails if a Section references it" do
         FactoryGirl.create(:collection)
-        FactoryGirl.create(:exhibit)
         subject = FactoryGirl.create(:showcase)
         FactoryGirl.create(:section)
         expect { subject.destroy }.to raise_error

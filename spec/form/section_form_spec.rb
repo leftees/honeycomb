@@ -70,8 +70,8 @@ describe SectionForm do
 
   describe "build_from_params" do
     let(:controller) { double(ApplicationController, params: {}) }
-    let(:new_params) { { exhibit_id: "10", showcase_id: "20", section: { order: "1" } } }
-    let(:edit_params) { { exhibit_id: "10", showcase_id: "20", id: "30" } }
+    let(:new_params) { { collection_id: "10", showcase_id: "20", section: { order: "1" } } }
+    let(:edit_params) { { collection_id: "10", showcase_id: "20", id: "30" } }
     subject { described_class.build_from_params(controller) }
 
     context "new_params" do

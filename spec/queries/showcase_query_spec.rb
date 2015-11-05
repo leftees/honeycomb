@@ -45,8 +45,8 @@ describe ShowcaseQuery do
     end
 
     it "accepts default arguments" do
-      item = subject.build(exhibit_id: 1)
-      expect(item.exhibit_id).to eq(1)
+      item = subject.build(collection_id: 1)
+      expect(item.collection_id).to eq(1)
     end
   end
 
@@ -64,7 +64,6 @@ describe ShowcaseQuery do
   describe "next" do
     before(:each) do
       FactoryGirl.create(:collection)
-      FactoryGirl.create(:exhibit)
     end
 
     it "finds the correct showcase when there is one" do
@@ -119,7 +118,6 @@ describe ShowcaseQuery do
   describe "previous" do
     before(:each) do
       FactoryGirl.create(:collection)
-      FactoryGirl.create(:exhibit)
     end
 
     it "finds the correct showcase when there is one" do

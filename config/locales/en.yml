@@ -49,10 +49,6 @@ en:
         name_line_2: 'Name Line 2'
         site_intro: 'Site Introduction'
         short_intro: 'Short Introduction'
-      exhibit:
-        edit:
-          description: "Collection/Exhibit Introduction"
-          short_description: "Site Introduction"
       showcase:
         title: 'Title Line 1'
         subtitle: 'Title Line 2'
@@ -61,16 +57,10 @@ en:
     hints:
       showcase:
         image: "This image will appear tiled in the background of your showcase"
-      exhibit:
-        edit:
-          description: "A more extensive description of this exhibit which will appear on the introduction page"
     placeholders:
       collection:
         site_intro: "Create an introduction page to your site."
         short_intro: "Create a short introduction. Try to limit this to around 200 characters."
-      exhibit:
-        edit:
-          description: "Around 200 characters"
   collection_left_nav:
     items: 'Items'
     showcases: 'Showcases'
@@ -107,7 +97,7 @@ en:
       success: "Collection deleted"
     delete_panel:
       heading: Delete this Collection
-      message: "Proceed with caution. This will also remove all items, exhibits, and showcases."
+      message: "Proceed with caution. This will also remove all items and showcases."
   import:
     import_google_sheet_callback:
       title: "Import Results"
@@ -202,9 +192,6 @@ en:
     destroy:
       success: "Showcase deleted"
       failure: "There was a problem deleting this showcase"
-  exhibits:
-    update:
-      success: 'Website updated'
   sections:
     new:
       title: "New Section"

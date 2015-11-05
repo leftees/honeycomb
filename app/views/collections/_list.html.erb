@@ -15,11 +15,11 @@
           <%= CollectionImage.new(collection).display %>
         <td>
           <h4 class="media-heading"><%= h link_to collection.name_line_1, collection_path(collection) %></h4>
-          <%= h collection.description %>
+          <div><%= strip_tags collection.short_intro if collection.short_intro.present? %></div>
         </td>
         <td><span class="badge"><%= t('.items_badge', number: collection.items.size) %></span></td>
         <td>
-          <%= PublishedText.display(collection) %>          
+          <%= PublishedText.display(collection) %>
         </td>
         <td>
            <%= ListTime.display(collection.updated_at) %>

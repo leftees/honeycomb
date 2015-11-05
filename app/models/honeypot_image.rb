@@ -3,7 +3,6 @@ class HoneypotImage < ActiveRecord::Base
 
   belongs_to :item, touch: true
   belongs_to :showcase, touch: true
-  belongs_to :exhibit, touch: true
   belongs_to :collection, touch: true
 
   validates :name, :json_response, presence: true
