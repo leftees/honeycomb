@@ -27,9 +27,9 @@
           <% end %>
         </td>
         <td>
-          <a href="<%= edit_admin_external_collection_path(collection.exhibit) %>">
+          <a href="<%= edit_admin_external_collection_path(collection) %>">
             <span class="glyphicon glyphicon-edit"></span>
-            <%= raw collection.full_name %>
+            <%= raw collection.name_line_1 %>
           </a>
         </td>
         <td>
@@ -42,7 +42,7 @@
           <a className="remove-external-collection"
             data-confirm="Are you sure?"
             data-method="delete"
-            href="<%= admin_external_collection_path(collection.exhibit) %>"
+            href="<%= admin_external_collection_path(collection) %>"
             rel="nofollow">
             <span class="glyphicon glyphicon-trash"></span>
         </a>

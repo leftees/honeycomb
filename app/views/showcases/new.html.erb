@@ -1,7 +1,7 @@
-<% page_title(t('.title'), @exhibit.collection) %>
-<%= collection_nav(@exhibit.collection, :showcases) %>
+<% page_title(t('.title'), @collection) %>
+<%= collection_nav(@collection, :showcases) %>
 
-<%= simple_form_for [@showcase.exhibit, @showcase], :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for [@showcase.collection, @showcase], :html => { :class => 'form-horizontal' } do |f| %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">New Showcase</h3>

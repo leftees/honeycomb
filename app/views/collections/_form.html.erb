@@ -2,5 +2,4 @@
 
 <%= f.input :name_line_1 %>
 <%= f.input :name_line_2 %>
-<%= f.input :description, as: :text, rows: 5 %>
-
+<%= render partial: 'search_and_browse_form', locals: { f: f } %>

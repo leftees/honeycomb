@@ -67,10 +67,14 @@ RSpec.describe Collection do
         expect { subject.destroy }.to raise_error
       end
 
-      it "fails if a Exhibit references it" do
-        subject = FactoryGirl.create(:collection)
-        FactoryGirl.create(:exhibit)
-        expect { subject.destroy }.to raise_error
+      context "foreign key constraints" do
+        describe "#destroy" do
+          it "fails if a Showcase references it" do
+            subject = FactoryGirl.create(:collection)
+            FactoryGirl.create(:showcase)
+            expect { subject.destroy }.to raise_error
+          end
+        end
       end
 
       it "fails if an Item references it" do

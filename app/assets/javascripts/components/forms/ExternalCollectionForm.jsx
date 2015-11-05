@@ -70,7 +70,7 @@ var ExternalCollectionForm = React.createClass({
         <Panel>
           <PanelHeading>External Collection</PanelHeading>
           <PanelBody>
-              <StringField objectType={this.props.objectType} name="name" required={true} title="Name" value={this.state.formValues.name} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('name')} />
+              <StringField objectType={this.props.objectType} name="name_line_1" required={true} title="Name" value={this.state.formValues.name_line_1} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('name_line_1')} />
               <StringField objectType={this.props.objectType} name="url" required={true} title="URL" value={this.state.formValues.url} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('url')} />
               <HtmlField objectType={this.props.objectType} name="description" title="Description" value={this.state.formValues.description} handleFieldChange={this.handleFieldChange} errorMsg={this.fieldError('description')} placeholder="Example: This is an collection external to the honeycomb system" />
               {this.thumbnailImage()}

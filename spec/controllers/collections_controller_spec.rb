@@ -271,4 +271,84 @@ RSpec.describe CollectionsController, type: :controller do
       expect(response).to be_redirect
     end
   end
+
+  describe "site_setup" do
+    subject { get :site_setup, id: collection.id }
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
+      subject
+    end
+
+    it "uses collection query" do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection)
+      subject
+    end
+
+    it "assigns a collection" do
+      subject
+
+      assigns(:collection)
+      expect(assigns(:collection)).to eq(collection)
+    end
+
+    it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the Collection#site_setup to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::Collections).to receive(:site_setup)
+      subject
+    end
+  end
+
+  describe "site_setup_update" do
+    let(:update_params) { { id: "1", published: true, form: "homepage", collection: { name_line_1: "TITLE!!" } } }
+    subject { put :site_setup_update, update_params }
+
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:find).and_return(collection)
+      allow(SaveCollection).to receive(:call).and_return(true)
+    end
+
+    it "checks the curator permissions" do
+      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
+      subject
+    end
+
+    it "uses collection query " do
+      expect_any_instance_of(CollectionQuery).to receive(:find).with("1").and_return(collection)
+      subject
+    end
+
+    it "redirects on success" do
+      subject
+
+      expect(response).to be_redirect
+      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "renders new on failure" do
+      allow(SaveCollection).to receive(:call).and_return(false)
+
+      subject
+      expect(response).to render_template("site_setup")
+    end
+
+    it "assigns a collection" do
+      subject
+
+      assigns(:collection)
+      expect(assigns(:collection)).to eq(collection)
+    end
+
+    it "uses the save collection service" do
+      expect(SaveCollection).to receive(:call).with(collection, update_params[:collection]).and_return(true)
+
+      subject
+    end
+
+    it_behaves_like "a private content-based etag cacher"
+  end
 end
