@@ -29,4 +29,4 @@ production:
   <<: *vm
   cas_base: https://login.nd.edu/cas
   honeypot_url: https://honeypot.library.nd.edu
-  beehive_url: https://beehive.library.nd.edu
+  beehive_url: https://collections.library.nd.edu
