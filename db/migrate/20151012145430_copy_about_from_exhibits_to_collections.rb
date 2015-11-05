@@ -5,7 +5,7 @@ class CopyAboutFromExhibitsToCollections < ActiveRecord::Migration
 
   def up
     ExhibitMigration.find_each do |exhibit|
-      about = exhibit.about
+      about = quote_string(string: exhibit.about)
       execute "UPDATE collections SET about = '#{about}' WHERE id = #{exhibit.collection_id}" unless about.nil?
     end
     ExhibitMigration.reset_column_information
@@ -13,5 +13,9 @@ class CopyAboutFromExhibitsToCollections < ActiveRecord::Migration
 
   def down
     ExhibitMigration.reset_column_information
+  end
+
+  def quote_string(string:)
+    string.nil? ? nil : ActiveRecord::Base.connection.quote_string(string)
   end
 end
