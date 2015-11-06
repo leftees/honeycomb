@@ -3,6 +3,7 @@ class Collection < ActiveRecord::Base
   has_many :collection_users
   has_many :users, through: :collection_users
   has_many :showcases
+  has_many :pages
   has_one :honeypot_image
 
   has_attached_file :image,
