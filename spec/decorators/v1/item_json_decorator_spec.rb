@@ -84,6 +84,7 @@ RSpec.describe V1::ItemJSONDecorator do
         "@type",
         "@id",
         "isPartOf/collection",
+        "additionalType",
         "id",
         "slug",
         "name",
@@ -139,5 +140,9 @@ RSpec.describe V1::ItemJSONDecorator do
       expect(V1::MetadataJSON).to receive(:metadata).with(item).and_return("metadata")
       expect(subject.metadata).to eq("metadata")
     end
+  end
+
+  it "gives the correct additional_type" do
+    expect(subject.additional_type).to eq("https://github.com/ndlib/honeycomb/wiki/Item")
   end
 end

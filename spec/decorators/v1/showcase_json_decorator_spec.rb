@@ -92,16 +92,20 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   end
 
   describe "#next" do
-    it "uses the showcase query to retrieve the next showcase" do
-      expect_any_instance_of(ShowcaseQuery).to receive(:next).with(showcase)
+    it "uses the site objects query to retrieve the next object" do
+      expect_any_instance_of(SiteObjectsQuery).to receive(:next).with(collection_object: showcase)
       subject.next
     end
   end
 
   describe "#previous" do
-    it "uses the showcase query to retrieve the previous showcase" do
-      expect_any_instance_of(ShowcaseQuery).to receive(:previous).with(showcase)
+    it "uses the site objects query to retrieve the previous object" do
+      expect_any_instance_of(SiteObjectsQuery).to receive(:previous).with(collection_object: showcase)
       subject.previous
     end
+  end
+
+  it "gives the correct additional_type" do
+    expect(subject.additional_type).to eq("https://github.com/ndlib/honeycomb/wiki/Showcase")
   end
 end

@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe V1::CollectionsController, type: :controller do
-  let(:collection) { instance_double(Collection, id: 1, published: false) }
+  let(:collection) { instance_double(Collection, id: 1, published: false, site_objects: "[]") }
   let(:collections) { [collection] }
 
   before(:each) do
@@ -147,6 +147,42 @@ RSpec.describe V1::CollectionsController, type: :controller do
       allow_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection_to_preview)
       expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection_to_preview)
       set_preview_mode_true
+    end
+  end
+
+  describe "#site_objects" do
+    subject { get :site_objects, collection_id: collection.id, format: :json }
+
+    before(:each) do
+      allow(Collection).to receive(:find).and_return(collection)
+    end
+
+    it "calls CollectionQuery" do
+      expect_any_instance_of(CollectionQuery).to receive(:public_find).and_return(collection)
+      subject
+    end
+
+    it "is successful" do
+      subject
+      expect(response).to be_success
+    end
+
+    it "assigns collection" do
+      subject
+      expect(assigns(:collection)).to be_present
+      expect(subject).to render_template("v1/collections/site_objects")
+    end
+
+    it "renders the correct template" do
+      subject
+      expect(subject).to render_template("v1/collections/site_objects")
+    end
+
+    it_behaves_like "a private basic custom etag cacher"
+
+    it "uses the V1Collections#site_objects to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::V1Collections).to receive(:site_objects)
+      subject
     end
   end
 end

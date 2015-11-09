@@ -62,5 +62,15 @@ module V1
         format.json { render json: @configuration.to_json }
       end
     end
+
+    def site_objects
+      collection = CollectionQuery.new.public_find(params[:collection_id])
+      @collection = CollectionJSONDecorator.new(collection)
+      @site_objects = SiteObjectsQuery.new.all(collection: collection)
+      cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Collections,
+                                           action: "site_objects",
+                                           collection: collection, site_objects: @site_objects)
+      fresh_when(etag: cache_key.generate)
+    end
   end
 end

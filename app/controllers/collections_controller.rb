@@ -123,6 +123,7 @@ class CollectionsController < ApplicationController
       :hide_title_on_home_page,
       :uploaded_image,
       :about,
-      :copyright)
+      :copyright,
+      :site_objects)
   end
 end

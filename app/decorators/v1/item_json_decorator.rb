@@ -22,6 +22,10 @@ module V1
       object.description.to_s
     end
 
+    def additional_type
+      "https://github.com/ndlib/honeycomb/wiki/Item"
+    end
+
     def slug
       CreateURLSlug.call(object.name)
     end
@@ -63,6 +67,7 @@ module V1
       json.set! "@type", "CreativeWork"
       json.set! "@id", at_id
       json.set! "isPartOf/collection", collection_url
+      json.set! "additionalType", additional_type
       json.id unique_id
       json.collection_id collection_id
       json.slug slug
