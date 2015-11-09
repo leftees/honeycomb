@@ -9,6 +9,7 @@ RSpec.describe Admin::ExternalCollectionsController, type: :controller do
                     destroy!: true,
                     collection_users: [],
                     showcases: [],
+                    pages: [],
                     items: [],
                     honeypot_image: nil)
   end
