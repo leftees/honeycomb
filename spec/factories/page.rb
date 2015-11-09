@@ -4,6 +4,5 @@ FactoryGirl.define do
     s.name { "Page1" }
     s.content { "<p>One</p>" }
     s.collection_id { 1 }
-    s.image_id { 1 }
   end
 end
