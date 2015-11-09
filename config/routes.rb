@@ -15,7 +15,6 @@ Rails.application.routes.draw do
 
   resources :collections,
             only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    get :exhibit
 
     collection do
       get :import_google_sheet_callback, controller: "import"
@@ -23,13 +22,18 @@ Rails.application.routes.draw do
     end
 
     member do
+      site_setup_constraints = { form: /homepage|collection_introduction|about_text|copyright_text/ }
+      get "edit/:form", to: "collections#site_setup", as: :site_setup_form, constraints: site_setup_constraints
+      put "edit/:form", to: "collections#site_setup_update", as: :site_setup_update_form, constraints: site_setup_constraints
       put :publish
       put :unpublish
+      get :site_setup
       post :get_google_import_authorization_uri, controller: "import"
       post :get_google_export_authorization_uri, controller: "export"
     end
 
     resources :items, only: [:index, :new, :create]
+    resources :showcases, only: [:index, :new, :create]
 
     resources :editors, only: [:index, :create, :destroy] do
       collection do
@@ -44,14 +48,6 @@ Rails.application.routes.draw do
       put :unpublish
     end
     resources :children, controller: "item_children", only: [:new, :create]
-  end
-
-  resources :exhibits, only: [:show, :edit, :update] do
-    member do
-      get "edit/:form", to: "exhibits#edit", as: :edit_exhibit_form, constraints: { form: /exhibit_introduction|about_text|copyright_text|search_and_browse/ }
-    end
-
-    resources :showcases, only: [:index, :new, :create]
   end
 
   resources :showcases, only: [:show, :edit, :update, :destroy] do

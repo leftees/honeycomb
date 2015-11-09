@@ -4,8 +4,8 @@ describe ShowcaseList do
   subject { described_class.new(showcase) }
 
   let(:sections) { %w(section1 section2) }
-  let(:showcase) { double(Showcase, exhibit: exhibit, id: 1, sections: sections) }
-  let(:exhibit) { double(Exhibit, id: 1) }
+  let(:showcase) { double(Showcase, collection: collection, id: 1, sections: sections) }
+  let(:collection) { double(Collection, id: 1) }
 
   describe "sections" do
     before(:each) do
@@ -27,7 +27,7 @@ describe ShowcaseList do
     expect(subject.showcase).to be(showcase)
   end
 
-  it "returns the exhibit" do
-    expect(subject.exhibit).to be(exhibit)
+  it "returns the collection" do
+    expect(subject.collection).to be(collection)
   end
 end

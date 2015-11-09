@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe SaveCollection, type: :model do
   subject { described_class.call(collection, params) }
-  let(:collection) { double(Collection, id: "id", "attributes=" => true, save: true) }
+  let(:collection) { double(Collection, id: "id", "attributes=" => true, save: true, url: nil) }
   let(:params) { { name_line_1: "name_line_1" } }
+  let(:upload_image) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test.jpg"), "image/jpeg") }
 
   before(:each) do
     allow(CreateUniqueId).to receive(:call).and_return(true)
-    allow(EnsureCollectionHasExhibit).to receive(:call).and_return(true)
   end
 
   it "returns when the collection save is successful" do
@@ -32,9 +32,57 @@ RSpec.describe SaveCollection, type: :model do
     end
   end
 
-  describe "exhibit" do
-    it "calls EnsureCollectionHasExhibit" do
-      expect(EnsureCollectionHasExhibit).to receive(:call).with(collection)
+  describe "image processing" do
+    it "Queues image processing if the image was updated" do
+      params[:uploaded_image] = upload_image
+      expect(collection).to receive(:save).and_return(true)
+      expect(QueueJob).to receive(:call).with(ProcessImageJob, object: collection).and_return(true)
+      subject
+    end
+
+    it "is not called if the image is not changed" do
+      params[:uploaded_image] = nil
+      expect(collection).to receive(:save).and_return(true)
+      expect(QueueJob).to_not receive(:call)
+      subject
+    end
+  end
+
+  describe "url" do
+    it "adds http if not given" do
+      params[:url] = "www.nowhere.nil"
+      expect(collection).to receive(:attributes=).with(include(url: "http://www.nowhere.nil"))
+      subject
+    end
+
+    it "doesn't add another http if http is given" do
+      params[:url] = "http://www.nowhere.nil"
+      expect(collection).to receive(:attributes=).with(include(url: "http://www.nowhere.nil"))
+      subject
+    end
+
+    it "doesn't add another http if https is given" do
+      params[:url] = "https://www.nowhere.nil"
+      expect(collection).to receive(:attributes=).with(include(url: "https://www.nowhere.nil"))
+      subject
+    end
+
+    it "doesn't try to correct problems if http is given" do
+      params[:url] = "http//www.nowhere.nil"
+      expect(collection).to receive(:attributes=).with(include(url: "http//www.nowhere.nil"))
+      subject
+    end
+
+    it "doesn't try to correct problems if http is given" do
+      params[:url] = "https//www.nowhere.nil"
+      expect(collection).to receive(:attributes=).with(include(url: "https//www.nowhere.nil"))
+      subject
+    end
+
+    # It can't fix everything...
+    it "does add http if http is given but misspelled" do
+      params[:url] = "htp://www.nowhere.nil"
+      expect(collection).to receive(:attributes=).with(include(url: "http://htp://www.nowhere.nil"))
       subject
     end
   end

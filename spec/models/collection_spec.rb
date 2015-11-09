@@ -1,8 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Collection do
-  [:name_line_1, :name_line_2, :items, :description, :unique_id, :showcases, :exhibit,
-   :collection_users, :published, :preview_mode, :users, :updated_at, :created_at].each do |field|
+  [:name_line_1, :name_line_2, :items, :unique_id, :showcases,
+   :collection_users, :published, :preview_mode, :users, :updated_at, :created_at,
+   :site_intro, :short_intro, :showcases, :hide_title_on_home_page, :about, :copyright,
+   :enable_search, :enable_browse, :image, :uploaded_image].each do |field|
     it "has field, #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")
@@ -16,6 +18,20 @@ RSpec.describe Collection do
   it "has a papertrail" do
     expect(subject).to respond_to(:paper_trail_enabled_for_model?)
     expect(subject.paper_trail_enabled_for_model?).to be(true)
+  end
+
+  describe "#items_json_url" do
+    it "is a url to the honeycomb server" do
+      subject.id = 100
+      expect(subject.items_json_url).to eq("/api/collections/100/items.json?include=image")
+    end
+  end
+
+  describe "#item_json_url" do
+    it "is a url to the honeycomb server" do
+      subject.id = 100
+      expect(subject.item_json_url(5)).to eq("/api/collections/100/items/5.json?include=image")
+    end
   end
 
   describe "#name" do
@@ -34,6 +50,16 @@ RSpec.describe Collection do
     end
   end
 
+  describe "#has honeypot image interface" do
+    it "responds to image" do
+      expect(subject).to respond_to(:image)
+    end
+
+    it "responds to honeypot_image" do
+      expect(subject).to respond_to(:honeypot_image)
+    end
+  end
+
   context "foreign key constraints" do
     describe "#destroy" do
       it "fails if a CollectionUser references it" do
@@ -43,10 +69,14 @@ RSpec.describe Collection do
         expect { subject.destroy }.to raise_error
       end
 
-      it "fails if a Exhibit references it" do
-        subject = FactoryGirl.create(:collection)
-        FactoryGirl.create(:exhibit)
-        expect { subject.destroy }.to raise_error
+      context "foreign key constraints" do
+        describe "#destroy" do
+          it "fails if a Showcase references it" do
+            subject = FactoryGirl.create(:collection)
+            FactoryGirl.create(:showcase)
+            expect { subject.destroy }.to raise_error
+          end
+        end
       end
 
       it "fails if an Item references it" do

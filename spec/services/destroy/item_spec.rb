@@ -63,7 +63,6 @@ describe Destroy::Item do
     let(:collection) { FactoryGirl.create(:collection) }
     let(:item) { FactoryGirl.create(:item) }
     let(:showcase) { FactoryGirl.create(:showcase) }
-    let(:exhibit) { FactoryGirl.create(:exhibit) }
     let(:sections) do
       [FactoryGirl.create(:section, id: 1, item_id: item.id),
        FactoryGirl.create(:section, id: 2, item_id: item.id)]
@@ -75,7 +74,6 @@ describe Destroy::Item do
 
     before(:each) do
       collection
-      exhibit
       showcase
       children
       sections

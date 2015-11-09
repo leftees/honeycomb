@@ -47,10 +47,8 @@ en:
       collection:
         name_line_1: 'Name Line 1'
         name_line_2: 'Name Line 2'
-      exhibit:
-        edit:
-          description: "Collection/Exhibit Introduction"
-          short_description: "Site Introduction"
+        site_intro: 'Site Introduction'
+        short_intro: 'Short Introduction'
       showcase:
         title: 'Title Line 1'
         subtitle: 'Title Line 2'
@@ -59,19 +57,14 @@ en:
     hints:
       showcase:
         image: "This image will appear tiled in the background of your showcase"
-      exhibit:
-        edit:
-          description: "A more extensive description of this exhibit which will appear on the introduction page"
     placeholders:
       collection:
-        description: "Description should be a short description of what the collection is.  (100 Words)"
-      exhibit:
-        edit:
-          description: "Around 200 characters"
+        site_intro: "Create an introduction page to your site."
+        short_intro: "Create a short introduction. Try to limit this to around 200 characters."
   collection_left_nav:
     items: 'Items'
     showcases: 'Showcases'
-    settings: 'Collection'
+    settings: 'Settings'
     website: 'Site Setup'
     editors: 'Editors'
     live_site: 'Live Site'
@@ -98,11 +91,13 @@ en:
       success: 'Collection created'
     update:
       success: 'Collection updated'
+    site_setup_update:
+      success: 'Collection updated'
     destroy:
       success: "Collection deleted"
     delete_panel:
       heading: Delete this Collection
-      message: "Proceed with caution. This will also remove all items, exhibits, and showcases."
+      message: "Proceed with caution. This will also remove all items and showcases."
   import:
     import_google_sheet_callback:
       title: "Import Results"
@@ -197,9 +192,6 @@ en:
     destroy:
       success: "Showcase deleted"
       failure: "There was a problem deleting this showcase"
-  exhibits:
-    update:
-      success: 'Website updated'
   sections:
     new:
       title: "New Section"
@@ -210,3 +202,13 @@ en:
     attributes:
       item:
         manuscript_url: "Digitized Manuscript URL"
+  admin:
+    external_collections:
+      create:
+        success: 'Collection created'
+      update:
+        success: 'Collection updated'
+      site_setup_update:
+        success: 'Collection updated'
+      destroy:
+        success: 'Collection deleted'

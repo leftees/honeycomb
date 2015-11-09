@@ -2,8 +2,7 @@ require "rails_helper"
 
 describe SectionForm do
   let(:collection) { double(Collection, id: 1) }
-  let(:exhibit) { double(Exhibit, id: 1, collection: collection) }
-  let(:showcase) { double(Showcase, id: 1, exhibit: exhibit, sections: sections) }
+  let(:showcase) { double(Showcase, id: 1, collection: collection, sections: sections) }
   let(:section) { double(Section, id: 1, order: 1, item_id: 1, showcase: showcase, "order=" => true, name: "the section") }
   let(:sections) { double(build: true) }
 
@@ -71,8 +70,8 @@ describe SectionForm do
 
   describe "build_from_params" do
     let(:controller) { double(ApplicationController, params: {}) }
-    let(:new_params) { { exhibit_id: "10", showcase_id: "20", section: { order: "1" } } }
-    let(:edit_params) { { exhibit_id: "10", showcase_id: "20", id: "30" } }
+    let(:new_params) { { collection_id: "10", showcase_id: "20", section: { order: "1" } } }
+    let(:edit_params) { { collection_id: "10", showcase_id: "20", id: "30" } }
     subject { described_class.build_from_params(controller) }
 
     context "new_params" do

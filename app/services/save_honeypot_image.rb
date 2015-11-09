@@ -60,7 +60,11 @@ class SaveHoneypotImage
   end
 
   def group_id
-    object.collection.id
+    if object.respond_to?(:collection)
+      object.collection.id
+    else
+      object.id
+    end
   end
 
   def item_id

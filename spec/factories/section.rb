@@ -6,7 +6,7 @@ FactoryGirl.define do
 
     factory :section_with_showcase do
       after(:build, :create) do |ss|
-        ss.showcase = build(:showcase_with_exhibit)
+        ss.showcase = build(:showcase_with_collection)
       end
     end
   end

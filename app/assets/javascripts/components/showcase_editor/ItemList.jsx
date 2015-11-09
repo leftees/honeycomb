@@ -31,7 +31,7 @@ var ItemList = React.createClass({
       <div className="add-items-content-inner" style={this.style()}>
         <div className="add-items-title" style={this.titleStyle()}>
           <h2>Add Items</h2>
-          <p>Click to Drag items into the exhibit</p>
+          <p>Click to Drag items into the showcase</p>
         </div>
         {itemNodes}
       </div>);
