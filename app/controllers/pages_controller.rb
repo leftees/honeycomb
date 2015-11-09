@@ -13,7 +13,7 @@ class PagesController < ApplicationController
     @page = PageQuery.new(collection.pages).build
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     check_user_edits!(collection)
     @page = PageQuery.new(collection.pages).build(save_params)
 
