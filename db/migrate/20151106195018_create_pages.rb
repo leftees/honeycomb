@@ -5,7 +5,6 @@ class CreatePages < ActiveRecord::Migration
       t.string :name
       t.text :content
       t.integer :collection_id, null: false
-      t.integer :image_id
       t.timestamps null: false
     end
     add_foreign_key :pages, :collections

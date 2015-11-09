@@ -66,11 +66,11 @@ ActiveRecord::Schema.define(version: 20151106195018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "about",                       limit: 65535
-    t.text     "copyright",                   limit: 65535
     t.string   "uploaded_image_file_name",    limit: 255
     t.string   "uploaded_image_content_type", limit: 255
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"
+    t.text     "copyright",                   limit: 65535
     t.boolean  "hide_title_on_home_page"
     t.string   "url",                         limit: 255
     t.boolean  "enable_search"
@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(version: 20151106195018) do
     t.string   "name",          limit: 255
     t.text     "content",       limit: 65535
     t.integer  "collection_id", limit: 4,     null: false
-    t.integer  "image_id",      limit: 4
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
