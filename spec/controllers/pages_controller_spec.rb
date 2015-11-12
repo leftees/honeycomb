@@ -160,32 +160,6 @@ RSpec.describe PagesController, type: :controller do
     it_behaves_like "a private content-based etag cacher"
   end
 
-  describe "GET #show" do
-    subject { get :show, id: page.id }
-
-    it "checks the editor permissions" do
-      expect_any_instance_of(described_class).to receive(:check_user_edits!).with(collection)
-      subject
-    end
-
-    it "uses page query " do
-      expect_any_instance_of(PageQuery).to receive(:find).with("1").and_return(page)
-      subject
-    end
-
-    it "assigns a page decorator" do
-      subject
-      expect(assigns(:page)).to eq(page)
-    end
-
-    it "is a redirect" do
-      subject
-      expect(response).to be_redirect
-    end
-
-    it_behaves_like "a private content-based etag cacher"
-  end
-
   describe "GET #edit" do
     subject { get :edit, id: page.id }
 
