@@ -25,12 +25,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def show
-    @page = PageQuery.new.find(params[:id])
-    check_user_edits!(page.collection)
-    redirect_to edit_page_path(page.id)
-  end
-
   def edit
     @page = PageQuery.new.find(params[:id])
     check_user_edits!(@page.collection)
@@ -46,7 +40,7 @@ class PagesController < ApplicationController
 
     if SavePage.call(@page, save_params)
       flash[:notice] = t(".success")
-      redirect_to page_path(@page)
+      redirect_to edit_page_path(@page)
     else
       render :edit
     end

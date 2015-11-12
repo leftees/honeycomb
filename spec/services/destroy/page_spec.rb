@@ -27,7 +27,7 @@ describe Destroy::Page do
       expect { page.reload }.not_to raise_error
     end
 
-    it "rolls back if an error occurs with Section.destroy!" do
+    it "rolls back if an error occurs with Page.destroy!" do
       collection
       page
       allow(page).to receive(:destroy!).and_raise("error")

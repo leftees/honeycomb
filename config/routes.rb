@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     resources :sections, only: [:index, :new, :create]
   end
 
-  resources :pages, only: [:show, :edit, :update, :destroy]
+  resources :pages, only: [:edit, :update, :destroy]
 
   resources :sections, only: [:edit, :update, :destroy]
 
