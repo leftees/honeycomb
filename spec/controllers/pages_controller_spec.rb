@@ -93,9 +93,9 @@ RSpec.describe PagesController, type: :controller do
       expect(response).to be_redirect
     end
 
-    it "flashes a notice" do
+    it "flashes an html_safe message" do
       subject
-      expect(flash[:notice]).to_not be_nil
+      expect(flash[:html_safe]).to_not be_nil
     end
 
     it "renders new on failure" do
