@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     resources :items, only: [:index, :new, :create]
     resources :showcases, only: [:index, :new, :create]
+    resources :pages, only: [:index, :new, :create]
 
     resources :editors, only: [:index, :create, :destroy] do
       collection do
@@ -58,6 +59,8 @@ Rails.application.routes.draw do
     end
     resources :sections, only: [:index, :new, :create]
   end
+
+  resources :pages, only: [:edit, :update, :destroy]
 
   resources :sections, only: [:edit, :update, :destroy]
 

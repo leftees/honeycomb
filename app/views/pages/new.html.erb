@@ -1,0 +1,16 @@
+<% page_title(t('.title'), @collection) %>
+<%= collection_nav(@collection, :pages) %>
+
+<%= simple_form_for [@page.collection, @page], :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">New Page</h3>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'form', locals: { f: f } %>
+    </div>
+    <div class="panel-footer">
+      <%= f.button :submit, "Save", class: 'btn btn-primary'%>
+    </div>
+  </div>
+<% end %>

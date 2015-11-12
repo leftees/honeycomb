@@ -4,15 +4,23 @@ describe Destroy::Collection do
   describe "#cascade" do
     let(:destroy_item) { instance_double(Destroy::Item, cascade!: nil) }
     let(:destroy_showcase) { instance_double(Destroy::Showcase, cascade!: nil) }
+    let(:destroy_page) { instance_double(Destroy::Page, cascade!: nil) }
     let(:destroy_collection_user) { instance_double(Destroy::CollectionUser, cascade!: nil) }
-    let(:subject) { Destroy::Collection.new(destroy_collection_user: destroy_collection_user, destroy_item: destroy_item, destroy_showcase: destroy_showcase) }
+    let(:subject) do
+      Destroy::Collection.new(destroy_collection_user: destroy_collection_user,
+                              destroy_item: destroy_item,
+                              destroy_showcase: destroy_showcase,
+                              destroy_page: destroy_page)
+    end
     let(:showcase) { instance_double(Showcase, destroy!: true) }
     let(:item) { instance_double(Item, destroy!: true, sections: [], children: []) }
+    let(:page) { instance_double(Page, destroy!: true) }
     let(:collection) do
       instance_double(Collection,
                       collection_users: [collection_user, collection_user],
                       showcases: [showcase, showcase],
                       items: [item, item],
+                      pages: [page, page],
                       destroy!: true)
     end
     let(:collection_user) { instance_double(CollectionUser) }
@@ -24,6 +32,11 @@ describe Destroy::Collection do
 
     it "calls DestroyShowcase.cascade on all associated showcases" do
       expect(destroy_showcase).to receive(:cascade!).with(showcase: showcase).twice
+      subject.cascade!(collection: collection)
+    end
+
+    it "calls DestroyPage.cascade on all associated pages" do
+      expect(destroy_page).to receive(:cascade!).with(page: page).twice
       subject.cascade!(collection: collection)
     end
 
@@ -48,7 +61,13 @@ describe Destroy::Collection do
     let(:destroy_item) { Destroy::Item.new }
     let(:destroy_showcase) { Destroy::Showcase.new }
     let(:destroy_collection_user) { Destroy::CollectionUser.new }
-    let(:subject) { Destroy::Collection.new(destroy_collection_user: destroy_collection_user, destroy_item: destroy_item, destroy_showcase: destroy_showcase) }
+    let(:destroy_page) { Destroy::Page.new }
+    let(:subject) do
+      Destroy::Collection.new(destroy_collection_user: destroy_collection_user,
+                              destroy_item: destroy_item,
+                              destroy_showcase: destroy_showcase,
+                              destroy_page: destroy_page)
+    end
     let(:collection) { FactoryGirl.create(:collection) }
     let(:showcase) { FactoryGirl.create(:showcase, collection_id: collection.id) }
     let(:user) { FactoryGirl.create(:user) }
@@ -60,26 +79,46 @@ describe Destroy::Collection do
       [FactoryGirl.create(:item, id: 1, collection_id: collection.id, user_defined_id: "one"),
        FactoryGirl.create(:item, id: 2, collection_id: collection.id, user_defined_id: "two")]
     end
+    let(:pages) do
+      [FactoryGirl.create(:page, id: 1, collection_id: collection.id),
+       FactoryGirl.create(:page, id: 2, collection_id: collection.id)]
+    end
 
     before(:each) do
       user
       collection
       showcase
       items
+      pages
       collection_users
     end
 
     # Ensures all data that was created still exists
     # in the database
     def data_still_exists!
+      items_still_exist!
+      pages_still_exist!
+      collection_users_still_exist!
+      expect { showcase.reload }.not_to raise_error
+      expect { collection.reload }.not_to raise_error
+    end
+
+    def items_still_exist!
       items.each do |item|
         expect { item.reload }.not_to raise_error
       end
+    end
+
+    def pages_still_exist!
+      pages.each do |page|
+        expect { page.reload }.not_to raise_error
+      end
+    end
+
+    def collection_users_still_exist!
       collection_users.each do |collection_user|
         expect { collection_user.reload }.not_to raise_error
       end
-      expect { showcase.reload }.not_to raise_error
-      expect { collection.reload }.not_to raise_error
     end
 
     it "rolls back if an error occurs with Destroy::CollectionUser" do
@@ -100,6 +139,14 @@ describe Destroy::Collection do
 
     it "rolls back if an error occurs with Destroy::Showcase" do
       allow(destroy_showcase).to receive(:cascade!).with(showcase: showcase).and_raise("error")
+      expect { subject.cascade!(collection: collection) }.to raise_error("error")
+      data_still_exists!
+    end
+
+    it "rolls back if an error occurs with Destroy::Page" do
+      # Throw error on second object to allow first one to get deleted
+      allow(collection).to receive(:pages).and_return(pages)
+      allow(pages[1]).to receive(:destroy!).and_raise("error")
       expect { subject.cascade!(collection: collection) }.to raise_error("error")
       data_still_exists!
     end

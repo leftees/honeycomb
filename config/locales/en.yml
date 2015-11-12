@@ -64,6 +64,7 @@ en:
   collection_left_nav:
     items: 'Items'
     showcases: 'Showcases'
+    pages: 'Pages'
     settings: 'Settings'
     website: 'Site Setup'
     editors: 'Editors'
@@ -212,3 +213,19 @@ en:
         success: 'Collection updated'
       destroy:
         success: 'Collection deleted'
+  pages:
+    index:
+      title: "Pages"
+    create:
+      success: "Page created"
+    new:
+      title: "New Page"
+    list:
+      name: "Page"
+      content: "Content"
+      updated_at: 'Last Modified At'
+    update:
+      success: "Page updated"
+    destroy:
+      success: "Page deleted"
+      failure: "There was a problem deleting this page"

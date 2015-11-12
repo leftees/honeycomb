@@ -4,7 +4,7 @@ RSpec.describe Collection do
   [:name_line_1, :name_line_2, :items, :unique_id, :showcases,
    :collection_users, :published, :preview_mode, :users, :updated_at, :created_at,
    :site_intro, :short_intro, :showcases, :hide_title_on_home_page, :about, :copyright,
-   :enable_search, :enable_browse, :image, :uploaded_image].each do |field|
+   :enable_search, :enable_browse, :image, :uploaded_image, :pages].each do |field|
     it "has field, #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")
@@ -82,6 +82,12 @@ RSpec.describe Collection do
       it "fails if an Item references it" do
         subject = FactoryGirl.create(:collection)
         FactoryGirl.create(:item)
+        expect { subject.destroy }.to raise_error
+      end
+
+      it "fails if a Page references it" do
+        subject = FactoryGirl.create(:collection)
+        FactoryGirl.create(:page)
         expect { subject.destroy }.to raise_error
       end
     end
