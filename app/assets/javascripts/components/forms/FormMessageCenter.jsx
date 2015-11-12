@@ -9,16 +9,18 @@ var FormMessageCenter = React.createClass({
     return {
       messageType: "",
       messageText: "",
+      htmlSafe: false,
     };
   },
   componentWillMount: function() {
     EventEmitter.on("MessageCenterDisplay", this.receiveDisplay);
   },
 
-  receiveDisplay: function(messageType, messageText) {
+  receiveDisplay: function(messageType, messageText, htmlSafe) {
     this.setState({
       messageType: messageType,
       messageText: messageText,
+      htmlSafe: htmlSafe,
     });
     this.refs.errorDialog.show();
   },
@@ -27,12 +29,21 @@ var FormMessageCenter = React.createClass({
     this.refs.errorDialog.dismiss();
   },
 
+  messageSpan: function() {
+    if(this.state.htmlSafe) {
+      return (<span dangerouslySetInnerHTML={{ __html: this.state.messageText }}></span>);
+    } else {
+      return (<span>{ this.state.messageText }</span>);
+    }
+
+
+  },
 
   render: function () {
     return (
       <Snackbar
         ref = "errorDialog"
-        message={this.state.messageText}
+        message={ this.messageSpan() }
       >
       </Snackbar>
     );
