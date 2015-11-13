@@ -92,4 +92,8 @@ RSpec.describe V1::SectionJSONDecorator do
       subject.display(json)
     end
   end
+
+  it "gives the correct additional_type" do
+    expect(subject.additional_type).to eq("https://github.com/ndlib/honeycomb/wiki/Section")
+  end
 end
