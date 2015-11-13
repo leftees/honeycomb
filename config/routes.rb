@@ -76,6 +76,7 @@ Rails.application.routes.draw do
       resources :search, only: [:index], defaults: { format: :json }
       resources :items, only: [:index], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
+      resources :pages, only: [:index], defaults: { format: :json }
     end
     resources :items,
               only: [:show, :update],
@@ -83,6 +84,7 @@ Rails.application.routes.draw do
       get :showcases, defaults: { format: :json }
     end
     resources :showcases, only: [:show], defaults: { format: :json }
+    resources :pages, only: [:show], defaults: { format: :json }
     resources :sections, only: [:show], defaults: { format: :json }
   end
 

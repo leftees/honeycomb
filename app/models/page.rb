@@ -5,4 +5,8 @@ class Page < ActiveRecord::Base
   validates :collection, presence: true
 
   has_paper_trail
+
+  def slug
+    name
+  end
 end
