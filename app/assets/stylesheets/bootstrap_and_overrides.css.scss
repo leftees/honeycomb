@@ -21,6 +21,10 @@ $brand-primary: #2c5882 !default;
   padding-right: 5px;
 }
 
+#redactor-droparea-placeholder input[type="file"] {
+  display: inline-block;
+}
+
 // Help Page
 
 $darkgrey: #7f7f7f;
