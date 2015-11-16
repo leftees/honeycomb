@@ -7,6 +7,10 @@ module V1
       new(section).display(json)
     end
 
+    def additional_type
+      "https://github.com/ndlib/honeycomb/wiki/Section"
+    end
+
     def name
       SectionName.call(object)
     end

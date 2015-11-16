@@ -8,7 +8,7 @@ module V1
       when "Item"
         V1::ItemJSONDecorator.display(site_object, json)
       when "Page"
-        nil
+        V1::PageJSONDecorator.display(site_object, json)
       else
         raise "Unsupported object type #{site_object.class.name}"
       end

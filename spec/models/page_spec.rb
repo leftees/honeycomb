@@ -18,4 +18,9 @@ RSpec.describe Page do
     expect(subject).to respond_to(:paper_trail_enabled_for_model?)
     expect(subject.paper_trail_enabled_for_model?).to be(true)
   end
+
+  it "uses name for the slug" do
+    subject.name = "Slug"
+    expect(subject.slug).to eq(subject.name)
+  end
 end

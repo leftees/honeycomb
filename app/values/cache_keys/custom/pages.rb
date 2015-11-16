@@ -1,6 +1,6 @@
 module CacheKeys
   module Custom
-    # Generator for sections_controller
+    # Generator for pages_controller
     class Pages
       def index(collection:)
         CacheKeys::ActiveRecord.new.generate(record: [collection, collection.pages])

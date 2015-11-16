@@ -80,6 +80,10 @@ module V1
       @showcases ||= ShowcaseQuery.new(object.showcases).public_api_list
     end
 
+    def pages
+      @pages ||= PageQuery.new(object.pages).ordered
+    end
+
     def image
       if object.honeypot_image
         object.honeypot_image.json_response
@@ -88,6 +92,6 @@ module V1
 
     def display(json, _includes = {})
       json.partial! "/v1/collections/collection", collection_object: self
-end
+    end
   end
 end

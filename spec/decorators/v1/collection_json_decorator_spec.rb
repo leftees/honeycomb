@@ -223,6 +223,15 @@ RSpec.describe V1::CollectionJSONDecorator do
     end
   end
 
+  describe "#pages" do
+    let(:collection) { double(Collection, pages: []) }
+
+    it "queries for ordered list of pages" do
+      expect_any_instance_of(PageQuery).to receive(:ordered)
+      subject.pages
+    end
+  end
+
   describe "#image" do
     let(:collection) { double(Collection, honeypot_image: honeypot_image) }
     let(:honeypot_image) { double(HoneypotImage, json_response: "json_response") }

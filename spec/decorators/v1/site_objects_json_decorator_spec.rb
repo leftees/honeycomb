@@ -11,7 +11,10 @@ RSpec.describe V1::SiteObjectsJSONDecorator do
     described_class.display(showcase, nil)
   end
 
-  it "calls the correct decorator for a Page"
+  it "calls the correct decorator for a Page" do
+    expect(V1::PageJSONDecorator).to receive(:display)
+    described_class.display(page, nil)
+  end
 
   it "calls the correct decorator for an Item" do
     expect(V1::ItemJSONDecorator).to receive(:display)
