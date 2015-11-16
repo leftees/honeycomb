@@ -44,6 +44,20 @@ describe SiteObjectsQuery do
     expect(subject.all(collection: collection)).to eq(site_objects)
   end
 
+  context "when asking if an object exists in the array" do
+    it "returns false if the object given is not in the site_objects array" do
+      expect(subject.exists?(collection_object: showcases[1])).to eq(false)
+    end
+
+    it "finds the previous object" do
+      expect(subject.exists?(collection_object: pages[2])).to eq(true)
+    end
+
+    it "returns true if the object given is in the site_objects array" do
+      expect(subject.exists?(collection_object: showcases[0])).to eq(true)
+    end
+  end
+
   context "when finding previous" do
     it "returns nil if the object given is not in the site_objects array" do
       expect(subject.previous(collection_object: showcases[1])).to eq(nil)

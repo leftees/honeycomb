@@ -26,4 +26,8 @@ class ShowcaseQuery
   def public_find(id)
     relation.find_by!(unique_id: id)
   end
+
+  def can_delete?
+    !SiteObjectsQuery.new.exists?(collection_object: relation)
+  end
 end

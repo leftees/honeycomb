@@ -5,16 +5,26 @@ class SiteObjectsQuery
     end
   end
 
+  # Determines if an object exists in site_objects for its collection
+  def exists?(collection_object:)
+    type = collection_object.class.name
+    id = collection_object.id
+    site_objects_json(collection_id: collection_object.collection_id).detect do |site_object|
+      if site_object[:type] == type && site_object[:id] == id
+        return true
+      end
+    end
+    false
+  end
+
   # Given an object within the collection, this will find the next one in the list
   def next(collection_object:)
-    previous = nil
     type = collection_object.class.name
     id = collection_object.id
     site_objects_json(collection_id: collection_object.collection_id).each_cons(2) do |site_object, next_site_object|
       if site_object[:type] == type && site_object[:id] == id
         return get_object(site_object: next_site_object)
       end
-      previous = site_object
     end
     nil
   end
