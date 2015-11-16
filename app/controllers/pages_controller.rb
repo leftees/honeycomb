@@ -18,8 +18,8 @@ class PagesController < ApplicationController
     @page = PageQuery.new(collection.pages).build(save_params)
 
     if SavePage.call(@page, save_params)
-      flash[:notice] = t(".success")
-      redirect_to page_path(@page)
+      flash[:html_safe] = t(".success", href: view_context.link_to("Site Setup", site_setup_form_collection_path(collection, form: :homepage))).html_safe
+      redirect_to edit_page_path(@page)
     else
       render :new
     end

@@ -179,7 +179,7 @@ en:
     index:
       title: "Showcases"
     create:
-      success: "Showcase created"
+      success: "Showcase created! Go to %{href} to add the showcase to your site."
     new:
       title: "New Showcase"
     list:
@@ -193,6 +193,10 @@ en:
     destroy:
       success: "Showcase deleted"
       failure: "There was a problem deleting this showcase"
+    delete_panel:
+      heading: Delete this Showcase
+      message: "Proceed with caution. This will remove the Showcase and all associated data."
+      cannot_delete_message: "Deleting this Showcase is disabled due to its usage on the homepage."
   sections:
     new:
       title: "New Section"
@@ -217,7 +221,7 @@ en:
     index:
       title: "Pages"
     create:
-      success: "Page created"
+      success: "Page created! Go to %{href} to add the page to your site."
     new:
       title: "New Page"
     list:
@@ -229,3 +233,7 @@ en:
     destroy:
       success: "Page deleted"
       failure: "There was a problem deleting this page"
+    delete_panel:
+      heading: Delete this Page
+      message: "Proceed with caution. This will remove the Page and all associated data."
+      cannot_delete_message: "Deleting this Page is disabled due to its usage on the homepage."

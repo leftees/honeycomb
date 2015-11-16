@@ -2,6 +2,7 @@ json.set! "@context", "http://schema.org"
 json.set! "@type", "CreativeWork"
 json.set! "@id", showcase_object.at_id
 json.set! "isPartOf/collection", showcase_object.collection_url
+json.set! "additionalType", showcase_object.additional_type
 json.id showcase_object.unique_id
 json.slug showcase_object.slug
 json.name showcase_object.name

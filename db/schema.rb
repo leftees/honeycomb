@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106195018) do
+ActiveRecord::Schema.define(version: 20151110211606) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20151106195018) do
     t.string   "name_line_1",                 limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted",                                   default: false
+    t.boolean  "deleted",                                        default: false
     t.string   "unique_id",                   limit: 255
     t.boolean  "published"
     t.string   "name_line_2",                 limit: 255
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20151106195018) do
     t.datetime "uploaded_image_updated_at"
     t.boolean  "enable_search"
     t.boolean  "hide_title_on_home_page"
+    t.text     "site_objects",                limit: 4294967295
   end
 
   add_index "collections", ["preview_mode"], name: "index_collections_on_preview_mode", using: :btree
@@ -66,11 +67,11 @@ ActiveRecord::Schema.define(version: 20151106195018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "about",                       limit: 65535
+    t.text     "copyright",                   limit: 65535
     t.string   "uploaded_image_file_name",    limit: 255
     t.string   "uploaded_image_content_type", limit: 255
     t.integer  "uploaded_image_file_size",    limit: 4
     t.datetime "uploaded_image_updated_at"
-    t.text     "copyright",                   limit: 65535
     t.boolean  "hide_title_on_home_page"
     t.string   "url",                         limit: 255
     t.boolean  "enable_search"
@@ -164,7 +165,6 @@ ActiveRecord::Schema.define(version: 20151106195018) do
     t.datetime "created_at"
     t.boolean  "published"
     t.string   "unique_id",                   limit: 255
-    t.integer  "order",                       limit: 4
     t.string   "name_line_2",                 limit: 255
     t.string   "uploaded_image_file_name",    limit: 255
     t.string   "uploaded_image_content_type", limit: 255
@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(version: 20151106195018) do
 
   add_index "showcases", ["collection_id"], name: "index_showcases_on_collection_id", using: :btree
   add_index "showcases", ["exhibit_id"], name: "fk_rails_ee93a134d7", using: :btree
-  add_index "showcases", ["order"], name: "index_showcases_on_order", using: :btree
   add_index "showcases", ["published"], name: "index_showcases_on_published", using: :btree
   add_index "showcases", ["unique_id"], name: "index_showcases_on_unique_id", using: :btree
 

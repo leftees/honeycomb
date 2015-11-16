@@ -1,6 +1,7 @@
 <%= display_errors(@collection) %>
 
 <%= f.input :short_intro, input_html: { class: 'honeycomb_redactor'  } %>
+<%= f.input :site_objects, as: :text %>
 
 <%= HoneypotThumbnail.display(f.object.honeypot_image) %>
 <%= f.input :uploaded_image, as: :file %>

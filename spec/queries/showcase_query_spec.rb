@@ -19,14 +19,14 @@ describe ShowcaseQuery do
 
   describe "public_api_list" do
     it "orders the result" do
-      expect(relation).to receive(:order).with(:order, :name_line_1).and_return(relation)
+      expect(relation).to receive(:order).with(:name_line_1).and_return(relation)
       subject.public_api_list
     end
   end
 
   describe "admin_list" do
     it "orders the result" do
-      expect(relation).to receive(:order).with(:order, :name_line_1).and_return(relation)
+      expect(relation).to receive(:order).with(:name_line_1).and_return(relation)
       subject.admin_list
     end
   end
@@ -61,111 +61,13 @@ describe ShowcaseQuery do
     end
   end
 
-  describe "next" do
-    before(:each) do
-      FactoryGirl.create(:collection)
-    end
-
-    it "finds the correct showcase when there is one" do
-      showcase1 = FactoryGirl.build(:showcase, id: 1, order: 1)
-      showcase2 = FactoryGirl.create(:showcase, id: 2, order: 2)
-      expect(subject.next(showcase1)).to eq(showcase2)
-    end
-
-    it "doesn't crash when there isn't one" do
-      showcase = FactoryGirl.build(:showcase, id: 1, order: 1)
-      expect { subject.next(showcase) }.to_not raise_error
-    end
-
-    it "returns nil when there isn't one" do
-      showcase = FactoryGirl.build(:showcase, id: 1, order: 1)
-      expect(subject.next(showcase)).to eq(nil)
-    end
-
-    it "doesn't find one if the orders are the same" do
-      showcase1 = FactoryGirl.build(:showcase, id: 1, order: 1)
-      FactoryGirl.create(:showcase, id: 2, order: 1)
-      expect(subject.next(showcase1)).to eq(nil)
-    end
-
-    it "doesn't find one if the next showcase's order is nil" do
-      showcase1 = FactoryGirl.build(:showcase, id: 1, order: 1)
-      FactoryGirl.create(:showcase, id: 2, order: nil)
-      expect(subject.next(showcase1)).to eq(nil)
-    end
-
-    it "doesn't find one if the current showcase's order is nil" do
-      showcase1 = FactoryGirl.build(:showcase, id: 1, order: nil)
-      FactoryGirl.create(:showcase, id: 2, order: 1)
-      expect(subject.next(showcase1)).to eq(nil)
-    end
-
-    context "searches based on order, not id" do
-      it "and does not find one when there is no showcase with a higher order, even though there is one with a higher id" do
-        showcase1 = FactoryGirl.build(:showcase, id: 1, order: 2)
-        FactoryGirl.create(:showcase, id: 2, order: 1)
-        expect(subject.next(showcase1)).to eq(nil)
-      end
-
-      it "and finds one when there is a showcase with a higher order, even though it has a lower id" do
-        showcase1 = FactoryGirl.create(:showcase, id: 1, order: 2)
-        showcase2 = FactoryGirl.build(:showcase, id: 2, order: 1)
-        expect(subject.next(showcase2)).to eq(showcase1)
-      end
-    end
+  it "can be deleted if not included in a collection's site_objects" do
+    expect_any_instance_of(SiteObjectsQuery).to receive(:exists?).with(collection_object: relation).and_return(false)
+    expect(subject.can_delete?).to eq(true)
   end
 
-  describe "previous" do
-    before(:each) do
-      FactoryGirl.create(:collection)
-    end
-
-    it "finds the correct showcase when there is one" do
-      showcase1 = FactoryGirl.create(:showcase, id: 1, order: 1)
-      showcase2 = FactoryGirl.build(:showcase, id: 2, order: 2)
-      expect(subject.previous(showcase2)).to eq(showcase1)
-    end
-
-    it "doesn't crash when there isn't one" do
-      showcase = FactoryGirl.build(:showcase, id: 1, order: 1)
-      expect { subject.previous(showcase) }.to_not raise_error
-    end
-
-    it "returns nil when there isn't one" do
-      showcase = FactoryGirl.build(:showcase, id: 1, order: 1)
-      expect(subject.previous(showcase)).to eq(nil)
-    end
-
-    it "doesn't find one if the orders are the same" do
-      FactoryGirl.create(:showcase, id: 1, order: 1)
-      showcase2 = FactoryGirl.build(:showcase, id: 2, order: 1)
-      expect(subject.previous(showcase2)).to eq(nil)
-    end
-
-    it "doesn't find one if the previous showcase's order is nil" do
-      FactoryGirl.create(:showcase, id: 1, order: nil)
-      showcase2 = FactoryGirl.build(:showcase, id: 2, order: 1)
-      expect(subject.previous(showcase2)).to eq(nil)
-    end
-
-    it "doesn't find one if the current showcase's order is nil" do
-      FactoryGirl.create(:showcase, id: 1, order: 1)
-      showcase2 = FactoryGirl.build(:showcase, id: 2, order: nil)
-      expect(subject.previous(showcase2)).to eq(nil)
-    end
-
-    context "searches based on order, not id" do
-      it "and does not find one when there is no showcase with a lower order, even though there is one with a lower id" do
-        FactoryGirl.create(:showcase, id: 1, order: 2)
-        showcase2 = FactoryGirl.build(:showcase, id: 2, order: 1)
-        expect(subject.previous(showcase2)).to eq(nil)
-      end
-
-      it "and finds one when there is a showcase with a lower order, even though it has a higher id" do
-        showcase1 = FactoryGirl.build(:showcase, id: 1, order: 2)
-        showcase2 = FactoryGirl.create(:showcase, id: 2, order: 1)
-        expect(subject.previous(showcase1)).to eq(showcase2)
-      end
-    end
+  it "cannot be deleted if included in a collection's site_objects" do
+    expect_any_instance_of(SiteObjectsQuery).to receive(:exists?).with(collection_object: relation).and_return(true)
+    expect(subject.can_delete?).to eq(false)
   end
 end

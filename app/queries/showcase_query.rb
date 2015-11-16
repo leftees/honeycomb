@@ -10,11 +10,11 @@ class ShowcaseQuery
   end
 
   def admin_list
-    relation.order(:order, :name_line_1)
+    relation.order(:name_line_1)
   end
 
   def public_api_list
-    relation.order(:order, :name_line_1)
+    relation.order(:name_line_1)
   end
 
   delegate :find, to: :relation
@@ -27,19 +27,7 @@ class ShowcaseQuery
     relation.find_by!(unique_id: id)
   end
 
-  def next(showcase)
-    relation.
-      where(collection_id: showcase.collection_id).
-      where("`#{relation.table_name}`.order > ?", showcase.order).
-      order(:order).
-      first
-  end
-
-  def previous(showcase)
-    relation.
-      where(collection_id: showcase.collection_id).
-      where("`#{relation.table_name}`.order < ?", showcase.order).
-      order(order: :desc).
-      first
+  def can_delete?
+    !SiteObjectsQuery.new.exists?(collection_object: relation)
   end
 end

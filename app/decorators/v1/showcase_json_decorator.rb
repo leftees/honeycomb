@@ -23,12 +23,16 @@ module V1
       CreateURLSlug.call(object.slug)
     end
 
+    def additional_type
+      "https://github.com/ndlib/honeycomb/wiki/Showcase"
+    end
+
     def next
-      ShowcaseQuery.new.next(object)
+      SiteObjectsQuery.new.next(collection_object: object)
     end
 
     def previous
-      ShowcaseQuery.new.previous(object)
+      SiteObjectsQuery.new.previous(collection_object: object)
     end
 
     def sections

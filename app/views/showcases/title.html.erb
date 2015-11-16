@@ -18,4 +18,4 @@
 <% end %>
 
 
-<%= DeletePanel.new(@showcase).display %>
+<%= DeletePanel.new(@showcase).display(ShowcaseQuery.new(@showcase)) %>

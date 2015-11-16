@@ -97,9 +97,12 @@ RSpec.describe ShowcasesController, type: :controller do
 
     it "redirects on success" do
       subject
-
       expect(response).to be_redirect
-      expect(flash[:notice]).to_not be_nil
+    end
+
+    it "flashes an html_safe message on success" do
+      subject
+      expect(flash[:html_safe]).to_not be_nil
     end
 
     it "renders new on failure" do

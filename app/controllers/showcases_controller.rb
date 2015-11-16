@@ -18,7 +18,7 @@ class ShowcasesController < ApplicationController
     @showcase = ShowcaseQuery.new(collection.showcases).build(save_params)
 
     if SaveShowcase.call(@showcase, save_params)
-      flash[:notice] = t(".success")
+      flash[:html_safe] = t(".success", href: view_context.link_to("Site Setup", site_setup_form_collection_path(collection, form: :homepage))).html_safe
       redirect_to showcase_path(@showcase)
     else
       render :new
