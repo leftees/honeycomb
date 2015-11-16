@@ -24,6 +24,8 @@
 //= require bootstrap-material-design
 //= require components
 //= require redactor_field
+//= require redactor_page_field
+//= require imagemanager
 //= require menu-bar
 //= require flash
 //= require jquery.cookie
