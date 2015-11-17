@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
                     styles: {
                       small: "x200>",
                       medium: "x800>",
-                      dzi: "4000x4000>"
+                      large: "4000x4000>"
                     }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates :collection, presence: true
