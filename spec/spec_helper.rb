@@ -78,7 +78,8 @@ RSpec.configure do |config|
       CollectionUser,
       Showcase,
       Section,
-      Page
+      Page,
+      Image
     ].each do |database_model|
       instance = database_model.new
       # The first attribute is id, which does not cause the methods to be built on the class

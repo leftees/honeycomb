@@ -11,8 +11,8 @@ class SavePage
   end
 
   def save
+    process_image
     page.attributes = params
-
     check_unique_id
     if page.save
       page
@@ -25,5 +25,12 @@ class SavePage
 
   def check_unique_id
     CreateUniqueId.call(page)
+  end
+
+  def process_image
+    if params[:uploaded_image]
+      page.image = FindOrCreateImage.call(file: params[:uploaded_image], collection_id: page.collection_id)
+      params.delete(:uploaded_image)
+    end
   end
 end
