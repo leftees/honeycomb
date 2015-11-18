@@ -10,7 +10,6 @@ var DateField = require('./DateField');
 var HtmlField = require('./HtmlField');
 var TextField = require('./TextField');
 var MultipleField = require('./MultipleField');
-var MetadataConfigurationStore = require('../../stores/MetadataConfigurationStore');
 var ItemMetaDataSelectAdditionalFields = require('./ItemMetaDataSelectAdditionalFields');
 
 var fieldTypeMap = {
