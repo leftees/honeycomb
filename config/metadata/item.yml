@@ -88,9 +88,9 @@
     :order: 11
     :placeholder: "Example: \"French\""
   - :name: :rights
-    :type: :string
+    :type: :html
     :label: Rights
-    :multiple: true
+    :multiple: false
     :default_form_field: false
     :optional_form_field: true
     :order: 12
