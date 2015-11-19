@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe Page do
-  [:name, :content, :collection, :image, :unique_id, :updated_at, :created_at].each do |field|
+RSpec.describe Image do
+  [:image, :collection, :updated_at, :created_at].each do |field|
     it "has the field #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")
@@ -19,8 +19,14 @@ RSpec.describe Page do
     expect(subject.paper_trail_enabled_for_model?).to be(true)
   end
 
-  it "uses name for the slug" do
-    subject.name = "Slug"
-    expect(subject.slug).to eq(subject.name)
+  context "foreign key constraints" do
+    describe "#destroy" do
+      it "fails if a page references it" do
+        FactoryGirl.create(:collection)
+        subject = FactoryGirl.create(:image, id: 1)
+        FactoryGirl.create(:page, image_id: 1)
+        expect { subject.destroy }.to raise_error
+      end
+    end
   end
 end

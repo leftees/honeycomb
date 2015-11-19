@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110211606) do
+ActiveRecord::Schema.define(version: 20151117161736) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -93,6 +93,20 @@ ActiveRecord::Schema.define(version: 20151110211606) do
 
   add_index "honeypot_images", ["item_id"], name: "index_honeypot_images_on_item_id", using: :btree
 
+  create_table "images", force: :cascade do |t|
+    t.integer  "collection_id",      limit: 4,     null: false
+    t.string   "image_file_name",    limit: 255,   null: false
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.string   "image_fingerprint",  limit: 255,   null: false
+    t.text     "image_meta",         limit: 65535
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "images", ["image_fingerprint"], name: "index_images_on_image_fingerprint", using: :btree
+
   create_table "items", force: :cascade do |t|
     t.text     "name",                        limit: 65535
     t.text     "description",                 limit: 65535
@@ -131,9 +145,11 @@ ActiveRecord::Schema.define(version: 20151110211606) do
     t.integer  "collection_id", limit: 4,     null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "image_id",      limit: 4
   end
 
   add_index "pages", ["collection_id"], name: "fk_rails_b9e6c17b8e", using: :btree
+  add_index "pages", ["image_id"], name: "fk_rails_7484eb7907", using: :btree
 
   create_table "sections", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -213,6 +229,7 @@ ActiveRecord::Schema.define(version: 20151110211606) do
   add_foreign_key "items", "collections"
   add_foreign_key "items", "items", column: "parent_id"
   add_foreign_key "pages", "collections"
+  add_foreign_key "pages", "images"
   add_foreign_key "sections", "items"
   add_foreign_key "sections", "showcases"
   add_foreign_key "showcases", "collections"

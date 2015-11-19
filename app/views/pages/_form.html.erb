@@ -2,3 +2,6 @@
 
 <%= f.input :name, as: :string %>
 <%= f.input :content, input_html: { class: 'honeycomb_redactor'  } %>
+
+<%= react_component("Thumbnail", image: V1::ImageJSONDecorator.new(@page.image).to_hash) %>
+<%= f.input :uploaded_image, as: :file %>

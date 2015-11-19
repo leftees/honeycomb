@@ -31,6 +31,10 @@ module V1
       SiteObjectsQuery.new.previous(collection_object: object)
     end
 
+    def image
+      V1::ImageJSONDecorator.new(object.image).to_hash
+    end
+
     def display(json)
       if object.present?
         json.partial! "/v1/pages/page", page_object: self

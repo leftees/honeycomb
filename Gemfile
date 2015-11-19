@@ -19,6 +19,7 @@ gem "jbuilder", "~> 2.0"
 gem "sdoc", "~> 0.4.0", group: :doc
 
 gem "paperclip"
+gem "paperclip-meta"
 gem "fastimage"
 
 gem "hesburgh_infrastructure", github: "ndlib/hesburgh_infrastructure"
