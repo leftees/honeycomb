@@ -28,13 +28,13 @@
 
 				$('#redactor-modal-image-droparea').addClass('redactor-tab redactor-tab1');
 
-				var $box = $('<div id="redactor-image-manager-box" style="overflow: auto; height: 300px;" class="redactor-tab redactor-tab2">').hide();
+				var $box = $('<div id=@quote;redactor-image-manager-box@quote; style=@quote;overflow: auto; height: 300px;@quote; class=@quote;redactor-tab redactor-tab2@quote;>').hide();
 				$modal.append($box);
 
-				var csrf_meta = document.querySelector('meta[name="csrf-token"]');
-				var csrf_token = csrf_meta && csrf_meta.getAttribute('content');
-				var $authenticity_token = $('<input type="hidden" id="image_upload_auth_token" name="request_forgery_protection_token" value="' + csrf_token + '" >');
-				$modal.append($authenticity_token);
+				var csrfMeta = document.querySelector('meta[name=@quote;csrf-token@quote;]');
+				var csrfToken = csrf_meta && csrfMeta.getAttribute('content');
+				var authenticityToken = $('<input type=@quote;hidden@quote; id=@quote;image_upload_auth_token@quote; name=@quote;request_forgery_protection_token@quote; value=@quote;' + csrfToken + '@quote; >');
+				$modal.append(authenticityToken);
 
 				$.ajax({
 					dataType: 'json',
@@ -51,7 +51,7 @@
 								thumbtitle = val.title;
 							}
 
-							var img = $('<img src="' + val.thumb + '" rel="' + val.image + '" image_id="' + val.unique_id + '"title="' + thumbtitle + '" style="width: 100px; height: 75px; cursor: pointer;" />');
+							var img = $('<img src=@quote;' + val.thumb + '@quote; rel=@quote;' + val.image + '@quote; image_id=@quote;' + val.unique_id + '@quote;title=@quote;' + thumbtitle + '@quote; style=@quote;width: 100px; height: 75px; cursor: pointer;@quote; />');
 							$('#redactor-image-manager-box').append(img);
 							$(img).click($.proxy(this.imagemanager.insert, this));
 
