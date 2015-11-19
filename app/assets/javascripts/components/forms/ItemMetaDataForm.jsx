@@ -63,7 +63,7 @@ var ItemMetaDataForm = React.createClass({
   },
 
   componentWillMount: function () {
-    MetadataConfigurationStore.getAll(this.setFormFieldsFromConfiguration);
+    MetaDataConfigurationStore.getAll(this.setFormFieldsFromConfiguration);
   },
 
   setFormFieldsFromConfiguration: function(configurationFields) {

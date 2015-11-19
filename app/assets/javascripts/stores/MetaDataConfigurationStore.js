@@ -3,7 +3,7 @@ var EventEmitter = require("events").EventEmitter;
 var CollectionStore = require("stores/Collection");
 var axios = require("axios");
 
-class MetadataConfigurationStore extends EventEmitter {
+class MetaDataConfigurationStore extends EventEmitter {
   constructor() {
     this._promise = null;
     AppDispatcher.register(this.receiveAction.bind(this));
@@ -34,5 +34,5 @@ class MetadataConfigurationStore extends EventEmitter {
   }
 }
 
-var MetadataConfigurationStore = new MetadataConfigurationStore();
-module.exports = MetadataConfigurationStore;
+var MetaDataConfigurationStore = new MetaDataConfigurationStore();
+module.exports = MetaDataConfigurationStore;
