@@ -14,12 +14,12 @@ class RedactorPageField
         'authenticity_token': '#image_upload_auth_token'
       }
       imageUploadCallback: (image, json) ->
-          $(image).attr 'alt', json.title
-          $(image).attr 'title', json.title
-          $(image).attr 'width', '300px'
-          $(image).attr 'height', 'auto'
-          $(image).attr 'style', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;'
-          $(image).attr 'rel', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;'
+        $(image).attr 'alt', json.title
+        $(image).attr 'title', json.title
+        $(image).attr 'width', '300px'
+        $(image).attr 'height', 'auto'
+        $(image).attr 'style', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;'
+        $(image).attr 'rel', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;'
       imageManagerJson: '/v1/collections/' + $("#image_collection_unique_id").val() + '/images'
       plugins: ['imagemanager']
     })
@@ -27,7 +27,7 @@ class RedactorPageField
 
 jQuery ->
 
-  setupRedactor = () ->
+  setupRedactor = ->
     field = $(".honeycomb_image_redactor")
     if field.size() > 0
       new RedactorPageField(field)

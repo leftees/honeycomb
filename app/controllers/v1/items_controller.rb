@@ -14,12 +14,12 @@ module V1
 
     def images
       collection = CollectionQuery.new.public_find(params[:collection_id])
-      @images = collection.items.map { |i|
+      @images = collection.items.map do |i|
         { unique_id: i.unique_id,
           thumb: i.honeypot_image.json_response["thumbnail/small"]["contentUrl"],
           image: i.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
           title: i.name }
-      }
+      end
       respond_to do |format|
         format.json { render json: @images.to_json }
       end
