@@ -171,6 +171,7 @@ RSpec.describe V1::ItemsController, type: :controller do
 
     it "returns the full list of image items" do
       subject
+
       expect(response.body).to eq ([
         { unique_id: "test", thumb: "http://hnypt/sm_img1", image: "http://hnypt/img1", title: "test_item" },
         { unique_id: "test2", thumb: "http://hnypt/sm_img2", image: "http://hnypt/img2", title: "test_item2" },
