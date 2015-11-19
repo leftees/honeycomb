@@ -108,7 +108,37 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def image_upload
+    collection = CollectionQuery.new.any_find(params[:id])
+    check_user_edits!(collection)
+    item_query = ItemQuery.new(collection.items)
+    @item = item_query.build
+
+    if SaveItem.call(@item, save_item_params)
+      flash[:success] = "Item created"
+      new_item = item_query.find(Item.last.id)
+      respond_to do |format|
+        format.any do
+          render json: {
+            filelink: new_item.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
+            title: new_item.name,
+            unique_id: new_item.unique_id
+          }.to_json
+        end
+      end
+    else
+      flash[:error] = "Item not created"
+      respond_to do |format|
+        format.any { render json: { status: "error" }, status: 500 }
+      end
+    end
+  end
+
   protected
+
+  def save_item_params
+    params.permit(:name, :uploaded_image)
+  end
 
   def save_params
     params.require(:collection).permit(
