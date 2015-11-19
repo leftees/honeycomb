@@ -5,8 +5,8 @@
 		return {
 			langs: {
 				en: {
-					"upload": "Upload",
-					"choose": "Choose"
+					'upload': 'Upload',
+					'choose': 'Choose'
 				}
 			},
 			init: function()
@@ -32,12 +32,12 @@
 				$modal.append($box);
 
 				var csrf_meta = document.querySelector('meta[name="csrf-token"]');
-				var csrf_token = csrf_meta && csrf_meta.getAttribute("content");
+				var csrf_token = csrf_meta && csrf_meta.getAttribute('content');
 				var $authenticity_token = $('<input type="hidden" id="image_upload_auth_token" name="request_forgery_protection_token" value="' + csrf_token + '" >');
 				$modal.append($authenticity_token);
 
 				$.ajax({
-					dataType: "json",
+					dataType: 'json',
 					cache: false,
 					url: this.opts.imageManagerJson,
 					success: $.proxy(function(data)
