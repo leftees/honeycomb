@@ -19,7 +19,7 @@ class PagesController < ApplicationController
 
     if SavePage.call(@page, save_params)
       flash[:notice] = t(".success")
-      redirect_to page_path(@page)
+      redirect_to edit_page_path(@page)
     else
       render :new
     end

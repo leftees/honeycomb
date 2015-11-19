@@ -31,6 +31,11 @@
 				var $box = $('<div id="redactor-image-manager-box" style="overflow: auto; height: 300px;" class="redactor-tab redactor-tab2">').hide();
 				$modal.append($box);
 
+				var csrf_meta = document.querySelector('meta[name="csrf-token"]');
+				var csrf_token = csrf_meta && csrf_meta.getAttribute("content");
+				var $authenticity_token = $('<input type="hidden" id="image_upload_auth_token" name="request_forgery_protection_token" value="' + csrf_token + '" >');
+				$modal.append($authenticity_token);
+
 				$.ajax({
 					dataType: "json",
 					cache: false,
@@ -69,11 +74,8 @@
 				img.style.height = 'auto';
 				img.setAttribute('style', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;');
 				img.setAttribute('rel', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;');
-				var a = document.createElement('a');
-				a.href = 'http://localhost:3018/animals/pretty-animals/showcases/d68174545a/four-legged#4f82f5f240';
-				a.appendChild(img)
 
-				this.insert.node(a);
+				this.insert.node(img);
 				this.observe.images();
 				this.modal.close();
 			}

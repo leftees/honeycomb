@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       site_setup_constraints = { form: /homepage|collection_introduction|about_text|copyright_text/ }
       get "edit/:form", to: "collections#site_setup", as: :site_setup_form, constraints: site_setup_constraints
       put "edit/:form", to: "collections#site_setup_update", as: :site_setup_update_form, constraints: site_setup_constraints
+      post :image_upload
       put :publish
       put :unpublish
       get :site_setup
@@ -72,6 +73,7 @@ Rails.application.routes.draw do
       put :unpublish, defaults: { format: :json }
       put :preview_mode, defaults: { format: :json }
       get :metadata_configuration, defaults: { format: :json }
+      get :images, controller: "items", defaults: { format: :json }
       resources :search, only: [:index], defaults: { format: :json }
       resources :items, only: [:index], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
