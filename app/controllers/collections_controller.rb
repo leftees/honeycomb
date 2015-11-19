@@ -109,28 +109,14 @@ class CollectionsController < ApplicationController
   end
 
   def image_upload
-    collection = CollectionQuery.new.any_find(params[:id])
-    check_user_edits!(collection)
-    item_query = ItemQuery.new(collection.items)
-    @item = item_query.build
+    find_collection(params[:id])
+    check_user_edits!(@collection)
 
-    if SaveItem.call(@item, save_item_params)
+    if SaveItem.call(new_item, save_item_params)
       flash[:success] = "Item created"
-      new_item = item_query.find(Item.last.id)
-      respond_to do |format|
-        format.any do
-          render json: {
-            filelink: new_item.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
-            title: new_item.name,
-            unique_id: new_item.unique_id
-          }.to_json
-        end
-      end
+      render json: item_json
     else
-      flash[:error] = "Item not created"
-      respond_to do |format|
-        format.any { render json: { status: "error" }, status: 500 }
-      end
+      render json: { status: "error" }, status: 500
     end
   end
 
@@ -155,5 +141,27 @@ class CollectionsController < ApplicationController
       :about,
       :copyright,
       :site_objects)
+  end
+
+  private
+
+  def find_collection(id)
+    @collection = CollectionQuery.new.any_find(id)
+  end
+
+  def new_item
+    ItemQuery.new(@collection.items).build
+  end
+
+  def last_item
+    @last_item ||= ItemQuery.new(@collection.items).find(Item.last.id)
+  end
+
+  def item_json
+    {
+      filelink: last_item.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
+      title: last_item.name,
+      unique_id: last_item.unique_id
+    }.to_json
   end
 end

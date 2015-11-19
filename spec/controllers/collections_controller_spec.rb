@@ -359,15 +359,14 @@ RSpec.describe CollectionsController, type: :controller do
     let(:item) { Item.new(id: 1, name: "test_item", unique_id: "test", collection: collection) }
     let(:image) { double(path: Rails.root.join("spec/fixtures/test.jpg").to_s, content_type: "image/jpeg") }
     let(:image_params) { { id: "test", uploaded_image: fixture_file_upload("test.jpg", "image/jpeg", :binary) } }
-    let(:item_query) { ItemQuery.new }
+    # let(:item_query) { ItemQuery.new }
     subject { post :image_upload, image_params }
 
     before(:each) do
       allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
       allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
       allow(Item).to receive(:last).and_return(item)
-      expect(ItemQuery).to receive(:new).and_return(item_query)
-      expect(item_query).to receive(:build).and_return(item)
+      expect_any_instance_of(ItemQuery).to receive(:build).and_return(item)
     end
 
     context "when successfully uploaded" do
@@ -407,12 +406,6 @@ RSpec.describe CollectionsController, type: :controller do
         expect(SaveItem).to receive(:call).and_return(false)
         subject
         expect(response.body).to eq ({ status: "error" }.to_json)
-      end
-
-      it "sets the error flash message" do
-        expect(SaveItem).to receive(:call).and_return(false)
-        subject
-        expect(flash[:error]).to_not be_nil
       end
     end
   end

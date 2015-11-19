@@ -13,16 +13,9 @@ module V1
     end
 
     def images
-      collection = CollectionQuery.new.public_find(params[:collection_id])
-      @images = collection.items.map do |i|
-        { unique_id: i.unique_id,
-          thumb: i.honeypot_image.json_response["thumbnail/small"]["contentUrl"],
-          image: i.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
-          title: i.name }
-      end
-      respond_to do |format|
-        format.json { render json: @images.to_json }
-      end
+      @collection = CollectionQuery.new.public_find(params[:collection_id])
+
+      render json: map_collection_items.to_json
     end
 
     def show
@@ -83,6 +76,17 @@ module V1
         alternate_name: [], # both :alternate_name, and alternate_name: [] are required bc it can pass null or an array.
         contributor: [], # both :contributor, and contributor: [] are required bc it can pass null or an array.
       )
+    end
+
+    private
+
+    def map_collection_items
+      @collection.items.map do |i|
+        { unique_id: i.unique_id,
+          thumb: i.honeypot_image.json_response["thumbnail/small"]["contentUrl"],
+          image: i.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
+          title: i.name }
+      end
     end
   end
 end
