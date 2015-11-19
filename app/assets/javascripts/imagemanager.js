@@ -32,7 +32,7 @@
 				$modal.append($box);
 
 				var csrfMeta = document.querySelector('meta[name=@quote;csrf-token@quote;]');
-				var csrfToken = csrf_meta && csrfMeta.getAttribute('content');
+				var csrfToken = csrfMeta && csrfMeta.getAttribute('content');
 				var authenticityToken = $('<input type=@quote;hidden@quote; id=@quote;image_upload_auth_token@quote; name=@quote;request_forgery_protection_token@quote; value=@quote;' + csrfToken + '@quote; >');
 				$modal.append(authenticityToken);
 
