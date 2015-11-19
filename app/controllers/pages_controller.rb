@@ -60,7 +60,8 @@ class PagesController < ApplicationController
   def save_params
     params.require(:page).permit([
       :name,
-      :content
+      :content,
+      :uploaded_image
     ])
   end
 

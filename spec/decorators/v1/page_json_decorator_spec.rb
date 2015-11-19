@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe V1::PageJSONDecorator do
   subject { described_class.new(page) }
 
-  let(:page) { double(Page) }
+  let(:page) { double(Page, image: []) }
 
   describe "generic fields" do
     [:id, :unique_id, :collection, :updated_at, :name, :content].each do |field|
@@ -59,6 +59,13 @@ RSpec.describe V1::PageJSONDecorator do
     it "uses the site objects query to retrieve the previous object" do
       expect_any_instance_of(SiteObjectsQuery).to receive(:previous).with(collection_object: page)
       subject.previous
+    end
+  end
+
+  describe "#image" do
+    it "calls v1 image json decorator" do
+      expect(V1::ImageJSONDecorator).to receive(:new).and_return({})
+      subject.image
     end
   end
 

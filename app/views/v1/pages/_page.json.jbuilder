@@ -6,5 +6,6 @@ json.set! "additionalType", page_object.additional_type
 json.id page_object.unique_id
 json.slug page_object.slug
 json.name page_object.name
+json.image page_object.image
 json.content page_object.content
 json.last_updated page_object.updated_at
