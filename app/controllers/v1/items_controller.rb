@@ -12,6 +12,19 @@ module V1
       fresh_when(etag: cache_key.generate)
     end
 
+    def images
+      collection = CollectionQuery.new.public_find(params[:collection_id])
+      @images = collection.items.map { |i|
+        { unique_id: i.unique_id,
+          thumb: i.honeypot_image.json_response["thumbnail/small"]["contentUrl"],
+          image: i.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
+          title: i.name }
+      }
+      respond_to do |format|
+        format.json { render json: @images.to_json }
+      end
+    end
+
     def show
       @item = ItemQuery.new.public_find(params[:id])
 
