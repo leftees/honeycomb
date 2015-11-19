@@ -34,5 +34,5 @@ class MetadataConfigurationStore extends EventEmitter {
   }
 }
 
-var MetaDataConfigurationStore = new MetaDataConfigurationStore();
-module.exports = MetaDataConfigurationStore;
+var MetadataConfigurationStore = new MetadataConfigurationStore();
+module.exports = MetadataConfigurationStore;

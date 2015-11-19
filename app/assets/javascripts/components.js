@@ -101,4 +101,4 @@ UserPanel = require("./components/user_panel/UserPanel");
 
 // store initiliazers
 CollectionStoreInitializer = require("./components/store_initializers/collection");
-MetaDataConfigurationStore = require('./stores/MetaDataConfigurationStore');
+MetadataConfigurationStore = require('./stores/MetadataConfigurationStore');
