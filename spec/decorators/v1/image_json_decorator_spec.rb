@@ -3,7 +3,15 @@ require "rails_helper"
 RSpec.describe V1::ImageJSONDecorator do
   subject { described_class.new(image) }
   let(:image) { instance_double(Image, image: paperclip_attachment) }
-  let(:paperclip_attachment) { instance_double(Paperclip::Attachment, content_type: "image/jpeg", original_filename: "filename", name: "filename", url: "image_uri", width: 200, height: 100) }
+  let(:paperclip_attachment) do
+    instance_double(Paperclip::Attachment,
+                    content_type: "image/jpeg",
+                    original_filename: "filename",
+                    name: "filename",
+                    url: "image_uri",
+                    width: 200,
+                    height: 100)
+  end
   let(:json) { double(Jbuilder, name: nil, width: nil, height: nil, encodingFormat: nil, contentUrl: nil) }
 
   it "defines @context as schema.org" do
@@ -42,7 +50,6 @@ RSpec.describe V1::ImageJSONDecorator do
 
   describe "#display" do
     before(:each) do
-      allow(json).to receive(:set!)
       # Stubbing these out to return the params given to make it easier to
       # find out how the json set! calls are made within the private methods
       allow(subject).to receive(:width) { |params| params }
@@ -51,6 +58,10 @@ RSpec.describe V1::ImageJSONDecorator do
     end
 
     context "base image" do
+      before(:each) do
+        allow(json).to receive(:set!)
+      end
+
       it "sets @context" do
         expect(json).to receive(:set!).with("@context", subject.at_context)
         subject.display(json: json)
@@ -92,39 +103,108 @@ RSpec.describe V1::ImageJSONDecorator do
       end
     end
 
-    context "small style" do
-      it "sets properties under thumbnail/small" do
-        expect(json).to receive(:set!).with("thumbnail/small")
-        subject.display(json: json)
-      end
-
+    context "creates a thumbnail/small block" do
       it "sets @type" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/small") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
         expect(json).to receive(:set!).with("@type", subject.at_type)
         subject.display(json: json)
       end
 
-      it "sets encodingFormat" do
+      it "sets encodingFormat, within the thumbnail/small block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/small") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
         expect(json).to receive(:encodingFormat).with(subject.encoding_format)
         subject.display(json: json)
       end
-      # 
-      # it "sets width, using the small style width" do
-      #   allow(json).to receive(:width)
-      #   expect(json).to receive(:width).with(style: :small)
-      #   subject.display(json: json)
-      # end
-      #
-      # it "sets height, using the small style height" do
-      #   allow(json).to receive(:height)
-      #   expect(json).to receive(:height).with(style: :small)
-      #   subject.display(json: json)
-      # end
-      #
-      # it "sets contentUrl, using the small style url" do
-      #   allow(json).to receive(:contentUrl)
-      #   expect(json).to receive(:contentUrl).with(style: :small)
-      #   subject.display(json: json)
-      # end
+
+      it "sets width, using the small style width, within the thumbnail/small block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/small") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:width).with(style: :small)
+        subject.display(json: json)
+      end
+
+      it "sets height, using the small style height, within the thumbnail/small block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/small") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:height).with(style: :small)
+        subject.display(json: json)
+      end
+
+      it "sets contentUrl, using the small style contentUrl, within the thumbnail/small block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/small") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:contentUrl).with(style: :small)
+        subject.display(json: json)
+      end
+    end
+
+    context "creates a thumbnail/medium block" do
+      it "sets @type" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/medium") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:set!).with("@type", subject.at_type)
+        subject.display(json: json)
+      end
+
+      it "sets encodingFormat, within the thumbnail/medium block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/medium") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:encodingFormat).with(subject.encoding_format)
+        subject.display(json: json)
+      end
+
+      it "sets width, using the medium style width, within the thumbnail/medium block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/medium") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:width).with(style: :medium)
+        subject.display(json: json)
+      end
+
+      it "sets height, using the medium style height, within the thumbnail/medium block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/medium") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:height).with(style: :medium)
+        subject.display(json: json)
+      end
+
+      it "sets contentUrl, using the medium style contentUrl, within the thumbnail/medium block" do
+        allow(json).to receive(:set!)
+        expect(json).to receive(:set!).with("thumbnail/medium") do |&block|
+          expect(block).to be_present
+          block.call(json)
+        end
+        expect(json).to receive(:contentUrl).with(style: :medium)
+        subject.display(json: json)
+      end
     end
   end
 end
