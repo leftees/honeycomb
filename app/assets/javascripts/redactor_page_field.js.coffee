@@ -14,8 +14,9 @@ class RedactorPageField
         'authenticity_token': '#image_upload_auth_token'
       }
       imageUploadCallback: (image, json) ->
-        $(image).attr 'alt', json.title
-        $(image).attr 'title', json.title
+        $(image).attr 'alt', json.name
+        $(image).attr 'title', json.name
+        $(image).attr 'src', json.image['thumbnail/medium']['contentUrl']
         $(image).attr 'width', '300px'
         $(image).attr 'height', 'auto'
         $(image).attr 'style', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;'

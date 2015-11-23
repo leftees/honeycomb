@@ -119,15 +119,14 @@ RSpec.describe V1::ItemsController, type: :controller do
   end
 
   describe "#create" do
-    let(:honeypot_image) { HoneypotImage.new(item_id: 1) }
-    let(:json_response) { { "thumbnail/medium" => { "contentUrl" => "http://honeypot/image" } } }
     let(:collection) { Collection.new(unique_id: "test", items: []) }
     let(:item) { Item.new(id: 1, name: "test_item", unique_id: "test", collection: collection) }
     let(:image) { double(path: Rails.root.join("spec/fixtures/test.jpg").to_s, content_type: "image/jpeg") }
-    let(:image_params) { { collection_id: "test", uploaded_image: fixture_file_upload("test.jpg", "image/jpeg", :binary) } }
+    let(:image_params) { { collection_id: "test", uploaded_image: fixture_file_upload("test.jpg", "image/jpeg", :binary), format: :json } }
     subject { post :create, image_params }
 
     before(:each) do
+      sign_in_admin
       allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
       allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
       allow(Item).to receive(:last).and_return(item)
@@ -137,24 +136,12 @@ RSpec.describe V1::ItemsController, type: :controller do
     context "when successfully uploaded" do
       it "uploads the image" do
         expect(SaveItem).to receive(:call).and_return(true)
-        expect(item).to receive(:honeypot_image).and_return(honeypot_image)
-        expect(honeypot_image).to receive(:json_response).and_return(json_response)
         subject
         expect(response).to be_success
       end
 
-      it "returns the correct json" do
-        expect(SaveItem).to receive(:call).and_return(true)
-        expect(item).to receive(:honeypot_image).and_return(honeypot_image)
-        expect(honeypot_image).to receive(:json_response).and_return(json_response)
-        subject
-        expect(response.body).to eq ({ filelink: "http://honeypot/image", title: item.name, unique_id: item.unique_id }.to_json)
-      end
-
       it "sets the success flash message" do
         expect(SaveItem).to receive(:call).and_return(true)
-        expect(item).to receive(:honeypot_image).and_return(honeypot_image)
-        expect(honeypot_image).to receive(:json_response).and_return(json_response)
         subject
         expect(flash[:success]).to_not be_nil
       end

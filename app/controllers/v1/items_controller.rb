@@ -25,9 +25,11 @@ module V1
       @collection = CollectionQuery.new.any_find(params[:collection_id])
       @item = ItemQuery.new(@collection.items).build
 
+      return if rendered_forbidden?(@item.collection)
+
       if SaveItem.call(@item, save_item_params)
         flash[:success] = "Item created"
-        render json: item_json
+        render :create
       else
         render json: { status: "error" }, status: 500
       end
@@ -56,18 +58,6 @@ module V1
     end
 
     protected
-
-    def last_item
-      @last_item ||= ItemQuery.new(@collection.items).find(Item.last.id)
-    end
-
-    def item_json
-      {
-        filelink: last_item.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
-        title: last_item.name,
-        unique_id: last_item.unique_id
-      }.to_json
-    end
 
     def save_item_params
       params.permit(:name, :uploaded_image)
