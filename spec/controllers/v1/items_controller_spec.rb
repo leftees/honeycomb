@@ -122,7 +122,7 @@ RSpec.describe V1::ItemsController, type: :controller do
     let(:collection) { Collection.new(unique_id: "test", items: []) }
     let(:item) { Item.new(id: 1, name: "test_item", unique_id: "test", collection: collection) }
     let(:image) { double(path: Rails.root.join("spec/fixtures/test.jpg").to_s, content_type: "image/jpeg") }
-    let(:image_params) { { collection_id: "test", uploaded_image: fixture_file_upload("test.jpg", "image/jpeg", :binary), format: :json } }
+    let(:image_params) { { collection_id: "test", item: { uploaded_image: fixture_file_upload("test.jpg", "image/jpeg", :binary) }, format: :json } }
     subject { post :create, image_params }
 
     before(:each) do
@@ -139,25 +139,19 @@ RSpec.describe V1::ItemsController, type: :controller do
         subject
         expect(response).to be_success
       end
-
-      it "sets the success flash message" do
-        expect(SaveItem).to receive(:call).and_return(true)
-        subject
-        expect(flash[:success]).to_not be_nil
-      end
     end
 
     context "when not successfully uploaded" do
       it "does not return success" do
         expect(SaveItem).to receive(:call).and_return(false)
         subject
-        expect(response).to be_error
+        expect(response).to be_unprocessable
       end
 
       it "returns the error json" do
         expect(SaveItem).to receive(:call).and_return(false)
         subject
-        expect(response.body).to eq ({ status: "error" }.to_json)
+        expect(item).to render_template("errors")
       end
     end
   end

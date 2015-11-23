@@ -27,11 +27,10 @@ module V1
 
       return if rendered_forbidden?(@item.collection)
 
-      if SaveItem.call(@item, save_item_params)
-        flash[:success] = "Item created"
+      if SaveItem.call(@item, save_params)
         render :create
       else
-        render json: { status: "error" }, status: 500
+        render :errors, status: :unprocessable_entity
       end
     end
 
@@ -58,10 +57,6 @@ module V1
     end
 
     protected
-
-    def save_item_params
-      params.permit(:name, :uploaded_image)
-    end
 
     def save_params
       params.require(:item).permit(
