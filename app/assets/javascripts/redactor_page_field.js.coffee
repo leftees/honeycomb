@@ -16,6 +16,7 @@ class RedactorPageField
       imageUploadCallback: (image, json) ->
         $(image).attr 'alt', json.name
         $(image).attr 'title', json.name
+        $(image).attr 'item_id', json.id
         $(image).attr 'src', json.image['thumbnail/medium']['contentUrl']
         $(image).attr 'width', '300px'
         $(image).attr 'height', 'auto'
