@@ -28,35 +28,37 @@
 
 				$('#redactor-modal-image-droparea').addClass('redactor-tab redactor-tab1');
 
-				var $box = $('<div id=@quote;redactor-image-manager-box@quote; style=@quote;overflow: auto; height: 300px;@quote; class=@quote;redactor-tab redactor-tab2@quote;>').hide();
+				var $box = $('<div id="redactor-image-manager-box" style="overflow: auto; height: 300px;" class="redactor-tab redactor-tab2">').hide();
 				$modal.append($box);
 
-				var csrfMeta = document.querySelector('meta[name=@quote;csrf-token@quote;]');
+				var csrfMeta = document.querySelector('meta[name="csrf-token"]');
 				var csrfToken = csrfMeta && csrfMeta.getAttribute('content');
-				var authenticityToken = $('<input type=@quote;hidden@quote; id=@quote;image_upload_auth_token@quote; name=@quote;request_forgery_protection_token@quote; value=@quote;' + csrfToken + '@quote; >');
+				var authenticityToken = $('<input type="hidden" id="image_upload_auth_token" name="request_forgery_protection_token" value="' + csrfToken + '" >');
 				$modal.append(authenticityToken);
 
 				$.ajax({
 					dataType: 'json',
 					cache: false,
 					url: this.opts.imageManagerJson,
-					success: $.proxy(function(data)
+					success: $.proxy(function(collection)
 					{
-						$.each(data, $.proxy(function(key, val)
+						$.each(collection.items, $.proxy(function(key, val)
 						{
 							// title
 							var thumbtitle = '';
-							if (typeof val.title !== 'undefined')
+							if (typeof val.name !== 'undefined')
 							{
-								thumbtitle = val.title;
+								thumbtitle = val.name;
 							}
 
-							var img = $('<img src=@quote;' + val.thumb + '@quote; rel=@quote;' + val.image + '@quote; image_id=@quote;' + val.unique_id + '@quote;title=@quote;' + thumbtitle + '@quote; style=@quote;width: 100px; height: 75px; cursor: pointer;@quote; />');
-							$('#redactor-image-manager-box').append(img);
-							$(img).click($.proxy(this.imagemanager.insert, this));
-
+							var image = val.image;
+							if (typeof image == 'object')
+							{
+								var img = $('<img src="' + image['thumbnail/small']['contentUrl'] + '" rel="' + image['thumbnail/medium']['contentUrl'] + '" image_id="' + val.id + '"title="' + thumbtitle + '" style="width: 100px; height: 75px; cursor: pointer;" />');
+								$('#redactor-image-manager-box').append(img);
+								$(img).click($.proxy(this.imagemanager.insert, this));
+							}
 						}, this));
-
 					}, this)
 				});
 

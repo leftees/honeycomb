@@ -12,12 +12,6 @@ module V1
       fresh_when(etag: cache_key.generate)
     end
 
-    def images
-      @collection = CollectionQuery.new.public_find(params[:collection_id])
-
-      render json: map_collection_items.to_json
-    end
-
     def show
       @item = ItemQuery.new.public_find(params[:id])
 
@@ -25,6 +19,18 @@ module V1
                                            action: "show",
                                            item: @item)
       fresh_when(etag: cache_key.generate)
+    end
+
+    def create
+      @collection = CollectionQuery.new.any_find(params[:collection_id])
+      @item = ItemQuery.new(@collection.items).build
+
+      if SaveItem.call(@item, save_item_params)
+        flash[:success] = "Item created"
+        render json: item_json
+      else
+        render json: { status: "error" }, status: 500
+      end
     end
 
     def update
@@ -51,6 +57,22 @@ module V1
 
     protected
 
+    def last_item
+      @last_item ||= ItemQuery.new(@collection.items).find(Item.last.id)
+    end
+
+    def item_json
+      {
+        filelink: last_item.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
+        title: last_item.name,
+        unique_id: last_item.unique_id
+      }.to_json
+    end
+
+    def save_item_params
+      params.permit(:name, :uploaded_image)
+    end
+
     def save_params
       params.require(:item).permit(
         :name,
@@ -76,17 +98,6 @@ module V1
         alternate_name: [], # both :alternate_name, and alternate_name: [] are required bc it can pass null or an array.
         contributor: [], # both :contributor, and contributor: [] are required bc it can pass null or an array.
       )
-    end
-
-    private
-
-    def map_collection_items
-      @collection.items.map do |i|
-        { unique_id: i.unique_id,
-          thumb: i.honeypot_image.json_response["thumbnail/small"]["contentUrl"],
-          image: i.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
-          title: i.name }
-      end
     end
   end
 end

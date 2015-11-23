@@ -108,18 +108,6 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def image_upload
-    find_collection(params[:id])
-    check_user_edits!(@collection)
-
-    if SaveItem.call(new_item, save_item_params)
-      flash[:success] = "Item created"
-      render json: item_json
-    else
-      render json: { status: "error" }, status: 500
-    end
-  end
-
   protected
 
   def save_item_params
@@ -141,27 +129,5 @@ class CollectionsController < ApplicationController
       :about,
       :copyright,
       :site_objects)
-  end
-
-  private
-
-  def find_collection(id)
-    @collection = CollectionQuery.new.any_find(id)
-  end
-
-  def new_item
-    ItemQuery.new(@collection.items).build
-  end
-
-  def last_item
-    @last_item ||= ItemQuery.new(@collection.items).find(Item.last.id)
-  end
-
-  def item_json
-    {
-      filelink: last_item.honeypot_image.json_response["thumbnail/medium"]["contentUrl"],
-      title: last_item.name,
-      unique_id: last_item.unique_id
-    }.to_json
   end
 end
