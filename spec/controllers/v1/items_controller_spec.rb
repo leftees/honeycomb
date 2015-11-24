@@ -118,6 +118,44 @@ RSpec.describe V1::ItemsController, type: :controller do
     it_behaves_like "a private content-based etag cacher"
   end
 
+  describe "#create" do
+    let(:collection) { Collection.new(unique_id: "test", items: []) }
+    let(:item) { Item.new(id: 1, name: "test_item", unique_id: "test", collection: collection) }
+    let(:image) { double(path: Rails.root.join("spec/fixtures/test.jpg").to_s, content_type: "image/jpeg") }
+    let(:image_params) { { collection_id: "test", item: { uploaded_image: fixture_file_upload("test.jpg", "image/jpeg", :binary) }, format: :json } }
+    subject { post :create, image_params }
+
+    before(:each) do
+      sign_in_admin
+      allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
+      allow_any_instance_of(ItemQuery).to receive(:find).and_return(item)
+      allow(Item).to receive(:last).and_return(item)
+      expect_any_instance_of(ItemQuery).to receive(:build).and_return(item)
+    end
+
+    context "when successfully uploaded" do
+      it "uploads the image" do
+        expect(SaveItem).to receive(:call).and_return(true)
+        subject
+        expect(response).to be_success
+      end
+    end
+
+    context "when not successfully uploaded" do
+      it "does not return success" do
+        expect(SaveItem).to receive(:call).and_return(false)
+        subject
+        expect(response).to be_unprocessable
+      end
+
+      it "returns the error json" do
+        expect(SaveItem).to receive(:call).and_return(false)
+        subject
+        expect(item).to render_template("errors")
+      end
+    end
+  end
+
   describe "#showcases" do
     subject { get :showcases, item_id: "id", format: :json }
     let(:item) { instance_double(Item, id: "1", collection: nil, children: nil, showcases: nil) }

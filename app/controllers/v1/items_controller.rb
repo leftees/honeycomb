@@ -21,6 +21,19 @@ module V1
       fresh_when(etag: cache_key.generate)
     end
 
+    def create
+      @collection = CollectionQuery.new.any_find(params[:collection_id])
+      @item = ItemQuery.new(@collection.items).build
+
+      return if rendered_forbidden?(@item.collection)
+
+      if SaveItem.call(@item, save_params)
+        render :create
+      else
+        render :errors, status: :unprocessable_entity
+      end
+    end
+
     def update
       @item = ItemQuery.new.public_find(params[:id])
 

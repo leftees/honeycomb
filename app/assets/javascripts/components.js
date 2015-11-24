@@ -16,7 +16,7 @@ GoogleCreatorMixin = require("./mixins/GoogleCreatorMixin");
 
 // Page
 FlashMessage = require("./components/FlashMessage");
-
+EventEmitter = require("./EventEmitter");
 
 // themes
 HoneycombTheme = require("./themes/HoneycombTheme");
