@@ -110,10 +110,6 @@ class CollectionsController < ApplicationController
 
   protected
 
-  def save_item_params
-    params.permit(:name, :uploaded_image)
-  end
-
   def save_params
     params.require(:collection).permit(
       :name_line_1,
