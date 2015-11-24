@@ -489,7 +489,6 @@
       most spatial search predicates, it has enhanced relevancy modes based on the
       overlap or area between the search rectangle and the indexed rectangle.
       See https://cwiki.apache.org/confluence/display/solr/Spatial+Search#SpatialSearch-BBoxField
-    -->
     <fieldType name="bbox" class="solr.BBoxField" geo="true"
                units="degrees" numberType="_bbox_coord"
             />
@@ -497,6 +496,7 @@
     <fieldType name="_bbox_coord" class="solr.TrieDoubleField" precisionStep="8"
                docValues="true" stored="false"
             />
+    -->
  </types>
 
 
@@ -599,7 +599,7 @@
    <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
 
    <dynamicField name="*_rpt" type="location_rpt" stored="true" indexed="true"/>
-   <dynamicField name="*_bbox" type="bbox" stored="true" indexed="true"/>
+   <!-- <dynamicField name="*_bbox" type="bbox" stored="true" indexed="true"/> -->
 
    <!-- uncomment the following to ignore any fields that don't already match an existing
         field name or dynamic field, rather than reporting them as an error.
