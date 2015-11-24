@@ -21,7 +21,7 @@ RSpec.describe CacheKeys::Custom::V1Collections do
   end
 
   context "show" do
-    let(:collection) { instance_double(Collection) }
+    let(:collection) { instance_double(Collection, exhibit: nil) }
 
     it "uses CacheKeys::ActiveRecord" do
       expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate)
@@ -29,7 +29,7 @@ RSpec.describe CacheKeys::Custom::V1Collections do
     end
 
     it "uses the correct data" do
-      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: collection)
+      expect_any_instance_of(CacheKeys::ActiveRecord).to receive(:generate).with(record: [collection, collection.exhibit])
       subject.show(collection: collection)
     end
   end

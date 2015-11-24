@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe V1::CollectionsController, type: :controller do
-  let(:collection) { instance_double(Collection, id: 1, published: false) }
+  let(:collection) { instance_double(Collection, id: 1, published: false, exhibit: nil) }
   let(:collections) { [collection] }
 
   before(:each) do

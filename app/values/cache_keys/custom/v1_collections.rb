@@ -8,7 +8,7 @@ module CacheKeys
       end
 
       def show(collection:)
-        CacheKeys::ActiveRecord.new.generate(record: collection)
+        CacheKeys::ActiveRecord.new.generate(record: [collection, collection.exhibit])
       end
     end
   end
