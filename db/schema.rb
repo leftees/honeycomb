@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117161736) do
+ActiveRecord::Schema.define(version: 20151125174835) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -137,6 +137,14 @@ ActiveRecord::Schema.define(version: 20151117161736) do
   add_index "items", ["parent_id"], name: "index_items_on_parent_id", using: :btree
   add_index "items", ["published"], name: "index_items_on_published", using: :btree
   add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
+
+  create_table "items_pages", id: false, force: :cascade do |t|
+    t.integer "page_id", limit: 4
+    t.integer "item_id", limit: 4
+  end
+
+  add_index "items_pages", ["item_id", "page_id"], name: "index_items_pages_on_item_id_and_page_id", using: :btree
+  add_index "items_pages", ["page_id", "item_id"], name: "index_items_pages_on_page_id_and_item_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "unique_id",     limit: 255

@@ -22,6 +22,8 @@ class Item < ActiveRecord::Base
   has_many :children, class_name: "Item", foreign_key: :parent_id
   has_many :sections
   has_many :showcases, -> { distinct }, through: :sections
+  has_many :items_pages
+  has_many :pages, through: :items_pages
   has_one :honeypot_image
 
   has_attached_file :image,
