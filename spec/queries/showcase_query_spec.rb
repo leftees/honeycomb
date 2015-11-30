@@ -48,6 +48,18 @@ describe ShowcaseQuery do
       item = subject.build(exhibit_id: 1)
       expect(item.exhibit_id).to eq(1)
     end
+
+    it "gives the next order as a default order" do
+      allow(relation).to receive(:maximum).with(:order).and_return 10
+      item = subject.build(exhibit_id: 1)
+      expect(item.order).to eq(11)
+    end
+
+    it "gives an order of 1 if there are no showcases with an order" do
+      allow(relation).to receive(:maximum).with(:order).and_return nil
+      item = subject.build(exhibit_id: 1)
+      expect(item.order).to eq(1)
+    end
   end
 
   describe "public_find" do
