@@ -2,9 +2,10 @@ require "rails_helper"
 
 describe Destroy::Item do
   let(:section) { instance_double(Section, destroy!: true) }
-  let(:child) { instance_double(Item, sections: [], children: [child2], destroy!: true) }
-  let(:child2) { instance_double(Item, sections: [], children: [], destroy!: true) }
-  let(:item) { instance_double(Item, sections: [section, section], children: [child, child], destroy!: true) }
+  let(:page) { instance_double(Page, destroy!: true) }
+  let(:child) { instance_double(Item, pages: [], sections: [], children: [child2], destroy!: true) }
+  let(:child2) { instance_double(Item, pages: [], sections: [], children: [], destroy!: true) }
+  let(:item) { instance_double(Item, pages: [page, page, page], sections: [section, section], children: [child, child], destroy!: true) }
   let(:destroy_section) { instance_double(Destroy::Section, cascade!: nil) }
   let(:subject) { Destroy::Item.new(destroy_section: destroy_section) }
 
@@ -25,6 +26,11 @@ describe Destroy::Item do
   end
 
   describe "#cascade!" do
+    it "calls delete on all page associations" do
+      expect(item.pages).to receive(:delete).with(page).at_least(3).times
+      subject.cascade!(item: item)
+    end
+
     it "calls DestroySection on all associated sections" do
       expect(destroy_section).to receive(:cascade!).with(section: section).twice
       subject.cascade!(item: item)

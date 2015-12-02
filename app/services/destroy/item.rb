@@ -19,6 +19,9 @@ module Destroy
         item.sections.each do |child|
           @destroy_section.cascade!(section: child)
         end
+        item.pages.each do |page|
+          item.pages.delete(page)
+        end
         item.children.each do |child|
           cascade!(item: child)
         end
