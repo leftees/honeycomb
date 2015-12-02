@@ -219,7 +219,7 @@ RSpec.describe PagesController, type: :controller do
     end
 
     it "uses the Destroy::Page.cascade method" do
-      expect_any_instance_of(Destroy::Page).to receive(:cascade!)
+      # implicit call to cascade! triggering a call to DestroyPageItemAssociations
       subject
     end
 
