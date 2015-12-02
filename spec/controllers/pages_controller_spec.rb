@@ -189,6 +189,10 @@ RSpec.describe PagesController, type: :controller do
   describe "DELETE #destroy" do
     subject { delete :destroy, id: page.id }
 
+    before(:each) do
+      expect(DestroyPageItemAssociations).to receive(:call).and_return(1)
+    end
+
     it "on success, redirects" do
       subject
       expect(response).to be_redirect
@@ -209,13 +213,13 @@ RSpec.describe PagesController, type: :controller do
       subject
     end
 
-    it "uses page query " do
+    it "uses page query" do
       expect_any_instance_of(PageQuery).to receive(:find).with("1").and_return(page)
       subject
     end
 
     it "uses the Destroy::Page.cascade method" do
-      expect_any_instance_of(Destroy::Page).to receive(:cascade!)
+      # implicit call to cascade! triggering a call to DestroyPageItemAssociations
       subject
     end
 
