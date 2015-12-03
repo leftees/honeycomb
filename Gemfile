@@ -31,6 +31,8 @@ gem "simple_form", "~> 3.1.0"
 
 gem "draper"
 
+gem "nokogiri"
+
 # used to normaize the characters in a title sort
 gem "sort_alphabetical"
 
