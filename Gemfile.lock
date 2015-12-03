@@ -544,6 +544,7 @@ DEPENDENCIES
   mime-types (~> 2.6.1)
   mysql2
   newrelic_rpm
+  nokogiri
   paper_trail (~> 4.0.0.beta2)
   paperclip
   paperclip-meta
