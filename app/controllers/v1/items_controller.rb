@@ -47,28 +47,25 @@ module V1
 
     def save_params
       params.require(:item).permit(
+        :user_defined_id,
         :name,
         :description,
         :image,
         :manuscript_url,
         :transcription,
         :rights,
-        :subject,
-        :provenance,
-        :call_number,
-        :original_language,
         :uploaded_image,
-        :alternate_name,
-        :contributor,
-        :publisher,
-        :creator,
+        [:creator, creator: []], # both :creator, and creator: [] are required bc it can pass null or an array.
+        [:publisher, publisher: []], # both :publisher, and publisher: [] are required bc it can pass null or an array.
+        [:alternate_name, alternate_name: []], # both :alternate_name, and alternate_name: [] are required bc it can pass null or an array.
+        [:contributor, contributor: []], # both :contributor, and contributor: [] are required bc it can pass null or an array.
+        [:original_language, original_language: []],
+        [:subject, subject: []],
+        [:call_number, call_number: []],
+        [:provenance, provenance: []],
         date_created: [:value, :year, :month, :day, :bc, :display_text],
         date_modified: [:value, :year, :month, :day, :bc, :display_text],
         date_published: [:value, :year, :month, :day, :bc, :display_text],
-        creator: [], # both :creator, and creator: [] are required bc it can pass null or an array.
-        publisher: [], # both :publisher, and publisher: [] are required bc it can pass null or an array.
-        alternate_name: [], # both :alternate_name, and alternate_name: [] are required bc it can pass null or an array.
-        contributor: [], # both :contributor, and contributor: [] are required bc it can pass null or an array.
       )
     end
   end
