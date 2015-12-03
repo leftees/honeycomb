@@ -20,6 +20,7 @@ class ShowcaseQuery
   delegate :find, to: :relation
 
   def build(args = {})
+    args[:order] = relation.maximum(:order).to_i + 1
     relation.build(args)
   end
 
