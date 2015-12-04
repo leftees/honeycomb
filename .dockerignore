@@ -1,0 +1,31 @@
+.git
+
+# Ignore bundler config.
+.bundle
+
+# Ignore direnv config
+.envrc
+
+# Ignore sublime text files
+honeycomb.sublime-project
+honeycomb.sublime-workspace
+
+# Ignore the default SQLite database.
+db/*.sqlite3
+db/*.sqlite3-journal
+
+# Ignore solr data directories
+solr/*/data
+
+# Ignore all logfiles and tempfiles.
+log/*.log
+log/*.log.*
+tmp
+public/system/*
+vendor/bundle
+ssi/*
+public/assets
+coverage
+node_modules
+
+.rubocop.yml
