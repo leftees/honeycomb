@@ -9,12 +9,21 @@ mysql_settings: &mysql_settings
   encoding:  utf8
   reconnect: true
   pool:      5
+  host: localhost
+
+mysql_container_settings: &mysql_container_settings
+  adapter:   mysql2
+  encoding:  utf8
+  reconnect: true
+  pool:      5
   host:     192.168.99.100
+  username: root
+  password: password
 
 local_user: &local_user
   <<: *mysql_settings
   username: root
-  password: password
+  password:
 
 development:
   <<: *local_user
