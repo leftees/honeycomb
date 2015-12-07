@@ -8,6 +8,6 @@ class ParsePage
   end
 
   def parse!
-    Nokogiri::HTML(@page.content)
+    Nokogiri::HTML::DocumentFragment.parse(@page.content)
   end
 end
