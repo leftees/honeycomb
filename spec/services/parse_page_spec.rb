@@ -14,7 +14,7 @@ describe ParsePage do
 
   describe "#parse!" do
     it "returns a nokogiri parsed object" do
-      expect(subject).to be_kind_of(Nokogiri::HTML::Document)
+      expect(subject).to be_kind_of(Nokogiri::HTML::DocumentFragment)
     end
 
     it "exposes image elements" do
