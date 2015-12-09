@@ -1,6 +1,11 @@
 V1::CollectionJSONDecorator.display(@page.collection, json)
 json.set! :pages do
   @page.display(json)
+  json.set! :items do
+    json.array! @page.items do |item|
+      V1::ItemJSONDecorator.display(item, json)
+    end
+  end
   json.set! :nextObject do
     V1::SiteObjectsJSONDecorator.display(@page.next, json) if @page.next.present?
   end

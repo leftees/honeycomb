@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe PagesController, type: :controller do
-  let(:page) { instance_double(Page, id: 1, name: "name", collection: collection, destroy!: true) }
+  let(:page) { instance_double(Page, id: 1, name: "name", collection: collection, items: [], destroy!: true) }
   let(:collection) { instance_double(Collection, id: 1, name_line_1: "name_line_1", pages: relation) }
 
   let(:relation) { Page.all }
