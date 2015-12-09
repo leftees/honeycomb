@@ -77,9 +77,10 @@ describe ItemQuery do
   end
 
   describe "can_delete?" do
-    let(:relation) { instance_double(Item, showcases: [], children: []) }
+    let(:relation) { instance_double(Item, pages: [], showcases: [], children: []) }
     let(:child) { instance_double(Item) }
     let(:showcase) { instance_double(Showcase) }
+    let(:page) { instance_double(Page) }
 
     it "returns false if the item has children" do
       allow(relation).to receive(:showcases).and_return([])
@@ -89,6 +90,12 @@ describe ItemQuery do
 
     it "returns false if its used in a showcase" do
       allow(relation).to receive(:showcases).and_return([showcase])
+      allow(relation).to receive(:children).and_return([])
+      expect(subject.can_delete?).to eq(false)
+    end
+
+    it "returns false if its used in a page" do
+      allow(relation).to receive(:pages).and_return([page])
       allow(relation).to receive(:children).and_return([])
       expect(subject.can_delete?).to eq(false)
     end

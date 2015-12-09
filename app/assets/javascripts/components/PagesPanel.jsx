@@ -2,54 +2,54 @@ var React = require('react');
 var mui = require("material-ui");
 var Avatar = mui.Avatar;
 
-var ShowcasesPanel = React.createClass({
+var PagesPanel = React.createClass({
   mixins: [TitleConcatMixin, MuiThemeMixin],
   propTypes: {
-    showcases: React.PropTypes.array.isRequired,
+    pages: React.PropTypes.array.isRequired,
     panelTitle: React.PropTypes.string.isRequired,
   },
 
   getInitialState: function() {
     return {
-      showcases: [],
+      pages: [],
     };
   },
 
-  showcaseImageDiv: function (showcase) {
-    if(showcase.image) {
+  pageImageDiv: function (page) {
+    if(page.image) {
       return (
         <div className="image">
-          <Avatar src={ showcase.image["thumbnail/small"]["contentUrl"] } />
+          <Avatar src={ page.image["thumbnail/small"]["contentUrl"] } />
         </div>
       )
     } else {
       return (
         <div className="image" >
-          <Avatar>{ showcase.name_line_1[0].toUpperCase() }</Avatar>
+          <Avatar>{ "P" }</Avatar>
         </div>
       )
     }
   },
 
-  showcaseNameDiv: function (showcase) {
+  pageNameDiv: function (page) {
     return (
       <div className="name">
-        { this.titleConcat(showcase.name_line_1, showcase.name_line_2) }
+        { this.titleConcat(page.name) }
       </div>
     )
   },
 
-  showcaseNodes: function () {
-    if(this.props.showcases.length <= 0)
-      return <p>This item is not in any showcases.</p>;
+  pageNodes: function () {
+    if(this.props.pages.length <= 0)
+      return <p>This item is not in any pages.</p>;
 
-    return this.props.showcases.map(function(showcase, index) {
-      key = "showcase-" + showcase.id;
+    return this.props.pages.map(function(page, index) {
+      key = "page-" + page.id;
       return (
         <div key={key} className="row">
-          <a href={showcase["@id"]}>
-            { this.showcaseImageDiv(showcase) }
-            { this.showcaseNameDiv(showcase) }
+          <a href={page["@id"]}>
+            { this.pageImageDiv(page) }
+            { this.pageNameDiv(page) }
           </a>
         </div>
       )
@@ -63,7 +63,7 @@ var ShowcasesPanel = React.createClass({
         <PanelHeading>{this.props.panelTitle}</PanelHeading>
         <PanelBody>
           <div className="info-panel">
-            {this.showcaseNodes()}
+            {this.pageNodes()}
           </div>
         </PanelBody>
       </Panel>
@@ -80,4 +80,4 @@ var ShowcasesPanel = React.createClass({
 
 });
 
-module.exports = ShowcasesPanel;
+module.exports = PagesPanel;
