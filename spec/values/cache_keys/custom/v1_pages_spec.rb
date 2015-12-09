@@ -16,11 +16,12 @@ RSpec.describe CacheKeys::Custom::V1Pages do
   end
 
   context "show" do
-    let(:page) { instance_double(Page, collection: "collection") }
+    let(:page) { instance_double(Page, collection: "collection", items: []) }
     let(:page_json) do
       instance_double(V1::PageJSONDecorator,
                       collection: "collection",
                       next: "next",
+                      items: [],
                       object: page)
     end
 
@@ -32,7 +33,7 @@ RSpec.describe CacheKeys::Custom::V1Pages do
     it "uses the correct data" do
       expect_any_instance_of(CacheKeys::ActiveRecord).
         to receive(:generate).
-        with(record: [page, page_json.collection, page_json.next])
+        with(record: [page, page_json.collection, page_json.items, page_json.next])
       subject.show(page: page_json)
     end
   end
