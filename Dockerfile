@@ -36,18 +36,18 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # install gems
-COPY Gemfile /usr/src/app/
-COPY Gemfile.lock /usr/src/app/
+ADD Gemfile /usr/src/app/
+ADD Gemfile.lock /usr/src/app/
 RUN bundle install
 
 # node packages
-COPY package.json /usr/src/app/
+ADD package.json /usr/src/app/
 RUN npm install
 
-COPY . /usr/src/app
+ADD . /usr/src/app
 
-COPY config/database.yml /usr/src/app/config/
-COPY config/secrets.yml /usr/src/app/config/
+# Configs
+ADD config/docker/* /usr/src/app/config/
 
 EXPOSE 3017
 CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3017"]

@@ -1,0 +1,32 @@
+# Store non-sensitive configuration settings here.  Acessible from Rails.configuration.settings
+defaults: &defaults
+  cas_base: 'https://cas.library.nd.edu/cas'
+  background_processing: true
+
+local: &local
+  <<: *defaults
+  honeypot_url: 'http://192.168.99.100:3019'
+  beehive_url: 'http://192.168.99.100:3018'
+
+vm: &vm
+  <<: *defaults
+
+development:
+  <<: *local
+  background_processing: false
+
+test:
+  <<: *local
+  background_processing: false
+
+pre_production:
+  <<: *vm
+  cas_base: https://login.nd.edu/cas
+  honeypot_url: https://honeypotpprd.library.nd.edu
+  beehive_url: https://beehivepprd.library.nd.edu
+
+production:
+  <<: *vm
+  cas_base: https://login.nd.edu/cas
+  honeypot_url: https://honeypot.library.nd.edu
+  beehive_url: https://collections.library.nd.edu
