@@ -24,6 +24,7 @@ config/database.yml
 
 # ignore secrets
 config/secrets.yml
+config/docker/secrets.yml
 
 # Ignore solr data directories
 /solr/*/data
