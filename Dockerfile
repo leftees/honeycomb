@@ -3,6 +3,7 @@ MAINTAINER Justin Gondron <jgondron@nd.edu>
 
 RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -y mysql-client postgresql-client sqlite3 --no-install-recommends && rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && apt-get install -y rabbitmq-server --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # Install node. Based on https://github.com/nodejs/docker-node/blob/3622304ad09a84826521e81cb7ddf253c020d89e/5.1/Dockerfile
 # gpg keys listed at https://github.com/nodejs/node
@@ -52,6 +53,8 @@ ADD config/docker/* /usr/src/app/config/
 EXPOSE 3017
 CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3017"]
 
+#EXPOSE 5672
+#CMD ["service", "rabbitmq-server", "start"]
 
 # Rebuild using the Dockerfile
 # docker build --rm -t nd/honeycomb:v1 .
