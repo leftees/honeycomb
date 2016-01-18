@@ -1,16 +1,16 @@
 # Compares two json files for differences using HashDiff. Order of arrays does not matter.
 # No output will be given if no differences were found.
-require 'json'
-require 'hashdiff'
+require "json"
+require "hashdiff"
 
 # Deep sorts jsons by id's
 def sort!(json)
-  if(json.respond_to?("sort!"))
+  if (json.respond_to?("sort!"))
     json.sort! { |x, y| x["id"] <=> y["id"] }
     json.each { |h| sort!(h) }
   end
-  if(json.respond_to?("each_pair"))
-    json.each_pair { |k, v| sort!(json[k]) }
+  if (json.respond_to?("each_pair"))
+    json.each_pair { |k, _v| sort!(json[k]) }
   end
 end
 
