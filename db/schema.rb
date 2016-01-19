@@ -13,9 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20151117161736) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "collection_users", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4, null: false
-    t.integer  "collection_id", limit: 4, null: false
+    t.integer  "user_id",       null: false
+    t.integer  "collection_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -24,31 +27,31 @@ ActiveRecord::Schema.define(version: 20151117161736) do
   add_index "collection_users", ["user_id"], name: "index_collection_users_on_user_id", using: :btree
 
   create_table "collections", force: :cascade do |t|
-    t.string   "name_line_1",                 limit: 255
+    t.string   "name_line_1"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted",                                        default: false
-    t.string   "unique_id",                   limit: 255
+    t.boolean  "deleted",                     default: false
+    t.string   "unique_id"
     t.boolean  "published"
-    t.string   "name_line_2",                 limit: 255
+    t.string   "name_line_2"
     t.boolean  "preview_mode"
-    t.string   "url",                         limit: 255
-    t.text     "site_intro",                  limit: 65535
-    t.text     "short_intro",                 limit: 65535
-    t.text     "about",                       limit: 65535
-    t.text     "copyright",                   limit: 65535
+    t.string   "url"
+    t.text     "site_intro"
+    t.text     "short_intro"
+    t.text     "about"
+    t.text     "copyright"
     t.boolean  "enable_browse"
-    t.string   "image_file_name",             limit: 255
-    t.string   "image_content_type",          limit: 255
-    t.integer  "image_file_size",             limit: 4
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "uploaded_image_file_name",    limit: 255
-    t.string   "uploaded_image_content_type", limit: 255
-    t.integer  "uploaded_image_file_size",    limit: 4
+    t.string   "uploaded_image_file_name"
+    t.string   "uploaded_image_content_type"
+    t.integer  "uploaded_image_file_size"
     t.datetime "uploaded_image_updated_at"
     t.boolean  "enable_search"
     t.boolean  "hide_title_on_home_page"
-    t.text     "site_objects",                limit: 4294967295
+    t.text     "site_objects"
   end
 
   add_index "collections", ["preview_mode"], name: "index_collections_on_preview_mode", using: :btree
@@ -56,80 +59,78 @@ ActiveRecord::Schema.define(version: 20151117161736) do
   add_index "collections", ["unique_id"], name: "index_collections_on_unique_id", using: :btree
 
   create_table "exhibits", force: :cascade do |t|
-    t.text     "name",                        limit: 65535
-    t.text     "description",                 limit: 65535
-    t.integer  "collection_id",               limit: 4
-    t.string   "image_file_name",             limit: 255
-    t.string   "image_content_type",          limit: 255
-    t.integer  "image_file_size",             limit: 4
+    t.text     "name"
+    t.text     "description"
+    t.integer  "collection_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.text     "short_description",           limit: 65535
+    t.text     "short_description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "about",                       limit: 65535
-    t.string   "uploaded_image_file_name",    limit: 255
-    t.string   "uploaded_image_content_type", limit: 255
-    t.integer  "uploaded_image_file_size",    limit: 4
+    t.text     "about"
+    t.string   "uploaded_image_file_name"
+    t.string   "uploaded_image_content_type"
+    t.integer  "uploaded_image_file_size"
     t.datetime "uploaded_image_updated_at"
-    t.text     "copyright",                   limit: 65535
+    t.text     "copyright"
     t.boolean  "hide_title_on_home_page"
-    t.string   "url",                         limit: 255
+    t.string   "url"
     t.boolean  "enable_search"
     t.boolean  "enable_browse"
   end
 
-  add_index "exhibits", ["collection_id"], name: "fk_rails_b56f41d7b6", using: :btree
-
   create_table "honeypot_images", force: :cascade do |t|
-    t.integer  "item_id",       limit: 4
-    t.string   "name",          limit: 255
-    t.text     "json_response", limit: 65535
+    t.integer  "item_id"
+    t.string   "name"
+    t.text     "json_response"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "showcase_id",   limit: 4
-    t.integer  "exhibit_id",    limit: 4
-    t.integer  "collection_id", limit: 4
+    t.integer  "showcase_id"
+    t.integer  "exhibit_id"
+    t.integer  "collection_id"
   end
 
   add_index "honeypot_images", ["item_id"], name: "index_honeypot_images_on_item_id", using: :btree
 
   create_table "images", force: :cascade do |t|
-    t.integer  "collection_id",      limit: 4,     null: false
-    t.string   "image_file_name",    limit: 255,   null: false
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
+    t.integer  "collection_id",      null: false
+    t.string   "image_file_name",    null: false
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "image_fingerprint",  limit: 255,   null: false
-    t.text     "image_meta",         limit: 65535
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "image_fingerprint",  null: false
+    t.text     "image_meta"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   add_index "images", ["image_fingerprint"], name: "index_images_on_image_fingerprint", using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.text     "name",                        limit: 65535
-    t.text     "description",                 limit: 65535
+    t.text     "name"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "collection_id",               limit: 4
-    t.string   "image_file_name",             limit: 255
-    t.string   "image_content_type",          limit: 255
-    t.integer  "image_file_size",             limit: 4
+    t.integer  "collection_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.text     "sortable_name",               limit: 65535
-    t.integer  "parent_id",                   limit: 4
-    t.string   "manuscript_url",              limit: 255
+    t.text     "sortable_name"
+    t.integer  "parent_id"
+    t.string   "manuscript_url"
     t.boolean  "published"
-    t.string   "unique_id",                   limit: 255
-    t.text     "transcription",               limit: 65535
-    t.string   "uploaded_image_file_name",    limit: 255
-    t.string   "uploaded_image_content_type", limit: 255
-    t.integer  "uploaded_image_file_size",    limit: 4
+    t.string   "unique_id"
+    t.text     "transcription"
+    t.string   "uploaded_image_file_name"
+    t.string   "uploaded_image_content_type"
+    t.integer  "uploaded_image_file_size"
     t.datetime "uploaded_image_updated_at"
-    t.text     "metadata",                    limit: 4294967295
-    t.integer  "image_status",                limit: 4,          default: 0
-    t.string   "user_defined_id",             limit: 255,                    null: false
+    t.text     "metadata"
+    t.integer  "image_status",                default: 0
+    t.string   "user_defined_id",                         null: false
   end
 
   add_index "items", ["collection_id", "user_defined_id"], name: "index_items_on_collection_id_and_user_defined_id", unique: true, using: :btree
@@ -139,72 +140,66 @@ ActiveRecord::Schema.define(version: 20151117161736) do
   add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
-    t.string   "unique_id",     limit: 255
-    t.string   "name",          limit: 255
-    t.text     "content",       limit: 65535
-    t.integer  "collection_id", limit: 4,     null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "image_id",      limit: 4
+    t.string   "unique_id"
+    t.string   "name"
+    t.text     "content"
+    t.integer  "collection_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "image_id"
   end
 
-  add_index "pages", ["collection_id"], name: "fk_rails_b9e6c17b8e", using: :btree
-  add_index "pages", ["image_id"], name: "fk_rails_7484eb7907", using: :btree
-
   create_table "sections", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
-    t.string   "image",       limit: 255
-    t.integer  "item_id",     limit: 4
-    t.integer  "order",       limit: 4
-    t.text     "caption",     limit: 65535
-    t.integer  "showcase_id", limit: 4
-    t.string   "unique_id",   limit: 255
+    t.string   "name"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "item_id"
+    t.integer  "order"
+    t.text     "caption"
+    t.integer  "showcase_id"
+    t.string   "unique_id"
     t.datetime "updated_at"
     t.datetime "created_at"
     t.boolean  "has_spacer"
   end
 
-  add_index "sections", ["item_id"], name: "fk_rails_921f48e5e7", using: :btree
-  add_index "sections", ["showcase_id"], name: "fk_rails_9a3e59b41b", using: :btree
   add_index "sections", ["unique_id"], name: "index_sections_on_unique_id", using: :btree
 
   create_table "showcases", force: :cascade do |t|
-    t.text     "name_line_1",                 limit: 65535
-    t.text     "description",                 limit: 65535
-    t.integer  "exhibit_id",                  limit: 4
-    t.string   "image_file_name",             limit: 255
-    t.string   "image_content_type",          limit: 255
-    t.integer  "image_file_size",             limit: 4
+    t.text     "name_line_1"
+    t.text     "description"
+    t.integer  "exhibit_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "updated_at"
     t.datetime "created_at"
     t.boolean  "published"
-    t.string   "unique_id",                   limit: 255
-    t.string   "name_line_2",                 limit: 255
-    t.string   "uploaded_image_file_name",    limit: 255
-    t.string   "uploaded_image_content_type", limit: 255
-    t.integer  "uploaded_image_file_size",    limit: 4
+    t.string   "unique_id"
+    t.string   "name_line_2"
+    t.string   "uploaded_image_file_name"
+    t.string   "uploaded_image_content_type"
+    t.integer  "uploaded_image_file_size"
     t.datetime "uploaded_image_updated_at"
-    t.integer  "collection_id",               limit: 4
+    t.integer  "collection_id"
   end
 
   add_index "showcases", ["collection_id"], name: "index_showcases_on_collection_id", using: :btree
-  add_index "showcases", ["exhibit_id"], name: "fk_rails_ee93a134d7", using: :btree
   add_index "showcases", ["published"], name: "index_showcases_on_published", using: :btree
   add_index "showcases", ["unique_id"], name: "index_showcases_on_unique_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",         limit: 255
-    t.string   "last_name",          limit: 255
-    t.string   "display_name",       limit: 255
-    t.string   "email",              limit: 255, default: "", null: false
-    t.integer  "sign_in_count",      limit: 4,   default: 0
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "display_name"
+    t.string   "email",              default: "", null: false
+    t.integer  "sign_in_count",      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip", limit: 255
-    t.string   "last_sign_in_ip",    limit: 255
-    t.string   "username",           limit: 255
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin"
@@ -214,11 +209,11 @@ ActiveRecord::Schema.define(version: 20151117161736) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  limit: 255,   null: false
-    t.integer  "item_id",    limit: 4,     null: false
-    t.string   "event",      limit: 255,   null: false
-    t.string   "whodunnit",  limit: 255
-    t.text     "object",     limit: 65535
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
     t.datetime "created_at"
   end
 

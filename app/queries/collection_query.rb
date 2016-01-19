@@ -19,7 +19,7 @@ class CollectionQuery
   end
 
   def public_collections
-    relation.where("published = ?", true)
+    relation.where("published = ?", true).order(created_at: :asc)
   end
 
   def public_find(id)

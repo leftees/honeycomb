@@ -20,10 +20,12 @@ class SectionQuery
   end
 
   def next(section)
-    relation.where(showcase_id: section.showcase_id).where("`#{relation.table_name}`.order > ?", section.order).order(:order).first
+    order_field = Section.arel_table[:order]
+    relation.where(showcase_id: section.showcase_id).where(order_field.gt(section.order)).order(order: :asc).first
   end
 
   def previous(section)
-    relation.where(showcase_id: section.showcase_id).where("`#{relation.table_name}`.order < ?", section.order).order(order: :desc).first
+    order_field = Section.arel_table[:order]
+    relation.where(showcase_id: section.showcase_id).where(order_field.lt(section.order)).order(order: :desc).first
   end
 end

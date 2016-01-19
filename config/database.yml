@@ -10,8 +10,14 @@ mysql_settings: &mysql_settings
   reconnect: true
   pool:      5
 
+pg_settings: &pg_settings
+  adapter: postgresql
+  encoding: utf8
+  reconnect: true
+  pool: 5
+
 local_user: &local_user
-  <<: *mysql_settings
+  <<: *pg_settings
   username: root
   password:
   host:     localhost
