@@ -12,8 +12,12 @@ RSpec.describe V1::ItemsController, type: :controller do
 
   describe "#index" do
     subject { get :index, collection_id: collection.id, format: :json }
+    before(:each) do
+      allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
+    end
+
     it "calls CollectionQuery" do
-      expect_any_instance_of(CollectionQuery).to receive(:public_find).with(collection.id).and_return(collection)
+      expect_any_instance_of(CollectionQuery).to receive(:any_find).with(collection.id).and_return(collection)
 
       subject
     end

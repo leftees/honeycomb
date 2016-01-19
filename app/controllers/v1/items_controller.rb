@@ -3,7 +3,7 @@ module V1
   class ItemsController < APIController
     # API controller for items
     def index
-      collection = CollectionQuery.new.public_find(params[:collection_id])
+      collection = CollectionQuery.new.any_find(params[:collection_id])
       @collection = CollectionJSONDecorator.new(collection)
 
       cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Items,
