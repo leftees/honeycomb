@@ -275,7 +275,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.17)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -543,7 +542,6 @@ DEPENDENCIES
   jquery-rails (= 3.1.2)
   jquery-ui-rails (= 5.0.2)
   mime-types (~> 2.6.1)
-  mysql2
   newrelic_rpm
   paper_trail (~> 4.0.0.beta2)
   paperclip
