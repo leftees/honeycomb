@@ -44,6 +44,23 @@ describe SiteObjectsQuery do
     expect(subject.all(collection: collection)).to eq(site_objects)
   end
 
+  it "returns empty array if site_objects is nil" do
+    allow(collection).to receive(:site_objects).and_return(nil)
+    expect(subject.all(collection: collection)).to eq([])
+  end
+
+  it "returns empty array if site_objects is empty string" do
+    allow(collection).to receive(:site_objects).and_return("")
+    expect(subject.all(collection: collection)).to eq([])
+  end
+
+  # The json string will be formed by code, not by a user, so if something goes
+  # wrong, we should know about it
+  it "throws an exception if the site_objects json is malformed" do
+    allow(collection).to receive(:site_objects).and_return("[")
+    expect{subject.all(collection: collection)}.to raise_error
+  end
+
   context "when asking if an object exists in the array" do
     it "returns false if the object given is not in the site_objects array" do
       expect(subject.exists?(collection_object: showcases[1])).to eq(false)
