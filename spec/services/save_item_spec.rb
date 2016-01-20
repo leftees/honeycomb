@@ -83,8 +83,7 @@ RSpec.describe SaveItem, type: :model do
   end
 
   describe "image processing" do
-
-    it "sets the invalid state when the class receives a sneakers connection error" do |variable|
+    it "sets the invalid state when the class receives a sneakers connection error" do
       params[:uploaded_image] = upload_image
       allow(item).to receive(:image_processing!).and_return(true)
       allow(item).to receive(:save).and_return(true)
