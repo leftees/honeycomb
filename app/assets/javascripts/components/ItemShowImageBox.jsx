@@ -15,7 +15,7 @@ var ItemShowImageBox = React.createClass({
 
   getDefaultProps: function() {
     return {
-      maxRetries: 3,       // Maximum number of times it will retry to get the image status.
+      maxRetries: 7,       // Maximum number of times it will retry to get the image status.
       retryInterval: 5000  // Time in ms to wait before retrying request for image status.
     };
   },
@@ -37,14 +37,18 @@ var ItemShowImageBox = React.createClass({
       requestCount: this.state.requestCount + 1
     });
 
-    console.log(this.props.itemPath);
-
     $.ajax({
       url: this.props.itemPath,
       dataType: "json",
       method: "GET",
       success: (function(data) {
-        this.setState({ item: data.items, awaitingResponse: false }, this.testImageStatus);
+        if (this.state.requestCount < this.props.maxRetries) {
+          this.setState({ item: data.items, awaitingResponse: false }, this.testImageStatus);
+        } else {
+          var item = this.state.item;
+          item.image_status = "image_invalid";
+          this.setState({ item: item, awaitingResponse: false }, this.testImageStatus);
+        }
       }).bind(this),
       error: (function(xhr) {
         this.setState({ awaitingResponse: false }, this.testImageStatus);
@@ -100,11 +104,11 @@ var ItemShowImageBox = React.createClass({
   },
 
   itemNoImageHtml: function () {
-    return (<p>No Image</p>);
+    return (<p>No Item Image.</p>);
   },
 
   itemImageInvalidHtml: function () {
-    return (<p className="text-danger">Image Processing Error</p>);
+    return (<p className="text-danger">Image Processing Error please try again.  If it continues to be a problem <a href="https://docs.google.com/a/nd.edu/forms/d/1PH99cRyKzhZ6rV-dCJjrfkzdThA2n1GvoE9PT6kCkSk/viewform?entry.1268925684=https://honeycomb.library.nd.edu/collections/1/items">go here</a>.</p>);
   },
 
   render: function() {
