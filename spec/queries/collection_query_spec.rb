@@ -30,7 +30,7 @@ describe CollectionQuery do
 
   describe "public_collections" do
     it "returns all published collections" do
-      expect(relation).to receive(:where).with("published = ?", true)
+      expect(relation).to receive(:where).with("published = ?", true).and_return(relation)
       subject.public_collections
     end
   end
