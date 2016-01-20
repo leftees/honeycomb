@@ -58,7 +58,7 @@ describe SiteObjectsQuery do
   # wrong, we should know about it
   it "throws an exception if the site_objects json is malformed" do
     allow(collection).to receive(:site_objects).and_return("[")
-    expect{subject.all(collection: collection)}.to raise_error
+    expect { subject.all(collection: collection) }.to raise_error
   end
 
   context "when asking if an object exists in the array" do
