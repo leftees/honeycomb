@@ -83,6 +83,16 @@ RSpec.describe SaveItem, type: :model do
   end
 
   describe "image processing" do
+
+    it "sets the invalid state when the class receives a sneakers connection error" do |variable|
+      params[:uploaded_image] = upload_image
+      allow(item).to receive(:image_processing!).and_return(true)
+      allow(item).to receive(:save).and_return(true)
+      allow(QueueJob).to receive(:call).with(ProcessImageJob, object: item).and_raise(Bunny::TCPConnectionFailedForAllHosts)
+      expect(item).to receive(:image_invalid!)
+      subject
+    end
+
     it "Queues image processing if the image was updated" do
       params[:uploaded_image] = upload_image
       allow(item).to receive(:image_processing!).and_return(true)
