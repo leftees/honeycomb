@@ -1,7 +1,16 @@
 class SiteObjectsQuery
+  # Gets an array of all of the objects referenced by site_objects
   def all(collection:)
     site_objects_json(collection_id: collection.id).map do |site_object|
       get_object(site_object: site_object)
+    end
+  end
+
+  # Gets an array of the objects and their type referenced by site_objects
+  # Ex: [{type: "Showcase", object: <Showcase id: 1, name_line_1: "Test", ...>},...]
+  def all_typed(collection:)
+    site_objects_json(collection_id: collection.id).map do |site_object|
+      { type: site_object[:type], object: get_object(site_object: site_object) }
     end
   end
 

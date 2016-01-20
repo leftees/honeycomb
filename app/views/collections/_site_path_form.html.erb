@@ -1,4 +1,4 @@
 <%= react_component("SitePath", {
-  availableSiteObjects: eval(@collection.site_objects),
-  orderedSiteObjects: [{type:"Page",id:19,name:"Rodent Special Page"},{type:"Page",id:12,name:"Insect Special Page"},{type:"Showcase",id:23, name:"Animal Showcase Marine"},{type:"Page",id:13,name:"Fish Special Page"},{type:"Page",id:17,name:"Eagle Special Page"},{type:"Showcase", id:26, name:"Animal Showcase Canine"},{type:"Showcase",id:29, name:"Animal Showcase Zebra"}]
+  availableSiteObjects: SiteObjectsQuery.new.all_typed(collection: @collection),
+  orderedSiteObjects: [{type:"Page", object:{ id:19,name:"Rodent Special Page" }},{type:"Page",object:{ id:12,name:"Insect Special Page" }},{type:"Showcase",object:{ id:23, name_line_1:"Animal Showcase Marine"}},{type:"Page",object:{ id:13,name:"Fish Special Page"}},{type:"Page",object:{ id:17,name:"Eagle Special Page"}},{type:"Showcase", object:{ id:26, name_line_1:"Animal Showcase Canine"}},{type:"Showcase",object:{ id:29, name_line_1:"Animal Showcase Zebra"}}]
 }) %>

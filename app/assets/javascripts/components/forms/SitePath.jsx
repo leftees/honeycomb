@@ -14,19 +14,19 @@ var SitePath = React.createClass({
   },
 
   getInitialState: function() {
+    console.log(this.props.availableSiteObjects);
     return {
       availableSiteObjects: this.props.availableSiteObjects,
       orderedSiteObjects: this.props.orderedSiteObjects,
     };
   },
 
-  moveCard: function(hoverIndex, listType, dragIndex) {
+  addCard: function(listType, atIndex, siteObject) {
     if (listType == 'available') {
       this.setState(update(this.state, {
         availableSiteObjects: {
           $splice: [
-            [dragIndex, 1],
-            // [hoverIndex, 0, availableSiteObjects[dragIndex]]
+            [atIndex, 0, siteObject],
           ]
         }
       }));
@@ -34,26 +34,84 @@ var SitePath = React.createClass({
       this.setState(update(this.state, {
         orderedSiteObjects: {
           $splice: [
-            [dragIndex, 1]
-            // [hoverIndex, 0, orderedSiteObjects[dragIndex]]
+            [atIndex, 0, siteObject]
           ]
         }
       }));
     }
+  },
 
-    this.forceUpdate();
+  removeCard: function(listType, atIndex) {
+    if (listType == 'available') {
+      this.setState(update(this.state, {
+        availableSiteObjects: {
+          $splice: [
+            [atIndex, 1],
+          ]
+        }
+      }));
+    } else if (listType == 'ordered') {
+      this.setState(update(this.state, {
+        orderedSiteObjects: {
+          $splice: [
+            [atIndex, 1]
+          ]
+        }
+      }));
+    }
+  },
+
+  moveCard: function(listType, fromIndex, toIndex, siteObject) {
+    var removeIndex = fromIndex;
+    if(toIndex < fromIndex) {
+      removeIndex++;
+    }
+    if (listType == 'available') {
+      this.setState(update(this.state, {
+        availableSiteObjects: {
+          $splice: [
+            [toIndex, 0, siteObject],
+            [removeIndex, 1],
+          ]
+        }
+      }));
+    } else if (listType == 'ordered') {
+      this.setState(update(this.state, {
+        orderedSiteObjects: {
+          $splice: [
+            [toIndex, 0, siteObject],
+            [removeIndex, 1],
+          ]
+        }
+      }));
+    }
+  },
+
+  getCard: function(siteObject, index, listName){
+    var name;
+    var id = siteObject.object.id;
+    switch(siteObject.type) {
+      case "Showcase":
+        name = siteObject.object.name_line_1;
+        break;
+      case "Page":
+        name = siteObject.object.name;
+        break;
+      default:
+        return;
+        break;
+    }
+    var key = "available_site_object-" + id;
+    return (<SiteObjectCard site_object={siteObject} id={id} key={key} index={index} addCard={this.addCard} moveCard={this.moveCard} removeCard={this.removeCard} site_object_name={name} site_object_list={listName} />)
   },
 
   render: function () {
-    var boundMoveCard = this.moveCard;
     var ordered_site_objects = this.state.orderedSiteObjects.map(function (ordered_site_object, index) {
-      key = "ordered_site_object-" + ordered_site_object.id
-      return <SiteObjectCard id={ordered_site_object.id} key={key} index={index} moveCard={boundMoveCard} site_object_name={ordered_site_object.name} site_object_list="ordered" />
-    });
+      return this.getCard(ordered_site_object, index, "ordered");
+    }.bind(this));
     var available_site_objects = this.state.availableSiteObjects.map(function (available_site_object, index) {
-      key = "available_site_object-" + available_site_object.id
-      return <SiteObjectCard id={available_site_object.id} key={key} index={index} moveCard={boundMoveCard} site_object_name={available_site_object.name} site_object_list="available"/>
-    });
+      return this.getCard(available_site_object, index, "available");
+    }.bind(this));
 
     return (
       <div id="site_path" className="dualpanel">

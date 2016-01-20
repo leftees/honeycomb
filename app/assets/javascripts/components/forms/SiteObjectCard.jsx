@@ -10,7 +10,9 @@ var siteObjectSource = {
   beginDrag: function (props, monitor, component) {
     var site_object = {
       id: props.id,
-      index: props.index
+      index: props.index,
+      site_object: props.site_object,
+      site_object_list: props.site_object_list
     };
     var hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
     var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -19,30 +21,37 @@ var siteObjectSource = {
   },
 
   endDrag: function (props, monitor, component) {
-    var site_object = monitor.getItem();
+    var item = monitor.getItem();
+    dropResult = monitor.getDropResult();
+    if(dropResult && dropResult.source_list == dropResult.target_list){
+      return;
+    }
+    component.props.removeCard(props.site_object_list, item.index, item.site_object);
   }
 };
 
 var siteObjectTarget = {
-  hover: function (props, monitor, component) {
-    var dragIndex = monitor.getItem().index;
-    var hoverIndex = props.index;
+  // Called when a source gets dropped onto this target
+  drop: function (props, monitor, component) {
+    var sourceItem = monitor.getItem();
+    var destIndex = props.index;
     var clientOffset = monitor.getClientOffset();
     var hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
     var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     var hoverClientY = clientOffset.y - hoverBoundingRect.top;
-    // Dragging downwards
-    if (hoverClientY < hoverMiddleY) {
-      return;
-    }
 
-    // Dragging upwards
     if (hoverClientY > hoverMiddleY) {
-      return;
+      destIndex++;
     }
 
-    component.props.moveCard(hoverIndex, props.site_object_list, dragIndex);
-  },
+    if(sourceItem.site_object_list == props.site_object_list) {
+      component.props.moveCard(props.site_object_list, sourceItem.index, destIndex, sourceItem.site_object);
+    } else {
+      component.props.addCard(props.site_object_list, destIndex, sourceItem.site_object);
+    }
+
+    return { source_list: sourceItem.site_object_list, target_list: props.site_object_list }
+  }
 }
 
 function source_collect(connect, monitor) {
@@ -66,7 +75,10 @@ var SiteObjectCard = React.createClass({
     connectDragSource: React.PropTypes.func,
     connectDropTarget: React.PropTypes.func,
     isDragging: React.PropTypes.bool,
-    moveCard: React.PropTypes.func
+    addCard: React.PropTypes.func,
+    moveCard: React.PropTypes.func,
+    removeCard: React.PropTypes.func,
+    site_object: React.PropTypes.object
   },
 
   render: function () {
