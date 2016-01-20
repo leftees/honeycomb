@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require('react-dom');
 var EventEmitter = require('../../EventEmitter');
 var mui = require("material-ui");
 var Snackbar = mui.Snackbar;
@@ -33,7 +34,7 @@ var FormMessageCenter = React.createClass({
     if(this.state.htmlSafe) {
       return (<span dangerouslySetInnerHTML={{ __html: this.state.messageText }}></span>);
     } else {
-      return (<span>{ this.state.messageText }</span>);
+      return (this.state.messageText);
     }
 
 

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
 
     member do
-      site_setup_constraints = { form: /homepage|collection_introduction|about_text|copyright_text/ }
+      site_setup_constraints = { form: /homepage|collection_introduction|about_text|copyright_text|site_path/ }
       get "edit/:form", to: "collections#site_setup", as: :site_setup_form, constraints: site_setup_constraints
       put "edit/:form", to: "collections#site_setup_update", as: :site_setup_update_form, constraints: site_setup_constraints
       put :publish

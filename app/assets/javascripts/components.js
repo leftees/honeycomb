@@ -2,6 +2,7 @@
 //= require_self
 //= require react_ujs
 React = require("react");
+ReactDOM = require("react-dom");
 
 // mixins
 APIResponseMixin = require("./mixins/APIResponseMixin");
@@ -60,6 +61,10 @@ MultipleField = require("./components/forms/MultipleField");
 MultipleFieldDisplayValue = require("./components/forms/MultipleFieldDisplayValue");
 DropzoneForm = require("./components/forms/DropzoneForm");
 ButtonLink = require("./components/forms/ButtonLink");
+SitePath = require("./components/forms/SitePath");
+SiteObjectCard = require("./components/forms/SiteObjectCard");
+OrderedSiteObjects = require("./components/forms/OrderedSiteObjects");
+AvailableSiteObjects = require("./components/forms/AvailableSiteObjects");
 
 // panel
 Panel = require("./components/panel/Panel");

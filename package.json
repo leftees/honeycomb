@@ -11,11 +11,15 @@
     "flux": "^2.0.3",
     "jquery": "^2.1.4",
     "keymirror": "^0.1.1",
-    "material-ui": "^0.11.0",
+    "material-ui": "0.13.0",
     "object-assign": "^3.0.0",
-    "react": "0.13.3",
+    "react": "0.14.3",
+    "react-dom": "0.14.0",
+    "react-addons-update": "0.14.0",
     "react-scroll": "^0.18.0",
-    "react-tap-event-plugin": "0.1.7",
+    "react-tap-event-plugin": "0.2.1",
+    "react-dnd": "2.0.2",
+    "react-dnd-html5-backend": "^1.0.0",
     "reactify": "0.17.1"
   },
   "devDependencies": {

@@ -453,5 +453,38 @@ div.dataTables_filter {
   vertical-align: middle;
 }
 
+.dualpanel {
+	width: 90%;
+	margin: auto;
+
+	.list_panel {
+		display: inline-block;
+		width: 50%;
+
+		.dd_list {
+			width: 90%;
+			height: 200px;
+			overflow-y: scroll;
+			padding: 5px;
+			border: 1px solid red;
+			display: inline-block;
+
+		}
+
+		.heading {
+			height: 50px;
+			border: 1px solid blue;
+		}
+	}
+
+
+	.site_object_card {
+		cursor: move;
+		border: 1px solid green;
+		margin: 5px 0px 5px 0px;
+		padding: 5px;
+	}
+}
+
 
 @import "_material-design-overwrites.scss";

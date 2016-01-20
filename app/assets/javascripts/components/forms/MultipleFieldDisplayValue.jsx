@@ -24,7 +24,7 @@ var MultipleFieldDisplayValue = React.createClass({
 
   componentDidUpdate: function(){
     if (this.refs.input) {
-      var input = React.findDOMNode(this.refs.input);
+      var input = ReactDOM.findDOMNode(this.refs.input);
       var len = input.value.length;
 
       input.focus();

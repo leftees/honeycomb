@@ -4,23 +4,21 @@ var Colors = require("material-ui/lib/styles/colors");
 var Spacing = require("material-ui/lib/styles/spacing");
 var ColorManipulator = require("material-ui/lib/utils/color-manipulator");
 
-
 var HoneycombTheme = {
   spacing: Spacing,
-  contentFontFamily: "Roboto, sans-serif",
-  getPalette() {
-    return {
-      primary1Color: "rgb(44, 88, 130)",
-      primary2Color: Colors.cyan700,
-      primary3Color: Colors.cyan100,
-      accent1Color: "rgb(44, 88, 130)",
-      accent2Color: Colors.pinkA400,
-      accent3Color: Colors.pinkA100,
-      textColor: "#333",
-      canvasColor: "#fff",
-      borderColor: "rgb(44, 88, 130)",
-      disabledColor: Colors.grey300,
-    };
+  fontFamily: "Roboto, sans-serif",
+  palette: {
+    primary1Color: "#2C5882",
+    primary2Color: Colors.cyan700,
+    primary3Color: Colors.cyan100,
+    accent1Color: "#2C5882",
+    accent2Color: Colors.pinkA400,
+    accent3Color: Colors.pinkA100,
+    textColor: "#333",
+    alternateTextColor: Colors.white,
+    canvasColor: "#fff",
+    borderColor: "#2C5882",
+    disabledColor: Colors.grey300,
   },
   getComponentThemes(palette, spacing) {
     spacing = spacing || Spacing;
@@ -106,7 +104,7 @@ var HoneycombTheme = {
       raisedButton: {
         color: Colors.white,
         textColor: Colors.white,
-        primaryColor: palette.accent1Color,
+        primary1Color: palette.accent1Color,
         primaryTextColor: Colors.white,
         secondaryColor: palette.primary1Color,
         secondaryTextColor: Colors.white,
