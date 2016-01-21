@@ -5,7 +5,7 @@ class ReplacePageItem
 
   def initialize(page, item)
     @page = page
-    @parsed_page = ParsePage.call(@page)
+    @parsed_page = Nokogiri::HTML::DocumentFragment.parse(@page.content)
     @item = item
     get_element
   end
