@@ -242,6 +242,8 @@ ActiveRecord::Schema.define(version: 20160122191511) do
   add_foreign_key "collection_users", "users"
   add_foreign_key "items", "collections"
   add_foreign_key "items", "items", column: "parent_id"
+  add_foreign_key "items_pages", "items"
+  add_foreign_key "items_pages", "pages"
   add_foreign_key "pages", "collections"
   add_foreign_key "pages", "images"
   add_foreign_key "sections", "items"
