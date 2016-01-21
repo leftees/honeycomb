@@ -25,7 +25,7 @@ var PagesPanel = React.createClass({
     } else {
       return (
         <div className="image" >
-          <Avatar>{ "P" }</Avatar>
+          <Avatar>{ page.name[0].toUpperCase() }</Avatar>
         </div>
       )
     }
