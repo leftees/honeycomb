@@ -34,7 +34,6 @@ describe AssociatePageWithItems do
 
   describe "#derive_item_ids!" do
     it "returns the correct item count" do
-      expect(ParsePage).to receive(:call).and_return(Nokogiri::HTML(page_content))
       allow(Item).to receive_message_chain(:where, :take!).and_return(item)
       allow_any_instance_of(Nokogiri::XML::Element).to receive_message_chain(:attribute, :value).and_return(1)
       expect(described_class.new(page).send(:derive_item_ids).count).to eq 2

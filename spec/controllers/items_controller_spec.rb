@@ -145,7 +145,7 @@ RSpec.describe ItemsController, type: :controller do
 
   describe "GET #edit" do
     let(:collection) { double(Collection, id: "1") }
-    let(:item) { double(Item, id: "1", collection: collection) }
+    let(:item) { double(Item, id: "1", collection: collection, pages: ["page1", "page2"]) }
 
     before(:each) do
       allow_any_instance_of(ItemDecorator).to receive(:recent_children).and_return(nil)
