@@ -45,6 +45,9 @@ var siteObjectTarget = {
     }
 
     if(sourceItem.site_object_list == props.site_object_list) {
+      if(sourceItem.index == destIndex){
+        return;
+      }
       component.props.moveCard(props.site_object_list, sourceItem.index, destIndex, sourceItem.site_object);
     } else {
       component.props.addCard(props.site_object_list, destIndex, sourceItem.site_object);
@@ -88,9 +91,11 @@ var SiteObjectCard = React.createClass({
     var isDragging = this.props.isDragging;
 
     return connectDragSource(connectDropTarget(
-      <div className="site_object_card">
-        {this.props.site_object_name}
-      </div>
+        <div className="site_object_card">
+          <div>
+            {this.props.site_object_name}
+          </div>
+        </div>
     ));
   }
 });

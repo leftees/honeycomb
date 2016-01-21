@@ -479,10 +479,14 @@ div.dataTables_filter {
 
 
 	.site_object_card {
-		cursor: move;
-		border: 1px solid green;
-		margin: 5px 0px 5px 0px;
-		padding: 5px;
+		height: 35px;
+		padding-top: 2px;
+		div {
+			cursor: move;
+			border: 1px solid green;
+			padding: 5px;
+			top: 12.5%;
+		}
 	}
 }
 
