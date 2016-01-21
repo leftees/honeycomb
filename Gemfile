@@ -93,7 +93,7 @@ gem "autoprefixer-rails"
 gem "google_drive"
 
 group :development, :test do
-  gem "rubocop", require: false
+  gem "rubocop", "~> 0.36.0", require: false
 
   # gem "i18n-debug"
   gem "pry"
