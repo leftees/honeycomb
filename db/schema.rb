@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125174835) do
+ActiveRecord::Schema.define(version: 20160121172934) do
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       limit: 4, null: false
@@ -236,6 +236,8 @@ ActiveRecord::Schema.define(version: 20151125174835) do
   add_foreign_key "collection_users", "users"
   add_foreign_key "items", "collections"
   add_foreign_key "items", "items", column: "parent_id"
+  add_foreign_key "items_pages", "items"
+  add_foreign_key "items_pages", "pages"
   add_foreign_key "pages", "collections"
   add_foreign_key "pages", "images"
   add_foreign_key "sections", "items"
