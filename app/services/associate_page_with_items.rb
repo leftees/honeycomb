@@ -17,7 +17,7 @@ class AssociatePageWithItems
   private
 
   def derive_item_ids
-    parsed_page = ParsePage.call(@page)
+    parsed_page = Nokogiri::HTML::DocumentFragment.parse(@page.content)
     parsed_page.css(".hc_page_image").map { |image_element| Item.where(unique_id: image_element.attribute("item_id").value).take! }
   end
 end

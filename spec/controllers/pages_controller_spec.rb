@@ -190,7 +190,7 @@ RSpec.describe PagesController, type: :controller do
     subject { delete :destroy, id: page.id }
 
     before(:each) do
-      expect(DestroyPageItemAssociations).to receive(:call).and_return(1)
+      allow(DestroyPageItemAssociations).to receive(:call).and_return(1)
     end
 
     it "on success, redirects" do
@@ -219,7 +219,7 @@ RSpec.describe PagesController, type: :controller do
     end
 
     it "uses the Destroy::Page.cascade method" do
-      # implicit call to cascade! triggering a call to DestroyPageItemAssociations
+      expect_any_instance_of(Destroy::Page).to receive(:cascade!)
       subject
     end
 
