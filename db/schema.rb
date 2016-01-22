@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117161736) do
+ActiveRecord::Schema.define(version: 20160121133856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,9 +128,10 @@ ActiveRecord::Schema.define(version: 20151117161736) do
     t.string   "uploaded_image_content_type"
     t.integer  "uploaded_image_file_size"
     t.datetime "uploaded_image_updated_at"
-    t.text     "metadata"
+    t.text     "metadata_json"
     t.integer  "image_status",                default: 0
-    t.string   "user_defined_id",                         null: false
+    t.string   "user_defined_id",                          null: false
+    t.jsonb    "metadata",                    default: {}, null: false
   end
 
   add_index "items", ["collection_id", "user_defined_id"], name: "index_items_on_collection_id_and_user_defined_id", unique: true, using: :btree
