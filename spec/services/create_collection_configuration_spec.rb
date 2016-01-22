@@ -31,7 +31,7 @@ RSpec.describe CreateCollectionConfiguration do
 
     it "passes the metadata, facets, and sorts from the config file to the create command" do
       allow(YAML).to receive(:load_file).with(Rails.root.join("config/metadata/", "item.yml")).and_return(fields: "fields", facets: "facets", sorts: "sorts")
-      expect(collection).to receive(:create_collection_configuration).with({metadata: "fields", sorts: "sorts", facets: "facets"})
+      expect(collection).to receive(:create_collection_configuration).with(metadata: "fields", sorts: "sorts", facets: "facets")
       subject
     end
   end

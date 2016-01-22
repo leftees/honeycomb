@@ -24,5 +24,4 @@ class CreateCollectionConfiguration
   def base_config
     @base_config ||= YAML.load_file(Rails.root.join("config/metadata/", "item.yml"))
   end
-
 end
