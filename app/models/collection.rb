@@ -5,6 +5,7 @@ class Collection < ActiveRecord::Base
   has_many :showcases
   has_many :pages
   has_one :honeypot_image
+  has_one :collection_configuration
 
   has_attached_file :image,
                     restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/

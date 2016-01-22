@@ -1,6 +1,6 @@
 class CreateMetadataConfigurations < ActiveRecord::Migration
   def change
-    create_table :configurations do |t|
+    create_table :collection_configurations do |t|
       t.integer :collection_id, null: false
       t.jsonb :metadata, null: false, default: "{}"
       t.jsonb :sorts, null: false, default: "{}"
@@ -8,6 +8,6 @@ class CreateMetadataConfigurations < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_foreign_key :configurations, :collections
+    add_foreign_key :collection_configurations, :collections
   end
 end

@@ -127,6 +127,12 @@ RSpec.describe Item do
     end
   end
 
+  context "null constraints" do
+    it "does not allow metadata to be nil " do
+      expect { FactoryGirl.create(:no_metadata_item, collection: FactoryGirl.create(:collection)) }.to raise_error ActiveRecord::StatementInvalid
+    end
+  end
+
   context "foreign key constraints" do
     describe "#destroy" do
       it "fails if a section references it" do
