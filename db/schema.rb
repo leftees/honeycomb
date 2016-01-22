@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117161736) do
+ActiveRecord::Schema.define(version: 20160121193224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 20151117161736) do
   add_index "collections", ["preview_mode"], name: "index_collections_on_preview_mode", using: :btree
   add_index "collections", ["published"], name: "index_collections_on_published", using: :btree
   add_index "collections", ["unique_id"], name: "index_collections_on_unique_id", using: :btree
+
+  create_table "configurations", force: :cascade do |t|
+    t.integer  "collection_id",              null: false
+    t.jsonb    "metadata",      default: {}, null: false
+    t.jsonb    "sorts",         default: {}, null: false
+    t.jsonb    "facets",        default: {}, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "exhibits", force: :cascade do |t|
     t.text     "name"
@@ -128,9 +137,10 @@ ActiveRecord::Schema.define(version: 20151117161736) do
     t.string   "uploaded_image_content_type"
     t.integer  "uploaded_image_file_size"
     t.datetime "uploaded_image_updated_at"
-    t.text     "metadata"
+    t.text     "metadata_json"
     t.integer  "image_status",                default: 0
-    t.string   "user_defined_id",                         null: false
+    t.string   "user_defined_id",                          null: false
+    t.jsonb    "metadata",                    default: {}, null: false
   end
 
   add_index "items", ["collection_id", "user_defined_id"], name: "index_items_on_collection_id_and_user_defined_id", unique: true, using: :btree
@@ -221,6 +231,7 @@ ActiveRecord::Schema.define(version: 20151117161736) do
 
   add_foreign_key "collection_users", "collections"
   add_foreign_key "collection_users", "users"
+  add_foreign_key "configurations", "collections"
   add_foreign_key "items", "collections"
   add_foreign_key "items", "items", column: "parent_id"
   add_foreign_key "pages", "collections"
