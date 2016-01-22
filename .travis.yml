@@ -15,6 +15,10 @@ cache:
   bundler: true
   directories:
   - node_modules
+addons:
+  postgresql: "9.4"
+services:
+  - postgresql  
 notifications:
   hipchat:
     on_success: change
