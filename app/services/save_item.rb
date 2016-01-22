@@ -59,9 +59,9 @@ class SaveItem
       begin
         QueueJob.call(ProcessImageJob, object: item)
       rescue Bunny::TCPConnectionFailedForAllHosts
-        item.image_invalid!
+        item.image_unavailable!
       end
-    elsif item.image_invalid?
+    elsif item.image_unavailable?
       set_no_image
       true
     else

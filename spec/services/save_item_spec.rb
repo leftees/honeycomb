@@ -88,7 +88,7 @@ RSpec.describe SaveItem, type: :model do
       allow(item).to receive(:image_processing!).and_return(true)
       allow(item).to receive(:save).and_return(true)
       allow(QueueJob).to receive(:call).with(ProcessImageJob, object: item).and_raise(Bunny::TCPConnectionFailedForAllHosts)
-      expect(item).to receive(:image_invalid!)
+      expect(item).to receive(:image_unavailable!)
       subject
     end
 
@@ -132,7 +132,7 @@ RSpec.describe SaveItem, type: :model do
     it "sets the state to no image if there is no uploaded image and the item is in the error state" do
       # error state currently because it is the deault state. at some point it should be changed to no image.
       params[:uploaded_image] = nil
-      allow(item).to receive(:image_invalid?).and_return(true)
+      allow(item).to receive(:image_unavailable?).and_return(true)
       allow(item).to receive(:save).and_return(true)
       expect(item).to receive(:no_image!)
       subject

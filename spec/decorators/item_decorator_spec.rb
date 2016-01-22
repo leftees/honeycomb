@@ -193,7 +193,7 @@ RSpec.describe ItemDecorator do
       allow(item).to receive(:image_ready?).and_return(false)
       allow(item).to receive(:no_image?).and_return(false)
       allow(item).to receive(:image_processing?).and_return(false)
-      allow(item).to receive(:image_invalid?).and_return(false)
+      allow(item).to receive(:image_unavailable?).and_return(false)
     end
 
     it "renders the correct success span when the image is ready" do
@@ -203,7 +203,7 @@ RSpec.describe ItemDecorator do
     end
 
     it "renders the correct success span when the image is invalid" do
-      expect(item).to receive(:image_invalid?).and_return(true)
+      expect(item).to receive(:image_unavailable?).and_return(true)
       expect(subject).to receive(:status_text_span).with(className: "text-danger", icon: "minus", text: "Error")
       subject.status_text
     end

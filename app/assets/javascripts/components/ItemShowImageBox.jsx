@@ -46,7 +46,7 @@ var ItemShowImageBox = React.createClass({
           this.setState({ item: data.items, awaitingResponse: false }, this.testImageStatus);
         } else {
           var item = this.state.item;
-          item.image_status = "image_invalid";
+          item.image_status = "image_unavailable";
           this.setState({ item: item, awaitingResponse: false }, this.testImageStatus);
         }
       }).bind(this),
@@ -62,7 +62,7 @@ var ItemShowImageBox = React.createClass({
   },
 
   testImageStatus: function () {
-    if (this.state.item.image_status == "image_invalid") {
+    if (this.state.item.image_status == "image_unavailable") {
       EventEmitter.emit("MessageCenterDisplay", "error", "There was a problem loading the media. Try replacing or contacting support.");
     } else if (this.state.item.image_status == "image_processing") {
       setTimeout(this.pingItem, this.props.retryInterval)
@@ -78,7 +78,7 @@ var ItemShowImageBox = React.createClass({
         return this.itemProcessingHtml();
       case "no_image":
         return this.itemNoImageHtml();
-      case "image_invalid":
+      case "image_unavailable":
         return this.itemImageInvalidHtml();
       default:
         EventEmitter.emit("MessageCenterDisplay", "error", "Unknown Image Status");

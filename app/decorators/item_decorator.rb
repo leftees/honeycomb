@@ -24,7 +24,7 @@ class ItemDecorator < Draper::Decorator
       status_text_span(className: "text-info", icon: "minus", text: h.t("status.processing"))
     elsif object.no_image?
       status_text_span(className: "text-success", icon: "ok", text: h.t("status.no_image"))
-    elsif object.image_invalid?
+    elsif object.image_unavailable?
       status_text_span(className: "text-danger", icon: "minus", text: h.t("status.error"))
     else
       raise "Unaccounted for status in status_text"
