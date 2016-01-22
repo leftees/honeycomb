@@ -4,69 +4,28 @@ var update = require('react/lib/update');
 var mui = require("material-ui");
 var Types = require("./DraggableTypes");
 var DragSource = require('react-dnd').DragSource;
-var DropTarget = require('react-dnd').DropTarget;
+var EventEmitter = require('../../EventEmitter');
 
 var siteObjectSource = {
   beginDrag: function (props, monitor, component) {
-    var site_object = {
-      id: props.id,
-      index: props.index,
-      site_object: props.site_object,
-      site_object_list: props.site_object_list
-    };
-    var hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
-    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-    var clientOffset = monitor.getClientOffset();
-    return site_object;
+    return props;
   },
 
   endDrag: function (props, monitor, component) {
     var item = monitor.getItem();
     dropResult = monitor.getDropResult();
-    if(dropResult && dropResult.source_list == dropResult.target_list){
-      return;
+
+    if(!monitor.didDrop()){
+      EventEmitter.emit("DNDSourceDroppedOnNothing", item);
     }
-    component.props.removeCard(props.site_object_list, item.index, item.site_object);
   }
 };
-
-var siteObjectTarget = {
-  // Called when a source gets dropped onto this target
-  drop: function (props, monitor, component) {
-    var sourceItem = monitor.getItem();
-    var destIndex = props.index;
-    var clientOffset = monitor.getClientOffset();
-    var hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
-    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-    if (hoverClientY > hoverMiddleY) {
-      destIndex++;
-    }
-
-    if(sourceItem.site_object_list == props.site_object_list) {
-      if(sourceItem.index == destIndex){
-        return;
-      }
-      component.props.moveCard(props.site_object_list, sourceItem.index, destIndex, sourceItem.site_object);
-    } else {
-      component.props.addCard(props.site_object_list, destIndex, sourceItem.site_object);
-    }
-
-    return { source_list: sourceItem.site_object_list, target_list: props.site_object_list }
-  }
-}
 
 function source_collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
-  };
-}
-
-function target_collect(connect, monitor) {
-  return {
-    connectDropTarget: connect.dropTarget(),
   };
 }
 
@@ -74,30 +33,48 @@ var SiteObjectCard = React.createClass({
   propTypes: {
     id: React.PropTypes.number.isRequired,
     index: React.PropTypes.number,
-    site_object_name: React.PropTypes.string,
-    connectDragSource: React.PropTypes.func,
-    connectDropTarget: React.PropTypes.func,
-    isDragging: React.PropTypes.bool,
-    addCard: React.PropTypes.func,
-    moveCard: React.PropTypes.func,
-    removeCard: React.PropTypes.func,
     site_object: React.PropTypes.object
   },
 
-  render: function () {
-    var id = this.props.id;
-    var connectDragSource = this.props.connectDragSource;
-    var connectDropTarget = this.props.connectDropTarget;
-    var isDragging = this.props.isDragging;
+  getInitialState: function() {
+    return {
+      name: this.props.site_object.object.name || this.props.site_object.object.name_line_1,
+    };
+  },
 
-    return connectDragSource(connectDropTarget(
-        <div className="site_object_card">
-          <div>
-            {this.props.site_object_name}
-          </div>
-        </div>
-    ));
+  getText: function() {
+    return this.props.site_object.object.name || this.props.site_object.object.name_line_1;
+  },
+
+  getAvatar: function() {
+    var object = this.props.site_object.object;
+    if(object.image)
+      return (<mui.Avatar src={ object.image['thumbnail\/small'].contentUrl } />);
+    else {
+      var letter = this.props.site_object.type.substring(0, 1);
+      return (<mui.Avatar style={{color: 'red'}}>{ letter }</mui.Avatar>);
+    }
+  },
+
+  getDragAvatar: function() {
+    const { connectDragSource } = this.props;
+    return connectDragSource(<div>{ this.getAvatar() }</div>);
+  },
+
+  removeCard: function(){
+    EventEmitter.emit("SiteObjectCard#Remove", this.props);
+  },
+
+  render: function () {
+    const { connectDragSource, connectDragPreview, isDragging } = this.props;
+    return connectDragSource(
+      <div>
+        <mui.Card style={{ cursor: "move" }}>
+          <mui.CardHeader title={ this.getText() }  avatar={ this.getAvatar() } />
+        </mui.Card>
+      </div>
+    );
   }
 });
 
-module.exports = DragSource(Types.SITEOBJECT, siteObjectSource, source_collect)(DropTarget(Types.SITEOBJECT, siteObjectTarget, target_collect)(SiteObjectCard));
+module.exports = DragSource("expanding_target", siteObjectSource, source_collect)(SiteObjectCard);

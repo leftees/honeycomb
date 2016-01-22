@@ -6,11 +6,15 @@ class SiteObjectsQuery
     end
   end
 
-  # Gets an array of the objects and their type referenced by site_objects
+  # Gets an array of the decorated json objects and their type referenced by site_objects
   # Ex: [{type: "Showcase", object: <Showcase id: 1, name_line_1: "Test", ...>},...]
-  def all_typed(collection:)
+  def all_decorated(collection:)
     site_objects_json(collection_id: collection.id).map do |site_object|
-      { type: site_object[:type], object: get_object(site_object: site_object) }
+      object_instance = get_object(site_object: site_object)
+      json = Jbuilder.new
+      V1::SiteObjectsJSONDecorator.display(object_instance, json)
+      decorated_object = JSON.parse(json.target!)
+      { type: site_object[:type], object: decorated_object }
     end
   end
 

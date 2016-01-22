@@ -271,7 +271,7 @@ div.dataTables_filter {
     -webkit-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
     -moz-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
     -o-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
-    transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+    transition: width 0.3s ease, max-height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
 }
 
 .row-fluid .col-md-2, .row-fluid .col-md-1  {
@@ -454,39 +454,33 @@ div.dataTables_filter {
 }
 
 .dualpanel {
-	width: 90%;
+	width: 100%;
 	margin: auto;
 
 	.list_panel {
 		display: inline-block;
 		width: 50%;
-
-		.dd_list {
-			width: 90%;
-			height: 200px;
-			overflow-y: scroll;
-			padding: 5px;
-			border: 1px solid red;
-			display: inline-block;
-
-		}
-
-		.heading {
-			height: 50px;
-			border: 1px solid blue;
-		}
+		padding: 10px;
+		height: 400px;
+		overflow-y: scroll;
 	}
 
+	.site_object_expander{
+    height: 15px;
+	}
 
-	.site_object_card {
-		height: 35px;
-		padding-top: 2px;
-		div {
-			cursor: move;
-			border: 1px solid green;
-			padding: 5px;
-			top: 12.5%;
-		}
+	.site_object_expander_target{
+    height: 15px;
+		background: rgba(0, 0, 0, 0.05);
+	}
+
+	.site_object_expander_expanded{
+		height: 72px;
+		background: rgba(0, 0, 0, 0.15);
+	}
+
+	.site_object_expander_always_expanded{
+		height: 72px;
 	}
 }
 

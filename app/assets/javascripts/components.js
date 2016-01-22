@@ -65,6 +65,7 @@ SitePath = require("./components/forms/SitePath");
 SiteObjectCard = require("./components/forms/SiteObjectCard");
 OrderedSiteObjects = require("./components/forms/OrderedSiteObjects");
 AvailableSiteObjects = require("./components/forms/AvailableSiteObjects");
+ExpandingDropTarget = require("./components/forms/ExpandingDropTarget");
 
 // panel
 Panel = require("./components/panel/Panel");

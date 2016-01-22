@@ -4,6 +4,7 @@ var update = require('react/lib/update');
 var mui = require("material-ui");
 var HTML5Backend = require('react-dnd-html5-backend');
 var DragDropContext = require('react-dnd').DragDropContext;
+var EventEmitter = require('../../EventEmitter');
 
 var SitePath = React.createClass({
   mixins: [MuiThemeMixin],
@@ -14,14 +15,42 @@ var SitePath = React.createClass({
   },
 
   getInitialState: function() {
-    console.log(this.props.availableSiteObjects);
+    EventEmitter.on("DNDSourceDroppedOnTarget", this.handleDrop);
+    EventEmitter.on("DNDSourceDroppedOnNothing", this.handleRemoveCard);
+    EventEmitter.on("SiteObjectCard#Remove", this.handleRemoveCard);
     return {
       availableSiteObjects: this.props.availableSiteObjects,
       orderedSiteObjects: this.props.orderedSiteObjects,
     };
   },
 
+  handleRemoveCard: function(source){
+    if(source.site_object_list == "ordered") {
+      this.addCard("available", 0, source.site_object);
+      this.removeCard(source.site_object_list, source.index);
+    }
+    if(source.site_object_list == "available") {
+      this.addCard("ordered", this.state.orderedSiteObjects.length, source.site_object);
+      this.removeCard(source.site_object_list, source.index);
+    }
+  },
+
+  handleDrop: function(target, source) {
+    // Reorder within same list
+    if(target.site_object_list == source.site_object_list) {
+      if(source.index == target.index){
+        return;
+      }
+      this.moveCard(target.site_object_list, source.index, target.index, source.site_object);
+    } else {
+      // Move card from one list to another
+      this.addCard(target.site_object_list, target.index, source.site_object);
+      this.removeCard(source.site_object_list, source.index);
+    }
+  },
+
   addCard: function(listType, atIndex, siteObject) {
+    console.log(listType, atIndex, siteObject);
     if (listType == 'available') {
       this.setState(update(this.state, {
         availableSiteObjects: {
@@ -42,6 +71,7 @@ var SitePath = React.createClass({
   },
 
   removeCard: function(listType, atIndex) {
+    console.log(listType, atIndex);
     if (listType == 'available') {
       this.setState(update(this.state, {
         availableSiteObjects: {
@@ -87,45 +117,34 @@ var SitePath = React.createClass({
     }
   },
 
-  getCard: function(siteObject, index, listName){
-    var name;
-    var id = siteObject.object.id;
-    switch(siteObject.type) {
-      case "Showcase":
-        name = siteObject.object.name_line_1;
-        break;
-      case "Page":
-        name = siteObject.object.name;
-        break;
-      default:
-        return;
-        break;
-    }
-    var key = "available_site_object-" + id;
-    return (<SiteObjectCard site_object={siteObject} id={id} key={key} index={index} addCard={this.addCard} moveCard={this.moveCard} removeCard={this.removeCard} site_object_name={name} site_object_list={listName} />)
+  getSiteCards: function() {
+    return this.state.orderedSiteObjects.map(function (ordered_site_object, index) {
+      return [
+        <ExpandingDropTarget className="site_object_expander" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: index }} />,
+        <SiteObjectCard site_object={ordered_site_object} id={index} index={index} site_object_list="ordered" />
+      ]
+    }.bind(this));
+  },
+
+  getAvailableCards: function() {
+    return this.state.availableSiteObjects.map(function (available_site_object, index) {
+      return (<SiteObjectCard site_object={available_site_object} id={index} index={index} site_object_list="available" />);
+    }.bind(this));
   },
 
   render: function () {
-    var ordered_site_objects = this.state.orderedSiteObjects.map(function (ordered_site_object, index) {
-      return this.getCard(ordered_site_object, index, "ordered");
-    }.bind(this));
-    var available_site_objects = this.state.availableSiteObjects.map(function (available_site_object, index) {
-      return this.getCard(available_site_object, index, "available");
-    }.bind(this));
-
     return (
       <div id="site_path" className="dualpanel">
         <div className="list_panel">
-          <span className="dd_list heading">Ordered</span>
-          <OrderedSiteObjects>
-            {ordered_site_objects}
-          </OrderedSiteObjects>
+          <mui.List subheader="Current Site Path">
+            { this.getSiteCards() }
+            <ExpandingDropTarget className="site_object_expander_always_expanded" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: this.state.orderedSiteObjects.length }}/>
+          </mui.List>
         </div>
         <div className="list_panel">
-          <span className="dd_list heading">Available</span>
-          <AvailableSiteObjects>
-            {available_site_objects}
-          </AvailableSiteObjects>
+          <mui.List subheader="Available Pages and Showcases">
+            { this.getAvailableCards() }
+          </mui.List>
         </div>
       </div>
     );

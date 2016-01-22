@@ -1,4 +1,4 @@
 <%= react_component("SitePath", {
   availableSiteObjects: [{type:"Page", object:{ id:19,name:"Rodent Special Page" }},{type:"Page",object:{ id:12,name:"Insect Special Page" }},{type:"Showcase",object:{ id:23, name_line_1:"Animal Showcase Marine"}},{type:"Page",object:{ id:13,name:"Fish Special Page"}},{type:"Page",object:{ id:17,name:"Eagle Special Page"}},{type:"Showcase", object:{ id:26, name_line_1:"Animal Showcase Canine"}},{type:"Showcase",object:{ id:29, name_line_1:"Animal Showcase Zebra"}}],
-  orderedSiteObjects: SiteObjectsQuery.new.all_typed(collection: @collection)
+  orderedSiteObjects: SiteObjectsQuery.new.all_decorated(collection: @collection)
 }) %>
