@@ -150,8 +150,13 @@ ActiveRecord::Schema.define(version: 20160122191511) do
   add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
 
   create_table "items_pages", id: false, force: :cascade do |t|
+<<<<<<< HEAD
     t.integer "page_id", limit: 4
     t.integer "item_id", limit: 4
+=======
+    t.integer "page_id"
+    t.integer "item_id"
+>>>>>>> f5e1abfaaf3635eed733c923d2d09086eddcf493
   end
 
   add_index "items_pages", ["item_id", "page_id"], name: "index_items_pages_on_item_id_and_page_id", using: :btree
