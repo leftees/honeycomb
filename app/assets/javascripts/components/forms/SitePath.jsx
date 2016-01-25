@@ -5,6 +5,8 @@ var mui = require("material-ui");
 var HTML5Backend = require('react-dnd-html5-backend');
 var DragDropContext = require('react-dnd').DragDropContext;
 var EventEmitter = require('../../EventEmitter');
+var SiteObjectEventTypes = require("./SiteObjectEventTypes");
+var DropTarget = ExpandingDropTarget(SiteObjectEventTypes.DnDMessage);
 
 var SitePath = React.createClass({
   mixins: [MuiThemeMixin],
@@ -15,9 +17,8 @@ var SitePath = React.createClass({
   },
 
   getInitialState: function() {
-    EventEmitter.on("DNDSourceDroppedOnTarget", this.handleDrop);
-    EventEmitter.on("DNDSourceDroppedOnNothing", this.handleRemoveCard);
-    EventEmitter.on("SiteObjectCard#Remove", this.handleRemoveCard);
+    EventEmitter.on(SiteObjectEventTypes.CardDroppedOnTarget, this.handleDrop);
+    EventEmitter.on(SiteObjectEventTypes.CardDroppedOnNothing, this.handleRemoveCard);
     return {
       availableSiteObjects: this.props.availableSiteObjects,
       orderedSiteObjects: this.props.orderedSiteObjects,
@@ -50,7 +51,6 @@ var SitePath = React.createClass({
   },
 
   addCard: function(listType, atIndex, siteObject) {
-    console.log(listType, atIndex, siteObject);
     if (listType == 'available') {
       this.setState(update(this.state, {
         availableSiteObjects: {
@@ -71,7 +71,6 @@ var SitePath = React.createClass({
   },
 
   removeCard: function(listType, atIndex) {
-    console.log(listType, atIndex);
     if (listType == 'available') {
       this.setState(update(this.state, {
         availableSiteObjects: {
@@ -120,7 +119,7 @@ var SitePath = React.createClass({
   getSiteCards: function() {
     return this.state.orderedSiteObjects.map(function (ordered_site_object, index) {
       return [
-        <ExpandingDropTarget className="site_object_expander" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: index }} />,
+        <DropTarget className="site_object_expander" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: index }} />,
         <SiteObjectCard site_object={ordered_site_object} id={index} index={index} site_object_list="ordered" />
       ]
     }.bind(this));
@@ -138,7 +137,7 @@ var SitePath = React.createClass({
         <div className="list_panel">
           <mui.List subheader="Current Site Path">
             { this.getSiteCards() }
-            <ExpandingDropTarget className="site_object_expander_always_expanded" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: this.state.orderedSiteObjects.length }}/>
+            <DropTarget className="site_object_expander_always_expanded" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: this.state.orderedSiteObjects.length }}/>
           </mui.List>
         </div>
         <div className="list_panel">

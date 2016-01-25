@@ -43,6 +43,7 @@ GoogleExportButton = require("./components/GoogleExportButton");
 EmbedCode = require("./components/embed/EmbedCode");
 
 // forms
+ExpandingDropTarget = require("./components/forms/ExpandingDropTarget");
 FieldHelp = require("./components/forms/FieldHelp");
 Form = require("./components/forms/Form");
 FormMessageCenter = require("./components/forms/FormMessageCenter");
@@ -63,9 +64,6 @@ DropzoneForm = require("./components/forms/DropzoneForm");
 ButtonLink = require("./components/forms/ButtonLink");
 SitePath = require("./components/forms/SitePath");
 SiteObjectCard = require("./components/forms/SiteObjectCard");
-OrderedSiteObjects = require("./components/forms/OrderedSiteObjects");
-AvailableSiteObjects = require("./components/forms/AvailableSiteObjects");
-ExpandingDropTarget = require("./components/forms/ExpandingDropTarget");
 
 // panel
 Panel = require("./components/panel/Panel");

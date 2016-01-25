@@ -1,8 +1,13 @@
+// A draggable site object card.
+// Events:
+// SiteObjectCardDroppedOnNothing - Emitted when this source is dropped outside of a valid drop target
+// SiteObjectCardDroppedOnTarget - Emitted when this source is dropped onto a valid drop target
+//
 var React = require('react');
 var ReactDOM = require('react-dom');
 var update = require('react/lib/update');
 var mui = require("material-ui");
-var Types = require("./DraggableTypes");
+var SiteObjectEventTypes = require("./SiteObjectEventTypes");
 var DragSource = require('react-dnd').DragSource;
 var EventEmitter = require('../../EventEmitter');
 
@@ -12,11 +17,13 @@ var siteObjectSource = {
   },
 
   endDrag: function (props, monitor, component) {
-    var item = monitor.getItem();
-    dropResult = monitor.getDropResult();
+    const item = monitor.getItem();
 
-    if(!monitor.didDrop()){
-      EventEmitter.emit("DNDSourceDroppedOnNothing", item);
+    if(monitor.didDrop()){
+      dropResult = monitor.getDropResult();
+      EventEmitter.emit(SiteObjectEventTypes.CardDroppedOnTarget, dropResult, item)
+    } else {
+      EventEmitter.emit(SiteObjectEventTypes.CardDroppedOnNothing, item);
     }
   }
 };
@@ -61,10 +68,6 @@ var SiteObjectCard = React.createClass({
     return connectDragSource(<div>{ this.getAvatar() }</div>);
   },
 
-  removeCard: function(){
-    EventEmitter.emit("SiteObjectCard#Remove", this.props);
-  },
-
   render: function () {
     const { connectDragSource, connectDragPreview, isDragging } = this.props;
     return connectDragSource(
@@ -77,4 +80,4 @@ var SiteObjectCard = React.createClass({
   }
 });
 
-module.exports = DragSource("expanding_target", siteObjectSource, source_collect)(SiteObjectCard);
+module.exports = DragSource(SiteObjectEventTypes.DnDMessage, siteObjectSource, source_collect)(SiteObjectCard);
