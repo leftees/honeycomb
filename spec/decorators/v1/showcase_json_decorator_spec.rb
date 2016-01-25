@@ -2,8 +2,19 @@ require "rails_helper"
 
 RSpec.describe V1::ShowcaseJSONDecorator do
   subject { described_class.new(showcase) }
-
-  let(:showcase) { double(Showcase) }
+  let(:collection) { instance_double(Collection, unique_id: "collection1") }
+  let(:showcase) do
+    instance_double(Showcase,
+                    collection: collection,
+                    unique_id: "showcase1",
+                    slug: "showcase1",
+                    name: "showcase1",
+                    name_line_1: "showcase",
+                    name_line_2: "1",
+                    description: "Showcase One",
+                    honeypot_image: nil,
+                    updated_at: nil)
+  end
 
   describe "generic fields" do
     [:id, :description, :unique_id, :image, :collection, :updated_at].each do |field|
@@ -83,11 +94,45 @@ RSpec.describe V1::ShowcaseJSONDecorator do
   end
 
   describe "#display" do
-    let(:json) { double }
+    let(:json) { Jbuilder.new }
 
-    it "calls the partial for the display" do
-      expect(json).to receive(:partial!).with("/v1/showcases/showcase", showcase_object: showcase)
+    it "doesn't error" do
       subject.display(json)
+    end
+
+    expected_keys = [
+      "@context",
+      "@type",
+      "@id",
+      "isPartOf/collection",
+      "additionalType",
+      "id",
+      "slug",
+      "name",
+      "name_line_1",
+      "name_line_2",
+      "description",
+      "image",
+      "last_updated"
+    ]
+
+
+    expected_keys.each do |key|
+      it "sets #{key}" do
+        subject.display(json)
+        keys = JSON.parse(json.target!).keys
+        expect(keys).to include(key)
+      end
+    end
+
+    it "doesn't include extra keys" do
+      subject.display(json)
+      keys = JSON.parse(json.target!).keys
+      expect(keys - expected_keys).to eq([])
+    end
+
+    it "returns nil if the showcase is nil " do
+      expect(described_class.new(nil).display(json)).to be_nil
     end
   end
 

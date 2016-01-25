@@ -2,8 +2,17 @@ require "rails_helper"
 
 RSpec.describe V1::PageJSONDecorator do
   subject { described_class.new(page) }
-
-  let(:page) { double(Page, image: []) }
+  let(:collection) { instance_double(Collection, unique_id: "collection1") }
+  let(:page) do
+    instance_double(Page,
+                    collection: collection,
+                    unique_id: "page1",
+                    slug: "page1",
+                    name: "page1",
+                    image: nil,
+                    content: "<html/>",
+                    updated_at: nil)
+  end
 
   describe "generic fields" do
     [:id, :unique_id, :collection, :updated_at, :name, :content].each do |field|
@@ -40,11 +49,43 @@ RSpec.describe V1::PageJSONDecorator do
   end
 
   describe "#display" do
-    let(:json) { double }
+    let(:json) { Jbuilder.new }
 
-    it "calls the partial for the display" do
-      expect(json).to receive(:partial!).with("/v1/pages/page", page_object: page)
+    it "doesn't error" do
       subject.display(json)
+    end
+
+    expected_keys = [
+      "@context",
+      "@type",
+      "@id",
+      "isPartOf/collection",
+      "additionalType",
+      "id",
+      "slug",
+      "name",
+      "image",
+      "content",
+      "last_updated"
+    ]
+
+
+    expected_keys.each do |key|
+      it "sets #{key}" do
+        subject.display(json)
+        keys = JSON.parse(json.target!).keys
+        expect(keys).to include(key)
+      end
+    end
+
+    it "doesn't include extra keys" do
+      subject.display(json)
+      keys = JSON.parse(json.target!).keys
+      expect(keys - expected_keys).to eq([])
+    end
+
+    it "returns nil if the showcase is nil " do
+      expect(described_class.new(nil).display(json)).to be_nil
     end
   end
 
