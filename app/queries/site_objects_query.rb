@@ -64,7 +64,7 @@ class SiteObjectsQuery
   # Ex: [{type: "showcase", id: 3},{ type: "showcase", id:1 }]
   def site_objects_json(collection_id:)
     collection = Collection.find(collection_id)
-    if collection.nil?
+    if collection.nil? || collection.site_objects.blank?
       []
     else
       JSON.parse(collection.site_objects, symbolize_names: true)
