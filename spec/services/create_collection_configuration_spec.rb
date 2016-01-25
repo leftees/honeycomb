@@ -12,7 +12,7 @@ RSpec.describe CreateCollectionConfiguration do
   end
 
   context "no existing configuration" do
-    let(:collection) { double(collection_configuration: nil, create_collection_configuration: double()) }
+    let(:collection) { double(collection_configuration: nil, create_collection_configuration: double }
 
     it "builds a new configuration if there is not one" do
       expect(collection).to receive(:create_collection_configuration).and_return("CONFIGURATION")
