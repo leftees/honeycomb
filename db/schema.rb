@@ -140,21 +140,8 @@ ActiveRecord::Schema.define(version: 20160121172934) do
   add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
 
   create_table "items_pages", id: false, force: :cascade do |t|
-    t.integer "page_id", limit: 4
-    t.integer "item_id", limit: 4
-  end
-
-  add_index "items_pages", ["item_id", "page_id"], name: "index_items_pages_on_item_id_and_page_id", using: :btree
-  add_index "items_pages", ["page_id", "item_id"], name: "index_items_pages_on_page_id_and_item_id", using: :btree
-
-  create_table "pages", force: :cascade do |t|
-    t.string   "unique_id",     limit: 255
-    t.string   "name",          limit: 255
-    t.text     "content",       limit: 65535
-    t.integer  "collection_id", limit: 4,     null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "image_id",      limit: 4
+    t.integer "page_id"
+    t.integer "item_id"
   end
 
   add_index "items_pages", ["item_id", "page_id"], name: "index_items_pages_on_item_id_and_page_id", using: :btree

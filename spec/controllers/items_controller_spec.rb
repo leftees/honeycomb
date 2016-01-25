@@ -189,7 +189,7 @@ RSpec.describe ItemsController, type: :controller do
 
   describe "DELETE #destroy" do
     let(:collection) { double(Collection, id: "1") }
-    let(:item) { double(Item, id: 1, collection: collection, destroy!: true, sections: [], children: []) }
+    let(:item) { double(Item, id: 1, collection: collection, destroy!: true, sections: [], children: [], pages: []) }
 
     subject { delete :destroy, id: item.id }
 
