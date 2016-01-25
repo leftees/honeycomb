@@ -6,11 +6,11 @@ describe CollectionConfigurationQuery do
 
   it "passes the call to the colllection's collection_configuration on the " do
     expect(collection).to receive(:collection_configuration)
-    subject.config
+    subject.find
   end
 
   it "returns the current collection's config" do
     allow(collection).to receive(:collection_configuration).and_return("CONFIG!")
-    expect(subject.config).to eq("CONFIG!")
+    expect(subject.find).to eq("CONFIG!")
   end
 end

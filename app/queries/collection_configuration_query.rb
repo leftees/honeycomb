@@ -5,7 +5,7 @@ class CollectionConfigurationQuery
     @collection = collection
   end
 
-  def config
+  def find
     collection.collection_configuration
   end
 end
