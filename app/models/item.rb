@@ -41,6 +41,10 @@ class Item < ActiveRecord::Base
 
   enum image_status: { image_invalid: 0, image_processing: 1, image_ready: 2 }
 
+  def item_metadata
+    Metadata::Retrieval.new(self)
+  end
+
   private
 
   def manuscript_url_is_valid_uri
@@ -48,4 +52,5 @@ class Item < ActiveRecord::Base
       errors.add(:manuscript_url, :invalid_url)
     end
   end
+
 end

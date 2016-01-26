@@ -146,4 +146,10 @@ RSpec.describe Item do
       end
     end
   end
+
+  describe "item_metadata" do
+    it "returns the retreval object" do
+      expect(subject.item_metadata).to be_a(Metadata::Retrieval)
+    end
+  end
 end
