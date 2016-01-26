@@ -3,10 +3,6 @@ module Metadata
     attr_reader :data
     private :data
 
-    def self.item_configuration
-      @item_configuration ||= new(load_yml(:item))
-    end
-
     def initialize(data)
       @data = data
     end
