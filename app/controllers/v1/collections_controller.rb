@@ -64,13 +64,26 @@ module V1
     end
 
     def site_objects
-      collection = CollectionQuery.new.public_find(params[:collection_id])
+      collection = CollectionQuery.new.any_find(params[:collection_id])
       @collection = CollectionJSONDecorator.new(collection)
       @site_objects = SiteObjectsQuery.new.all(collection: collection)
       cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Collections,
                                            action: "site_objects",
                                            collection: collection, site_objects: @site_objects)
       fresh_when(etag: cache_key.generate)
+    end
+
+    def site_objects_update
+      @collection = CollectionQuery.new.any_find(params[:collection_id])
+
+      return if rendered_forbidden?(@collection)
+
+      site_objects = SiteObjectsQuery.new.public_to_private_json(json_string: params[:site_objects])
+      @return_value = SaveCollection.call(@collection, { site_objects: site_objects })
+
+      respond_to do |format|
+        format.json { render json: { status: @return_value }.to_json }
+      end
     end
   end
 end

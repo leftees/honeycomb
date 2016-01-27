@@ -43,22 +43,12 @@ var SiteObjectCard = React.createClass({
     site_object: React.PropTypes.object
   },
 
-  getInitialState: function() {
-    return {
-      name: this.props.site_object.object.name || this.props.site_object.object.name_line_1,
-    };
-  },
-
-  getText: function() {
-    return this.props.site_object.object.name || this.props.site_object.object.name_line_1;
-  },
-
   getAvatar: function() {
-    var object = this.props.site_object.object;
-    if(object.image)
+    var object = this.props.site_object;
+    if(object.image["@id"])
       return (<mui.Avatar src={ object.image['thumbnail\/small'].contentUrl } />);
     else {
-      var letter = this.props.site_object.type.substring(0, 1);
+      var letter = this.props.site_object.name.substring(0, 1);
       return (<mui.Avatar style={{color: 'red'}}>{ letter }</mui.Avatar>);
     }
   },
@@ -73,7 +63,7 @@ var SiteObjectCard = React.createClass({
     return connectDragSource(
       <div>
         <mui.Card style={{ cursor: "move" }}>
-          <mui.CardHeader title={ this.getText() }  avatar={ this.getAvatar() } />
+          <mui.CardHeader title={ this.props.site_object.name }  avatar={ this.getAvatar() } />
         </mui.Card>
       </div>
     );

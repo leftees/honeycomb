@@ -8,6 +8,7 @@ RSpec.describe V1::CollectionsController, type: :controller do
   before(:each) do
     allow_any_instance_of(CollectionQuery).to receive(:public_collections).and_return(collections)
     allow_any_instance_of(CollectionQuery).to receive(:public_find).and_return(collection)
+    allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
   end
 
   describe "#index" do
@@ -158,7 +159,7 @@ RSpec.describe V1::CollectionsController, type: :controller do
     end
 
     it "calls CollectionQuery" do
-      expect_any_instance_of(CollectionQuery).to receive(:public_find).and_return(collection)
+      expect_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
       subject
     end
 
@@ -182,6 +183,36 @@ RSpec.describe V1::CollectionsController, type: :controller do
 
     it "uses the V1Collections#site_objects to generate the cache key" do
       expect_any_instance_of(CacheKeys::Custom::V1Collections).to receive(:site_objects)
+      subject
+    end
+  end
+
+  describe "#site_objects_update" do
+    let(:collection) { instance_double(Collection, id: 1, site_objects: nil) }
+    let(:site_objects) { "site_objects" }
+    let(:site_objects_translated) { "site_objects_translated" }
+    let(:subject) { put :site_objects_update, collection_id: collection.id, site_objects: site_objects, format: :json }
+
+    before(:each) do
+      sign_in_admin
+      allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
+      allow(Collection).to receive(:find).and_return(collection)
+      allow(SaveCollection).to receive(:call).and_return(true)
+      allow_any_instance_of(SiteObjectsQuery).to receive(:public_to_private_json).and_return(site_objects_translated)
+    end
+
+    it "calls SiteObjectsQuery" do
+      expect_any_instance_of(SiteObjectsQuery).to receive(:public_to_private_json).and_return(nil)
+      subject
+    end
+
+    it "sets the site_objects for collection using the string translated by SiteObjectsQuery" do
+      expect(SaveCollection).to receive(:call).with(collection, { site_objects: site_objects_translated }).and_return(true)
+      subject
+    end
+
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection)
       subject
     end
   end

@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       put :preview_mode, defaults: { format: :json }
       get :metadata_configuration, defaults: { format: :json }
       get :site_objects, defaults: { format: :json }
+      put :site_objects, to: "collections#site_objects_update", defaults: { format: :json }
       resources :search, only: [:index], defaults: { format: :json }
       resources :items, only: [:index, :create], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
