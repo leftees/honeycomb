@@ -207,7 +207,7 @@ RSpec.describe V1::CollectionsController, type: :controller do
     end
 
     it "sets the site_objects for collection using the string translated by SiteObjectsQuery" do
-      expect(SaveCollection).to receive(:call).with(collection, { site_objects: site_objects_translated }).and_return(true)
+      expect(SaveCollection).to receive(:call).with(collection, site_objects: site_objects_translated).and_return(true)
       subject
     end
 

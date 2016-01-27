@@ -79,7 +79,7 @@ module V1
       return if rendered_forbidden?(@collection)
 
       site_objects = SiteObjectsQuery.new.public_to_private_json(json_string: params[:site_objects])
-      @return_value = SaveCollection.call(@collection, { site_objects: site_objects })
+      @return_value = SaveCollection.call(@collection, site_objects: site_objects)
 
       respond_to do |format|
         format.json { render json: { status: @return_value }.to_json }

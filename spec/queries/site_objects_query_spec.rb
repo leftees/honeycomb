@@ -5,22 +5,22 @@ describe SiteObjectsQuery do
   let(:showcases) do
     [
       instance_double(Showcase, id: 0, collection_id: 1, unique_id: "zero", class: double(Object, name: "Showcase")),
-      instance_double(Showcase, id: 1, collection_id: 1, unique_id: "one",  class: double(Object, name: "Showcase")),
-      instance_double(Showcase, id: 2, collection_id: 1, unique_id: "two",  class: double(Object, name: "Showcase"))
+      instance_double(Showcase, id: 1, collection_id: 1, unique_id: "one", class: double(Object, name: "Showcase")),
+      instance_double(Showcase, id: 2, collection_id: 1, unique_id: "two", class: double(Object, name: "Showcase"))
     ]
   end
   let(:pages) do
     [
-      instance_double(Page, id: 0, collection_id: 1, unique_id: "zero",  class: double(Object, name: "Page")),
-      instance_double(Page, id: 1, collection_id: 1, unique_id: "one",  class: double(Object, name: "Page")),
-      instance_double(Page, id: 2, collection_id: 1, unique_id: "two",  class: double(Object, name: "Page"))
+      instance_double(Page, id: 0, collection_id: 1, unique_id: "zero", class: double(Object, name: "Page")),
+      instance_double(Page, id: 1, collection_id: 1, unique_id: "one", class: double(Object, name: "Page")),
+      instance_double(Page, id: 2, collection_id: 1, unique_id: "two", class: double(Object, name: "Page"))
     ]
   end
   let(:users) do
     [
-      instance_double(User, id: 0, unique_id: "zero",  class: double(Object, name: "User")),
-      instance_double(User, id: 1, unique_id: "one",  class: double(Object, name: "User")),
-      instance_double(User, id: 2, unique_id: "two",  class: double(Object, name: "User"))
+      instance_double(User, id: 0, unique_id: "zero", class: double(Object, name: "User")),
+      instance_double(User, id: 1, unique_id: "one", class: double(Object, name: "User")),
+      instance_double(User, id: 2, unique_id: "two", class: double(Object, name: "User"))
     ]
   end
   let(:site_objects_string) { '[{ "type": "Showcase", "id": 0 }, { "type": "Page", "id": 2 }, { "type": "Showcase", "id": 2 }]' }
@@ -119,18 +119,20 @@ describe SiteObjectsQuery do
   end
 
   describe "public_to_private_json" do
-    let(:public_site_objects_string) { '[{ "type": "Showcase", "unique_id": "zero" }, { "type": "Page", "unique_id": "two" }, { "type": "Showcase", "unique_id": "two" }]' }
+    let(:public_site_objects_string) { '[{ "type": "Showcase", "unique_id": "zero" },
+                                         { "type": "Page", "unique_id": "two" },
+                                         { "type": "Showcase", "unique_id": "two" }]' }
 
     before(:each) do
       allow(Collection).to receive(:find).and_return(collection)
       allow(Showcase).to receive(:find_by!) do |param|
-        (showcases.select { |object|  object.unique_id == param[:unique_id] })[0]
+        (showcases.select { |object| object.unique_id == param[:unique_id] })[0]
       end
       allow(Page).to receive(:find_by!) do |param|
-        (pages.select { |object|  object.unique_id == param[:unique_id] })[0]
+        (pages.select { |object| object.unique_id == param[:unique_id] })[0]
       end
       allow(User).to receive(:find_by!) do |param|
-        (users.select { |object|  object.unique_id == param[:unique_id] })[0]
+        (users.select { |object| object.unique_id == param[:unique_id] })[0]
       end
     end
 

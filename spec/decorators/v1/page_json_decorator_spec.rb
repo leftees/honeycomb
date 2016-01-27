@@ -69,7 +69,6 @@ RSpec.describe V1::PageJSONDecorator do
       "last_updated"
     ]
 
-
     expected_keys.each do |key|
       it "sets #{key}" do
         subject.display(json)
