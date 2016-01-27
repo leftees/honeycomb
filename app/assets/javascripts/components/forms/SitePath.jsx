@@ -224,20 +224,20 @@ var SitePath = React.createClass({
 
   render: function () {
     return (
-      <div id="site_path" className="dualpanel">
-        <div className="list_panel">
+      <mui.Paper id="site_path" className="dualpanel" zDepth={0}>
+        <mui.Paper className="left_list_panel" zDepth={2}>
           <mui.List subheader="Current Site Path">
             { this.getSiteCards() }
             <CurrentSitePathDropTarget className="site_path_drop_target_footer" dragClassName="site_path_drop_target_footer_ondrag" hoverClassName="site_path_drop_target_onhover" data={{ site_object_list: "ordered", index: this.state.sitePathObjects.length }}/>
           </mui.List>
-        </div>
-        <div className="list_panel">
+        </mui.Paper>
+        <mui.Paper className="right_list_panel" zDepth={2}>
           <mui.List subheader="Available Pages and Showcases">
             <AvailableDropTarget className="site_path_drop_target" dragClassName="site_path_drop_target_footer_ondrag" hoverClassName="site_path_drop_target_onhover" data={{ site_object_list: "available", index: 0 }}/>
             { this.getAvailableCards() }
           </mui.List>
-        </div>
-      </div>
+        </mui.Paper>
+      </mui.Paper>
     );
   }
 });

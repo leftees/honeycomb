@@ -456,12 +456,22 @@ div.dataTables_filter {
 .dualpanel {
 	width: 100%;
 	margin: auto;
+	height: 450px;
 
-	.list_panel {
+	.left_list_panel {
 		display: inline-block;
-		width: 50%;
-		padding: 10px;
-		height: 400px;
+		width: 49%;
+		padding: 20px;
+		height: 450px;
+		overflow-y: scroll;
+	}
+
+	.right_list_panel {
+		display: inline-block;
+		width: 49%;
+		margin-left: 2%;
+		padding: 20px;
+		height: 450px;
 		overflow-y: scroll;
 	}
 
