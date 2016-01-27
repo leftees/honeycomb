@@ -225,7 +225,7 @@ var SitePath = React.createClass({
     return this.state.availableSiteObjects.map(function (site_object, index) {
       return [
         <AvailableSiteObjectCard site_object={site_object} id={index} index={index} site_object_list="available" />,
-        <div className="site-path-drop-target" />
+        <div style={{ height: '5px' }} />
       ];
     }.bind(this));
   },
