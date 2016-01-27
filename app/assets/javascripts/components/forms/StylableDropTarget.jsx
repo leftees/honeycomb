@@ -5,7 +5,7 @@
 var React = require('react');
 var DropTarget = require('react-dnd').DropTarget;
 
-const expandingDropTarget = {
+const stylableDropTarget = {
   canDrop(props, monitor) {
     return true;
   },
@@ -28,11 +28,11 @@ function collect(connect, monitor) {
   };
 }
 
-var ExpandingDropTarget = React.createClass({
+var StylableDropTarget = React.createClass({
   propTypes: {
     className: React.PropTypes.string.isRequired,
-    targetClassName: React.PropTypes.string.isRequired,   // Class to use while the user is dragging a source to show that this is a target
-    expandedClassName: React.PropTypes.string.isRequired, // Class to use while the user is hovering over with a source
+    dragClassName: React.PropTypes.string.isRequired,   // Class to use while the user is dragging a source to show that this is a target
+    hoverClassName: React.PropTypes.string.isRequired, // Class to use while the user is hovering over with a source
     data: React.PropTypes.object.isRequired // Data that will be passed when a drop event happens to this target (via monitor.getDropResult())
   },
 
@@ -42,8 +42,8 @@ var ExpandingDropTarget = React.createClass({
     return connectDropTarget(
       <div>
         {!isOver && !canDrop && <div className={ this.props.className }></div>}
-        {!isOver && canDrop && <div className={ this.props.targetClassName }/>}
-        {isOver && canDrop && <div className={ this.props.expandedClassName }></div>}
+        {!isOver && canDrop && <div className={ this.props.dragClassName }/>}
+        {isOver && canDrop && <div className={ this.props.hoverClassName }></div>}
         {this.props.children}
       </div>
     );
@@ -51,7 +51,7 @@ var ExpandingDropTarget = React.createClass({
 })
 
 function Instantiate(type) {
-  return DropTarget(type, expandingDropTarget, collect)(ExpandingDropTarget);
+  return DropTarget(type, stylableDropTarget, collect)(StylableDropTarget);
 }
 
 module.exports = Instantiate;

@@ -465,22 +465,27 @@ div.dataTables_filter {
 		overflow-y: scroll;
 	}
 
-	.site_object_expander{
+	.site_path_drop_target{
     height: 15px;
 	}
 
-	.site_object_expander_target{
+	.site_path_drop_target_ondrag{
     height: 15px;
 		background: rgba(0, 0, 0, 0.05);
 	}
 
-	.site_object_expander_expanded{
+	.site_path_drop_target_onhover{
 		height: 72px;
-		background: rgba(0, 0, 0, 0.15);
+		background: rgba(0, 200, 0, 0.5);
 	}
 
-	.site_object_expander_always_expanded{
+	.site_path_drop_target_footer{
 		height: 72px;
+	}
+
+	.site_path_drop_target_footer_ondrag{
+		height: 72px;
+		background: rgba(0, 0, 0, 0.05);
 	}
 }
 

@@ -45,7 +45,7 @@ var SiteObjectCard = React.createClass({
 
   getAvatar: function() {
     var object = this.props.site_object;
-    if(object.image["@id"])
+    if(object.image && object.image["@id"])
       return (<mui.Avatar src={ object.image['thumbnail\/small'].contentUrl } />);
     else {
       var letter = this.props.site_object.name.substring(0, 1);
@@ -70,4 +70,8 @@ var SiteObjectCard = React.createClass({
   }
 });
 
-module.exports = DragSource(SiteObjectEventTypes.DnDMessage, siteObjectSource, source_collect)(SiteObjectCard);
+function Instantiate(type) {
+  return DragSource(type, siteObjectSource, source_collect)(SiteObjectCard);
+}
+
+module.exports = Instantiate;

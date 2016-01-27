@@ -43,7 +43,7 @@ GoogleExportButton = require("./components/GoogleExportButton");
 EmbedCode = require("./components/embed/EmbedCode");
 
 // forms
-ExpandingDropTarget = require("./components/forms/ExpandingDropTarget");
+StylableDropTarget = require("./components/forms/StylableDropTarget");
 FieldHelp = require("./components/forms/FieldHelp");
 Form = require("./components/forms/Form");
 FormMessageCenter = require("./components/forms/FormMessageCenter");
@@ -62,8 +62,8 @@ MultipleField = require("./components/forms/MultipleField");
 MultipleFieldDisplayValue = require("./components/forms/MultipleFieldDisplayValue");
 DropzoneForm = require("./components/forms/DropzoneForm");
 ButtonLink = require("./components/forms/ButtonLink");
-SitePath = require("./components/forms/SitePath");
 SiteObjectCard = require("./components/forms/SiteObjectCard");
+SitePath = require("./components/forms/SitePath");
 
 // panel
 Panel = require("./components/panel/Panel");

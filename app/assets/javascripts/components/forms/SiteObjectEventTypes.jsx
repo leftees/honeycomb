@@ -1,5 +1,6 @@
 const Types = {
-  DnDMessage: "SiteObjectDnDMessage",
+  AvailableSiteObjectDnD: "AvailableSiteObjectDnDMessage",
+  CurrentSiteObjectDnD: "CurrentSiteObjectDnDMessage",
   CardDroppedOnTarget: "SiteObjectCardDroppedOnTarget",
   CardDroppedOnNothing: "SiteObjectCardDroppedOnNothing"
 };

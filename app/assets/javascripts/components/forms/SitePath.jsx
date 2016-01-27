@@ -6,7 +6,10 @@ var HTML5Backend = require('react-dnd-html5-backend');
 var DragDropContext = require('react-dnd').DragDropContext;
 var EventEmitter = require('../../EventEmitter');
 var SiteObjectEventTypes = require("./SiteObjectEventTypes");
-var DropTarget = ExpandingDropTarget(SiteObjectEventTypes.DnDMessage);
+var AvailableDropTarget = StylableDropTarget(SiteObjectEventTypes.CurrentSiteObjectDnD);
+var CurrentSitePathDropTarget = StylableDropTarget([SiteObjectEventTypes.AvailableSiteObjectDnD,SiteObjectEventTypes.CurrentSiteObjectDnD]);
+var AvailableSiteObjectCard = SiteObjectCard(SiteObjectEventTypes.AvailableSiteObjectDnD);
+var CurrentSiteObjectCard = SiteObjectCard(SiteObjectEventTypes.CurrentSiteObjectDnD);
 
 var SitePath = React.createClass({
   mixins: [MuiThemeMixin, APIResponseMixin],
@@ -20,7 +23,7 @@ var SitePath = React.createClass({
 
   getInitialState: function() {
     EventEmitter.on(SiteObjectEventTypes.CardDroppedOnTarget, this.handleDrop);
-    EventEmitter.on(SiteObjectEventTypes.CardDroppedOnNothing, this.handleRemoveCard);
+    //EventEmitter.on(SiteObjectEventTypes.CardDroppedOnNothing, this.handleRemoveCard);
     return {
       availableSiteObjects: [],
       sitePathObjects: [],
@@ -180,6 +183,9 @@ var SitePath = React.createClass({
       removeIndex++;
     }
     if (listType == 'available') {
+      // do nothing for reorder in available list
+      return;
+      /*
       this.setState(update(this.state, {
         availableSiteObjects: {
           $splice: [
@@ -188,6 +194,7 @@ var SitePath = React.createClass({
           ]
         }
       }));
+      */
     } else if (listType == 'ordered') {
       this.setState(update(this.state, {
         sitePathObjects: {
@@ -196,22 +203,22 @@ var SitePath = React.createClass({
             [removeIndex, 1],
           ]
         }
-      }));
+      }), this.pushChanges);
     }
   },
 
   getSiteCards: function() {
     return this.state.sitePathObjects.map(function (site_object, index) {
       return [
-        <DropTarget className="site_object_expander" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: index }} />,
-        <SiteObjectCard site_object={site_object} id={index} index={index} site_object_list="ordered" />
+        <CurrentSitePathDropTarget className="site_path_drop_target" dragClassName="site_path_drop_target_ondrag" hoverClassName="site_path_drop_target_onhover" data={{ site_object_list: "ordered", index: index }} />,
+        <CurrentSiteObjectCard site_object={site_object} id={index} index={index} site_object_list="ordered" />
       ]
     }.bind(this));
   },
 
   getAvailableCards: function() {
     return this.state.availableSiteObjects.map(function (site_object, index) {
-      return (<SiteObjectCard site_object={site_object} id={index} index={index} site_object_list="available" />);
+      return (<AvailableSiteObjectCard site_object={site_object} id={index} index={index} site_object_list="available" />);
     }.bind(this));
   },
 
@@ -221,11 +228,12 @@ var SitePath = React.createClass({
         <div className="list_panel">
           <mui.List subheader="Current Site Path">
             { this.getSiteCards() }
-            <DropTarget className="site_object_expander_always_expanded" targetClassName="site_object_expander_target" expandedClassName="site_object_expander_expanded" data={{ site_object_list: "ordered", index: this.state.sitePathObjects.length }}/>
+            <CurrentSitePathDropTarget className="site_path_drop_target_footer" dragClassName="site_path_drop_target_footer_ondrag" hoverClassName="site_path_drop_target_onhover" data={{ site_object_list: "ordered", index: this.state.sitePathObjects.length }}/>
           </mui.List>
         </div>
         <div className="list_panel">
           <mui.List subheader="Available Pages and Showcases">
+            <AvailableDropTarget className="site_path_drop_target" dragClassName="site_path_drop_target_footer_ondrag" hoverClassName="site_path_drop_target_onhover" data={{ site_object_list: "available", index: 0 }}/>
             { this.getAvailableCards() }
           </mui.List>
         </div>
