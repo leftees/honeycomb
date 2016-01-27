@@ -1,7 +1,7 @@
 
 module V1
   class PageJSONDecorator < Draper::Decorator
-    delegate :id, :collection, :unique_id, :updated_at, :name, :content
+    delegate :id, :collection, :unique_id, :updated_at, :name, :content, :items
 
     def self.display(showcase, json)
       new(showcase).display(json)

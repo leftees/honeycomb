@@ -15,7 +15,7 @@ RSpec.describe V1::PageJSONDecorator do
   end
 
   describe "generic fields" do
-    [:id, :unique_id, :collection, :updated_at, :name, :content].each do |field|
+    [:id, :unique_id, :collection, :updated_at, :name, :content, :items].each do |field|
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end

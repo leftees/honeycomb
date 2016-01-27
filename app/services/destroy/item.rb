@@ -9,8 +9,10 @@ module Destroy
 
     # Destroy the object only
     def destroy!(item:)
-      item.destroy!
-      remove_from_index(item: item)
+      unless item.pages.any?
+        item.destroy!
+        remove_from_index(item: item)
+      end
     end
 
     # Destroys this object and all associated objects.
@@ -18,6 +20,10 @@ module Destroy
       ActiveRecord::Base.transaction do
         item.sections.each do |child|
           @destroy_section.cascade!(section: child)
+        end
+        item.pages.each do |page|
+          RemovePageItem.call(page, item)
+          item.pages.delete(page)
         end
         item.children.each do |child|
           cascade!(item: child)

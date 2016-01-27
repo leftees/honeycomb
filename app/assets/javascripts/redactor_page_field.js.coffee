@@ -23,6 +23,7 @@ class RedactorPageField
           $(image).attr 'src', json.image['thumbnail/medium']['contentUrl']
           $(image).attr 'width', '300px'
           $(image).attr 'height', 'auto'
+          $(image).attr 'class', 'hc_page_image'
           $(image).attr 'style', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;'
           $(image).attr 'rel', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;'
       imageManagerJson: '/v1/collections/' + $("#image_collection_unique_id").val() + '/items'

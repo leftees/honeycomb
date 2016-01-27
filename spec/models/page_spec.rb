@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Page do
-  [:name, :content, :collection, :image, :unique_id, :updated_at, :created_at].each do |field|
+  [:name, :content, :collection, :image, :unique_id, :updated_at, :created_at, :items].each do |field|
     it "has the field #{field}" do
       expect(subject).to respond_to(field)
       expect(subject).to respond_to("#{field}=")

@@ -10,7 +10,8 @@ module CacheKeys
         CacheKeys::ActiveRecord.new.generate(record: [decorated_item.collection,
                                                       decorated_item.recent_children,
                                                       decorated_item.object,
-                                                      decorated_item.showcases])
+                                                      decorated_item.showcases,
+                                                      decorated_item.pages])
       end
     end
   end
