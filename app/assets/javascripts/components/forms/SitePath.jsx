@@ -28,36 +28,36 @@ var SitePath = React.createClass({
   },
 
   componentDidMount: function() {
-    this.reload();
+    this.requestSitePath();
   },
 
-  reload: function() {
-    this.requestSitePath();
+  requestAvailable: function() {
     this.requestShowcases();
     this.requestPages();
   },
 
   // Adds to state.availableSiteObjects excluding those that are in the site path
   addToAvailable: function(objects) {
-    var filtered = objects.filter(function (object) {
-      var found = this.state.sitePathObjects.filter(function(siteObject) {
-        return object.id == siteObject.id
+    this.setState(function(previousState, currentProps){
+      var filtered = objects.filter(function (object) {
+        var found = previousState.sitePathObjects.filter(function(siteObject) {
+          return object.id == siteObject.id
+        }.bind(this));
+        return found.length == 0;
       }.bind(this));
-      return found.length == 0;
-    }.bind(this));
-    var union = this.state.availableSiteObjects.concat(filtered);
-    this.setState({
-      availableSiteObjects: union
+      return { availableSiteObjects: previousState.availableSiteObjects.concat(filtered) };
     });
   },
 
+  // Since adding available items depends on the existing site path objects,
+  // requestAvailable will be called after getting the results from the api
+  // for the existing site path objects.
   requestSitePath: function() {
     $.get(this.props.sitePathURL, function(result) {
-      console.log(result);
       if (this.isMounted()) {
         this.setState({
           sitePathObjects: result.site_objects
-        });
+        }, this.requestAvailable);
       }
     }.bind(this));
   },
@@ -72,7 +72,6 @@ var SitePath = React.createClass({
 
   requestPages: function() {
     $.get(this.props.pagesURL, function(result) {
-      console.log(result);
       if (this.isMounted()) {
         this.addToAvailable(result.pages);
       }
