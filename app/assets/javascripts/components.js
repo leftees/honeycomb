@@ -34,6 +34,7 @@ Modal = require("./components/Modal");
 OpenSeadragonViewer = require("./components/OpenSeadragonViewer");
 ReactDropzone = require("./components/ReactDropzone");
 ShowcasesPanel = require("./components/ShowcasesPanel");
+PagesPanel = require("./components/PagesPanel");
 Thumbnail = require("./components/Thumbnail");
 GoogleImportButton = require("./components/GoogleImportButton");
 GoogleExportButton = require("./components/GoogleExportButton");

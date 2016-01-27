@@ -19,6 +19,7 @@ class SaveItem
 
     if item.save && process_uploaded_image
       index_item
+      fix_image_references
       item
     else
       false
@@ -68,5 +69,11 @@ class SaveItem
 
   def index_item
     Index::Item.index!(item)
+  end
+
+  def fix_image_references
+    @item.pages.each do |page|
+      ReplacePageItem.call(page, @item)
+    end
   end
 end

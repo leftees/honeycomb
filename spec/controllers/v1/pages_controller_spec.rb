@@ -3,7 +3,7 @@ require "cache_spec_helper"
 
 RSpec.describe V1::PagesController, type: :controller do
   let(:collection) { instance_double(Collection, id: "1", updated_at: nil, pages: nil) }
-  let(:page) { instance_double(Page, id: "1", updated_at: nil, collection: nil) }
+  let(:page) { instance_double(Page, id: "1", updated_at: nil, collection: nil, items: []) }
 
   before(:each) do
     allow_any_instance_of(PageQuery).to receive(:public_find).and_return(page)

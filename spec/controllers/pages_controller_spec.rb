@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe PagesController, type: :controller do
-  let(:page) { instance_double(Page, id: 1, name: "name", collection: collection, destroy!: true) }
+  let(:page) { instance_double(Page, id: 1, name: "name", collection: collection, items: [], destroy!: true) }
   let(:collection) { instance_double(Collection, id: 1, name_line_1: "name_line_1", pages: relation) }
 
   let(:relation) { Page.all }
@@ -189,6 +189,10 @@ RSpec.describe PagesController, type: :controller do
   describe "DELETE #destroy" do
     subject { delete :destroy, id: page.id }
 
+    before(:each) do
+      allow(DestroyPageItemAssociations).to receive(:call).and_return(1)
+    end
+
     it "on success, redirects" do
       subject
       expect(response).to be_redirect
@@ -209,7 +213,7 @@ RSpec.describe PagesController, type: :controller do
       subject
     end
 
-    it "uses page query " do
+    it "uses page query" do
       expect_any_instance_of(PageQuery).to receive(:find).with("1").and_return(page)
       subject
     end

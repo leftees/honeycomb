@@ -31,6 +31,8 @@ gem "simple_form", "~> 3.1.0"
 
 gem "draper"
 
+gem "nokogiri"
+
 # used to normaize the characters in a title sort
 gem "sort_alphabetical"
 
@@ -91,7 +93,7 @@ gem "autoprefixer-rails"
 gem "google_drive"
 
 group :development, :test do
-  gem "rubocop", require: false
+  gem "rubocop", "~> 0.36.0", require: false
 
   # gem "i18n-debug"
   gem "pry"
