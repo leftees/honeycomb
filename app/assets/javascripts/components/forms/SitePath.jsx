@@ -210,15 +210,23 @@ var SitePath = React.createClass({
   getSiteCards: function() {
     return this.state.sitePathObjects.map(function (site_object, index) {
       return [
-        <CurrentSitePathDropTarget className="site-path-drop-target" dragClassName="site-path-drop-target-ondrag" hoverClassName="site-path-drop-target-onhover" data={{ site_object_list: "ordered", index: index }} />,
+        <CurrentSitePathDropTarget
+          className="site-path-drop-target"
+          dragClassName="site-path-drop-target-ondrag"
+          hoverClassName="site-path-drop-target-onhover"
+          data={{ site_object_list: "ordered", index: index }}
+        />,
         <CurrentSiteObjectCard site_object={site_object} id={index} index={index} site_object_list="ordered" />
-      ]
+      ];
     }.bind(this));
   },
 
   getAvailableCards: function() {
     return this.state.availableSiteObjects.map(function (site_object, index) {
-      return (<AvailableSiteObjectCard site_object={site_object} id={index} index={index} site_object_list="available" />);
+      return [
+        <AvailableSiteObjectCard site_object={site_object} id={index} index={index} site_object_list="available" />,
+        <div className="site-path-drop-target" />
+      ];
     }.bind(this));
   },
 
@@ -228,12 +236,22 @@ var SitePath = React.createClass({
         <mui.Paper className="left-list-panel" zDepth={2}>
           <mui.List subheader="Current Site Path">
             { this.getSiteCards() }
-            <CurrentSitePathDropTarget className="site-path-drop-target-footer" dragClassName="site-path-drop-target-footer-ondrag" hoverClassName="site-path-drop-target-onhover" data={{ site_object_list: "ordered", index: this.state.sitePathObjects.length }}/>
+            <CurrentSitePathDropTarget
+              className="site-path-drop-target-footer"
+              dragClassName="site-path-drop-target-footer-ondrag"
+              hoverClassName="site-path-drop-target-onhover"
+              data={{ site_object_list: "ordered", index: this.state.sitePathObjects.length }}
+            />
           </mui.List>
         </mui.Paper>
         <mui.Paper className="right-list-panel" zDepth={2}>
           <mui.List subheader="Available Pages and Showcases">
-            <AvailableDropTarget className="site-path-drop-target" dragClassName="site-path-drop-target-footer-ondrag" hoverClassName="site-path-drop-target-onhover" data={{ site_object_list: "available", index: 0 }}/>
+            <AvailableDropTarget
+              className="site-path-drop-target"
+              dragClassName="site-path-drop-target-footer-ondrag"
+              hoverClassName="site-path-drop-target-onhover"
+              data={{ site_object_list: "available", index: 0 }}
+            />
             { this.getAvailableCards() }
           </mui.List>
         </mui.Paper>
