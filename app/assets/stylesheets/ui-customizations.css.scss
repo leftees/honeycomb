@@ -3,6 +3,8 @@ $grey :#525252;
 $blue :#2c5882;
 $multi-field-background: #f2f2f2;
 $multi-field-color: #696969;
+$dnd-ondrag-color: rgba(0, 0, 0, 0.05);
+$dnd-onhover-color: rgba(0, 0, 0, 0.15);
 
 body {
 	background: #fff;
@@ -479,13 +481,18 @@ div.dataTables_filter {
     height: 15px;
   }
 
+  // Style to indicate to the user that they can drag a source
+  // onto the target area
   .site-path-drop-target-ondrag {
-    background: rgba(0, 0, 0, 0.05);
+    background: $dnd-ondrag-color;
     height: 15px;
   }
 
+  // Style to indicate to the user that the DnD source
+  // can be dropped in the target area that they're hovering
+  // over
   .site-path-drop-target-onhover {
-    background: rgba(0, 0, 0, 0.15);
+    background: $dnd-onhover-color;
     height: 72px;
   }
 
@@ -494,7 +501,7 @@ div.dataTables_filter {
   }
 
   .site-path-drop-target-footer-ondrag {
-    background: rgba(0, 0, 0, 0.05);
+    background: $dnd-ondrag-color;
     height: 72px;
   }
 }
