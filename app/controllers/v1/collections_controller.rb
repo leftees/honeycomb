@@ -55,9 +55,7 @@ module V1
     end
 
     def metadata_configuration
-      collection = CollectionQuery.new.any_find(params[:collection_id])
-      @configuration = CollectionConfigurationQuery.new(collection).find
-      @configuration = Metadata::Configuration.new(@configuration)
+      @configuration = Metadata::Configuration.item_configuration
       @configuration = V1::MetadataConfigurationJSON.new(@configuration)
 
       respond_to do |format|

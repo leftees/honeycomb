@@ -43,35 +43,57 @@ RSpec.describe ItemDecorator do
   end
 
   describe "#item_meta_data_form" do
-    let(:collection) { double(Collection, id: 2, collection_configuration: double) }
-    let(:metadata) {
-      {
-        metadata: double(value: ["value"])
-      }
-    }
+    let(:collection) { double(Collection, id: 2) }
     let(:item) do
       double(
         Item,
         id: 1,
         unique_id: "unique_id",
-        collection: collection,
         name: "name",
-      )
-    end
-
-    before(:each) do
-      allow_any_instance_of(Metadata::Retrieval).to receive(:fields).and_return(metadata)
+        description: "description",
+        transcription: "transcription",
+        manuscript_url: "manuscript_url",
+        creator: "creator",
+        alternate_name: "alternate_name",
+        rights: "rights",
+        call_number: "call_number",
+        original_language: "original_language",
+        collection: collection,
+        contributor: "contributor",
+        subject: "subject",
+        publisher: "publisher",
+        provenance: "provenance",
+        date_created: "date_created",
+        date_modified: "date_modified",
+        date_published: "date_published",
+        user_defined_id: 1)
     end
 
     it "renders the react component" do
       allow(subject.h).to receive(:form_authenticity_token).and_return("token")
       expect(subject.h).to receive(:react_component).with(
         "ItemMetaDataForm",
-        {
-          :authenticityToken=>"token",
-          :url=>"/v1/items/unique_id",
-          :method=>"put",
-          :data=>{:metadata=>["value"]}
+        authenticityToken: "token",
+        url: "/v1/items/unique_id",
+        method: "put",
+        data: {
+          name: "name",
+          description: "description",
+          transcription: "transcription",
+          manuscript_url: "manuscript_url",
+          creator: "creator",
+          contributor: "contributor",
+          subject: "subject",
+          publisher: "publisher",
+          alternate_name: "alternate_name",
+          rights: "rights",
+          call_number: "call_number",
+          provenance: "provenance",
+          original_language: "original_language",
+          date_created: "date_created",
+          date_modified: "date_modified",
+          date_published: "date_published",
+          user_defined_id: 1
         }
       )
 
