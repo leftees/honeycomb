@@ -119,9 +119,11 @@ describe SiteObjectsQuery do
   end
 
   describe "public_to_private_json" do
-    let(:public_site_objects_string) { '[{ "type": "Showcase", "unique_id": "zero" },
-                                         { "type": "Page", "unique_id": "two" },
-                                         { "type": "Showcase", "unique_id": "two" }]' }
+    let(:public_site_objects_string) do
+      '[{ "type": "Showcase", "unique_id": "zero" },
+        { "type": "Page", "unique_id": "two" },
+        { "type": "Showcase", "unique_id": "two" }]'
+    end
 
     before(:each) do
       allow(Collection).to receive(:find).and_return(collection)

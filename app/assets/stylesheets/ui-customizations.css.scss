@@ -268,9 +268,9 @@ div.dataTables_filter {
 /* nav panel */
 
 .row-fluid div {
-  -webkit-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
   -moz-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
   -o-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+  -webkit-transition: width 0.3s ease, margin 0.3s ease, padding 0.3s ease;
   transition: width 0.3s ease, max-height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
 }
 
@@ -454,9 +454,9 @@ div.dataTables_filter {
 }
 
 .dualpanel {
-  width: 100%;
-  margin: auto;
   height: 450px;
+  margin: auto;
+  width: 100%;
 
   .left-list-panel {
     display: inline-block;
@@ -480,8 +480,8 @@ div.dataTables_filter {
   }
 
   .site-path-drop-target-ondrag {
-    height: 15px;
     background: rgba(0, 0, 0, 0.05);
+    height: 15px;
   }
 
   .site-path-drop-target-onhover {
