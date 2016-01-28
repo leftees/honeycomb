@@ -208,7 +208,7 @@ RSpec.describe V1::CollectionsController, type: :controller do
     end
 
     it "queries for the configuration" do
-      expect_any_instance_of(CollectionConfigurationQuery).to receive(:find).and_return(metadata_configuration)
+      expect_any_instance_of(CollectionConfigurationQuery).to receive(:find).and_return(collection_configuration)
       subject
     end
   end
