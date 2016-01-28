@@ -47,6 +47,7 @@ module Waggle
           def sorts_as_solr
             {}.tap do |hash|
               configuration.sorts.each do |sort|
+                puts sort.inspect
                 sort_value = sort(sort.name)
                 if sort_value.present?
                   hash[sort_field_name(sort.field_name)] ||= sort_as_solr(sort_value)
