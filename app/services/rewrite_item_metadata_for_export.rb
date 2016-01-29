@@ -3,13 +3,13 @@ class RewriteItemMetadataForExport
   attr_reader :configuration, :label_map
   private :configuration, :label_map
 
-  def initialize
-    @configuration = Metadata::Configuration.item_configuration
+  def initialize(configuration)
+    @configuration = configuration
     @label_map = Hash[configuration.field_labels.map { |name| [name, nil] }]
   end
 
-  def self.call(item_hash:)
-    new.rewrite(item_hash: item_hash)
+  def self.call(item_hash:, configuration:)
+    new(configuration).rewrite(item_hash: item_hash)
   end
 
   def rewrite(item_hash:)
