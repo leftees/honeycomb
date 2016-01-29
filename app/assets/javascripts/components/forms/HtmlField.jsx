@@ -32,7 +32,7 @@ var HtmlField = React.createClass({
 
   componentDidMount: function() {
     if (!this.element) {
-      this.element = jQuery(React.findDOMNode(this.refs.textarea));
+      this.element = jQuery(ReactDOM.findDOMNode(this.refs.textarea));
       this.element.redactor({
         changeCallback: this.redactorChange,
         blurCallback: this.redactorBlur,

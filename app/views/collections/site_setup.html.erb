@@ -13,9 +13,11 @@
         <div class="panel-body">
           <%= render partial: (params[:form] ? "#{params[:form]}_form" : 'homepage_form'), locals: { f: f } %>
         </div>
-        <div class="panel-footer">
-          <%= f.button :submit, "Save", class: 'btn btn-primary'%>
-        </div>
+        <% if params[:form] != "site_path" %>
+          <div class="panel-footer">
+            <%= f.button :submit, "Save", class: 'btn btn-primary'%>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
