@@ -21,6 +21,8 @@ class ImportController < ApplicationController
     @collection = CollectionQuery.new.find(state_hash[:collection_id])
     check_user_edits!(@collection)
 
+    Waggle.set_configuration(Metadata::Configuration.new(CollectionConfigurationQuery.new(@collection).find))
+
     @results = GoogleCreateItems.call(auth_code: params[:code],
                                       callback_uri: import_google_sheet_callback_collections_url,
                                       collection_id: state_hash[:collection_id],
