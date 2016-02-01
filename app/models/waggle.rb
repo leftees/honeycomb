@@ -30,6 +30,9 @@ module Waggle
   end
 
   def self.configuration
+    if @configruation.nil?
+      raise "Waggle.set_configuration needs to be called before you can use Waggle to index or search"
+    end
     @configruation
   end
 
