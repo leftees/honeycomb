@@ -60,8 +60,8 @@ class ItemDecorator < Draper::Decorator
 
   def meta_data
     data = {}
-    Metadata::Retrieval.new(self).fields.each do |key, field|
-      data[key] = field.value
+    Metadata::Retrieval.new(self).fields.each do |key, values|
+      data[key] = values.collect { |v| v.value }
     end
     data
   end

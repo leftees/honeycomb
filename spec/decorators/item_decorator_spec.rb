@@ -46,7 +46,7 @@ RSpec.describe ItemDecorator do
     let(:collection) { double(Collection, id: 2, collection_configuration: double) }
     let(:metadata) {
       {
-        metadata: double(value: ["value"])
+        metadata: [ double(value: "value") ]
       }
     }
     let(:item) do
