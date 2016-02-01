@@ -26,9 +26,6 @@
     "reactify": "0.17.1"
   },
   "devDependencies": {
-    "gulp": "3.9.0",
-    "gulp-watch": "4.3.5",
-
     "react-tools": "0.12.2"
   },
   "engines": {
