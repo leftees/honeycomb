@@ -28,6 +28,7 @@ class RewriteItemMetadataForExport
   def rewrite_pair(key:, value:)
     key = key.to_sym
     result = OpenStruct.new(key: key, value: value)
+
     if configuration.field?(key)
       field = configuration.field(key)
       result.key = field.label
