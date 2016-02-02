@@ -89,23 +89,6 @@ RSpec.describe Item do
     end
   end
 
-  describe "date metadata" do
-    it "validates date created" do
-      subject.date_created = { year: nil }
-      expect(subject).to have(1).error_on(:date_created)
-    end
-
-    it "validates date modified" do
-      subject.date_modified = { year: nil }
-      expect(subject).to have(1).error_on(:date_modified)
-    end
-
-    it "validates date published" do
-      subject.date_published = { year: nil }
-      expect(subject).to have(1).error_on(:date_published)
-    end
-  end
-
   it "has a papertrail" do
     expect(subject).to respond_to(:paper_trail_enabled_for_model?)
     expect(subject.paper_trail_enabled_for_model?).to be(true)

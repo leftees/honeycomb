@@ -47,6 +47,13 @@ RSpec.describe SaveItem, type: :model do
     subject
   end
 
+  describe "metadata cleaning" do
+    it "calls the metadata cleaner" do
+      expect(MetadataInputCleaner).to receive(:call)
+      subject
+    end
+  end
+
   describe "unique_id" do
     before(:each) do
       allow(item).to receive(:save).and_return(true)

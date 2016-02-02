@@ -35,7 +35,7 @@ class Item < ActiveRecord::Base
                     restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
 
   validates :collection, :unique_id, :user_defined_id, presence: true
-  validates :date_created, :date_modified, :date_published, date: true
+  #validates :date_created, :date_modified, :date_published, date: true
   validate :manuscript_url_is_valid_uri
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
