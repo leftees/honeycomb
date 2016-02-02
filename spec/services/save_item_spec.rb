@@ -11,6 +11,7 @@ RSpec.describe SaveItem, type: :model do
     allow(SaveHoneypotImage).to receive(:call).and_return(true)
     allow(CreateUniqueId).to receive(:call).and_return(true)
     allow(Index::Item).to receive(:index!).and_return(true)
+    allow(item).to receive(:name).and_return("name")
   end
 
   it "returns when the item save is successful" do
@@ -124,6 +125,7 @@ RSpec.describe SaveItem, type: :model do
     let(:params) { {} }
 
     it "sets the name to be the uploaded filename when the item is a new record?" do
+      allow(item).to receive(:name).and_return("")
       expect(GenerateNameFromFilename).to receive(:call).at_least(:once).and_return("Filename")
       expect(item).to receive("name=").with("Filename")
 

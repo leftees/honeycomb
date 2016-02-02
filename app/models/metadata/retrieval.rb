@@ -53,15 +53,27 @@ module Metadata
     end
 
     def string_value(value)
-      value.map { |v| MetadataString.new(v) }
+      if value.is_a?(Array)
+        value.map { |v| MetadataString.new(v) }
+      else
+        [ MetadataString.new(value) ]
+      end
     end
 
     def html_value(value)
-      value.map { |v| MetadataHTML.new(v) }
+      if value.is_a?(Array)
+        value.map { |v| MetadataHTML.new(v) }
+      else
+        [ MetadataHTML.new(value) ]
+      end
     end
 
     def date_value(value)
-      value.map { |v| MetadataDate.new(v.symbolize_keys) }
+      if value.is_a?(Array)
+        value.map { |v| MetadataDate.new(v.symbolize_keys) }
+      else
+        [ MetadataDate.new(value.symbolize_keys) ]
+      end
     end
 
     def ensure_value_is_array(value)

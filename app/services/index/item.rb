@@ -1,8 +1,7 @@
 module Index
   module Item
     def self.index!(item)
-      config = Metadata::Configuration.new(CollectionConfigurationQuery.new(item.collection).find)
-      Waggle.set_configuration(config)
+      Waggle.set_configuration(get_configuration(item))
       index_item = item_to_waggle_item(item)
       Waggle.index!(index_item)
     rescue StandardError => exception
@@ -40,5 +39,9 @@ module Index
       end
     end
     private_class_method :notify_error
+
+    def self.get_configuration(item)
+      Metadata::Configuration.new(CollectionConfigurationQuery.new(item.collection).find)
+    end
   end
 end
