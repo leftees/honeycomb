@@ -6,12 +6,24 @@ RSpec.describe Waggle::Adapters::Solr::Index::Item do
   let(:data) { JSON.parse(raw_data).fetch("items") }
   let(:waggle_item) { Waggle::Item.new(data) }
   let(:configuration) { double(Metadata::Configuration, fields: [], facets: [], sorts: []) }
-
+  let(:metadata) do
+    double(
+      as_solr: {
+        name_t: ["pig-in-mud"],
+        name_sort: "pig-in-mud",
+        creator_facet: ["Bob"],
+        creator_sort: "Bob",
+        creator_t: ["Bob"],
+        date_published_t: ["2013-03-24"],
+        description_t: ["Source"]
+      }
+    )
+  end
   subject { described_class.new(waggle_item: waggle_item) }
 
   before(:each) do
     Waggle.set_configuration(configuration)
-    allow(subject).to receive(:metadata).and_return(double(as_solr: { name_t: ["pig-in-mud"], name_sort: "pig-in-mud", creator_facet: ["Bob"], creator_sort: "Bob", creator_t: ["Bob"], date_published_t: ["2013-03-24"], description_t: ["Source"]}))
+    allow(subject).to receive(:metadata).and_return(metadata)
   end
 
   describe "id" do

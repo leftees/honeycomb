@@ -11,8 +11,8 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
       filters: {},
     )
   end
-  let(:configuration) { double(Metadata::Configuration, fields: [], facets: [facet], sort: sort )}
-  let(:facet) { double(Metadata::Configuration::Facet, name: "creator")}
+  let(:configuration) { double(Metadata::Configuration, fields: [], facets: [facet], sort: sort) }
+  let(:facet) { double(Metadata::Configuration::Facet, name: "creator") }
   let(:sort) { double(Metadata::Configuration::Sort, field_name: "name", direction: "asc") }
 
   let(:instance) { described_class.new(query: query) }
