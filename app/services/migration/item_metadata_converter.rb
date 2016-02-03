@@ -4,7 +4,8 @@ module Migration
 
     def self.call
       Item.all.each do |item|
-        self.new(item).convert!
+        puts "processing: #{item.id}"
+        new(item).convert!
       end
     end
 
@@ -13,15 +14,18 @@ module Migration
     end
 
     def convert!
-      if !item.metadata["name"]
-        item.metadata["name"] = [item.name]
-      end
-
-      if !item.metadata["description"]
-        item.metadata["description"] = [item.description]
-      end
+      fix("name")
+      fix("description")
 
       item.save!
+    end
+
+    private
+
+    def fix(field)
+      if !item.metadata[field]
+        item.metadata[field] = [item.send(field)]
+      end
     end
   end
 end
