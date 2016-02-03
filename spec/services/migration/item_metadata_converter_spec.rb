@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Migration::ItemMetadataConverter do
   let(:metadata) { {} }
-  let(:item) { instance_double(Item, metadata: metadata, save!: true, name: "name", description: "description")}
+  let(:item) { instance_double(Item, id: 1, metadata: metadata, save!: true, name: "name", description: "description") }
 
   describe "#call" do
     it "gets all the items" do
@@ -52,6 +52,4 @@ describe Migration::ItemMetadataConverter do
       subject
     end
   end
-
-
 end
