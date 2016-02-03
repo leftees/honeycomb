@@ -19,7 +19,7 @@ var DropzoneForm = React.createClass({
 
   setupDropzone: function() {
     if (!this.dropzone) {
-      this.dropzone = new Dropzone(React.findDOMNode(this), this.options());
+      this.dropzone = new Dropzone(ReactDOM.findDOMNode(this), this.options());
       if (this.props.initializeCallback) {
         this.props.initializeCallback(this.dropzone);
       }

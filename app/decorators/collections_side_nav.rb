@@ -22,6 +22,10 @@ class CollectionsSideNav < Draper::Decorator
     h.link_to("About", h.site_setup_form_collection_path(collection, form: "about_text"))
   end
 
+  def site_path_link
+    h.link_to("Site Path", h.site_setup_form_collection_path(collection, form: "site_path"))
+  end
+
   def active_tab_class(tab:)
     return "active" if tab == form
     return "active" if tab == "edit" && form.nil?

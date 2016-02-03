@@ -74,6 +74,15 @@ class ItemDecorator < Draper::Decorator
     end
   end
 
+  def pages_json
+    json_string = h.render partial: "pages/pages", formats: [:json], locals: { pages: object.pages }
+    if json_string
+      ActiveSupport::JSON.decode(json_string)
+    else
+      {}
+    end
+  end
+
   def edit_path
     h.edit_item_path(object.id)
   end

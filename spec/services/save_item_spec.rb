@@ -4,6 +4,7 @@ RSpec.describe SaveItem, type: :model do
   let(:upload_image) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test.jpg"), "image/jpeg") }
   subject { described_class.call(item, params) }
   let(:item) { Item.new }
+  let(:page) { Page.new }
   let(:params) { { name: "name" } }
 
   before(:each) do
@@ -85,6 +86,19 @@ RSpec.describe SaveItem, type: :model do
 
     it "indexes" do
       expect(Index::Item).to receive(:index!).and_call_original
+      subject
+    end
+  end
+
+  describe "fix_image_references" do
+    let(:item) { Item.new(unique_id: "12345", pages: [page]) }
+
+    before do
+      allow(item).to receive(:save).and_return(true)
+    end
+
+    it "replaces image references" do
+      expect(ReplacePageItem).to receive(:call).once.and_return(true)
       subject
     end
   end

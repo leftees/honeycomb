@@ -15,6 +15,7 @@ class SavePage
     page.attributes = params
     check_unique_id
     if page.save
+      AssociatePageWithItems.call(@page)
       page
     else
       false

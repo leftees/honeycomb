@@ -10,7 +10,8 @@ RSpec.describe ItemDecorator do
       collection_id: collection.id,
       collection: collection,
       image: "image.jpg",
-      showcases: { showcases: {} }
+      showcases: { showcases: {} },
+      pages: { pages: {} }
     }
   end
   let(:item) { instance_double(Item, item_stubs) }
@@ -123,6 +124,13 @@ RSpec.describe ItemDecorator do
     it "renders the json partial from the showcases view" do
       expect(subject.h).to receive(:render).with(partial: "showcases/showcases", formats: [:json], locals: { showcases: item.showcases })
       subject.showcases_json
+    end
+  end
+
+  context "pages_json" do
+    it "renders the json partial from the pages view" do
+      expect(subject.h).to receive(:render).with(partial: "pages/pages", formats: [:json], locals: { pages: item.pages })
+      subject.pages_json
     end
   end
 

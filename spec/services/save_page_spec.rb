@@ -12,6 +12,10 @@ describe SavePage do
   end
 
   context "successful save" do
+    before(:each) do
+      expect(AssociatePageWithItems).to receive(:call).and_return(true)
+    end
+
     it "sets the attributes" do
       expect(page).to receive("attributes=").with(params)
       subject
@@ -30,6 +34,7 @@ describe SavePage do
   context "unsuccessful save" do
     before(:each) do
       allow(page).to receive(:save).and_return(false)
+      expect(AssociatePageWithItems).not_to receive(:call)
     end
 
     it "returns the false when it is unsuccessful" do
@@ -43,6 +48,10 @@ describe SavePage do
   end
 
   describe "unique_id" do
+    before(:each) do
+      expect(AssociatePageWithItems).to receive(:call).and_return(true)
+    end
+
     it "uses the CreateUniqueId class to generate the id" do
       expect(CreateUniqueId).to receive(:call).with(page)
       subject
@@ -51,7 +60,9 @@ describe SavePage do
 
   describe "image" do
     let(:params) { { name: "name", uploaded_image: "image" } }
-
+    before(:each) do
+      expect(AssociatePageWithItems).to receive(:call).and_return(true)
+    end
     it "uses the FindOrCreateImage class to generate the id" do
       expect(FindOrCreateImage).to receive(:call).with(file: "image", collection_id: collection.id)
       subject

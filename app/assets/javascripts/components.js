@@ -2,6 +2,7 @@
 //= require_self
 //= require react_ujs
 React = require("react");
+ReactDOM = require("react-dom");
 
 // mixins
 APIResponseMixin = require("./mixins/APIResponseMixin");
@@ -34,6 +35,7 @@ Modal = require("./components/Modal");
 OpenSeadragonViewer = require("./components/OpenSeadragonViewer");
 ReactDropzone = require("./components/ReactDropzone");
 ShowcasesPanel = require("./components/ShowcasesPanel");
+PagesPanel = require("./components/PagesPanel");
 Thumbnail = require("./components/Thumbnail");
 GoogleImportButton = require("./components/GoogleImportButton");
 GoogleExportButton = require("./components/GoogleExportButton");
@@ -42,6 +44,7 @@ GoogleExportButton = require("./components/GoogleExportButton");
 EmbedCode = require("./components/embed/EmbedCode");
 
 // forms
+StylableDropTarget = require("./components/forms/StylableDropTarget");
 FieldHelp = require("./components/forms/FieldHelp");
 Form = require("./components/forms/Form");
 FormMessageCenter = require("./components/forms/FormMessageCenter");
@@ -60,6 +63,8 @@ MultipleField = require("./components/forms/MultipleField");
 MultipleFieldDisplayValue = require("./components/forms/MultipleFieldDisplayValue");
 DropzoneForm = require("./components/forms/DropzoneForm");
 ButtonLink = require("./components/forms/ButtonLink");
+SiteObjectCard = require("./components/forms/SiteObjectCard");
+SitePath = require("./components/forms/SitePath");
 
 // panel
 Panel = require("./components/panel/Panel");

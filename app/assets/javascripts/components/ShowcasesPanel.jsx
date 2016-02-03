@@ -62,7 +62,7 @@ var ShowcasesPanel = React.createClass({
       <Panel>
         <PanelHeading>{this.props.panelTitle}</PanelHeading>
         <PanelBody>
-          <div className="showcases-panel">
+          <div className="info-panel">
             {this.showcaseNodes()}
           </div>
         </PanelBody>

@@ -26,7 +26,8 @@ RSpec.describe Item do
     :date_created,
     :date_modified,
     :date_published,
-    :image_status
+    :image_status,
+    :pages
   ].each do |field|
     it "has field, #{field}" do
       expect(subject).to respond_to(field)

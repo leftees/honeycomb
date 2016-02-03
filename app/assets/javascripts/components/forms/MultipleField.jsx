@@ -60,7 +60,7 @@ var MultipleField = React.createClass({
       this.state.currentValue = "";
 
       this.props.handleFieldChange(this.props.name, this.state.values);
-      React.findDOMNode(this.refs[this.formId()]).focus();
+      ReactDOM.findDOMNode(this.refs[this.formId()]).focus();
     }
   },
 

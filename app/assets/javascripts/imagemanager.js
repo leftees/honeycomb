@@ -54,7 +54,7 @@
 							var image = val.image;
 							if (typeof image == 'object')
 							{
-								var img = $('<img src="' + image['thumbnail/small']['contentUrl'] + '" rel="' + image['thumbnail/medium']['contentUrl'] + '" image_id="' + val.id + '"title="' + thumbtitle + '" style="width: 100px; height: 75px; cursor: pointer;" />');
+								var img = $('<img src="' + image['thumbnail/small']['contentUrl'] + '" rel="' + image['thumbnail/medium']['contentUrl'] + '" item_id="' + val.id + '"title="' + thumbtitle + '" style="width: 100px; height: 75px; cursor: pointer;" />');
 								$('#redactor-image-manager-box').append(img);
 								$(img).click($.proxy(this.imagemanager.insert, this));
 							}
@@ -74,6 +74,8 @@
 				img.title = $el.attr('title');
 				img.style.width = '300px';
 				img.style.height = 'auto';
+				img.setAttribute('class', 'hc_page_image');
+				img.setAttribute('item_id', $el.attr('item_id'));
 				img.setAttribute('style', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;');
 				img.setAttribute('rel', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;');
 

@@ -49,7 +49,19 @@ module V1
 
     def display(json)
       if object.present?
-        json.partial! "/v1/showcases/showcase", showcase_object: self
+        json.set! "@context", "http://schema.org"
+        json.set! "@type", "CreativeWork"
+        json.set! "@id", at_id
+        json.set! "isPartOf/collection", collection_url
+        json.set! "additionalType", additional_type
+        json.id unique_id
+        json.slug slug
+        json.name name
+        json.name_line_1 name_line_1
+        json.name_line_2 name_line_2
+        json.description description
+        json.image image
+        json.last_updated updated_at
       end
     end
   end
