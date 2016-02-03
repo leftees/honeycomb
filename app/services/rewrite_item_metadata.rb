@@ -8,7 +8,7 @@ class RewriteItemMetadata
     @field_map = Hash[configuration.field_names.map { |name| [name, nil] }]
   end
 
-  def self.call(item_hash:, errors:, configuration: )
+  def self.call(item_hash:, errors:, configuration:)
     new(configuration).rewrite(item_hash: item_hash, errors: errors)
   end
 

@@ -93,9 +93,5 @@ RSpec.describe Waggle do
       expect(Waggle).to receive(:set_configuration)
       subject
     end
-
-    it "removes the collection from the search args" do
-
-    end
   end
 end

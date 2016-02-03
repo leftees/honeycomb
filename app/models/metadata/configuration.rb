@@ -4,7 +4,7 @@ module Metadata
     private :data
 
     def self.item_configuration
-       @item_configuration ||= new(load_yml(:item))
+      @item_configuration ||= new(load_yml(:item))
     end
 
     def self.set_item_configuration(collection)
@@ -91,14 +91,14 @@ module Metadata
     end
 
     def build_fields
-      data.metadata.collect { |field_data|
+      data.metadata.map do |field_data|
         field_data = field_data.symbolize_keys
         self.class::Field.new(**field_data)
-      }
+      end
     end
 
     def build_facets
-      data.facets.collect do |facet_data|
+      data.facets.map do |facet_data|
         facet_data = facet_data.symbolize_keys
         facet_field = field(facet_data.fetch(:field_name))
         arguments = facet_data.merge(field: facet_field)
@@ -107,7 +107,7 @@ module Metadata
     end
 
     def build_sorts
-      data.sorts.collect do |sort_data|
+      data.sorts.map do |sort_data|
         sort_data = sort_data.symbolize_keys
         sort_field = field(sort_data.fetch(:field_name))
         arguments = sort_data.merge(field: sort_field)

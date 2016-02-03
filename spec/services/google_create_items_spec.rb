@@ -25,7 +25,7 @@ RSpec.describe GoogleCreateItems, helpers: :item_meta_helpers do
   let(:item_creator) { instance_double(FindOrCreateItem, using: item, save: true, new_record?: true, item: item) }
   let(:worksheet) { instance_double(GoogleDrive::Worksheet) }
   let(:param_hash) { { auth_code: "auth", callback_uri: "callback", collection_id: 1, file: "file", sheet: "sheet" } }
-  let(:configuration) { double(Metadata::Configuration, field_names: [], label?: "label", label: double(name: :name, multiple: true, type: :string))}
+  let(:configuration) { double(Metadata::Configuration, field_names: [], label?: "label", label: double(name: :name, multiple: true, type: :string)) }
 
   let(:subject) { described_class.call(param_hash) }
 

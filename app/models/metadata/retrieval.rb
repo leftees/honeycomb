@@ -56,7 +56,7 @@ module Metadata
       if value.is_a?(Array)
         value.map { |v| MetadataString.new(v) }
       else
-        [ MetadataString.new(value) ]
+        [MetadataString.new(value)]
       end
     end
 
@@ -64,7 +64,7 @@ module Metadata
       if value.is_a?(Array)
         value.map { |v| MetadataHTML.new(v) }
       else
-        [ MetadataHTML.new(value) ]
+        [MetadataHTML.new(value)]
       end
     end
 
@@ -72,7 +72,7 @@ module Metadata
       if value.is_a?(Array)
         value.map { |v| MetadataDate.new(v.symbolize_keys) }
       else
-        [ MetadataDate.new(value.symbolize_keys) ]
+        [MetadataDate.new(value.symbolize_keys)]
       end
     end
 

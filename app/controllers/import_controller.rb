@@ -20,8 +20,7 @@ class ImportController < ApplicationController
     state_hash = decode_state(state_hash: params[:state])
     @collection = CollectionQuery.new.find(state_hash[:collection_id])
     check_user_edits!(@collection)
-
-    Waggle.set_configuration(Metadata::Configuration.new(CollectionConfigurationQuery.new(@collection).find))
+    set_configuration(@collection)
 
     @results = GoogleCreateItems.call(auth_code: params[:code],
                                       callback_uri: import_google_sheet_callback_collections_url,
@@ -32,5 +31,11 @@ class ImportController < ApplicationController
 
   def decode_state(state_hash:)
     JSON.parse(Base64::decode64(state_hash), symbolize_names: true)
+  end
+
+  private
+
+  def set_configuration(collection)
+    Waggle.set_configuration(Metadata::Configuration.new(CollectionConfigurationQuery.new(collection).find))
   end
 end

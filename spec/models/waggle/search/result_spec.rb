@@ -46,7 +46,6 @@ RSpec.describe Waggle::Search::Result do
   end
 
   describe "sorts" do
-
     it "includes the relevancy sort and the configured sorts" do
       expect(subject.sorts.count).to eq(1)
       relevancy = subject.sorts.first

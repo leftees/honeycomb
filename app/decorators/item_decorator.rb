@@ -11,10 +11,9 @@ class ItemDecorator < Draper::Decorator
 
   def image_name
     if object.honeypot_image
-      object.honeypot_image.name
-    else
-      nil
+      return object.honeypot_image.name
     end
+    nil
   end
 
   def status_text
@@ -61,13 +60,13 @@ class ItemDecorator < Draper::Decorator
   def meta_data
     data = {}
     Metadata::Retrieval.new(self).fields.each do |key, values|
-      data[key] = values.collect { |v| v.value }
+      data[key] = values.map(&:value)
     end
     data
   end
 
   def showcases_json
-    json_string = h.render :partial => "showcases/showcases", formats: [:json], locals: { showcases: object.showcases }
+    json_string = h.render partial: "showcases/showcases", formats: [:json], locals: { showcases: object.showcases }
     if json_string
       ActiveSupport::JSON.decode(json_string)
     else

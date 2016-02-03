@@ -44,11 +44,11 @@ RSpec.describe ItemDecorator do
 
   describe "#item_meta_data_form" do
     let(:collection) { double(Collection, id: 2, collection_configuration: double) }
-    let(:metadata) {
+    let(:metadata) do
       {
-        metadata: [ double(value: "value") ]
+        metadata: [double(value: "value")]
       }
-    }
+    end
     let(:item) do
       double(
         Item,
@@ -67,12 +67,10 @@ RSpec.describe ItemDecorator do
       allow(subject.h).to receive(:form_authenticity_token).and_return("token")
       expect(subject.h).to receive(:react_component).with(
         "ItemMetaDataForm",
-        {
-          :authenticityToken=>"token",
-          :url=>"/v1/items/unique_id",
-          :method=>"put",
-          :data=>{:metadata=>["value"]}
-        }
+        authenticityToken: "token",
+        url: "/v1/items/unique_id",
+        method: "put",
+        data: { metadata: ["value"] }
       )
 
       subject.item_meta_data_form

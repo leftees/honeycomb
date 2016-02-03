@@ -6,11 +6,11 @@ RSpec.configure do |c|
 end
 
 RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
-  let(:item) { { } }
+  let(:item) { {} }
   let(:errors) { [] }
-  let(:configuration) { instance_double(Metadata::Configuration, field_names: ["name", "alternate_name", "date_created"], field?: true, label?: true )}
-  let(:field ) { double(name: "name", multiple: false, type: :string) }
-  let(:date_field ) { double(name: "date_created", multiple: false, type: :date) }
+  let(:configuration) { instance_double(Metadata::Configuration, field_names: ["name", "alternate_name", "date_created"], field?: true, label?: true) }
+  let(:field) { double(name: "name", multiple: false, type: :string) }
+  let(:date_field) { double(name: "date_created", multiple: false, type: :date) }
   let(:multiple_field) { double(name: "alternate_name", multiple: true, type: :string) }
   let(:subject) { described_class.call(item_hash: item, errors: errors, configuration: configuration) }
 
@@ -25,7 +25,7 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
     allow(configuration).to receive(:label?).with("Name").and_return(true)
 
     item["Name"] = "the name"
-    expect(subject).to eq({"name" => "the name", "alternate_name" => nil, "date_created" => nil})
+    expect(subject).to eq("name" => "the name", "alternate_name" => nil, "date_created" => nil)
   end
 
   it "rewrites multiples to an array" do
@@ -34,7 +34,7 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
     allow(configuration).to receive(:label?).with("Alternate Name").and_return(true)
 
     item["Alternate Name"] = "name1||name2"
-    expect(subject).to eq({ "name" => nil, "alternate_name" => ["name1", "name2"], "date_created" => nil })
+    expect(subject).to eq("name" => nil, "alternate_name" => ["name1", "name2"], "date_created" => nil)
   end
 
   context "rewrites dates" do
@@ -44,7 +44,11 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
       allow(configuration).to receive(:label?).with("Date Created").and_return(true)
 
       item["Date Created"] = "-2001/01/01"
-      expect(subject).to eq({"name" => nil, "alternate_name" => nil, "date_created" => {"year"=>"2001", "month"=>"1", "day"=>"1", "bc"=>true, "display_text"=>nil}})
+      expect(subject).to eq(
+        "name" => nil,
+        "alternate_name" => nil,
+        "date_created" => { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
+      )
     end
 
     it "can handle string literal indicator" do
@@ -53,7 +57,11 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
       allow(configuration).to receive(:label?).with("Date Created").and_return(true)
 
       item["Date Created"] = "'-2001/01/01"
-      expect(subject).to eq({"name" => nil, "alternate_name" => nil, "date_created" => { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }})
+      expect(subject).to eq(
+        "name" => nil,
+        "alternate_name" => nil,
+        "date_created" => { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
+      )
     end
   end
 

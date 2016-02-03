@@ -40,7 +40,7 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
     allow_any_instance_of(GoogleSession).to receive(:connect)
     allow_any_instance_of(GoogleSession).to receive(:get_worksheet).and_return(worksheet)
     allow_any_instance_of(described_class).to receive(:configuration).and_return(configuration)
-    allow(RewriteItemMetadataForExport).to receive(:call).and_return({item: "item!"})
+    allow(RewriteItemMetadataForExport).to receive(:call).and_return(item: "item!")
   end
 
   it "uses google api to retrieve the worksheet" do
@@ -49,8 +49,9 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
   end
 
   context "collection has items" do
+    let(:hashes) { [{ item: "item!" }, { item: "item!" }, { item: "item!" }] }
     it "uses GoogleSession to populate the worksheet" do
-      expect_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).with(worksheet: worksheet, hashes: [{item: "item!"}, {item: "item!"}, {item: "item!"}])
+      expect_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).with(worksheet: worksheet, hashes: hashes)
       subject
     end
 

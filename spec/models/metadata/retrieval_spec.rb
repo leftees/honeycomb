@@ -4,7 +4,7 @@ RSpec.describe Metadata::Retrieval do
   let(:item) { double(Item, metadata: metadata) }
   let(:metadata) { { "name" => ["name"] } }
   let(:collection_configuration) { double(Metadata::Configuration, field: metadata_config) }
-  let(:metadata_config) { double(name: "Name", label: "Label", type: :string)  }
+  let(:metadata_config) { double(name: "Name", label: "Label", type: :string) }
 
   let(:instance) { described_class.new(item) }
 
@@ -62,7 +62,6 @@ RSpec.describe Metadata::Retrieval do
       allow(metadata_config).to receive(:type).and_return(:notatype)
       expect { instance.field("name") }.to raise_error("missing type")
     end
-
 
     it "ensures that the value is an array" do
       metadata["name"] = "name"

@@ -54,13 +54,13 @@ RSpec.describe Metadata::Configuration do
 
   describe "field_names" do
     it "returns an array of field names" do
-      expect(subject.field_names).to eq(data.metadata.collect { |f| f["name"] })
+      expect(subject.field_names).to eq(data.metadata.map { |f| f["name"] })
     end
   end
 
   describe "field_labels" do
     it "returns an array of field labels" do
-      expect(subject.field_labels).to eq(data.metadata.collect { |f| f["label"] })
+      expect(subject.field_labels).to eq(data.metadata.map { |f| f["label"] })
     end
   end
 

@@ -1,6 +1,5 @@
 module V1
   class MetadataJSON < Draper::Decorator
-
     def self.metadata(item)
       new(item).metadata
     end
@@ -27,7 +26,7 @@ module V1
         "@type" => "MetadataField",
         "name" => field_config.name,
         "label" => field_config.label,
-        "values" => value.collect { |v| v.to_hash },
+        "values" => value.map(&:to_hash),
       }
     end
   end

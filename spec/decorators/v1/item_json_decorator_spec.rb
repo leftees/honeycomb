@@ -81,7 +81,7 @@ RSpec.describe V1::ItemJSONDecorator do
         collection: collection,
         metadata: {},
         honeypot_image: double(json_response: "json"),
-        item_metadata: double(fields: [ double() ]),
+        item_metadata: double(fields: [double]),
         updated_at: Time.now,
       )
     end

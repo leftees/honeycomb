@@ -59,7 +59,7 @@ RSpec.describe Item do
 
   describe "#name" do
     let(:field) { double(value: "value1") }
-    let(:field_result) { [ field ]}
+    let(:field_result) { [field] }
 
     it "uses the item_metadata field" do
       expect(item_metadata).to receive(:field).with(:name).and_return(field_result)
@@ -68,7 +68,7 @@ RSpec.describe Item do
 
     it "uses the first value of a multiple name" do
       allow(item_metadata).to receive(:field).and_return(field_result)
-      expect(field_result).to receive(:first).and_return(double( value: "firstname"))
+      expect(field_result).to receive(:first).and_return(double(value: "firstname"))
       expect(subject.name).to eq("firstname")
     end
   end

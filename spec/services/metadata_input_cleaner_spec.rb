@@ -1,6 +1,6 @@
 RSpec.describe MetadataInputCleaner do
   let(:metadata) { {} }
-  let(:item) { instance_double(Item, metadata: metadata )}
+  let(:item) { instance_double(Item, metadata: metadata) }
   subject { described_class.call(item) }
 
   it "convertes a string to an array" do
@@ -16,8 +16,8 @@ RSpec.describe MetadataInputCleaner do
   end
 
   it "does nothing to an existing array" do
-    metadata[:array] = [ "array" ]
+    metadata[:array] = ["array"]
     subject
-    expect(item.metadata[:array]).to eq([ "array" ])
+    expect(item.metadata[:array]).to eq(["array"])
   end
 end
