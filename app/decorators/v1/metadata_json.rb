@@ -18,7 +18,7 @@ module V1
     private
 
     def configuration
-      @configuration ||= Metadata::Configuration.new(CollectionConfigurationQuery.new(object.collection).find)
+      @configuration ||= CollectionConfigurationQuery.new(object.collection).find
     end
 
     def field_hash(value, field_config)

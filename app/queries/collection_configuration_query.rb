@@ -6,6 +6,6 @@ class CollectionConfigurationQuery
   end
 
   def find
-    Metadata::Configuration.set_item_configuration(collection.collection_configuration)
+    Metadata::Configuration.new(collection.collection_configuration)
   end
 end

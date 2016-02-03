@@ -36,6 +36,6 @@ class ImportController < ApplicationController
   private
 
   def set_configuration(collection)
-    Waggle.set_configuration(Metadata::Configuration.new(CollectionConfigurationQuery.new(collection).find))
+    Waggle.set_configuration(CollectionConfigurationQuery.new(collection).find)
   end
 end
