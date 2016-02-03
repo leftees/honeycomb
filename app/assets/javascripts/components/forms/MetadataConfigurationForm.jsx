@@ -3,11 +3,10 @@ var mui = require("material-ui");
 var EventEmitter = require('../../EventEmitter');
 
 var MetaDataConfigurationForm = React.createClass({
-  mixins: [APIResponseMixin],
-
   getInitialState: function() {
     return {
       fields: this.sortedFields(),
+      selectedField: undefined,
     };
   },
 
@@ -43,6 +42,10 @@ var MetaDataConfigurationForm = React.createClass({
     return this.state.fields.map(function(field) {
       return (
         <mui.TableRow>
+          <mui.TableRowColumn><mui.FlatButton id={ field.name }
+            label="Edit"
+            onTouchTap={ function() { this.handleRowClick(field.name); }.bind(this) }
+          /></mui.TableRowColumn>
           <mui.TableRowColumn>{ field.label }</mui.TableRowColumn>
           <mui.TableRowColumn>{ this.friendlyType(field.type) }</mui.TableRowColumn>
           <mui.TableRowColumn><mui.Checkbox disabled={ true } defaultChecked={ field.multiple } /></mui.TableRowColumn>
@@ -52,21 +55,30 @@ var MetaDataConfigurationForm = React.createClass({
     }.bind(this));
   },
 
+  handleRowClick: function(field) {
+    this.setState({ selectedField: field });
+  },
+
   render: function(){
+    const { selectedField } = this.state;
     return (
-      <mui.Table>
-        <mui.TableHeader displaySelectAll={ false } >
-          <mui.TableRow>
-            <mui.TableHeaderColumn>Label</mui.TableHeaderColumn>
-            <mui.TableHeaderColumn>Type</mui.TableHeaderColumn>
-            <mui.TableHeaderColumn>Allows Multiples</mui.TableHeaderColumn>
-            <mui.TableHeaderColumn>Required</mui.TableHeaderColumn>
-          </mui.TableRow>
-        </mui.TableHeader>
-        <mui.TableBody displayRowCheckbox={ false } >
-          { this.getFieldRows() }
-        </mui.TableBody>
-      </mui.Table>
+      <div>
+        <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } />
+        <mui.Table>
+          <mui.TableHeader displaySelectAll={ false } >
+            <mui.TableRow>
+              <mui.TableHeaderColumn/>
+              <mui.TableHeaderColumn>Label</mui.TableHeaderColumn>
+              <mui.TableHeaderColumn>Type</mui.TableHeaderColumn>
+              <mui.TableHeaderColumn>Allows Multiples</mui.TableHeaderColumn>
+              <mui.TableHeaderColumn>Required</mui.TableHeaderColumn>
+            </mui.TableRow>
+          </mui.TableHeader>
+          <mui.TableBody displayRowCheckbox={ false } >
+            { this.getFieldRows() }
+          </mui.TableBody>
+        </mui.Table>
+      </div>
     );
   }
 });
