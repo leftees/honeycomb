@@ -1,6 +1,6 @@
 class MetadataInputCleaner
   attr_reader :item
-  
+
   def self.call(item)
     new(item).clean!
   end

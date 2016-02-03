@@ -38,7 +38,7 @@ module V1
       @item = ItemQuery.new.public_find(params[:id])
 
       return if rendered_forbidden?(@item.collection)
-      
+
       if SaveItem.call(@item, save_params)
         render :update
       else
@@ -76,9 +76,9 @@ module V1
         [:subject, subject: []],
         [:call_number, call_number: []],
         [:provenance, provenance: []],
-        date_created: [:value, :year, :month, :day, :bc, :display_text],
-        date_modified: [:value, :year, :month, :day, :bc, :display_text],
-        date_published: [:value, :year, :month, :day, :bc, :display_text],
+        [:date_created, [:value, :year, :month, :day, :bc, :display_text]],
+        [:date_modified, [:value, :year, :month, :day, :bc, :display_text]],
+        [:date_published, [:value, :year, :month, :day, :bc, :display_text]],
       )
     end
   end
