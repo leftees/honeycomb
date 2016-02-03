@@ -9,8 +9,9 @@ describe CollectionConfigurationQuery do
     subject.find
   end
 
-  it "returns the current collection's config" do
+  it "passes the current collection's config to the Metadata::Configuration" do
     allow(collection).to receive(:collection_configuration).and_return("CONFIG!")
-    expect(subject.find).to eq("CONFIG!")
+    expect(Metadata::Configuration).to receive(:set_item_configuration).with("CONFIG!")
+    subject.find
   end
 end
