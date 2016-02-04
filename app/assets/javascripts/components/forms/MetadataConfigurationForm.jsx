@@ -3,6 +3,10 @@ var mui = require("material-ui");
 var EventEmitter = require('../../EventEmitter');
 
 var MetaDataConfigurationForm = React.createClass({
+  propTypes: {
+    updateUrl: React.PropTypes.string.isRequired,
+  },
+
   getInitialState: function() {
     return {
       fields: this.sortedFields(),

@@ -3,36 +3,54 @@ var mui = require("material-ui");
 var Dialog = mui.Dialog;
 var RaisedButton = mui.RaisedButton;
 var FlatButton = mui.FlatButton;
+var update = require('react-addons-update');
+var ReactLink = require('react/lib/ReactLink');
+var ReactStateSetters = require('react/lib/ReactStateSetters');
+var MetaDataConfigurationActions = require("../../actions/MetaDataConfigurationActions");
+var MetaDataConfigurationActionTypes = require("../../constants/MetaDataConfigurationActionTypes");
 
 var MetaDataFieldDialog = React.createClass({
-  mixins: [MuiThemeMixin, LinkedStateMixin],
+  mixins: [MuiThemeMixin],
 
   propTypes: {
     open: React.PropTypes.bool.isRequired,
+    updateUrl: React.PropTypes.string.isRequired,
     fieldName: React.PropTypes.string,
+  },
+
+  // Creating custom react link so that we can store the field values
+  // in state.fieldValues instead of flat within state, in order
+  // to easily serialize this to json when updating the store.
+  linkFieldState: function(key) {
+    return new ReactLink(
+      this.state["fieldValues"][key],
+      function(value) { this.updateFieldValue(key, value); }.bind(this)
+    );
+  },
+
+  // Updates a specific value within state.fieldValues
+  updateFieldValue: function(key, value) {
+    // TODO: This is bad. Use update here.
+    var fieldValues = this.state.fieldValues;
+    fieldValues[key] = value;
+    this.setState({ fieldValues: fieldValues });
   },
 
   getInitialState: function() {
     return {
       open: this.props.open,
+      fieldName: this.props.fieldName,
     };
   },
 
   componentWillReceiveProps: function(nextProps) {
     if(nextProps.open) {
-      var fieldValues = MetaDataConfigurationStore.fields[nextProps.fieldName];
+      // Clone store field values, otherwise the linked states will directly change the store
+      fieldValues = update(MetaDataConfigurationStore.fields[nextProps.fieldName], {});
       this.setState({
         open: nextProps.open,
-        boost: fieldValues.boost,
-        help: fieldValues.help,
-        order: fieldValues.order,
-        placeholder: fieldValues.placeholder,
-        name: fieldValues.name,
-        defaultFormField: fieldValues.defaultFormField,
-        required: fieldValues.required,
-        type: fieldValues.type,
-        label: fieldValues.label,
-        multiple: fieldValues.multiple
+        fieldName: nextProps.fieldName,
+        fieldValues: fieldValues,
       });
     }
   },
@@ -46,9 +64,8 @@ var MetaDataFieldDialog = React.createClass({
   },
 
   handleSave: function() {
-    // Change store
     this.setState({ open: false });
-    console.log(this.state);
+    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.updateUrl);
   },
 
   handleCancel: function() {
@@ -65,16 +82,16 @@ var MetaDataFieldDialog = React.createClass({
 
   getFieldProps: function() {
     return [
-      <mui.TextField floatingLabelText="Name" valueLink={ this.linkState('name') } />,
-      <mui.TextField floatingLabelText="Label" valueLink={ this.linkState('label') } />,
-      <mui.TextField floatingLabelText="Boost" valueLink={ this.linkState('boost') } />,
-      <mui.TextField floatingLabelText="Help" valueLink={ this.linkState('help') } />,
-      <mui.TextField floatingLabelText="Order" valueLink={ this.linkState('order') } />,
-      <mui.TextField floatingLabelText="Placeholder" valueLink={ this.linkState('placeholder') } />,
-      <mui.SelectField floatingLabelText="Type" menuItems={ this.getTypeOptions() } valueLink={ this.linkState('type') } />,
-      <mui.Checkbox label="Allow multiple values?" checkedLink={ this.linkState('multiple') } />,
-      <mui.Checkbox label="Always show on the item edit form?" checkedLink={ this.linkState('defaultFormField') } />,
-      <mui.Checkbox label="Require presence on all items?" checkedLink={ this.linkState('required') } />,
+      <mui.TextField floatingLabelText="Name" valueLink={ this.linkFieldState('name') } />,
+      <mui.TextField floatingLabelText="Label" valueLink={ this.linkFieldState('label') } />,
+      <mui.TextField floatingLabelText="Boost" valueLink={ this.linkFieldState('boost') } />,
+      <mui.TextField floatingLabelText="Help" valueLink={ this.linkFieldState('help') } />,
+      <mui.TextField floatingLabelText="Order" valueLink={ this.linkFieldState('order') } />,
+      <mui.TextField floatingLabelText="Placeholder" valueLink={ this.linkFieldState('placeholder') } />,
+      <mui.SelectField floatingLabelText="Type" menuItems={ this.getTypeOptions() } valueLink={ this.linkFieldState('type') } />,
+      <mui.Checkbox label="Allow multiple values?" checkedLink={ this.linkFieldState('multiple') } />,
+      <mui.Checkbox label="Always show on the item edit form?" checkedLink={ this.linkFieldState('defaultFormField') } />,
+      <mui.Checkbox label="Require presence on all items?" checkedLink={ this.linkFieldState('required') } />,
     ];
   },
 
