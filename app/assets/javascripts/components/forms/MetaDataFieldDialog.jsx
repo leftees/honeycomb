@@ -30,9 +30,9 @@ var MetaDataFieldDialog = React.createClass({
 
   // Updates a specific value within state.fieldValues
   updateFieldValue: function(key, value) {
-    // TODO: This is bad. Use update here.
-    var fieldValues = this.state.fieldValues;
-    fieldValues[key] = value;
+    var kvp = {};
+    kvp[key] = value;
+    var fieldValues = update(this.state.fieldValues, {$merge: kvp});
     this.setState({ fieldValues: fieldValues });
   },
 
@@ -64,11 +64,10 @@ var MetaDataFieldDialog = React.createClass({
   },
 
   handleSave: function() {
-    this.setState({ open: false });
     MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.updateUrl);
   },
 
-  handleCancel: function() {
+  handleClose: function() {
     this.setState({ open: false });
   },
 
@@ -104,10 +103,10 @@ var MetaDataFieldDialog = React.createClass({
         onTouchTap={this.handleSave}
       />,
       <FlatButton
-        label="Cancel"
+        label="Close"
         primary={false}
         keyboardFocused={false}
-        onTouchTap={this.handleCancel}
+        onTouchTap={this.handleClose}
       />,
     ];
     return (
@@ -117,7 +116,7 @@ var MetaDataFieldDialog = React.createClass({
           title="Edit Metadata Field"
           actions={actions}
           modal={true}
-          style={{zIndex: 100}}
+          style={{ zIndex: 100 }}
           openImmediately={this.props.open}
         >
           { this.state.open && this.getFieldProps() }
