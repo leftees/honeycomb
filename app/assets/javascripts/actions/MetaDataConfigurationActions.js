@@ -1,10 +1,11 @@
 var AppDispatcher = require("../dispatcher/AppDispatcher");
 var MetaDataConfigurationActionTypes = require("../constants/MetaDataConfigurationActionTypes");
-var EventEmitter = require("../EventEmitter");
+var AppEventEmitter = require("../EventEmitter");
+var NodeEventEmitter = require("events").EventEmitter;
 var APIResponseMixin = require("../mixins/APIResponseMixin");
 var update = require('react-addons-update');
 
-class MetaDataConfigurationActions {
+class MetaDataConfigurationActions extends NodeEventEmitter {
   load(getUrl) {
     AppDispatcher.dispatch({
       actionType: MetaDataConfigurationActionTypes.MDC_LOAD,
@@ -32,7 +33,8 @@ class MetaDataConfigurationActions {
       },
       success: (function() {
         // Store was already changed, nothing to do here
-        EventEmitter.emit("MessageCenterDisplay", "info", "Collection updated");
+        this.emit("ChangeFieldFinished", true);
+        AppEventEmitter.emit("MessageCenterDisplay", "info", "Collection updated");
       }).bind(this),
       error: (function(xhr) {
         // Request to change failed, revert the store to previous values
@@ -42,7 +44,8 @@ class MetaDataConfigurationActions {
           values: previousValues,
         });
         // Communicate the error to the user
-        EventEmitter.emit("MessageCenterDisplay", "error", APIResponseMixin.apiErrorToString(xhr));
+        this.emit("ChangeFieldFinished", false, xhr);
+        AppEventEmitter.emit("MessageCenterDisplay", "error", APIResponseMixin.apiErrorToString(xhr));
       }).bind(this)
     });
   }

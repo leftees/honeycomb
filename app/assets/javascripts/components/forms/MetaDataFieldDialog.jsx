@@ -40,7 +40,12 @@ var MetaDataFieldDialog = React.createClass({
     return {
       open: this.props.open,
       fieldName: this.props.fieldName,
+      saving: false,
     };
+  },
+
+  componentWillMount: function() {
+    MetaDataConfigurationActions.on("ChangeFieldFinished", this.handleSaved);
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -65,6 +70,16 @@ var MetaDataFieldDialog = React.createClass({
 
   handleSave: function() {
     MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.updateUrl);
+    this.setState({ saving: true});
+  },
+
+  handleSaved: function(success, data) {
+    if(success) {
+      this.setState({ open: false });
+    } else {
+      console.log("Add error handling stuff here when !success", data);
+    }
+    this.setState({ saving: false });
   },
 
   handleClose: function() {
@@ -99,12 +114,14 @@ var MetaDataFieldDialog = React.createClass({
       <FlatButton
         label="Save"
         primary={true}
+        disabled={this.state.saving}
         keyboardFocused={true}
         onTouchTap={this.handleSave}
       />,
       <FlatButton
         label="Close"
         primary={false}
+        disabled={this.state.saving}
         keyboardFocused={false}
         onTouchTap={this.handleClose}
       />,
