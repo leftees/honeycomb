@@ -29,7 +29,7 @@ RSpec.describe Waggle::Adapters::Solr::Index::Item do
         unique_id_s: "pig-in-mud",
         collection_id_s: "animals",
         type_s: "Item",
-        thumbnail_url_s: "http://localhost:3019/images/honeycomb/000/001/000/013/small/pig-in-mud.jpg",
+        thumbnail_url_s: "http://localhost:3019/images/honeycomb/000/001/000/013/medium/pig-in-mud.jpg",
         last_updated_dt: "2015-08-04T12:47:17Z",
         title_t: ["pig-in-mud"],
       )

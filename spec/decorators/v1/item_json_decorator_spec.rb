@@ -90,6 +90,7 @@ RSpec.describe V1::ItemJSONDecorator do
         "name",
         "description",
         "image",
+        "image_status",
         "metadata",
         "last_updated",
         "collection_id"
