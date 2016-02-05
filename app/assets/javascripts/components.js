@@ -5,7 +5,6 @@ React = require("react");
 ReactDOM = require("react-dom");
 
 // mixins
-LinkedStateMixin = require('react-addons-linked-state-mixin');
 APIResponseMixin = require("./mixins/APIResponseMixin");
 DialogMixin = require("./mixins/DialogMixin");
 DraggableMixin = require("./mixins/DraggableMixin");

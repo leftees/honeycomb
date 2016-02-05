@@ -3,16 +3,9 @@ var MetaDataConfigurationActionTypes = require("../constants/MetaDataConfigurati
 var AppEventEmitter = require("../EventEmitter");
 var NodeEventEmitter = require("events").EventEmitter;
 var APIResponseMixin = require("../mixins/APIResponseMixin");
-var update = require('react-addons-update');
+var update = require("react-addons-update");
 
 class MetaDataConfigurationActions extends NodeEventEmitter {
-  load(getUrl) {
-    AppDispatcher.dispatch({
-      actionType: MetaDataConfigurationActionTypes.MDC_LOAD,
-      data: data
-    });
-  }
-
   changeField(fieldName, fieldValues, pushToUrl) {
     // Clone values in order to revert the store if the change fails
     const previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});

@@ -96,16 +96,12 @@ var MetaDataFieldDialog = React.createClass({
 
   getFieldProps: function() {
     return [
-      <mui.TextField floatingLabelText="Name" valueLink={ this.linkFieldState('name') } />,
-      <mui.TextField floatingLabelText="Label" valueLink={ this.linkFieldState('label') } />,
-      <mui.TextField floatingLabelText="Boost" valueLink={ this.linkFieldState('boost') } />,
-      <mui.TextField floatingLabelText="Help" valueLink={ this.linkFieldState('help') } />,
-      <mui.TextField floatingLabelText="Order" valueLink={ this.linkFieldState('order') } />,
-      <mui.TextField floatingLabelText="Placeholder" valueLink={ this.linkFieldState('placeholder') } />,
-      <mui.SelectField floatingLabelText="Type" menuItems={ this.getTypeOptions() } valueLink={ this.linkFieldState('type') } />,
-      <mui.Checkbox label="Allow multiple values?" checkedLink={ this.linkFieldState('multiple') } />,
-      <mui.Checkbox label="Always show on the item edit form?" checkedLink={ this.linkFieldState('defaultFormField') } />,
-      <mui.Checkbox label="Require presence on all items?" checkedLink={ this.linkFieldState('required') } />,
+      <mui.TextField style={{ width: "100%" }} floatingLabelText="Name" valueLink={ this.linkFieldState('name') } />,
+      <mui.TextField style={{ width: "100%" }} floatingLabelText="Label" valueLink={ this.linkFieldState('label') } />,
+      <mui.SelectField style={{ width: "100%" }} floatingLabelText="Type" menuItems={ this.getTypeOptions() } valueLink={ this.linkFieldState('type') } />,
+      <mui.Checkbox style={{ width: "100%" }} label="Allow multiple values?" checkedLink={ this.linkFieldState('multiple') } />,
+      <mui.Checkbox style={{ width: "100%" }} label="Always show on the item form?" checkedLink={ this.linkFieldState('defaultFormField') } />,
+      <mui.Checkbox style={{ width: "100%" }} label="Require presence on all items?" checkedLink={ this.linkFieldState('required') } />,
     ];
   },
 
@@ -133,6 +129,8 @@ var MetaDataFieldDialog = React.createClass({
           title="Edit Metadata Field"
           actions={actions}
           modal={true}
+          bodyStyle={{ margin: "0 auto 0 auto" }}
+          contentStyle={{ width: "35%" }}
           style={{ zIndex: 100 }}
           openImmediately={this.props.open}
         >
