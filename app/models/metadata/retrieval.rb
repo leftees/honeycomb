@@ -40,13 +40,18 @@ module Metadata
 
       type = config.type
       value = ensure_value_is_array(value)
+      method = value_method(type)
 
+      send(method, value)
+    end
+
+    def value_method(type)
       if type.to_sym == :string
-        string_value(value)
+        "string_value"
       elsif type.to_sym == :html
-        html_value(value)
+        "html_value"
       elsif type.to_sym == :date
-        date_value(value)
+        "date_value"
       else
         raise "missing type"
       end
