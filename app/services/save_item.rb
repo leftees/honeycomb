@@ -19,6 +19,7 @@ class SaveItem
 
     if item.save && process_uploaded_image
       index_item
+      fix_image_references
       item
     else
       false
@@ -79,5 +80,11 @@ class SaveItem
 
   def set_no_image
     item.no_image!
+  end
+
+  def fix_image_references
+    @item.pages.each do |page|
+      ReplacePageItem.call(page, @item)
+    end
   end
 end

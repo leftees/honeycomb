@@ -8,7 +8,10 @@ module Destroy
     # There are no additional cascades for Pages,
     # so destroys the object only
     def cascade!(page:)
-      page.destroy!
+      ActiveRecord::Base.transaction do
+        DestroyPageItemAssociations.call(page_id: page.id)
+        page.destroy!
+      end
     end
   end
 end

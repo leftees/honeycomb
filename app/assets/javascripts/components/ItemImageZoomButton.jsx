@@ -4,9 +4,10 @@ var Dialog = mui.Dialog;
 var RaisedButton = mui.RaisedButton;
 var FlatButton = mui.FlatButton;
 var FontIcon = mui.FontIcon;
+var dismissDialog = require("./utils/dismissDialog");
 
 var ItemImageZoomButton = React.createClass({
-  mixins: [MuiThemeMixin, DialogMixin],
+  mixins: [MuiThemeMixin],
 
   propTypes: {
     image: React.PropTypes.object.isRequired,
@@ -52,7 +53,7 @@ var ItemImageZoomButton = React.createClass({
           </div>
           <Dialog
             ref="imageZoom"
-            actions={this.okDismiss()}
+            actions={this.props.dismiss_func(this.dismissMessage)}
             openImmediately={false}
             style={{zIndex: 100}}
           >
@@ -65,4 +66,5 @@ var ItemImageZoomButton = React.createClass({
     }
   }
 });
-module.exports = ItemImageZoomButton;
+
+module.exports = dismissDialog(ItemImageZoomButton);

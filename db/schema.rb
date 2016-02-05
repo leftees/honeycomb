@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117161736) do
+ActiveRecord::Schema.define(version: 20160122191511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collection_configurations", force: :cascade do |t|
+    t.integer  "collection_id",              null: false
+    t.jsonb    "metadata",      default: {}, null: false
+    t.jsonb    "sorts",         default: {}, null: false
+    t.jsonb    "facets",        default: {}, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "collection_users", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -128,9 +137,10 @@ ActiveRecord::Schema.define(version: 20151117161736) do
     t.string   "uploaded_image_content_type"
     t.integer  "uploaded_image_file_size"
     t.datetime "uploaded_image_updated_at"
-    t.text     "metadata"
+    t.text     "metadata_json"
     t.integer  "image_status",                default: 0
-    t.string   "user_defined_id",                         null: false
+    t.string   "user_defined_id",                          null: false
+    t.jsonb    "metadata",                    default: {}, null: false
   end
 
   add_index "items", ["collection_id", "user_defined_id"], name: "index_items_on_collection_id_and_user_defined_id", unique: true, using: :btree
@@ -138,6 +148,14 @@ ActiveRecord::Schema.define(version: 20151117161736) do
   add_index "items", ["parent_id"], name: "index_items_on_parent_id", using: :btree
   add_index "items", ["published"], name: "index_items_on_published", using: :btree
   add_index "items", ["unique_id"], name: "index_items_on_unique_id", using: :btree
+
+  create_table "items_pages", id: false, force: :cascade do |t|
+    t.integer "page_id"
+    t.integer "item_id"
+  end
+
+  add_index "items_pages", ["item_id", "page_id"], name: "index_items_pages_on_item_id_and_page_id", using: :btree
+  add_index "items_pages", ["page_id", "item_id"], name: "index_items_pages_on_page_id_and_item_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "unique_id"
@@ -219,10 +237,13 @@ ActiveRecord::Schema.define(version: 20151117161736) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "collection_configurations", "collections"
   add_foreign_key "collection_users", "collections"
   add_foreign_key "collection_users", "users"
   add_foreign_key "items", "collections"
   add_foreign_key "items", "items", column: "parent_id"
+  add_foreign_key "items_pages", "items"
+  add_foreign_key "items_pages", "pages"
   add_foreign_key "pages", "collections"
   add_foreign_key "pages", "images"
   add_foreign_key "sections", "items"

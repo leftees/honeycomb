@@ -156,7 +156,7 @@ en:
     delete_panel:
       heading: Delete this Item
       message: "Proceed with caution. This will also remove all the items information from the site."
-      cannot_delete_message: "Deleting this item is disabled due to its additional resources or its usage in one or more showcases. Please first remove the additional resources from the item and ensure the item is not used in any showcases."
+      cannot_delete_message: "Deleting this item is disabled due to its additional resources or its usage in one or more showcases or pages. Please first remove the additional resources from the item and ensure the item is not used in any showcases or pages."
   item_children:
     new:
       title: "Upload Additional Resources"

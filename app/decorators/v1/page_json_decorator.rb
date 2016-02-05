@@ -1,7 +1,7 @@
 
 module V1
   class PageJSONDecorator < Draper::Decorator
-    delegate :id, :collection, :unique_id, :updated_at, :name, :content
+    delegate :id, :collection, :unique_id, :updated_at, :name, :content, :items
 
     def self.display(showcase, json)
       new(showcase).display(json)
@@ -37,7 +37,17 @@ module V1
 
     def display(json)
       if object.present?
-        json.partial! "/v1/pages/page", page_object: self
+        json.set! "@context", "http://schema.org"
+        json.set! "@type", "CreativeWork"
+        json.set! "@id", at_id
+        json.set! "isPartOf/collection", collection_url
+        json.set! "additionalType", additional_type
+        json.id unique_id
+        json.slug slug
+        json.name name
+        json.image image
+        json.content content
+        json.last_updated updated_at
       end
     end
   end

@@ -16,6 +16,7 @@ class SaveCollection
     collection.attributes = params
     check_unique_id
     if collection.save && process_uploaded_image
+      ensure_configuration_setup
       true
     else
       false
@@ -45,5 +46,9 @@ class SaveCollection
     else
       true
     end
+  end
+
+  def ensure_configuration_setup
+    CreateCollectionConfiguration.call(collection)
   end
 end

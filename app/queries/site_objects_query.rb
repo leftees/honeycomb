@@ -1,4 +1,5 @@
 class SiteObjectsQuery
+  # Gets an array of all of the objects referenced by site_objects
   def all(collection:)
     site_objects_json(collection_id: collection.id).map do |site_object|
       get_object(site_object: site_object)
@@ -15,6 +16,19 @@ class SiteObjectsQuery
       end
     end
     false
+  end
+
+  # Looks up all id's in a json string by unique id and converts to internal ids
+  # Ex:
+  #   [{ type: "Showcase", unique_id: "abc123" },{ type: "Showcase", unique_id: "xyz890" }]
+  # will become
+  #   [{ type: "Showcase", id: 1 },{ type: "Showcase", id: 2 }]
+  def public_to_private_json(json_string:)
+    site_objects = JSON.parse(json_string, symbolize_names: true)
+    site_objects.map do |site_object|
+      object = get_object_public(site_object: site_object)
+      { type: object.class.name, id: object.id }
+    end.to_json
   end
 
   # Given an object within the collection, this will find the next one in the list
@@ -51,10 +65,19 @@ class SiteObjectsQuery
   # Ex: [{type: "showcase", id: 3},{ type: "showcase", id:1 }]
   def site_objects_json(collection_id:)
     collection = Collection.find(collection_id)
-    if collection.nil?
+    if collection.nil? || collection.site_objects.blank?
       []
     else
       JSON.parse(collection.site_objects, symbolize_names: true)
+    end
+  end
+
+  # Gets an object by its unique_id instead of id
+  def get_object_public(site_object:)
+    if supported_types.include?(site_object[:type])
+      site_object[:type].constantize.find_by!(unique_id: site_object[:unique_id])
+    else
+      raise "Unsupported object type #{site_object[:type]}."
     end
   end
 

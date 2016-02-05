@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe SaveCollection, type: :model do
   subject { described_class.call(collection, params) }
-  let(:collection) { double(Collection, id: "id", "attributes=" => true, save: true, url: nil) }
+  let(:collection) { double(Collection, id: "id", "attributes=" => true, save: true, url: nil, collection_configuration: double) }
   let(:params) { { name_line_1: "name_line_1" } }
   let(:upload_image) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test.jpg"), "image/jpeg") }
 
@@ -83,6 +83,19 @@ RSpec.describe SaveCollection, type: :model do
     it "does add http if http is given but misspelled" do
       params[:url] = "htp://www.nowhere.nil"
       expect(collection).to receive(:attributes=).with(include(url: "http://htp://www.nowhere.nil"))
+      subject
+    end
+  end
+
+  describe "collection_configuration" do
+    it "calls CreateCollectionConfiguration after a success save" do
+      expect(CreateCollectionConfiguration).to receive(:call)
+      subject
+    end
+
+    it "does not call CreateCollectionConfiguration after a failure" do
+      allow(collection).to receive(:save).and_return(false)
+      expect(CreateCollectionConfiguration).to_not receive(:call)
       subject
     end
   end

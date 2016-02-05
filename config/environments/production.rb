@@ -61,7 +61,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   default_url_options = {
-    host: "collections.library.nd.edu",
+    host: "honeycomb.library.nd.edu",
     protocol: "https"
   }
   config.action_mailer.default_url_options = default_url_options

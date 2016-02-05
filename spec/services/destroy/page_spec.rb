@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Destroy::Page do
-  let(:page) { instance_double(Page) }
+  let(:page) { instance_double(Page, id: 1) }
 
   describe "#destroy" do
     it "destroys the Page" do
@@ -13,6 +13,7 @@ describe Destroy::Page do
   describe "#cascade" do
     it "destroys the Page" do
       expect(page).to receive(:destroy!)
+      expect(DestroyPageItemAssociations).to receive(:call).and_return(1)
       subject.cascade!(page: page)
     end
   end

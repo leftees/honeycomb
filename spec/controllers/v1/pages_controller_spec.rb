@@ -3,17 +3,17 @@ require "cache_spec_helper"
 
 RSpec.describe V1::PagesController, type: :controller do
   let(:collection) { instance_double(Collection, id: "1", updated_at: nil, pages: nil) }
-  let(:page) { instance_double(Page, id: "1", updated_at: nil, collection: nil) }
+  let(:page) { instance_double(Page, id: "1", updated_at: nil, collection: nil, items: []) }
 
   before(:each) do
     allow_any_instance_of(PageQuery).to receive(:public_find).and_return(page)
-    allow_any_instance_of(CollectionQuery).to receive(:public_find).and_return(collection)
+    allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
   end
 
   describe "#index" do
     subject { get :index, collection_id: collection.id, format: :json }
     it "calls CollectionQuery" do
-      expect_any_instance_of(CollectionQuery).to receive(:public_find).with(collection.id).and_return(collection)
+      expect_any_instance_of(CollectionQuery).to receive(:any_find).with(collection.id).and_return(collection)
 
       subject
     end

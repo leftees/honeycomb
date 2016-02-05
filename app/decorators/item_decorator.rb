@@ -73,7 +73,16 @@ class ItemDecorator < Draper::Decorator
   end
 
   def showcases_json
-    json_string = h.render :partial => "showcases/showcases", formats: [:json], locals: { showcases: object.showcases }
+    json_string = h.render partial: "showcases/showcases", formats: [:json], locals: { showcases: object.showcases }
+    if json_string
+      ActiveSupport::JSON.decode(json_string)
+    else
+      {}
+    end
+  end
+
+  def pages_json
+    json_string = h.render partial: "pages/pages", formats: [:json], locals: { pages: object.pages }
     if json_string
       ActiveSupport::JSON.decode(json_string)
     else

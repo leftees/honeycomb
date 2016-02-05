@@ -1,5 +1,5 @@
-var React = require('react/addons');
-var classNames = require('classnames');
+var React = require("react");
+var classNames = require("classnames");
 
 var Thumbnail = React.createClass({
   propTypes: {

@@ -36,6 +36,12 @@
         })
     %>
 
+    <%= react_component("PagesPanel", {
+          pages: @item.pages_json,
+          panelTitle: "Pages"
+        })
+    %>
+
     <%= ItemPublishEmbedPanel.display(@item.object) %>
 
   </div>

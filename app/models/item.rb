@@ -1,19 +1,17 @@
 class Item < ActiveRecord::Base
-  store :metadata,
-        accessors: [
-          :creator,
-          :contributor,
-          :publisher,
-          :alternate_name,
-          :rights,
-          :call_number,
-          :provenance,
-          :subject,
-          :original_language,
-          :date_created,
-          :date_published,
-          :date_modified
-        ], coder: JSON
+  store_accessor :metadata,
+                 :creator,
+                 :contributor,
+                 :publisher,
+                 :alternate_name,
+                 :rights,
+                 :call_number,
+                 :provenance,
+                 :subject,
+                 :original_language,
+                 :date_created,
+                 :date_published,
+                 :date_modified
 
   has_paper_trail
 
@@ -22,6 +20,8 @@ class Item < ActiveRecord::Base
   has_many :children, class_name: "Item", foreign_key: :parent_id
   has_many :sections
   has_many :showcases, -> { distinct }, through: :sections
+  has_many :items_pages
+  has_many :pages, through: :items_pages
   has_one :honeypot_image
 
   has_attached_file :image,

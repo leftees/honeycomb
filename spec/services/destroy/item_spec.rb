@@ -2,29 +2,51 @@ require "rails_helper"
 
 describe Destroy::Item do
   let(:section) { instance_double(Section, destroy!: true) }
-  let(:child) { instance_double(Item, sections: [], children: [child2], destroy!: true) }
-  let(:child2) { instance_double(Item, sections: [], children: [], destroy!: true) }
-  let(:item) { instance_double(Item, sections: [section, section], children: [child, child], destroy!: true) }
+  let(:page) { instance_double(Page, destroy!: true) }
+  let(:child) { instance_double(Item, pages: [], sections: [], children: [child2], destroy!: true) }
+  let(:child2) { instance_double(Item, pages: [], sections: [], children: [], destroy!: true) }
+  let(:item) { instance_double(Item, pages: [page, page, page], sections: [section, section], children: [child, child], destroy!: true) }
+  let(:item2) { instance_double(Item, pages: [], sections: [section, section], children: [child, child], destroy!: true) }
   let(:destroy_section) { instance_double(Destroy::Section, cascade!: nil) }
   let(:subject) { Destroy::Item.new(destroy_section: destroy_section) }
 
   before do
     allow(Index::Item).to receive(:remove!)
+    allow(RemovePageItem).to receive(:call)
   end
 
   describe "#destroy!" do
-    it "destroys the Item" do
-      expect(item).to receive(:destroy!)
-      subject.destroy!(item: item)
+    context "when there are no page associations" do
+      it "destroys the Item" do
+        expect(item2).to receive(:destroy!)
+        subject.destroy!(item: item2)
+      end
+
+      it "removes the item from the search index" do
+        expect(Index::Item).to receive(:remove!).with(item2)
+        subject.destroy!(item: item2)
+      end
     end
 
-    it "removes the item from the search index" do
-      expect(Index::Item).to receive(:remove!).with(item)
-      subject.destroy!(item: item)
+    context "when there are page associations" do
+      it "destroys the Item" do
+        expect(item).not_to receive(:destroy!)
+        subject.destroy!(item: item)
+      end
+
+      it "does not remove the item from the search index" do
+        expect(Index::Item).not_to receive(:remove!).with(item)
+        subject.destroy!(item: item)
+      end
     end
   end
 
   describe "#cascade!" do
+    it "calls delete on all page associations" do
+      expect(item.pages).to receive(:delete).with(page).at_least(3).times
+      subject.cascade!(item: item)
+    end
+
     it "calls DestroySection on all associated sections" do
       expect(destroy_section).to receive(:cascade!).with(section: section).twice
       subject.cascade!(item: item)

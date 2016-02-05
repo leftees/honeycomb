@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
 
     member do
-      site_setup_constraints = { form: /homepage|collection_introduction|about_text|copyright_text/ }
+      site_setup_constraints = { form: /homepage|collection_introduction|about_text|copyright_text|site_path/ }
       get "edit/:form", to: "collections#site_setup", as: :site_setup_form, constraints: site_setup_constraints
       put "edit/:form", to: "collections#site_setup_update", as: :site_setup_update_form, constraints: site_setup_constraints
       put :publish
@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       put :preview_mode, defaults: { format: :json }
       get :metadata_configuration, defaults: { format: :json }
       get :site_objects, defaults: { format: :json }
+      put :site_objects, to: "collections#site_objects_update", defaults: { format: :json }
       resources :search, only: [:index], defaults: { format: :json }
       resources :items, only: [:index, :create], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
