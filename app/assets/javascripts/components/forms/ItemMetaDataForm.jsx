@@ -222,7 +222,10 @@ var ItemMetaDataForm = React.createClass({
           <PanelHeading>{this.state.formValues.name} Meta Data</PanelHeading>
           <PanelBody>
             { this.dynamicFormFields() }
-          
+            <ItemMetaDataSelectAdditionalFields
+              displayedFields={this.state.displayedFields}
+              selectableFields={this.state.formFields}
+              onChangeHandler={this.changeAddField} />
           </PanelBody>
           <PanelFooter>
             <SubmitButton disabled={this.formDisabled()} handleClick={this.handleSave} />
