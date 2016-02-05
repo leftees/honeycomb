@@ -57,7 +57,14 @@ class SaveItem
   def process_uploaded_image
     if params[:uploaded_image]
       item.image_processing!
-      QueueJob.call(ProcessImageJob, object: item)
+      begin
+        QueueJob.call(ProcessImageJob, object: item)
+      rescue Bunny::TCPConnectionFailedForAllHosts
+        item.image_unavailable!
+      end
+    elsif item.image_unavailable?
+      set_no_image
+      true
     else
       true
     end
@@ -69,6 +76,10 @@ class SaveItem
 
   def index_item
     Index::Item.index!(item)
+  end
+
+  def set_no_image
+    item.no_image!
   end
 
   def fix_image_references
