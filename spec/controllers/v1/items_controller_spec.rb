@@ -64,7 +64,7 @@ RSpec.describe V1::ItemsController, type: :controller do
 
   describe "PUT #update" do
     let(:collection) { double(Collection, id: "1") }
-    let(:item) { double(Item, id: 1, parent: nil, collection: collection) }
+    let(:item) { instance_double(Item, id: 1, parent: nil, collection: collection) }
     let(:update_params) { { format: :json, id: item.id, item: { name: "item" } } }
     let(:base_config) do
       c = CreateCollectionConfiguration.new("")
