@@ -1,6 +1,5 @@
 var React = require('react');
 var mui = require("material-ui");
-var EventEmitter = require('../../EventEmitter');
 
 var MetaDataConfigurationForm = React.createClass({
   propTypes: {
@@ -46,7 +45,7 @@ var MetaDataConfigurationForm = React.createClass({
     return this.state.fields.map(function(field) {
       return (
         <mui.TableRow>
-          <mui.TableRowColumn><mui.FlatButton id={ field.name }
+          <mui.TableRowColumn><mui.FlatButton
             label="Edit"
             onTouchTap={ function() { this.handleRowClick(field.name); }.bind(this) }
           /></mui.TableRowColumn>
@@ -67,7 +66,7 @@ var MetaDataConfigurationForm = React.createClass({
     const { selectedField } = this.state;
     return (
       <div>
-        <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } />
+        <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } updateUrl={ this.props.updateUrl }/>
         <mui.Table>
           <mui.TableHeader displaySelectAll={ false } >
             <mui.TableRow>

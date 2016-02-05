@@ -96,7 +96,6 @@ var MetaDataFieldDialog = React.createClass({
 
   getFieldProps: function() {
     return [
-      <mui.TextField style={{ width: "100%" }} floatingLabelText="Name" valueLink={ this.linkFieldState('name') } />,
       <mui.TextField style={{ width: "100%" }} floatingLabelText="Label" valueLink={ this.linkFieldState('label') } />,
       <mui.SelectField style={{ width: "100%" }} floatingLabelText="Type" menuItems={ this.getTypeOptions() } valueLink={ this.linkFieldState('type') } />,
       <mui.Checkbox style={{ width: "100%" }} label="Allow multiple values?" checkedLink={ this.linkFieldState('multiple') } />,
