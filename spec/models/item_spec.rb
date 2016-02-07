@@ -37,7 +37,7 @@ RSpec.describe Item do
 
   [
     :image_ready,
-    :image_invalid,
+    :image_unavailable,
     :image_processing
   ].each do |field|
     it "has enum, #{field}" do

@@ -51,7 +51,7 @@ var ItemMetaDataSelectAdditionalFields = React.createClass({
       return <p>loading...</p>
     }
     var dropDownIconStyle = {
-      right: this.muiTheme.spacing.desktopGutterLess,
+      //right: this.muiTheme.spacing.desktopGutterLess,
     };
     var underlineStyle = {
       borderTop: "solid 2px rgb(44, 88, 130)",

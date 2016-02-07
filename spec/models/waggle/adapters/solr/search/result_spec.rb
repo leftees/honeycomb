@@ -114,9 +114,11 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
       subject { solr_params.fetch(:"facet.field") }
 
       it "is the configured facet fields, excluding their relevant filter" do
-        expect(subject).to eq([
-          "{!ex=creator_facet}creator_facet"
-        ])
+        expect(subject).to eq(
+          [
+            "{!ex=creator_facet}creator_facet"
+          ]
+        )
       end
     end
 

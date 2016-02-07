@@ -37,13 +37,12 @@ class Item < ActiveRecord::Base
                     restricted_characters: /[&$+,\/:;=?@<>\[\]{}\|\\^~%#]/
 
   validates :collection, :unique_id, :user_defined_id, presence: true
-  # validates :date_created, :date_modified, :date_published, date: true
   validate :manuscript_url_is_valid_uri
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates_attachment_content_type :uploaded_image, content_type: /\Aimage\/.*\Z/
 
-  enum image_status: { image_invalid: 0, image_processing: 1, image_ready: 2 }
+  enum image_status: { no_image: 0, image_processing: 1, image_ready: 2, image_unavailable: 3 }
 
   def name
     item_metadata.field(:name).first.value
