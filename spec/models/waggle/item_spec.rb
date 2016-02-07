@@ -47,7 +47,7 @@ RSpec.describe Waggle::Item do
   describe "thumbnail_url" do
     it "is the correct value" do
       expect(subject.thumbnail_url).to be_present
-      expect(subject.thumbnail_url).to eq(data["image"]["thumbnail/small"]["contentUrl"])
+      expect(subject.thumbnail_url).to eq(data["image"]["thumbnail/medium"]["contentUrl"])
     end
   end
 

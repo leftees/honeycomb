@@ -62,7 +62,7 @@ module Waggle
 
     def thumbnail
       if image
-        image["thumbnail/small"]
+        image["thumbnail/medium"]
       end
     end
   end
