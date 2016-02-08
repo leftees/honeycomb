@@ -65,6 +65,7 @@ DropzoneForm = require("./components/forms/DropzoneForm");
 ButtonLink = require("./components/forms/ButtonLink");
 SiteObjectCard = require("./components/forms/SiteObjectCard");
 SitePath = require("./components/forms/SitePath");
+MetaDataFieldDialog = require("./components/forms/MetaDataFieldDialog");
 MetaDataConfigurationForm = require("./components/forms/MetaDataConfigurationForm");
 
 // panel

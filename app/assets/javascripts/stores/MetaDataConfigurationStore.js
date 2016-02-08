@@ -1,6 +1,7 @@
 var AppDispatcher = require("../dispatcher/AppDispatcher");
 var EventEmitter = require("events").EventEmitter;
 var CollectionStore = require("stores/Collection");
+var MetaDataConfigurationActionTypes = require("../constants/MetaDataConfigurationActionTypes");
 var axios = require("axios");
 
 class MetaDataConfigurationStore extends EventEmitter {
@@ -14,8 +15,17 @@ class MetaDataConfigurationStore extends EventEmitter {
     AppDispatcher.register(this.receiveAction.bind(this));
   }
 
-  receiveAction() {
-    // held for use when actions are sent back to the object.
+  receiveAction(action) {
+    switch(action.actionType) {
+      case MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD:
+        this.changeField(action.name, action.values);
+        break;
+    }
+  }
+
+  changeField(name, values) {
+    this._data.fields[name] = values;
+    this.emit("MetaDataConfigurationStoreChanged");
   }
 
   // Pass false for useCache if you want to force a new load from the api
