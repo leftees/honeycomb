@@ -47,6 +47,6 @@ class GoogleCreateItems
   private
 
   def configuration(collection_id)
-    @configuration ||= Metadata::Configuration.new(CollectionConfigurationQuery.new(CollectionQuery.new.find(collection_id)).find)
+    @configuration ||= CollectionConfigurationQuery.new(CollectionQuery.new.find(collection_id)).find
   end
 end

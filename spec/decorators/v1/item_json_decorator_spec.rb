@@ -26,7 +26,7 @@ RSpec.describe V1::ItemJSONDecorator do
   end
 
   describe "#at_id" do
-    let(:item) { double(Item, unique_id: "adsf", name: "name") }
+    let(:item) { instance_double(Item, unique_id: "adsf", name: "name") }
 
     it "returns the path to the id" do
       expect(subject.at_id).to eq("http://test.host/v1/items/adsf")
@@ -34,7 +34,7 @@ RSpec.describe V1::ItemJSONDecorator do
   end
 
   context "collection" do
-    let(:item) { double(Item, collection: collection) }
+    let(:item) { instance_double(Item, collection: collection) }
     let(:collection) { double(Collection, unique_id: "colasdf") }
 
     describe "#collection_id" do
@@ -51,7 +51,7 @@ RSpec.describe V1::ItemJSONDecorator do
   end
 
   describe "#slug" do
-    let(:item) { double(Item, name: "sluggish") }
+    let(:item) { instance_double(Item, name: "sluggish") }
 
     it "Calls the slug generator" do
       expect(CreateURLSlug).to receive(:call).with(item.name)
@@ -60,7 +60,7 @@ RSpec.describe V1::ItemJSONDecorator do
   end
 
   describe "#image" do
-    let(:item) { double(Item, honeypot_image: honeypot_image, image_ready?: true) }
+    let(:item) { instance_double(Item, honeypot_image: honeypot_image, image_ready?: true) }
     let(:honeypot_image) { double(HoneypotImage, json_response: "json_response") }
 
     it "gets the honeypot_image json_response" do
@@ -72,7 +72,7 @@ RSpec.describe V1::ItemJSONDecorator do
   context "valid objects" do
     let(:collection) { Collection.new(unique_id: "test-collection") }
     let(:item) do
-      double(
+      instance_double(
         Item,
         name: "name",
         description: "description",

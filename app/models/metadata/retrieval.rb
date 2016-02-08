@@ -25,7 +25,7 @@ module Metadata
     private
 
     def configuration
-      @configuration ||= Metadata::Configuration.new(CollectionConfigurationQuery.new(item.collection).find)
+      @configuration ||= CollectionConfigurationQuery.new(item.collection).find
     end
 
     def get(field)

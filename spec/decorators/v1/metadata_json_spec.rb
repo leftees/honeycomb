@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe V1::MetadataJSON do
-  let(:item) { double(Item, item_metadata: item_metadata) }
+  let(:item) { instance_double(Item, item_metadata: item_metadata) }
   let(:collection_configuration) { double(Metadata::Configuration, field: metadata_config) }
   let(:instance) { described_class.new(item) }
 

@@ -41,7 +41,7 @@ module Index
     private_class_method :notify_error
 
     def self.get_configuration(item)
-      Metadata::Configuration.new(CollectionConfigurationQuery.new(item.collection).find)
+      CollectionConfigurationQuery.new(item.collection).find
     end
   end
 end
