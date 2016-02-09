@@ -54,17 +54,6 @@ module V1
       end
     end
 
-    def metadata_configuration
-      collection = CollectionQuery.new.any_find(params[:collection_id])
-      @configuration = CollectionConfigurationQuery.new(collection).find
-      @configuration = Metadata::Configuration.new(@configuration)
-      @configuration = V1::MetadataConfigurationJSON.new(@configuration)
-
-      respond_to do |format|
-        format.json { render json: @configuration.to_json }
-      end
-    end
-
     def site_objects
       collection = CollectionQuery.new.any_find(params[:collection_id])
       @collection = CollectionJSONDecorator.new(collection)

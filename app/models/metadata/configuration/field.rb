@@ -1,9 +1,13 @@
 module Metadata
   class Configuration
     class Field
+      include ActiveModel::Validations
       TYPES = [:string, :html, :date]
 
-      attr_reader :name, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost
+      attr_accessor :name, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost
+
+      validates :name, :type, :label, :order, presence: true
+      validates :type, inclusion: TYPES
 
       def initialize(
         name:,
@@ -40,6 +44,33 @@ module Metadata
         json["optionalFormField"] = json.delete("optional_form_field")
 
         json
+      end
+
+      def to_hash
+        {
+          name: name,
+          type: type,
+          label: label,
+          multiple: multiple,
+          required: required,
+          default_form_field: default_form_field,
+          optional_form_field: optional_form_field,
+          order: order,
+          placeholder: placeholder,
+          help: help,
+          boost: boost,
+        }
+      end
+
+      def update(new_attributes)
+        if name.present?
+          new_attributes.delete(:name)
+        end
+
+        new_attributes.each do |key, value|
+          send("#{key}=", value)
+        end
+        valid?
       end
     end
   end

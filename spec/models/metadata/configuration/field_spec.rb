@@ -98,4 +98,65 @@ RSpec.describe Metadata::Configuration::Field do
       expect(subject.to_json).to_not include("option_form_field")
     end
   end
+
+  context "validataions" do
+    it "validates the presence of a name" do
+      subject.name = nil
+      expect(subject).to have(1).errors_on(:name)
+    end
+
+    it "validates the presence of type" do
+      subject.type = nil
+      expect(subject).to have(2).errors_on(:type)
+    end
+
+    it "validates the presence of label" do
+      expect(subject.update(label: nil)).to be(false)
+      expect(subject).to have(1).errors_on(:label)
+    end
+
+    it "validates the presence of order" do
+      expect(subject.update(order: nil)).to be(false)
+      expect(subject).to have(1).errors_on(:order)
+    end
+  end
+
+  describe "updatee" do
+    it "changes the values of the fields passed in" do
+      subject.update(order: "new_order", label: "NAME!")
+      expect(subject.order).to eq("new_order")
+      expect(subject.label).to eq("NAME!")
+    end
+
+    it "errors if there are invalid keys in the field hash" do
+      expect { subject.update(not_a_key: "value") }.to raise_error
+    end
+
+    it "returns true if it is a valid update" do
+      expect(subject.update(label: "NAME!")).to be(true)
+    end
+
+    it "does not allow name to be changed" do
+      subject.update(name: "new_name")
+      expect(subject.name).to eq(:string_field)
+    end
+  end
+
+  describe "to_hash" do
+    it "converts the data to a hash." do
+      expect(subject.to_hash).to eq(
+        name: :string_field,
+        type: :string,
+        label: "String",
+        multiple: false,
+        required: false,
+        default_form_field: true,
+        optional_form_field: false,
+        order: true,
+        placeholder: "placeholder",
+        help: "help",
+        boost: 1
+      )
+    end
+  end
 end
