@@ -154,7 +154,7 @@ RSpec.describe V1::CollectionJSONDecorator do
     let(:collection) { double(Collection, unique_id: "adsf") }
 
     it "returns the path to the items" do
-      expect(subject.metadata_configuration_url).to eq("http://test.host/v1/collections/adsf/metadata_configuration")
+      expect(subject.metadata_configuration_url).to eq("http://test.host/v1/collections/adsf/configurations")
     end
   end
 

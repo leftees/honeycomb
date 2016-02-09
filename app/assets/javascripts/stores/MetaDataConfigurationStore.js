@@ -31,7 +31,7 @@ class MetaDataConfigurationStore extends EventEmitter {
   // Pass false for useCache if you want to force a new load from the api
   getAll(useCache) {
     var id = CollectionStore.uniqueId;
-    var url = "/v1/collections/" + id + "/metadata_configuration";
+    var url = "/v1/collections/" + id + "/configurations";
 
     if (!this._promise || !useCache) {
       this._promise = axios.get(url)

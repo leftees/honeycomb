@@ -20,7 +20,7 @@ module V1
     end
 
     def metadata_configuration_url
-      h.v1_collection_metadata_configuration_url(object.unique_id)
+      h.v1_collection_configurations_url(object.unique_id)
     end
 
     def external_url
