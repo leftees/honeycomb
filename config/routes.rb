@@ -81,8 +81,8 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :create], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
       resources :pages, only: [:index], defaults: { format: :json }
-      resource :configurations, default: { format: :json }, only: [:show], to: "configurations#show" do
-        resources :metadata_fields, only: [:create, :update, :destroy, :index]
+      resource :configurations, defaults: { format: :json }, only: [:show] do
+        resources :metadata_fields, only: [:create, :update, :destroy],defaults: { format: :json }
       end
     end
     resources :items,
