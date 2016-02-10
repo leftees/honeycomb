@@ -81,8 +81,18 @@ module Metadata
       end
 
       def convert_json_to_ruby_keys!(hash)
-        hash["default_form_field"] = hash.delete("defaultFormField")
-        hash["optional_form_field"] = hash.delete("optionalFormField")
+        hash.to_hash.symbolize_keys!
+        hash[:type] = hash[:type].to_sym if hash[:type]
+        hash[:default_form_field] = hash.delete(:defaultFormField) if hash[:defaultFormField]
+        hash[:optional_form_field] = hash.delete(:optionalFormField) if hash[:optionalFormField]
+
+        convert_strings_to_booleans([:multiple, :required, :default_form_field, :optional_form_field], hash)
+      end
+
+      def convert_strings_to_booleans(keys, hash)
+        keys.each do |key|
+          hash[key] = hash[key] == "true" ? true : false if hash[key]
+        end
       end
     end
   end
