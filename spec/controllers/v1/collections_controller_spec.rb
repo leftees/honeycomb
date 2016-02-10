@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe V1::CollectionsController, type: :controller do
-  let(:collection) { instance_double(Collection, id: 1, published: false, site_objects: "[]") }
+  let(:collection) { instance_double(Collection, id: 1, published: false, site_path: "[]") }
   let(:collections) { [collection] }
 
   before(:each) do
@@ -151,8 +151,8 @@ RSpec.describe V1::CollectionsController, type: :controller do
     end
   end
 
-  describe "#site_objects" do
-    subject { get :site_objects, collection_id: collection.id, format: :json }
+  describe "#site_path" do
+    subject { get :site_path, collection_id: collection.id, format: :json }
 
     before(:each) do
       allow(Collection).to receive(:find).and_return(collection)
@@ -171,34 +171,42 @@ RSpec.describe V1::CollectionsController, type: :controller do
     it "assigns collection" do
       subject
       expect(assigns(:collection)).to be_present
-      expect(subject).to render_template("v1/collections/site_objects")
+      expect(subject).to render_template("v1/collections/site_path")
     end
 
     it "renders the correct template" do
       subject
-      expect(subject).to render_template("v1/collections/site_objects")
+      expect(subject).to render_template("v1/collections/site_path")
     end
 
     it_behaves_like "a private basic custom etag cacher"
 
-    it "uses the V1Collections#site_objects to generate the cache key" do
-      expect_any_instance_of(CacheKeys::Custom::V1Collections).to receive(:site_objects)
+    it "uses the V1Collections#site_path to generate the cache key" do
+      expect_any_instance_of(CacheKeys::Custom::V1Collections).to receive(:site_path)
       subject
     end
   end
 
+<<<<<<< HEAD
   describe "#site_objects_update" do
     let(:collection) { instance_double(Collection, id: 1, site_objects: nil) }
     let(:site_objects) { "site_objects" }
     let(:site_objects_translated) { "site_objects_translated" }
     let(:subject) { put :site_objects_update, collection_id: collection.id, site_objects: site_objects, format: :json }
+=======
+  describe "#site_path_update" do
+    let(:collection) { instance_double(Collection, id: 1, site_path: nil) }
+    let(:site_path) { "site_path" }
+    let(:site_path_translated) { "site_path_translated" }
+    let(:subject) { put :site_path_update, collection_id: collection.id, site_path: site_path, format: :json }
+>>>>>>> master
 
     before(:each) do
       sign_in_admin
       allow_any_instance_of(CollectionQuery).to receive(:any_find).and_return(collection)
       allow(Collection).to receive(:find).and_return(collection)
       allow(SaveCollection).to receive(:call).and_return(true)
-      allow_any_instance_of(SiteObjectsQuery).to receive(:public_to_private_json).and_return(site_objects_translated)
+      allow_any_instance_of(SiteObjectsQuery).to receive(:public_to_private_json).and_return(site_path_translated)
     end
 
     it "calls SiteObjectsQuery" do
@@ -206,8 +214,13 @@ RSpec.describe V1::CollectionsController, type: :controller do
       subject
     end
 
-    it "sets the site_objects for collection using the string translated by SiteObjectsQuery" do
-      expect(SaveCollection).to receive(:call).with(collection, site_objects: site_objects_translated).and_return(true)
+    it "sets the site_path for collection using the string translated by SiteObjectsQuery" do
+      expect(SaveCollection).to receive(:call).with(collection, site_path: site_path_translated).and_return(true)
+      subject
+    end
+
+    it "checks the editor permissions" do
+      expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection)
       subject
     end
 
