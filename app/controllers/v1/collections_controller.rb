@@ -54,9 +54,6 @@ module V1
       end
     end
 
-<<<<<<< HEAD
-    def site_objects
-=======
     def metadata_configuration
       collection = CollectionQuery.new.any_find(params[:collection_id])
       @configuration = CollectionConfigurationQuery.new(collection).find
@@ -69,7 +66,6 @@ module V1
     end
 
     def site_path
->>>>>>> master
       collection = CollectionQuery.new.any_find(params[:collection_id])
       @collection = CollectionJSONDecorator.new(collection)
       @site_path = SiteObjectsQuery.new.all(collection: collection)

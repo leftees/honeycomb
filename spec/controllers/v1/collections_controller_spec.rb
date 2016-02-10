@@ -187,19 +187,11 @@ RSpec.describe V1::CollectionsController, type: :controller do
     end
   end
 
-<<<<<<< HEAD
-  describe "#site_objects_update" do
-    let(:collection) { instance_double(Collection, id: 1, site_objects: nil) }
-    let(:site_objects) { "site_objects" }
-    let(:site_objects_translated) { "site_objects_translated" }
-    let(:subject) { put :site_objects_update, collection_id: collection.id, site_objects: site_objects, format: :json }
-=======
   describe "#site_path_update" do
     let(:collection) { instance_double(Collection, id: 1, site_path: nil) }
     let(:site_path) { "site_path" }
     let(:site_path_translated) { "site_path_translated" }
     let(:subject) { put :site_path_update, collection_id: collection.id, site_path: site_path, format: :json }
->>>>>>> master
 
     before(:each) do
       sign_in_admin
