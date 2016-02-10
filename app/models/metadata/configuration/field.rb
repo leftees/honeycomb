@@ -40,8 +40,7 @@ module Metadata
 
       def as_json(options = {})
         json = super
-        json["defaultFormField"] = json.delete("default_form_field")
-        json["optionalFormField"] = json.delete("optional_form_field")
+        convert_keys_to_json!(json)
 
         json
       end
@@ -66,11 +65,24 @@ module Metadata
         if name.present?
           new_attributes.delete(:name)
         end
+        convert_json_to_ruby_keys!(new_attributes)
 
         new_attributes.each do |key, value|
           send("#{key}=", value)
         end
         valid?
+      end
+
+      private
+
+      def convert_keys_to_json!(json)
+        json["defaultFormField"] = json.delete("default_form_field")
+        json["optionalFormField"] = json.delete("optional_form_field")
+      end
+
+      def convert_json_to_ruby_keys!(hash)
+        hash["default_form_field"] = hash.delete("defaultFormField")
+        hash["optional_form_field"] = hash.delete("optionalFormField")
       end
     end
   end

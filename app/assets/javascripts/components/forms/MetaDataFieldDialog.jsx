@@ -14,7 +14,7 @@ var MetaDataFieldDialog = React.createClass({
 
   propTypes: {
     open: React.PropTypes.bool.isRequired,
-    updateUrl: React.PropTypes.string.isRequired,
+    baseUpdateUrl: React.PropTypes.string.isRequired,
     fieldName: React.PropTypes.string,
   },
 
@@ -69,7 +69,7 @@ var MetaDataFieldDialog = React.createClass({
   },
 
   handleSave: function() {
-    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.updateUrl);
+    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.baseUpdateUrl);
     this.setState({ saving: true});
   },
 
