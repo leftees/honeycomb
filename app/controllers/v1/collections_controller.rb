@@ -54,23 +54,34 @@ module V1
       end
     end
 
-    def site_objects
+    def metadata_configuration
+      collection = CollectionQuery.new.any_find(params[:collection_id])
+      @configuration = CollectionConfigurationQuery.new(collection).find
+      @configuration = Metadata::Configuration.new(@configuration)
+      @configuration = V1::MetadataConfigurationJSON.new(@configuration)
+
+      respond_to do |format|
+        format.json { render json: @configuration.to_json }
+      end
+    end
+
+    def site_path
       collection = CollectionQuery.new.any_find(params[:collection_id])
       @collection = CollectionJSONDecorator.new(collection)
-      @site_objects = SiteObjectsQuery.new.all(collection: collection)
+      @site_path = SiteObjectsQuery.new.all(collection: collection)
       cache_key = CacheKeys::Generator.new(key_generator: CacheKeys::Custom::V1Collections,
-                                           action: "site_objects",
-                                           collection: collection, site_objects: @site_objects)
+                                           action: "site_path",
+                                           collection: collection, site_path: @site_path)
       fresh_when(etag: cache_key.generate)
     end
 
-    def site_objects_update
+    def site_path_update
       @collection = CollectionQuery.new.any_find(params[:collection_id])
 
       return if rendered_forbidden?(@collection)
 
-      site_objects = SiteObjectsQuery.new.public_to_private_json(json_string: params[:site_objects])
-      @return_value = SaveCollection.call(@collection, site_objects: site_objects)
+      site_path = SiteObjectsQuery.new.public_to_private_json(json_string: params[:site_path])
+      @return_value = SaveCollection.call(@collection, site_path: site_path)
 
       respond_to do |format|
         format.json { render json: { status: @return_value }.to_json }
