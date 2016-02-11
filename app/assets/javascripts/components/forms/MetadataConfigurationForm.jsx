@@ -3,7 +3,7 @@ var mui = require("material-ui");
 
 var MetaDataConfigurationForm = React.createClass({
   propTypes: {
-    updateUrl: React.PropTypes.string.isRequired,
+    baseUpdateUrl: React.PropTypes.string.isRequired,
   },
 
   getInitialState: function() {
@@ -71,7 +71,7 @@ var MetaDataConfigurationForm = React.createClass({
     return (
       <div>
         <mui.RaisedButton label="New Metadata Field" onClick={ this.handleNewClick } />
-        <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } updateUrl={ this.props.updateUrl }/>
+        <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } baseUpdateUrl={ this.props.baseUpdateUrl }/>
         <mui.Table>
           <mui.TableHeader displaySelectAll={ false } >
             <mui.TableRow>

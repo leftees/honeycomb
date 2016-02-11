@@ -140,6 +140,28 @@ RSpec.describe Metadata::Configuration::Field do
       subject.update(name: "new_name")
       expect(subject.name).to eq(:string_field)
     end
+
+    it "converts a string type to symbol type" do
+      subject.update(type: "html")
+      expect(subject.type).to eq(:html)
+    end
+
+    it "converts json keys to ruby keys" do
+      subject.update(defaultFormField: "true", optionalFormField: "false")
+      expect(subject.default_form_field).to eq(true)
+      expect(subject.optional_form_field).to eq(false)
+    end
+
+    it "converts string booleans to bools" do
+      subject.update(multiple: "true", required: "false")
+      expect(subject.multiple).to eq(true)
+      expect(subject.required).to eq(false)
+    end
+
+    it "works with string keys" do
+      subject.update("label" => "NAME!")
+      expect(subject.label).to eq("NAME!")
+    end
   end
 
   describe "to_hash" do

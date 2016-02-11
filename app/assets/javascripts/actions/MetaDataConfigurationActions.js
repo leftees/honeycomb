@@ -16,13 +16,13 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
       values: fieldValues,
     });
 
+    pushToUrl += "/" + fieldName;
     $.ajax({
       url: pushToUrl,
       dataType: "json",
       method: "PUT",
       data: {
-        fieldName: fieldName,
-        fieldValues: fieldValues,
+        fields: fieldValues,
       },
       success: (function() {
         // Store was already changed, nothing to do here

@@ -187,7 +187,6 @@ RSpec.describe V1::CollectionsController, type: :controller do
     end
   end
 
-
   describe "#site_path_update" do
     let(:collection) { instance_double(Collection, id: 1, site_path: nil) }
     let(:site_path) { "site_path" }

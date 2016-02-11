@@ -14,8 +14,12 @@ var MetaDataFieldDialog = React.createClass({
 
   propTypes: {
     open: React.PropTypes.bool.isRequired,
+<<<<<<< HEAD
     updateUrl: React.PropTypes.string.isRequired,
     createForm: React.PropTypes.bool,
+=======
+    baseUpdateUrl: React.PropTypes.string.isRequired,
+>>>>>>> DEC-766-allow-metaconfig-to-be-updated
     fieldName: React.PropTypes.string,
   },
 
@@ -90,8 +94,8 @@ var MetaDataFieldDialog = React.createClass({
   },
 
   handleSave: function() {
-    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.updateUrl);
-    this.setState({ saving: true });
+    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.baseUpdateUrl);
+    this.setState({ saving: true});
   },
 
   handleSaved: function(success, data) {
