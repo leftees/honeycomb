@@ -62,10 +62,15 @@ var MetaDataConfigurationForm = React.createClass({
     this.setState({ selectedField: field });
   },
 
+  handleNewClick: function() {
+    this.setState({ selectedField: "NEWFIELD"});
+  },
+
   render: function(){
     const { selectedField } = this.state;
     return (
       <div>
+        <mui.RaisedButton label="New Metadata Field" onClick={ this.handleNewClick } />
         <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } updateUrl={ this.props.updateUrl }/>
         <mui.Table>
           <mui.TableHeader displaySelectAll={ false } >

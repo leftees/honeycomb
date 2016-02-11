@@ -22,9 +22,6 @@ module Metadata
         multiple: false,
         required: false
       )
-        unless TYPES.include?(type.to_sym)
-          raise ArgumentError, "Invalid type: #{type}.  Must be one of #{TYPES.join(', ')}"
-        end
         @name = name.to_sym
         @type = type.to_sym
         @label = label
@@ -36,6 +33,10 @@ module Metadata
         @placeholder = placeholder
         @help = help
         @boost = boost
+
+        if !valid?
+          raise ArgumentError, errors.full_messages.join(", ")
+        end
       end
 
       def as_json(options = {})

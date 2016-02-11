@@ -15,7 +15,14 @@ var MetaDataFieldDialog = React.createClass({
   propTypes: {
     open: React.PropTypes.bool.isRequired,
     updateUrl: React.PropTypes.string.isRequired,
+    createForm: React.PropTypes.bool,
     fieldName: React.PropTypes.string,
+  },
+
+  getDefaultProps: function() {
+    return {
+      createForm: false
+    }
   },
 
   // Creating custom react link so that we can store the field values
@@ -32,6 +39,10 @@ var MetaDataFieldDialog = React.createClass({
   updateFieldValue: function(key, value) {
     var kvp = {};
     kvp[key] = value;
+    if (key == "required") {
+      kvp["defaultFormField"] = true
+    }
+
     var fieldValues = update(this.state.fieldValues, {$merge: kvp});
     this.setState({ fieldValues: fieldValues });
   },
@@ -41,6 +52,7 @@ var MetaDataFieldDialog = React.createClass({
       open: this.props.open,
       fieldName: this.props.fieldName,
       saving: false,
+      createForm: false,
     };
   },
 
@@ -51,11 +63,20 @@ var MetaDataFieldDialog = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     if(nextProps.open) {
       // Clone store field values, otherwise the linked states will directly change the store
-      fieldValues = update(MetaDataConfigurationStore.fields[nextProps.fieldName], {});
+      var fieldValues;
+      var createFrom;
+      if (MetaDataConfigurationStore.fields[nextProps.fieldName]) {
+        fieldValues= MetaDataConfigurationStore.fields[nextProps.fieldName];
+        createFrom = false;
+      } else {
+        fieldValues = _. mapObject(_.find(MetaDataConfigurationStore.fields), function() { return null; });
+        createFrom = true;
+      }
       this.setState({
         open: nextProps.open,
         fieldName: nextProps.fieldName,
         fieldValues: fieldValues,
+        createForm: createFrom,
       });
     }
   },
@@ -70,7 +91,7 @@ var MetaDataFieldDialog = React.createClass({
 
   handleSave: function() {
     MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.updateUrl);
-    this.setState({ saving: true});
+    this.setState({ saving: true });
   },
 
   handleSaved: function(success, data) {
@@ -97,11 +118,35 @@ var MetaDataFieldDialog = React.createClass({
   getFieldProps: function() {
     return [
       <mui.TextField style={{ width: "100%" }} floatingLabelText="Label" valueLink={ this.linkFieldState('label') } />,
-      <mui.SelectField style={{ width: "100%" }} floatingLabelText="Type" menuItems={ this.getTypeOptions() } valueLink={ this.linkFieldState('type') } />,
-      <mui.Checkbox style={{ width: "100%" }} label="Allow multiple values?" checkedLink={ this.linkFieldState('multiple') } />,
-      <mui.Checkbox style={{ width: "100%" }} label="Always show on the item form?" checkedLink={ this.linkFieldState('defaultFormField') } />,
+      this.selectField(),
+      <hr />,
+      this.allowMultipleCheckbox(),
       <mui.Checkbox style={{ width: "100%" }} label="Require presence on all items?" checkedLink={ this.linkFieldState('required') } />,
+      this.defaultFormFieldCheckbox(),
     ];
+  },
+
+  selectField: function() {
+    if (this.state.createForm) {
+      return (<mui.SelectField style={{ width: "100%" }} floatingLabelText="Type" menuItems={ this.getTypeOptions() } valueLink={ this.linkFieldState('type') } />);
+    }
+    return "";
+  },
+
+  allowMultipleCheckbox: function() {
+    if (this.state.fieldValues["type"] == "string") {
+      return (<mui.Checkbox style={{ width: "100%" }} label="Allow multiple values?" checkedLink={ this.linkFieldState('multiple') } />);
+    }
+    return "";
+  },
+
+  defaultFormFieldCheckbox: function() {
+    var disabled = false;
+    if (this.state.fieldValues["required"]) {
+      disabled = true;
+    }
+
+    return (<mui.Checkbox style={{ width: "100%" }} disabled={disabled} label="Always show on the item form?" checkedLink={ this.linkFieldState('defaultFormField') } />);
   },
 
   render: function() {

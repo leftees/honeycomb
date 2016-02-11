@@ -6,7 +6,7 @@ var APIResponseMixin = require("../mixins/APIResponseMixin");
 var update = require("react-addons-update");
 
 class MetaDataConfigurationActions extends NodeEventEmitter {
-  changeField(fieldName, fieldValues, pushToUrl) {
+  changeField(fieldName, fieldValues, pushToUrl, update) {
     // Clone values in order to revert the store if the change fails
     const previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
     // Optimistically change the store
