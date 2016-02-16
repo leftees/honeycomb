@@ -24,6 +24,10 @@ class MetaDataConfigurationStore extends EventEmitter {
   }
 
   changeField(name, values) {
+    // ensure the values
+    if (!values["order"]) {
+      values["order"] = this.fields.length + 1;
+    }
     this._data.fields[name] = values;
     this.emit("MetaDataConfigurationStoreChanged");
   }

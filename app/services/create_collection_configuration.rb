@@ -2,7 +2,7 @@ class CreateCollectionConfiguration
   attr_reader :collection
 
   def self.call(collection)
-    new(collection).create
+    new(collection).create(force)
   end
 
   def initialize(collection)
