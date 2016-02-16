@@ -5,6 +5,7 @@ $multi-field-background: #f2f2f2;
 $multi-field-color: #696969;
 $dnd-ondrag-color: rgba(0, 0, 0, 0.05);
 $dnd-onhover-color: rgba(0, 0, 0, 0.15);
+$blockquote-gray: #777;
 
 body {
 	background: #fff;
@@ -506,5 +507,86 @@ div.dataTables_filter {
   }
 }
 
+.page-redactor {
+  .redactor-box {
+		max-width: 38.5em;
+	  font-size: 16px;
+		border: 1px solid #eee;
+	}
+
+	// If anything needs to change here, make sure to make
+	// the same changes in beehive-layout.css.scss in beehive.
+	.redactor-editor {
+	  max-width: 32.5em;
+	  font-size: 16px;
+	  padding: 0;
+	  margin: 2em 2em !important;
+		border: 0;
+		font-family: Roboto, sans-serif !important;
+
+	  h1 {
+	    font-size: 36px;
+	    letter-spacing: 0;
+	    line-height: 40pt;
+	    margin-top: 20px;
+	    margin-bottom: 10px;
+	  }
+
+	  h2 {
+	    font-size: 30px;
+	    letter-spacing: 0;
+	    line-height: 32pt;
+	    margin-top: 20px;
+	    margin-bottom: 10px;
+	  }
+
+	  h3 {
+	    font-size: 24px;
+	    letter-spacing: 0;
+	    line-height: 28pt;
+	    margin-top: 20px;
+	    margin-bottom: 10px;
+	  }
+
+	  h4 {
+	    font-size: 18px;
+	    letter-spacing: 0;
+	    line-height: 28pt;
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	  }
+
+	  blockquote {
+	    background: none;
+	    border: 0;
+	    box-shadow: none;
+	    color: $blockquote-gray;
+	    font-size: 18px;
+	    font-style: italic;
+	    letter-spacing: 0;
+	    line-height: 24pt;
+	    margin: 0;
+	    margin-bottom: 15px;
+	    margin-left: 1.6em;
+	    padding-left: 0;
+	  }
+
+	  h5 {
+	    font-size: 16px;
+	    letter-spacing: 0;
+	    line-height: 24pt;
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	  }
+
+	  p {
+	    font-size: 16px;
+	    letter-spacing: 0;
+	    line-height: 20pt;
+	    margin-top: 0px;
+	    margin-bottom: 20px;
+	  }
+	}
+}
 
 @import "_material-design-overwrites.scss";
