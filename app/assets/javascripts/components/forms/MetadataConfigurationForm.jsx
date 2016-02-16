@@ -63,7 +63,7 @@ var MetaDataConfigurationForm = React.createClass({
   },
 
   handleNewClick: function() {
-    this.setState({ selectedField: "NEWFIELD"});
+    this.setState({ selectedField: Math.random().toString(36).substring(2)});
   },
 
   render: function(){

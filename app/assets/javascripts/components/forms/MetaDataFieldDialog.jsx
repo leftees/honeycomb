@@ -14,12 +14,8 @@ var MetaDataFieldDialog = React.createClass({
 
   propTypes: {
     open: React.PropTypes.bool.isRequired,
-<<<<<<< HEAD
-    updateUrl: React.PropTypes.string.isRequired,
     createForm: React.PropTypes.bool,
-=======
     baseUpdateUrl: React.PropTypes.string.isRequired,
->>>>>>> DEC-766-allow-metaconfig-to-be-updated
     fieldName: React.PropTypes.string,
   },
 
@@ -94,13 +90,13 @@ var MetaDataFieldDialog = React.createClass({
   },
 
   handleSave: function() {
-    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.baseUpdateUrl);
+    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.baseUpdateUrl, this.state.createForm);
     this.setState({ saving: true});
   },
 
   handleSaved: function(success, data) {
     if(success) {
-      this.setState({ open: false });
+      this.setState({ open: false, fieldName: null });
     } else {
       console.log("Add error handling stuff here when !success", data);
     }
@@ -153,6 +149,10 @@ var MetaDataFieldDialog = React.createClass({
     return (<mui.Checkbox style={{ width: "100%" }} disabled={disabled} label="Always show on the item form?" checkedLink={ this.linkFieldState('defaultFormField') } />);
   },
 
+  title: function() {
+    return this.state.createForm ? "New Metadata Field" : "Edit Metadata Field";
+  },
+
   render: function() {
     const actions = [
       <FlatButton
@@ -174,7 +174,7 @@ var MetaDataFieldDialog = React.createClass({
       <div>
         <Dialog
           ref="EditMetaDialog"
-          title="Edit Metadata Field"
+          title={this.title()}
           actions={actions}
           modal={true}
           bodyStyle={{ margin: "0 auto 0 auto" }}
