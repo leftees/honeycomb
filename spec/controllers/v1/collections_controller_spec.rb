@@ -215,5 +215,11 @@ RSpec.describe V1::CollectionsController, type: :controller do
       expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection)
       subject
     end
+
+    it "checks the editor permissions" do
+      allow_any_instance_of(CollectionQuery).to receive(:any_find).with("1").and_return(collection)
+      expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection)
+      subject
+    end
   end
 end

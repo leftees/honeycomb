@@ -3,16 +3,24 @@ module Metadata
     attr_reader :data
     private :data
 
-    def self.item_configuration
-      @item_configuration ||= new(load_yml(:item))
-    end
-
     def self.set_item_configuration(collection)
       @item_configuration ||= new(CollectionConfigurationQuery.new(collection).find)
     end
 
     def initialize(data)
       @data = data
+    end
+
+    def save_field(name, values)
+      f = field(name)
+      return false if !f
+
+      if !f.update(values)
+        return false
+      end
+
+      data.metadata = fields.map(&:to_hash)
+      data.save
     end
 
     def fields
@@ -58,11 +66,6 @@ module Metadata
     def sort?(name)
       sort(name).present?
     end
-
-    def self.load_yml(name)
-      YAML.load_file(Rails.root.join("config/metadata/", "#{name}.yml"))
-    end
-    private_class_method :load_yml
 
     def field_names
       field_map.keys

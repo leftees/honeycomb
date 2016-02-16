@@ -15,7 +15,6 @@ Rails.application.routes.draw do
 
   resources :collections,
             only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-
     collection do
       get :import_google_sheet_callback, controller: "import"
       get :export_google_sheet_callback, controller: "export"
@@ -82,6 +81,9 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :create], defaults: { format: :json }
       resources :showcases, only: [:index], defaults: { format: :json }
       resources :pages, only: [:index], defaults: { format: :json }
+      resource :configurations, defaults: { format: :json }, only: [:show] do
+        resources :metadata_fields, only: [:create, :update, :destroy], defaults: { format: :json }
+      end
     end
     resources :items,
               only: [:show, :update],

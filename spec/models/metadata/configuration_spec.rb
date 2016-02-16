@@ -152,4 +152,54 @@ RSpec.describe Metadata::Configuration do
       expect(subject.first).to be_kind_of(described_class::Sort)
     end
   end
+
+  describe "#save_field" do
+    let(:field) { double(described_class::Field, update: true, to_hash: { name: "name" }) }
+    let(:update_values) { { label: "label" } }
+
+    before(:each) do
+      allow(data).to receive(:save).and_return(true)
+      allow(subject).to receive(:field).with(:field_name).and_return(field)
+    end
+
+    it "retrieves the field from the name passed in" do
+      expect(subject).to receive(:field).with(:field_name).and_return(field)
+      subject.save_field(:field_name, update_values)
+    end
+
+    it "returns false if the field is not found" do
+      allow(subject).to receive(:field).with(:field_name).and_return(nil)
+      expect(subject.save_field(:field_name, update_values)).to be(false)
+    end
+
+    it "calls update on the field" do
+      expect(field).to receive(:update).with(update_values).and_return(true)
+      subject.save_field(:field_name, update_values)
+    end
+
+    it "returns false if the update of the field fails" do
+      allow(field).to receive(:update).with(update_values).and_return(false)
+      expect(subject.save_field(:field_name, update_values)).to be(false)
+    end
+
+    it "updates the metadata configuration " do
+      expect(data).to receive("metadata=")
+      subject.save_field(:field_name, update_values)
+    end
+
+    it "saves the metadata configuration" do
+      expect(data).to receive("save").and_return(true)
+      subject.save_field(:field_name, update_values)
+    end
+
+    it "returns true if the metadata has been saved successfully" do
+      allow(data).to receive("save").and_return(true)
+      expect(subject.save_field(:field_name, update_values)).to be(true)
+    end
+
+    it "returns false if the metadata has been saved successfully" do
+      allow(data).to receive("save").and_return(false)
+      expect(subject.save_field(:field_name, update_values)).to be(false)
+    end
+  end
 end
