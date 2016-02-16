@@ -509,51 +509,51 @@ div.dataTables_filter {
 
 .page-redactor {
   .redactor-box {
-		max-width: 38.5em;
-	  font-size: 16px;
 		border: 1px solid #eee;
+		font-size: 16px;
+		max-width: 38.5em;
 	}
 
 	// If anything needs to change here, make sure to make
 	// the same changes in beehive-layout.css.scss in beehive.
 	.redactor-editor {
-	  max-width: 32.5em;
-	  font-size: 16px;
-	  padding: 0;
-	  margin: 2em 2em !important;
 		border: 0;
 		font-family: Roboto, sans-serif !important;
+	  font-size: 16px;
+	  margin: 2em 2em !important;
+	  max-width: 32.5em;
+	  padding: 0;
 
 	  h1 {
 	    font-size: 36px;
 	    letter-spacing: 0;
 	    line-height: 40pt;
-	    margin-top: 20px;
 	    margin-bottom: 10px;
+	    margin-top: 20px;
 	  }
 
 	  h2 {
 	    font-size: 30px;
 	    letter-spacing: 0;
 	    line-height: 32pt;
-	    margin-top: 20px;
 	    margin-bottom: 10px;
+	    margin-top: 20px;
 	  }
 
 	  h3 {
 	    font-size: 24px;
 	    letter-spacing: 0;
 	    line-height: 28pt;
-	    margin-top: 20px;
 	    margin-bottom: 10px;
+	    margin-top: 20px;
 	  }
 
 	  h4 {
 	    font-size: 18px;
 	    letter-spacing: 0;
 	    line-height: 28pt;
-	    margin-top: 10px;
 	    margin-bottom: 10px;
+	    margin-top: 10px;
 	  }
 
 	  blockquote {
@@ -575,16 +575,16 @@ div.dataTables_filter {
 	    font-size: 16px;
 	    letter-spacing: 0;
 	    line-height: 24pt;
-	    margin-top: 10px;
 	    margin-bottom: 10px;
+	    margin-top: 10px;
 	  }
 
 	  p {
 	    font-size: 16px;
 	    letter-spacing: 0;
 	    line-height: 20pt;
-	    margin-top: 0px;
 	    margin-bottom: 20px;
+	    margin-top: 0px;
 	  }
 	}
 }
