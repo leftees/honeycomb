@@ -66,20 +66,28 @@
 			},
 			insert: function(e)
 			{
+				var style = 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;';
 				var $el = $(e.target);
-
 				var img = document.createElement('img');
 				img.src = $el.attr('rel');
 				img.alt = $el.attr('title');
 				img.title = $el.attr('title');
-				img.style.width = '300px';
-				img.style.height = 'auto';
+				img.setAttribute('style', style);
+				img.setAttribute('rel', style);
 				img.setAttribute('class', 'hc_page_image');
 				img.setAttribute('item_id', $el.attr('item_id'));
-				img.setAttribute('style', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;');
-				img.setAttribute('rel', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;');
 
-				this.insert.node(img);
+				var figCap = document.createElement('figcaption');
+				figCap.innerHTML = "Image caption";
+
+				var fig = document.createElement('figure');
+				fig.setAttribute('style', style);
+				fig.setAttribute('rel', style);
+
+				fig.appendChild(img);
+				fig.appendChild(figCap);
+
+				this.insert.node(fig);
 				this.observe.images();
 				this.modal.close();
 			}
