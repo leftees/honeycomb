@@ -15,6 +15,11 @@ RSpec.describe Metadata::ConfigurationInputCleaner do
     expect(subject).to eq(label: "Name", name: "name")
   end
 
+  it "creates a name out of the label" do
+    data[:label] = "Name"
+    expect(subject).to eq(label: "Name", name: "name")
+  end
+
   it "underscores spaces in the label to names" do
     data[:label] = "na me"
     expect(subject).to eq(label: "na me", name: "na_me")
