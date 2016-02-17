@@ -5,9 +5,8 @@ module V1
 
       return if rendered_forbidden?(@collection)
 
-      if Metadata::UpdateConfigurationField.call(@collection, params[:id], params[:fields])
-        @return_value = :success
-      else
+      @return_value = :success
+      if !Metadata::UpdateConfigurationField.call(@collection, params[:id], params[:fields])
         @return_value = :unprocessable_entity
       end
 
@@ -21,9 +20,8 @@ module V1
 
       return if rendered_forbidden?(@collection)
 
-      if Metadata::CreateConfigurationField.call(@collection, params[:fields])
-        @return_value = :success
-      else
+      @return_value = :success
+      if !Metadata::CreateConfigurationField.call(@collection, params[:fields])
         @return_value = :unprocessable_entity
       end
 
