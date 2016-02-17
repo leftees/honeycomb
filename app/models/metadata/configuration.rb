@@ -14,6 +14,7 @@ module Metadata
     def save_field(name, values)
       f = field(name)
       if !f
+        fields
         f = new_field(values)
         @fields << f
       else
