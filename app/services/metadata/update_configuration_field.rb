@@ -11,6 +11,7 @@ module Metadata
     end
 
     def update_field(field, new_data)
+      new_data = ConfigurationInputCleaner.call(new_data)
       configuration.save_field(field, new_data)
     end
 
