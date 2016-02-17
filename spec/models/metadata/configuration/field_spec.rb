@@ -4,6 +4,7 @@ RSpec.describe Metadata::Configuration::Field do
   let(:data) do
     {
       name: :string_field,
+      active: false,
       type: :string,
       label: "String",
       placeholder: "placeholder",
@@ -19,6 +20,17 @@ RSpec.describe Metadata::Configuration::Field do
   describe "name" do
     it "is the expected value" do
       expect(subject.name).to eq(data[:name])
+    end
+  end
+
+  describe "active" do
+    it "is the expected value" do
+      expect(subject.active).to eq(data[:active])
+    end
+
+    it "is true by default" do
+      subject = described_class.new(data.except(:active))
+      expect(subject.active).to eq(true)
     end
   end
 
@@ -168,6 +180,7 @@ RSpec.describe Metadata::Configuration::Field do
     it "converts the data to a hash." do
       expect(subject.to_hash).to eq(
         name: :string_field,
+        active: false,
         type: :string,
         label: "String",
         multiple: false,
