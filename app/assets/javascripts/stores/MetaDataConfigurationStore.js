@@ -10,6 +10,7 @@ class MetaDataConfigurationStore extends EventEmitter {
     this._data = {};
 
     Object.defineProperty(this, "fields", { get: function() { return this._data.fields; } });
+    Object.defineProperty(this, "activeFields", { get: function() { return _.where(this._data.fields, {active: true}); } });
     Object.defineProperty(this, "facets", { get: function() { return this._data.facets; } });
     Object.defineProperty(this, "sorts", { get: function() { return this._data.sorts; } });
     AppDispatcher.register(this.receiveAction.bind(this));
