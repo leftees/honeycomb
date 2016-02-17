@@ -1,5 +1,16 @@
-var React = require('react');
+var React = require("react");
 var mui = require("material-ui");
+
+var ReactLink = require('react/lib/ReactLink');
+var ReactStateSetters = require('react/lib/ReactStateSetters');
+var MetaDataConfigurationActions = require("../../actions/MetaDataConfigurationActions");
+var Paper = mui.Paper;
+var List = mui.List;
+var FontIcon = mui.FontIcon;
+var IconButton = mui.IconButton;
+var Toggle = mui.Toggle;
+var Colors = require("material-ui/lib/styles/colors");
+var MoreVertIcons = require("material-ui/lib/svg-icons/navigation/more-vert");
 
 var MetaDataConfigurationForm = React.createClass({
   propTypes: {
@@ -8,23 +19,30 @@ var MetaDataConfigurationForm = React.createClass({
 
   getInitialState: function() {
     return {
-      fields: this.sortedFields(),
+      fields: this.filteredFields(false),
       selectedField: undefined,
+      showInactive: false,
     };
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     MetaDataConfigurationStore.on("MetaDataConfigurationStoreChanged", this.setFormFieldsFromConfiguration);
     MetaDataConfigurationStore.getAll();
   },
 
-  sortedFields: function() {
-    return _.sortBy(MetaDataConfigurationStore.fields, 'order');
+  filteredFields: function(showInactive) {
+    var fields = _.filter(MetaDataConfigurationStore.fields, function(field) {  return showInactive || field.active; }.bind(this));
+    return this.sortedFields(fields);
+  },
+
+  sortedFields: function(fields) {
+    return _.sortBy(fields, 'order');
   },
 
   setFormFieldsFromConfiguration: function() {
     this.setState({
-      fields: this.sortedFields(),
+      fields: this.filteredFields(this.state.showInactive),
+      selectedField: undefined,
     });
   },
 
@@ -41,47 +59,88 @@ var MetaDataConfigurationForm = React.createClass({
     }
   },
 
-  getFieldRows: function() {
+  getLeftIcon: function(type) {
+    switch(type){
+      case 'string':
+        return (<FontIcon className="material-icons">short_text</FontIcon>);
+      case 'html':
+        return (<FontIcon className="material-icons">format_size</FontIcon>);
+      case 'date':
+        return (<FontIcon className="material-icons">date_range</FontIcon>);
+      default:
+        return null;
+    }
+  },
+
+  getRightIcon: function(field) {
+    if(field.active) {
+      return (
+        <IconButton
+          tooltip="Remove"
+          tooltipPosition="top-center"
+          onTouchTap={function() { this.handleRemove(field.name) }.bind(this) }
+        >
+          field.active && <FontIcon className="material-icons" color={Colors.grey500} hoverColor={Colors.red500}>remove</FontIcon>
+        </IconButton>
+      );
+    } else {
+      return (
+        <IconButton
+          tooltip="Restore"
+          tooltipPosition="top-center"
+          onTouchTap={function() { this.handleRestore(field.name) }.bind(this) }
+        >
+          field.active && <FontIcon className="material-icons" color={Colors.grey500} hoverColor={Colors.green500}>undo</FontIcon>
+        </IconButton>
+      );
+    }
+  },
+
+  getFieldItems: function() {
     return this.state.fields.map(function(field) {
       return (
-        <mui.TableRow>
-          <mui.TableRowColumn><mui.FlatButton
-            label="Edit"
-            onTouchTap={ function() { this.handleRowClick(field.name); }.bind(this) }
-          /></mui.TableRowColumn>
-          <mui.TableRowColumn>{ field.label }</mui.TableRowColumn>
-          <mui.TableRowColumn>{ this.friendlyType(field.type) }</mui.TableRowColumn>
-          <mui.TableRowColumn><mui.Checkbox disabled={ true } defaultChecked={ field.multiple } /></mui.TableRowColumn>
-          <mui.TableRowColumn><mui.Checkbox disabled={ true } defaultChecked={ field.required } /></mui.TableRowColumn>
-        </mui.TableRow>
+        <mui.ListItem
+          key={ field.name }
+          primaryText={ field.label }
+          secondaryText={ field.required && "Required" }
+          leftIcon={this.getLeftIcon(field.type)}
+          rightIconButton={this.getRightIcon(field)}
+          onTouchTap={function() { this.handleEditClick(field.name) }.bind(this) }
+        />
       );
     }.bind(this));
   },
 
-  handleRowClick: function(field) {
-    this.setState({ selectedField: field });
+  handleRemove: function(fieldName) {
+    MetaDataConfigurationActions.changeActive(fieldName, false, this.props.baseUpdateUrl)
+  },
+
+  handleRestore: function(fieldName) {
+    MetaDataConfigurationActions.changeActive(fieldName, true, this.props.baseUpdateUrl)
+  },
+
+  handleEditClick: function(fieldName) {
+    this.setState({ selectedField: fieldName });
+  },
+
+  handleShowInactive: function(e, value) {
+    this.setState({
+      showInactive: value,
+      fields: this.filteredFields(value),
+      selectedField: undefined,
+    });
   },
 
   render: function(){
     const { selectedField } = this.state;
     return (
-      <div>
+      <Paper style={{ maxWidth: "300px" }} zDepth={0}>
+        <Toggle label="Show Inactive Fields" onToggle={ this.handleShowInactive } />
         <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } baseUpdateUrl={ this.props.baseUpdateUrl }/>
-        <mui.Table>
-          <mui.TableHeader displaySelectAll={ false } >
-            <mui.TableRow>
-              <mui.TableHeaderColumn/>
-              <mui.TableHeaderColumn>Label</mui.TableHeaderColumn>
-              <mui.TableHeaderColumn>Type</mui.TableHeaderColumn>
-              <mui.TableHeaderColumn>Allows Multiples</mui.TableHeaderColumn>
-              <mui.TableHeaderColumn>Required</mui.TableHeaderColumn>
-            </mui.TableRow>
-          </mui.TableHeader>
-          <mui.TableBody displayRowCheckbox={ false } >
-            { this.getFieldRows() }
-          </mui.TableBody>
-        </mui.Table>
-      </div>
+        <List >
+          {this.getFieldItems()}
+        </List>
+      </Paper>
     );
   }
 });

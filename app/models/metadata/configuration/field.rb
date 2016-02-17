@@ -4,13 +4,14 @@ module Metadata
       include ActiveModel::Validations
       TYPES = [:string, :html, :date]
 
-      attr_accessor :name, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost
+      attr_accessor :name, :active, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost
 
       validates :name, :type, :label, :order, presence: true
       validates :type, inclusion: TYPES
 
       def initialize(
         name:,
+        active: true,
         type:,
         label:,
         default_form_field:,
@@ -26,6 +27,7 @@ module Metadata
           raise ArgumentError, "Invalid type: #{type}.  Must be one of #{TYPES.join(', ')}"
         end
         @name = name.to_sym
+        @active = active
         @type = type.to_sym
         @label = label
         @multiple = multiple
@@ -48,6 +50,7 @@ module Metadata
       def to_hash
         {
           name: name,
+          active: active,
           type: type,
           label: label,
           multiple: multiple,
@@ -86,7 +89,7 @@ module Metadata
         hash[:default_form_field] = hash.delete(:defaultFormField) if hash[:defaultFormField]
         hash[:optional_form_field] = hash.delete(:optionalFormField) if hash[:optionalFormField]
 
-        convert_strings_to_booleans([:multiple, :required, :default_form_field, :optional_form_field], hash)
+        convert_strings_to_booleans([:multiple, :required, :default_form_field, :optional_form_field, :active], hash)
       end
 
       def convert_strings_to_booleans(keys, hash)
