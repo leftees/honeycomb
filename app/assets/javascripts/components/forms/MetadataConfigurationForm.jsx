@@ -73,6 +73,10 @@ var MetaDataConfigurationForm = React.createClass({
   },
 
   getRightIcon: function(field) {
+    if(_.contains(field.immutable, "active")) {
+      return null;
+    }
+
     if(field.active) {
       return (
         <IconButton

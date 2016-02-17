@@ -8,6 +8,7 @@
     :default_form_field: false
     :optional_form_field: true
     :order: 100
+    :immutable: [name, active, type, required, default_form_field, optional_form_field, order]
   - :name: :name
     :active: true
     :type: :string
@@ -17,6 +18,7 @@
     :optional_form_field: false
     :order: 1
     :boost: 10
+    :immutable: [name, active, type, required, default_form_field, optional_form_field, order]
   - :name: :description
     :active: true
     :type: :html

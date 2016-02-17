@@ -11,7 +11,8 @@ RSpec.describe Metadata::Configuration::Field do
       help: "help",
       default_form_field: true,
       optional_form_field: false,
-      order: true
+      order: true,
+      immutable: []
     }
   end
 
@@ -31,6 +32,17 @@ RSpec.describe Metadata::Configuration::Field do
     it "is true by default" do
       subject = described_class.new(data.except(:active))
       expect(subject.active).to eq(true)
+    end
+  end
+
+  describe "immutable" do
+    it "is the expected value" do
+      expect(subject.immutable).to eq(data[:immutable])
+    end
+
+    it "returns name by default" do
+      subject = described_class.new(data.except(:immutable))
+      expect(subject.immutable).to eq(["name"])
     end
   end
 
@@ -133,7 +145,7 @@ RSpec.describe Metadata::Configuration::Field do
     end
   end
 
-  describe "updatee" do
+  describe "update" do
     it "changes the values of the fields passed in" do
       subject.update(order: "new_order", label: "NAME!")
       expect(subject.order).to eq("new_order")
@@ -174,6 +186,28 @@ RSpec.describe Metadata::Configuration::Field do
       subject.update("label" => "NAME!")
       expect(subject.label).to eq("NAME!")
     end
+
+    it "does not update an immutable property" do
+      data[:immutable] = ["type"]
+      subject.update(type: "mynewtype")
+      expect(subject.type).not_to eq(:mynewtype)
+    end
+
+    it "updates the immutable list" do
+      subject.update(immutable: ["type"])
+      expect(subject.immutable).to eq(["type"])
+    end
+
+    it "updates a field if the immutable list has been changed to remove that field" do
+      data[:immutable] = ["type"]
+      subject.update(type: "test", immutable: [])
+      expect(subject.type).to eq(:test)
+    end
+
+    it "does not allow updating immutable to contain immutable" do
+      subject.update(immutable: ["immutable", :immutable])
+      expect(subject.immutable).to eq([])
+    end
   end
 
   describe "to_hash" do
@@ -190,7 +224,8 @@ RSpec.describe Metadata::Configuration::Field do
         order: true,
         placeholder: "placeholder",
         help: "help",
-        boost: 1
+        boost: 1,
+        immutable: []
       )
     end
   end

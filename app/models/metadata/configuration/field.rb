@@ -4,7 +4,7 @@ module Metadata
       include ActiveModel::Validations
       TYPES = [:string, :html, :date]
 
-      attr_accessor :name, :active, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost
+      attr_accessor :name, :active, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost, :immutable
 
       validates :name, :type, :label, :order, presence: true
       validates :type, inclusion: TYPES
@@ -21,7 +21,8 @@ module Metadata
         help: "",
         placeholder: "",
         multiple: false,
-        required: false
+        required: false,
+        immutable: ["name"]
       )
         unless TYPES.include?(type.to_sym)
           raise ArgumentError, "Invalid type: #{type}.  Must be one of #{TYPES.join(', ')}"
@@ -38,6 +39,7 @@ module Metadata
         @placeholder = placeholder
         @help = help
         @boost = boost
+        @immutable = immutable
       end
 
       def as_json(options = {})
@@ -61,6 +63,7 @@ module Metadata
           placeholder: placeholder,
           help: help,
           boost: boost,
+          immutable: immutable,
         }
       end
 
@@ -70,8 +73,14 @@ module Metadata
         end
         convert_json_to_ruby_keys!(new_attributes)
 
+        if new_attributes.has_key?(:immutable)
+          new_attributes[:immutable].delete("immutable")
+          new_attributes[:immutable].delete(:immutable)
+          send("immutable=", new_attributes[:immutable])
+        end
+
         new_attributes.each do |key, value|
-          send("#{key}=", value)
+          send("#{key}=", value) unless key == :immutable || immutable.include?(key.to_s)
         end
         valid?
       end
