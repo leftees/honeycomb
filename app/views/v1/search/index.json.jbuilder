@@ -7,9 +7,7 @@ json.hits do
   end
 end
 json.facets @search.facets do |facet|
-  if facet.active
-    json.partial! "v1/search/facet", facet: facet
-  end
+  json.partial! "v1/search/facet", facet: facet
 end
 json.sorts @search.sorts do |sort_field|
   json.partial! "v1/search/sort_field", sort_field: sort_field

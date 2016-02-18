@@ -113,7 +113,7 @@ module Metadata
       data.sorts.map do |sort_data|
         sort_data = sort_data.symbolize_keys
         sort_field = field(sort_data.fetch(:field_name))
-        arguments = sort_data.merge(field: sort_field)
+        arguments = sort_data.merge(active: sort_field.active, field: sort_field)
         Metadata::Configuration::Sort.new(**arguments)
       end
     end
