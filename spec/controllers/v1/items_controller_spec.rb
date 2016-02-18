@@ -117,36 +117,6 @@ RSpec.describe V1::ItemsController, type: :controller do
       expect(assigns(:item)).to eq(item)
     end
 
-    it "accepts an array for all base metadata that allows multiples" do
-      base_config[:fields].each do |field|
-        if field[:multiple]
-          update_params[:item][field[:name]] = []
-        end
-      end
-      expect(SaveItem).to receive(:call).with(item, update_params[:item])
-      subject
-    end
-
-    it "accepts a single value for all metadata that allows multiples" do
-      base_config[:fields].each do |field|
-        if field[:multiple]
-          update_params[:item][field[:name]] = field[:label]
-        end
-      end
-      expect(SaveItem).to receive(:call).with(item, update_params[:item])
-      subject
-    end
-
-    it "accepts nil for all metadata that allows multiples" do
-      base_config[:fields].each do |field|
-        if field[:multiple]
-          update_params[:item][field[:name]] = nil
-        end
-      end
-      expect(SaveItem).to receive(:call).with(item, update_params[:item])
-      subject
-    end
-
     it "uses the save item service" do
       expect(SaveItem).to receive(:call).and_return(true)
 

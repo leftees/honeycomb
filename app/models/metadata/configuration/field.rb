@@ -24,9 +24,6 @@ module Metadata
         required: false,
         immutable: ["name"]
       )
-        unless TYPES.include?(type.to_sym)
-          raise ArgumentError, "Invalid type: #{type}.  Must be one of #{TYPES.join(', ')}"
-        end
         @name = name.to_sym
         @active = active
         @type = type.to_sym
@@ -40,6 +37,10 @@ module Metadata
         @help = help
         @boost = boost
         @immutable = immutable
+
+        if !valid?
+          raise ArgumentError, errors.full_messages.join(", ")
+        end
       end
 
       def as_json(options = {})

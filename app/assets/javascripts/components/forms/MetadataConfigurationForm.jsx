@@ -164,10 +164,15 @@ var MetaDataConfigurationForm = React.createClass({
     });
   },
 
+  handleNewClick: function() {
+    this.setState({ selectedField: Math.random().toString(36).substring(2)});
+  },
+
   render: function(){
     const { selectedField } = this.state;
     return (
       <Paper style={ this.backgroundStyle() } zDepth={0}>
+        <mui.RaisedButton label="New Metadata Field" onClick={ this.handleNewClick } />
         <Toggle labelStyle={{ paddingLeft: "20px" }} label={ this.getListTitle() } onToggle={ this.handleShowInactive } />
         <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } baseUpdateUrl={ this.props.baseUpdateUrl }/>
         <List style={ this.listStyle() }>

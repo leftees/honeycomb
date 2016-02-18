@@ -47,7 +47,7 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
     });
   }
 
-  changeField(fieldName, fieldValues, pushToUrl) {
+  changeField(fieldName, fieldValues, pushToUrl, create) {
     // Clone values in order to revert the store if the change fails
     const previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
     // Optimistically change the store
@@ -57,11 +57,14 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
       values: fieldValues,
     });
 
-    pushToUrl += "/" + fieldName;
+    if (!create) {
+      pushToUrl += "/" + fieldName;
+    }
+
     $.ajax({
       url: pushToUrl,
       dataType: "json",
-      method: "PUT",
+      method: (create) ? "POST" : "PUT",
       data: {
         fields: fieldValues,
       },
@@ -71,12 +74,14 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
         AppEventEmitter.emit("MessageCenterDisplay", "info", "Collection updated");
       }).bind(this),
       error: (function(xhr) {
-        // Request to change failed, revert the store to previous values
-        AppDispatcher.dispatch({
-          actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
-          name: fieldName,
-          values: previousValues,
-        });
+        if (!create) {
+          // Request to change failed, revert the store to previous values on if it is updated
+          AppDispatcher.dispatch({
+            actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
+            name: fieldName,
+            values: previousValues,
+          });
+        }
         // Communicate the error to the user
         this.emit("ChangeFieldFinished", false, xhr);
         AppEventEmitter.emit("MessageCenterDisplay", "error", APIResponseMixin.apiErrorToString(xhr));
