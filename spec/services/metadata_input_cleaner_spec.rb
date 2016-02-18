@@ -20,4 +20,10 @@ RSpec.describe MetadataInputCleaner do
     subject
     expect(item.metadata[:array]).to eq(["array"])
   end
+
+  it "converts value of nil to empty array" do
+    metadata[:nil] = nil
+    subject
+    expect(item.metadata[:nil]).to eq([])
+  end
 end
