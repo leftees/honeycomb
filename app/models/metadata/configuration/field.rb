@@ -4,7 +4,8 @@ module Metadata
       include ActiveModel::Validations
       TYPES = [:string, :html, :date]
 
-      attr_accessor :name, :active, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost, :immutable
+      attr_accessor :name, :active, :type, :label, :multiple, :required, :default_form_field,
+                    :optional_form_field, :order, :placeholder, :help, :boost, :immutable
 
       validates :name, :type, :label, :order, presence: true
       validates :type, inclusion: TYPES

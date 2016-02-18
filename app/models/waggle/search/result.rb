@@ -24,7 +24,7 @@ module Waggle
       end
 
       def facets
-        adapter_result.facets.select { |facet| facet.active }
+        adapter_result.facets.select(&:active)
       end
 
       def sorts

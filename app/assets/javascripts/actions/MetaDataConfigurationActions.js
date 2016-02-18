@@ -12,7 +12,7 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
     var fieldValues = update(MetaDataConfigurationStore.fields[fieldName], {});
 
     // Optimistically change the store
-    fieldValues["active"] = activeValue;
+    fieldValues.active = activeValue;
     AppDispatcher.dispatch({
       actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
       name: fieldName,
@@ -34,7 +34,7 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
       }).bind(this),
       error: (function(xhr) {
         // Request to change failed, revert the store to previous values
-        fieldValues["active"] = previousValue;
+        fieldValues.active = previousValue;
         AppDispatcher.dispatch({
           actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
           name: fieldName,
