@@ -9,8 +9,8 @@ RSpec.describe Metadata::Configuration do
   end
   let(:facet_data) do
     [
-      { name: "string_field_facet", field_name: "string_field" },
-      { name: "string_field_facet_2", field_name: "string_field", label: "Custom Label" },
+      { name: "string_field_facet", field_name: "string_field", active: true },
+      { name: "string_field_facet_2", field_name: "string_field", active: true, label: "Custom Label" },
     ]
   end
   let(:sort_data) do
