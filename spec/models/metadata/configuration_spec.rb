@@ -154,12 +154,12 @@ RSpec.describe Metadata::Configuration do
   end
 
   describe "#save_field" do
-    let(:field) { double(described_class::Field, update: true, to_hash: { name: "name" }) }
+    let(:field) { double(described_class::Field, valid?: true, update: true, to_hash: { name: "name" }) }
     let(:update_values) { { label: "label" } }
 
     before(:each) do
       allow(data).to receive(:save).and_return(true)
-      allow(subject).to receive(:field).with(:field_name).and_return(field)
+      allow(subject).to receive(:field).and_return(field)
     end
 
     it "retrieves the field from the name passed in" do
@@ -167,18 +167,21 @@ RSpec.describe Metadata::Configuration do
       subject.save_field(:field_name, update_values)
     end
 
-    it "returns false if the field is not found" do
+    it "creates a new field if the field is not found" do
       allow(subject).to receive(:field).with(:field_name).and_return(nil)
-      expect(subject.save_field(:field_name, update_values)).to be(false)
+      allow(described_class::Field).to receive(:new).and_return(field)
+      expect(described_class::Field).to receive(:new).with(update_values).and_return(field)
+      subject.save_field(:field_name, update_values)
     end
 
-    it "calls update on the field" do
+    it "calls update on the field when it already exists" do
       expect(field).to receive(:update).with(update_values).and_return(true)
       subject.save_field(:field_name, update_values)
     end
 
     it "returns false if the update of the field fails" do
       allow(field).to receive(:update).with(update_values).and_return(false)
+      allow(field).to receive(:valid?).and_return(false)
       expect(subject.save_field(:field_name, update_values)).to be(false)
     end
 

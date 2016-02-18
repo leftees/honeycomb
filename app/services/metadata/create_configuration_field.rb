@@ -1,18 +1,18 @@
 module Metadata
-  class UpdateConfigurationField
+  class CreateConfigurationField
     attr_reader :collection
 
-    def self.call(collection, field, new_data)
-      new(collection).update_field(field, new_data)
+    def self.call(collection, new_data)
+      new(collection).create_field(new_data)
     end
 
     def initialize(collection)
       @collection = collection
     end
 
-    def update_field(field, new_data)
+    def create_field(new_data)
       new_data = ConfigurationInputCleaner.call(new_data)
-      configuration.save_field(field, new_data)
+      configuration.save_field(new_data[:name], new_data)
     end
 
     private

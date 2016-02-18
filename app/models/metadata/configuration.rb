@@ -13,11 +13,17 @@ module Metadata
 
     def save_field(name, values)
       f = field(name)
-      return false if !f
-
-      if !f.update(values)
-        return false
+      if !f
+        fields
+        f = new_field(values)
+        @fields << f
+      else
+        f.update(values)
       end
+
+      return false if !f.valid?
+
+      # process_reorder!
 
       data.metadata = fields.map(&:to_hash)
       data.save
@@ -96,7 +102,7 @@ module Metadata
     def build_fields
       data.metadata.map do |field_data|
         field_data = field_data.symbolize_keys
-        self.class::Field.new(**field_data)
+        new_field(field_data)
       end
     end
 
@@ -148,6 +154,10 @@ module Metadata
           hash[sort.name.to_sym] = sort
         end
       end.with_indifferent_access
+    end
+
+    def new_field(field_data)
+      self.class::Field.new(**field_data)
     end
   end
 end

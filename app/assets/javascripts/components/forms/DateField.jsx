@@ -37,17 +37,18 @@ var DateField = React.createClass({
     if (!this.props.value) {
       return;
     }
-    if (this.props.value.length) {
-      this.props.value = this.props.value[0];
+    var value = this.props.value;
+    if (value.length) {
+      value = value[0];
     }
 
     this.setState({
-      year: this.props.value.year,
-      month: this.props.value.month,
-      day: this.props.value.day,
-      bc: this.props.value.bc,
-      displayText: this.props.value.display_text,
-      chooseDisplayText: (this.props.value.display_text ? true : false)
+      year: value.year,
+      month: value.month,
+      day: value.day,
+      bc: value.bc,
+      displayText: value.display_text,
+      chooseDisplayText: (value.display_text ? true : false)
     });
   },
 
