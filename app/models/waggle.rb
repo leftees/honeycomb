@@ -24,7 +24,7 @@ module Waggle
   end
 
   def self.search(**args)
-    set_configuration(::Metadata::Configuration.new(CollectionConfigurationQuery.new(args[:collection]).find))
+    set_configuration(CollectionConfigurationQuery.new(args[:collection]).find)
     args.delete(:collection)
     Waggle::Search::Query.new(**args).result
   end
