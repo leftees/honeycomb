@@ -104,7 +104,7 @@ module Metadata
       data.facets.map do |facet_data|
         facet_data = facet_data.symbolize_keys
         facet_field = field(facet_data.fetch(:field_name))
-        arguments = facet_data.merge(field: facet_field)
+        arguments = facet_data.merge(active: facet_field.active, field: facet_field)
         Metadata::Configuration::Facet.new(**arguments)
       end
     end
