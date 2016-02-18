@@ -6,6 +6,7 @@ var ReactStateSetters = require('react/lib/ReactStateSetters');
 var MetaDataConfigurationActions = require("../../actions/MetaDataConfigurationActions");
 var Paper = mui.Paper;
 var List = mui.List;
+var ListItem = mui.ListItem;
 var FontIcon = mui.FontIcon;
 var IconButton = mui.IconButton;
 var Toggle = mui.Toggle;
@@ -78,13 +79,14 @@ var MetaDataConfigurationForm = React.createClass({
     }
 
     if(field.active) {
+      var icon = "delete";
       return (
         <IconButton
           tooltip="Remove"
           tooltipPosition="top-center"
           onTouchTap={function() { this.handleRemove(field.name) }.bind(this) }
         >
-          field.active && <FontIcon className="material-icons" color={Colors.grey500} hoverColor={Colors.red500}>remove</FontIcon>
+          field.active && <FontIcon className="material-icons" color={Colors.grey500} hoverColor={Colors.red500}>{icon}</FontIcon>
         </IconButton>
       );
     } else {
@@ -100,16 +102,43 @@ var MetaDataConfigurationForm = React.createClass({
     }
   },
 
+  backgroundStyle: function() {
+    return {
+      maxWidth: "400px",
+      marginTop: "0px",
+      marginLeft: "48px",
+      padding: "20px"
+    };
+  },
+
+  listStyle: function() {
+    return {
+    };
+  },
+
+  listItemStyle: function() {
+    return {
+      borderBottomStyle: "solid",
+      borderBottomWidth: "1px",
+      borderBottomColor: Colors.grey500
+    };
+  },
+
+  getListTitle: function() {
+    return this.state.showInactive ? "All Fields" : "Active Fields";
+  },
+
   getFieldItems: function() {
     return this.state.fields.map(function(field) {
       return (
-        <mui.ListItem
+        <ListItem
           key={ field.name }
           primaryText={ field.label }
           secondaryText={ field.required && "Required" }
-          leftIcon={this.getLeftIcon(field.type)}
-          rightIconButton={this.getRightIcon(field)}
-          onTouchTap={function() { this.handleEditClick(field.name) }.bind(this) }
+          leftIcon={ this.getLeftIcon(field.type) }
+          rightIconButton={ this.getRightIcon(field) }
+          onTouchTap={ function() { this.handleEditClick(field.name) }.bind(this) }
+          style={ this.listItemStyle() }
         />
       );
     }.bind(this));
@@ -138,10 +167,10 @@ var MetaDataConfigurationForm = React.createClass({
   render: function(){
     const { selectedField } = this.state;
     return (
-      <Paper style={{ maxWidth: "300px" }} zDepth={0}>
-        <Toggle label="Show Inactive Fields" onToggle={ this.handleShowInactive } />
+      <Paper style={ this.backgroundStyle() } zDepth={0}>
+        <Toggle labelStyle={{ paddingLeft: "20px" }} label={ this.getListTitle() } onToggle={ this.handleShowInactive } />
         <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } baseUpdateUrl={ this.props.baseUpdateUrl }/>
-        <List >
+        <List style={ this.listStyle() }>
           {this.getFieldItems()}
         </List>
       </Paper>
