@@ -2,6 +2,10 @@ module Metadata
   class Retrieval
     attr_reader :item
 
+    include ActiveModel::Validations
+
+    validates_with MetadataValidator
+
     def initialize(item)
       @item = item
     end

@@ -82,4 +82,11 @@ RSpec.describe Metadata::Retrieval do
       expect(instance.field?(:notakey)).to be(false)
     end
   end
+
+  describe "valid?" do
+    it "uses the MetadataValidator" do
+      expect_any_instance_of(MetadataValidator).to receive(:validate).with(instance)
+      instance.valid?
+    end
+  end
 end
