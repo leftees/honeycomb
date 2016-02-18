@@ -1,3 +1,6 @@
+class Item < ActiveRecord::Base
+end
+
 module Metadata
   class ConfigurationInputCleaner
     attr_reader :data
