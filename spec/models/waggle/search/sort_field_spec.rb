@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Waggle::Search::SortField do
-  let(:sort_config) { instance_double(Metadata::Configuration::Sort, name: "creatorasc", label: "Creator") }
+  let(:sort_config) { instance_double(Metadata::Configuration::Sort, name: "creatorasc", label: "Creator", active: true) }
   subject { described_class.new(name: "Name", value: "nameasc") }
 
   describe "name" do

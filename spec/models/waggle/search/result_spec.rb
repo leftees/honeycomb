@@ -40,8 +40,9 @@ RSpec.describe Waggle::Search::Result do
 
   describe "facets" do
     it "returns the adapter facets" do
-      expect(adapter_result).to receive(:facets).and_return([:facets])
-      expect(subject.facets).to eq([:facets])
+      facets = double(Object, active: true)
+      expect(adapter_result).to receive(:facets).and_return([facets])
+      expect(subject.facets).to eq([facets])
     end
   end
 

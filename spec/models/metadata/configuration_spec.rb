@@ -146,8 +146,8 @@ RSpec.describe Metadata::Configuration do
     subject { instance.sorts }
 
     it "is an array of sorts" do
-      expect(described_class::Sort).to receive(:new).with(sort_data[0].merge(field: kind_of(described_class::Field))).and_call_original
-      expect(described_class::Sort).to receive(:new).with(sort_data[1].merge(field: kind_of(described_class::Field))).and_call_original
+      expect(described_class::Sort).to receive(:new).with(sort_data[0].merge(active: true, field: kind_of(described_class::Field))).and_call_original
+      expect(described_class::Sort).to receive(:new).with(sort_data[1].merge(active: true, field: kind_of(described_class::Field))).and_call_original
       expect(subject).to be_kind_of(Array)
       expect(subject.first).to be_kind_of(described_class::Sort)
     end
