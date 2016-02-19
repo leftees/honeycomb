@@ -4,13 +4,15 @@ module Metadata
       include ActiveModel::Validations
       TYPES = [:string, :html, :date]
 
-      attr_accessor :name, :type, :label, :multiple, :required, :default_form_field, :optional_form_field, :order, :placeholder, :help, :boost
+      attr_accessor :name, :active, :type, :label, :multiple, :required, :default_form_field,
+                    :optional_form_field, :order, :placeholder, :help, :boost, :immutable
 
       validates :name, :type, :label, :order, presence: true
       validates :type, inclusion: TYPES
 
       def initialize(
         name:,
+        active: true,
         type:,
         label:,
         default_form_field:,
@@ -20,9 +22,11 @@ module Metadata
         help: "",
         placeholder: "",
         multiple: false,
-        required: false
+        required: false,
+        immutable: ["name"]
       )
         @name = name.to_sym
+        @active = active
         @type = type.to_sym
         @label = label
         @multiple = multiple
@@ -33,6 +37,7 @@ module Metadata
         @placeholder = placeholder
         @help = help
         @boost = boost
+        @immutable = immutable
 
         if !valid?
           raise ArgumentError, errors.full_messages.join(", ")
@@ -49,6 +54,7 @@ module Metadata
       def to_hash
         {
           name: name,
+          active: active,
           type: type,
           label: label,
           multiple: multiple,
@@ -59,6 +65,7 @@ module Metadata
           placeholder: placeholder,
           help: help,
           boost: boost,
+          immutable: immutable,
         }
       end
 
@@ -68,8 +75,14 @@ module Metadata
         end
         convert_json_to_ruby_keys!(new_attributes)
 
+        if new_attributes.has_key?(:immutable)
+          new_attributes[:immutable].delete("immutable")
+          new_attributes[:immutable].delete(:immutable)
+          send("immutable=", new_attributes[:immutable])
+        end
+
         new_attributes.each do |key, value|
-          send("#{key}=", value)
+          send("#{key}=", value) unless key == :immutable || immutable.include?(key.to_s)
         end
         valid?
       end
@@ -87,7 +100,7 @@ module Metadata
         hash[:default_form_field] = hash.delete(:defaultFormField) if hash[:defaultFormField]
         hash[:optional_form_field] = hash.delete(:optionalFormField) if hash[:optionalFormField]
 
-        convert_strings_to_booleans([:multiple, :required, :default_form_field, :optional_form_field], hash)
+        convert_strings_to_booleans([:multiple, :required, :default_form_field, :optional_form_field, :active], hash)
       end
 
       def convert_strings_to_booleans(keys, hash)

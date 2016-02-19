@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Metadata::Configuration::Sort do
   let(:field) { instance_double(Metadata::Configuration::Field, name: :my_field, label: "Default Label") }
-  let(:data) { { name: :my_sort, field_name: :my_field, field: field, direction: :asc, label: "Custom Label" } }
+  let(:data) { { name: :my_sort, field_name: :my_field, field: field, direction: :asc, label: "Custom Label", active: false } }
   let(:instance) { described_class.new(data) }
   subject { instance }
 
@@ -38,6 +38,17 @@ RSpec.describe Metadata::Configuration::Sort do
     it "defaults to the field label" do
       data[:label] = nil
       expect(subject.label).to eq(field.label)
+    end
+  end
+
+  describe "active" do
+    it "is the expected value" do
+      expect(subject.active).to eq(data.fetch(:active))
+    end
+
+    it "is assumed true if not given in params" do
+      data.delete(:active)
+      expect(subject.active).to eq(true)
     end
   end
 end

@@ -39,7 +39,7 @@ var ItemMetaDataForm = React.createClass({
 
   getInitialState: function() {
     return {
-      formFields: _.sortBy(MetaDataConfigurationStore.fields, 'order'),
+      formFields: _.sortBy(MetaDataConfigurationStore.activeFields, 'order'),
       formValues: this.props.data,
       formState: "new",
       dataState: "clean",
@@ -69,7 +69,7 @@ var ItemMetaDataForm = React.createClass({
 
   setFormFieldsFromConfiguration: function() {
     this.setState({
-      formFields: _.sortBy(MetaDataConfigurationStore.fields, 'order'),
+      formFields: _.sortBy(MetaDataConfigurationStore.activeFields, 'order'),
     });
   },
 

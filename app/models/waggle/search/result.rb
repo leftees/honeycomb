@@ -24,14 +24,16 @@ module Waggle
       end
 
       def facets
-        adapter_result.facets
+        adapter_result.facets.select(&:active)
       end
 
       def sorts
         @sorts ||= [].tap do |array|
           array.push relevancy_sort
           configured_sorts.each do |sort_config|
-            array.push Waggle::Search::SortField.from_config(sort_config)
+            if sort_config.active
+              array.push Waggle::Search::SortField.from_config(sort_config)
+            end
           end
         end
       end
