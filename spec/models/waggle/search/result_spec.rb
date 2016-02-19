@@ -48,7 +48,7 @@ RSpec.describe Waggle::Search::Result do
     it "only returns fields that are active" do
       facets = [double(Object, active: true), double(Object, active: true), double(Object, active: false)]
       expect(adapter_result).to receive(:facets).and_return(facets)
-      expect(subject.facets).to eq([facets[0],facets[1]])
+      expect(subject.facets).to eq([facets[0], facets[1]])
     end
   end
 
