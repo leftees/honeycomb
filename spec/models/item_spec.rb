@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Item do
   let(:image_with_spaces) { File.open(Rails.root.join("spec/fixtures", "test copy.jpg"), "r") }
-  let(:item_metadata) { double(Metadata::Retrieval, field: [double(value: "value")]) }
+  let(:item_metadata) { double(Metadata::Retrieval, valid?: true, field: [double(value: "value")]) }
 
   before(:each) do
     allow(subject).to receive(:item_metadata).and_return(item_metadata)
@@ -69,7 +69,7 @@ RSpec.describe Item do
 
     it "uses the first value of a multiple name" do
       allow(item_metadata).to receive(:field).and_return(field_result)
-      expect(field_result).to receive(:first).and_return(double(value: "firstname"))
+      expect(field_result).to receive(:first).and_return(double(value: "firstname")).twice
       expect(subject.name).to eq("firstname")
     end
   end
@@ -135,6 +135,10 @@ RSpec.describe Item do
   end
 
   context "foreign key constraints" do
+    before(:each) do
+      allow_any_instance_of(Metadata::Retrieval).to receive(:valid?).and_return(true)
+    end
+
     describe "#destroy" do
       it "fails if a section references it" do
         FactoryGirl.create(:collection)
@@ -158,6 +162,31 @@ RSpec.describe Item do
     it "returns the retreval object" do
       expect(subject).to receive(:item_metadata).and_return(item_metadata)
       expect(subject.item_metadata).to eq(item_metadata)
+    end
+  end
+
+  describe "valid?" do
+    before(:each) do
+      allow(subject).to receive(:item_metadata).and_return(item_metadata)
+    end
+
+    it "calls asks the metadata if it is valid" do
+      expect(item_metadata).to receive(:valid?).and_return(true)
+      subject.valid?
+    end
+
+    it "returns false if the item_metadata is false" do
+      allow(item_metadata).to receive(:valid?).and_return(false)
+      allow(item_metadata).to receive(:errors).and_return(name: "is required")
+      expect(subject.valid?).to be(false)
+    end
+
+    it "passes errors from the metadata to the item" do
+      expect(item_metadata).to receive(:valid?).and_return(false)
+      expect(item_metadata).to receive(:errors).and_return(name: "is required")
+      subject.valid?
+
+      expect(subject.errors[:name]).to eq(["is required"])
     end
   end
 end

@@ -45,11 +45,25 @@ class Item < ActiveRecord::Base
   enum image_status: { no_image: 0, image_processing: 1, image_ready: 2, image_unavailable: 3 }
 
   def name
-    item_metadata.field(:name).first.value
+    if item_metadata.field(:name).first
+      item_metadata.field(:name).first.value
+    end
   end
 
   def item_metadata
     @item_metadata ||= Metadata::Retrieval.new(self)
+  end
+
+  def valid?(context = nil)
+    valid = super(context)
+
+    if !item_metadata.valid?
+      item_metadata.errors.each do |key, message|
+        errors[key] << message
+      end
+      valid = false
+    end
+    valid
   end
 
   private
