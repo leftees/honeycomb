@@ -13,6 +13,12 @@ module Metadata
 
     def save_field(name, values)
       f = field(name)
+
+      unless values[:order].present?
+        max = MetadataQuery.new(collection_id: data.collection_id).max_order
+        values[:order] = max + 1
+      end
+
       if !f
         fields
         f = new_field(values)
@@ -23,10 +29,12 @@ module Metadata
 
       return false if !f.valid?
 
-      # process_reorder!
-
       data.metadata = fields.map(&:to_hash)
-      data.save
+      if data.save
+        f
+      else
+        false
+      end
     end
 
     def fields

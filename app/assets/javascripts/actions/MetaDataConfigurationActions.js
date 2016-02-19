@@ -50,12 +50,6 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
   changeField(fieldName, fieldValues, pushToUrl, create) {
     // Clone values in order to revert the store if the change fails
     const previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
-    // Optimistically change the store
-    AppDispatcher.dispatch({
-      actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
-      name: fieldName,
-      values: fieldValues,
-    });
 
     if (!create) {
       pushToUrl += "/" + fieldName;
@@ -68,9 +62,14 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
       data: {
         fields: fieldValues,
       },
-      success: (function() {
-        // Store was already changed, nothing to do here
-        this.emit("ChangeFieldFinished", true);
+      success: (function(result) {
+        console.log( result.field, fieldValues );
+        AppDispatcher.dispatch({
+          actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
+          name: result.field.name,
+          values: result.field,
+        });
+        this.emit("ChangeFieldFinished", true, result.field);
         AppEventEmitter.emit("MessageCenterDisplay", "info", "Collection updated");
       }).bind(this),
       error: (function(xhr) {
