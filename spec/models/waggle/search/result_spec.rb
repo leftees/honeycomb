@@ -44,6 +44,12 @@ RSpec.describe Waggle::Search::Result do
       expect(adapter_result).to receive(:facets).and_return([facets])
       expect(subject.facets).to eq([facets])
     end
+
+    it "only returns fields that are active" do
+      facets = [double(Object, active: true), double(Object, active: true), double(Object, active: false)]
+      expect(adapter_result).to receive(:facets).and_return(facets)
+      expect(subject.facets).to eq([facets[0],facets[1]])
+    end
   end
 
   describe "sorts" do
@@ -55,6 +61,26 @@ RSpec.describe Waggle::Search::Result do
       configuration.sorts.each_with_index do |sort_config, index|
         expect(subject.sorts[index + 1].name).to eq(sort_config.label)
         expect(subject.sorts[index + 1].value).to eq(sort_config.name)
+      end
+    end
+
+    it "only returns fields that are active" do
+      sorts = [
+        double(Object, active: true, label: "label", name: "one"),
+        double(Object, active: true, label: "label", name: "two"),
+        double(Object, active: false, label: "label", name: "three")
+      ]
+      expected_attributes = [
+        { active: true, name: "Relevance", value: "score" },
+        { active: true, name: "label", value: "one" },
+        { active: true, name: "label", value: "two" }
+      ]
+      allow(configuration).to receive(:sorts).and_return(sorts)
+      expect(subject.sorts.length).to eq(expected_attributes.length)
+      expected_attributes.each_with_index do |attributes, index|
+        attributes.each do |attr, value|
+          expect(subject.sorts[index].send(attr)).to eq(value)
+        end
       end
     end
   end
