@@ -14,6 +14,8 @@ RSpec.describe SaveItem, type: :model do
     allow(Index::Item).to receive(:index!).and_return(true)
     allow(item).to receive(:name).and_return("name")
     allow(item).to receive(:no_image!).and_return(nil)
+
+    allow_any_instance_of(Metadata::Retrieval).to receive(:valid?).and_return(true)
   end
 
   it "returns when the item save is successful" do

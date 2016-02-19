@@ -5,8 +5,12 @@ describe Destroy::Item do
   let(:page) { instance_double(Page, destroy!: true) }
   let(:child) { instance_double(Item, pages: [], sections: [], children: [child2], destroy!: true) }
   let(:child2) { instance_double(Item, pages: [], sections: [], children: [], destroy!: true) }
-  let(:item) { instance_double(Item, pages: [page, page, page], sections: [section, section], children: [child, child], destroy!: true) }
-  let(:item2) { instance_double(Item, pages: [], sections: [section, section], children: [child, child], destroy!: true) }
+  let(:item) do
+    instance_double(
+      Item, pages: [page, page, page], sections: [section, section], children: [child, child], destroy!: true, item_metadata: double(valid?: true)
+    )
+  end
+  let(:item2) { instance_double(Item, pages: [], sections: [section, section], children: [child, child], destroy!: true, item_metadata: double(valid?: true)) }
   let(:destroy_section) { instance_double(Destroy::Section, cascade!: nil) }
   let(:subject) { Destroy::Item.new(destroy_section: destroy_section) }
 
@@ -95,6 +99,7 @@ describe Destroy::Item do
     end
 
     before(:each) do
+      allow_any_instance_of(Metadata::Retrieval).to receive(:valid?).and_return(true)
       collection
       showcase
       children
