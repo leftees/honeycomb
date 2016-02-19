@@ -4,14 +4,19 @@ var mui = require("material-ui");
 var ReactLink = require('react/lib/ReactLink');
 var ReactStateSetters = require('react/lib/ReactStateSetters');
 var MetaDataConfigurationActions = require("../../actions/MetaDataConfigurationActions");
+var Colors = require("material-ui/lib/styles/colors");
+var MoreVertIcons = require("material-ui/lib/svg-icons/navigation/more-vert");
+var FloatingActionButton = require("material-ui/lib/floating-action-button");
+var ContentAdd = require("material-ui/lib/svg-icons/content/add");
 var Paper = mui.Paper;
 var List = mui.List;
 var ListItem = mui.ListItem;
 var FontIcon = mui.FontIcon;
 var IconButton = mui.IconButton;
 var Toggle = mui.Toggle;
-var Colors = require("material-ui/lib/styles/colors");
-var MoreVertIcons = require("material-ui/lib/svg-icons/navigation/more-vert");
+var Toolbar = mui.Toolbar;
+var ToolbarGroup = mui.ToolbarGroup;
+var ToolbarTitle = mui.ToolbarTitle;
 
 var MetaDataConfigurationForm = React.createClass({
   propTypes: {
@@ -104,15 +109,19 @@ var MetaDataConfigurationForm = React.createClass({
 
   backgroundStyle: function() {
     return {
-      maxWidth: "400px",
+      maxWidth: "500px",
       marginTop: "0px",
       marginLeft: "48px",
       padding: "20px"
     };
   },
 
-  listStyle: function() {
+  addButtonStyle: function() {
     return {
+      position: "absolute",
+      top: "2.5em",
+      left: "-16px",
+      zIndex: "1"
     };
   },
 
@@ -125,7 +134,7 @@ var MetaDataConfigurationForm = React.createClass({
   },
 
   getListTitle: function() {
-    return this.state.showInactive ? "All Fields" : "Active Fields";
+    return this.state.showInactive ? "All Metadata Fields" : "Active Metadata Fields";
   },
 
   getFieldItems: function() {
@@ -172,10 +181,19 @@ var MetaDataConfigurationForm = React.createClass({
     const { selectedField } = this.state;
     return (
       <Paper style={ this.backgroundStyle() } zDepth={0}>
-        <mui.RaisedButton label="New Metadata Field" onClick={ this.handleNewClick } />
-        <Toggle labelStyle={{ paddingLeft: "20px" }} label={ this.getListTitle() } onToggle={ this.handleShowInactive } />
         <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } baseUpdateUrl={ this.props.baseUpdateUrl }/>
-        <List style={ this.listStyle() }>
+        <Toolbar>
+          <ToolbarTitle style={{ paddingLeft: "48px" }} text={ this.getListTitle() } />
+          <ToolbarGroup float="left">
+            <FloatingActionButton onClick={ this.handleNewClick } mini={true} style={ this.addButtonStyle() }>
+              <ContentAdd />
+            </FloatingActionButton>
+          </ToolbarGroup>
+          <ToolbarGroup float="right" style={{ top: "25%" }}>
+            <Toggle onToggle={ this.handleShowInactive }/>
+          </ToolbarGroup>
+        </Toolbar>
+        <List>
           {this.getFieldItems()}
         </List>
       </Paper>
