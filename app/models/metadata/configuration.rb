@@ -15,7 +15,7 @@ module Metadata
       f = field(name)
 
       unless values[:order].present?
-        max = MetadataQuery.new(collection_id: data.collection_id).max_order
+        max = CollectionConfigurationQuery.new(data.collection).max_metadata_order
         values[:order] = max + 1
       end
 
