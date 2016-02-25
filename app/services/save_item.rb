@@ -14,9 +14,9 @@ class SaveItem
     fix_params
     item.attributes = params
     check_user_defined_id
-    pre_process_metadata
     pre_process_name
     check_unique_id
+    pre_process_metadata
 
     if item.save && process_uploaded_image
       index_item
@@ -40,7 +40,9 @@ class SaveItem
 
   def pre_process_name
     if name_should_be_filename?
-      item.metadata[:name] = GenerateNameFromFilename.call(item.uploaded_image_file_name)
+      puts "process name"
+      puts item.metadata
+      item.metadata = { "name" => GenerateNameFromFilename.call(item.uploaded_image_file_name) }
     end
 
     item.sortable_name = SortableNameConverter.convert(item.name)

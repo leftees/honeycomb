@@ -172,11 +172,9 @@ RSpec.describe SaveItem, type: :model do
     let(:metadata_result) { double }
 
     it "sets the name to be the uploaded filename when the item is a new record?" do
-      allow(item).to receive(:name).and_return("")
+      allow(item).to receive(:name).and_return(nil)
       allow(MetadataInputCleaner).to receive(:call)
       expect(GenerateNameFromFilename).to receive(:call).at_least(:once).and_return("Filename")
-      expect(item).to receive(:metadata).and_return(metadata)
-      expect(metadata).to receive(:[]=).with(:name, "Filename")
 
       subject
     end
