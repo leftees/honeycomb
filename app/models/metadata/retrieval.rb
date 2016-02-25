@@ -10,12 +10,6 @@ module Metadata
       @item = item
     end
 
-    def user_defined_id
-      if field?(:user_defined_id) && field(:user_defined_id)
-        field(:user_defined_id).first.value
-      end
-    end
-
     def name
       if field?(:name) && field(:name)
         field(:name).first.value
