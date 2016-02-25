@@ -8,7 +8,8 @@ module V1
       {}.tap do |hash|
         object.item_metadata.fields.each do |key, value|
           field_config = configuration.field(key)
-          if field_config.present? && value
+
+          if field_config.present? && value && field_config.active
             hash[key] = field_hash(value, field_config)
           end
         end

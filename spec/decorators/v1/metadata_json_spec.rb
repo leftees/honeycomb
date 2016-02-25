@@ -8,7 +8,7 @@ RSpec.describe V1::MetadataJSON do
   let(:item_metadata) { double(Metadata::Retrieval, fields: item_metadata_fields) }
   let(:item_metadata_fields) { { "name" => [metadata_string] } }
   let(:metadata_string) { double(MetadataString, to_hash: "HASH") }
-  let(:metadata_config) { double(name: "Name", label: "Label", type: :string) }
+  let(:metadata_config) { double(name: "Name", label: "Label", type: :string, active: true) }
 
   before(:each) do
     allow_any_instance_of(described_class).to receive(:configuration).and_return(collection_configuration)
@@ -55,6 +55,11 @@ RSpec.describe V1::MetadataJSON do
 
     it "does not add the field if there is no config" do
       allow(collection_configuration).to receive(:field).with("name").and_return(nil)
+      expect(subject).to eq({})
+    end
+
+    it "does not add the field if it is inactive" do
+      allow(metadata_config).to receive(:active).and_return(false)
       expect(subject).to eq({})
     end
   end

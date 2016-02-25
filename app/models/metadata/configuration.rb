@@ -110,7 +110,7 @@ module Metadata
       data.facets.map do |facet_data|
         facet_data = facet_data.symbolize_keys
         facet_field = field(facet_data.fetch(:field_name))
-        arguments = facet_data.merge(field: facet_field)
+        arguments = facet_data.merge(active: facet_field.active, field: facet_field)
         Metadata::Configuration::Facet.new(**arguments)
       end
     end
@@ -119,7 +119,7 @@ module Metadata
       data.sorts.map do |sort_data|
         sort_data = sort_data.symbolize_keys
         sort_field = field(sort_data.fetch(:field_name))
-        arguments = sort_data.merge(field: sort_field)
+        arguments = sort_data.merge(active: sort_field.active, field: sort_field)
         Metadata::Configuration::Sort.new(**arguments)
       end
     end
