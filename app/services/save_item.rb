@@ -40,8 +40,6 @@ class SaveItem
 
   def pre_process_name
     if name_should_be_filename?
-      puts "process name"
-      puts item.metadata
       item.metadata = { "name" => GenerateNameFromFilename.call(item.uploaded_image_file_name) }
     end
 
