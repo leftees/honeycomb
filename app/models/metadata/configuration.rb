@@ -14,11 +14,6 @@ module Metadata
     def save_field(name, values)
       f = field(name)
 
-      unless values[:order].present?
-        max = CollectionConfigurationQuery.new(data.collection).max_metadata_order
-        values[:order] = max + 1
-      end
-
       if !f
         fields
         f = new_field(values)

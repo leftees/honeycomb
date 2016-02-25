@@ -204,17 +204,5 @@ RSpec.describe Metadata::Configuration do
       allow(data).to receive("save").and_return(false)
       expect(subject.save_field(:field_name, update_values)).to be(false)
     end
-
-    it "uses CollectionConfigurationQuery to get a default order when one is not present" do
-      update_values.delete(:order)
-      expect_any_instance_of(CollectionConfigurationQuery).to receive(:max_metadata_order).and_return(0)
-      subject.save_field(:field_name, update_values)
-    end
-
-    it "uses the order given when one is present" do
-      update_values[:order] = 10
-      expect_any_instance_of(CollectionConfigurationQuery).not_to receive(:max_metadata_order)
-      subject.save_field(:field_name, update_values)
-    end
   end
 end

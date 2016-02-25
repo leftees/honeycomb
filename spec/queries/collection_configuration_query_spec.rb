@@ -92,5 +92,20 @@ describe CollectionConfigurationQuery do
         expect{ subject.max_metadata_order }.to raise_error
       end
     end
+
+    context "when there is a non-numeric value" do
+      let(:fields) do
+        [
+          instance_double(Metadata::Configuration::Field, order: 0),
+          instance_double(Metadata::Configuration::Field, order: ""),
+          instance_double(Metadata::Configuration::Field, order: 2)
+        ]
+      end
+
+      # Order is not based on user input, so we should never have a non-numeric value
+      it "throws an error" do
+        expect{ subject.max_metadata_order }.to raise_error
+      end
+    end
   end
 end
