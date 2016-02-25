@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Metadata::Retrieval do
   let(:item) { instance_double(Item, metadata: metadata) }
   let(:metadata) { { "name" => ["name"] } }
-  let(:collection_configuration) { double(Metadata::Configuration, field: metadata_config) }
+  let(:collection_configuration) { double(Metadata::Configuration, field: metadata_config, field_names: ["name"]) }
   let(:metadata_config) { double(name: "Name", label: "Label", type: :string) }
 
   let(:instance) { described_class.new(item) }
@@ -20,6 +20,70 @@ RSpec.describe Metadata::Retrieval do
     it "calls field for each of the keys in the metadata" do
       expect(instance).to receive(:field).with("name").and_return(["name"])
       instance.fields
+    end
+  end
+
+  describe "name" do
+    it "tests if there is a name field" do
+      expect(instance).to receive(:field?).with(:name).and_return(true)
+      allow(instance).to receive(:field).with(:name).and_return([double(value: "name")])
+      instance.name
+    end
+
+    it "returns nil if the field is not a field?" do
+      allow(instance).to receive(:field?).with(:name).and_return(false)
+      allow(instance).to receive(:field).with(:name).and_return([double(value: "name")])
+      expect(instance.name).to be_nil
+    end
+
+    it "tests if there is a name value" do
+      allow(instance).to receive(:field?).with(:name).and_return(true)
+      expect(instance).to receive(:field).with(:name).and_return([double(value: "name")]).twice
+      instance.name
+    end
+
+    it "returns nil if the field has no data" do
+      allow(instance).to receive(:field?).with(:name).and_return(true)
+      allow(instance).to receive(:field).with(:name).and_return(nil)
+      expect(instance.name).to be_nil
+    end
+
+    it "returns the name" do
+      allow(instance).to receive(:field?).with(:name).and_return(true)
+      allow(instance).to receive(:field).with(:name).and_return([double(value: "name")])
+      expect(instance.name).to eq("name")
+    end
+  end
+
+  describe "description" do
+    it "tests if there is a description field" do
+      expect(instance).to receive(:field?).with(:description).and_return(true)
+      allow(instance).to receive(:field).with(:description).and_return([double(value: "description")])
+      instance.description
+    end
+
+    it "returns nil if the field is not a field?" do
+      allow(instance).to receive(:field?).with(:description).and_return(false)
+      allow(instance).to receive(:field).with(:description).and_return([double(value: "description")])
+      expect(instance.description).to be_nil
+    end
+
+    it "tests if there is a description value" do
+      allow(instance).to receive(:field?).with(:description).and_return(true)
+      expect(instance).to receive(:field).with(:description).and_return([double(value: "description")]).twice
+      instance.description
+    end
+
+    it "returns nil if the field has no data" do
+      allow(instance).to receive(:field?).with(:description).and_return(true)
+      allow(instance).to receive(:field).with(:description).and_return(nil)
+      expect(instance.description).to be_nil
+    end
+
+    it "returns the description" do
+      allow(instance).to receive(:field?).with(:description).and_return(true)
+      allow(instance).to receive(:field).with(:description).and_return([double(value: "description")])
+      expect(instance.description).to eq("description")
     end
   end
 

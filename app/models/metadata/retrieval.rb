@@ -10,6 +10,24 @@ module Metadata
       @item = item
     end
 
+    def user_defined_id
+      if field?(:user_defined_id) && field(:user_defined_id)
+        field(:user_defined_id).first.value
+      end
+    end
+
+    def name
+      if field?(:name) && field(:name)
+        field(:name).first.value
+      end
+    end
+
+    def description
+      if field?(:description) && field(:description)
+        field(:description).first.value
+      end
+    end
+
     def fields
       @fields ||= {}.tap do |hash|
         item.metadata.keys.each do |key|
@@ -23,10 +41,23 @@ module Metadata
     end
 
     def field?(field)
-      get(field).present?
+      configuration.field_names.include?(field.to_s)
+    end
+
+    def set_metadata(metadata)
+      metadata.each do |key, value|
+        set(key, value)
+      end
+      MetadataInputCleaner.call(item)
     end
 
     private
+
+    def set(field, value)
+      if field?(field)
+        item.metadata[field.to_s] = value
+      end
+    end
 
     def configuration
       @configuration ||= CollectionConfigurationQuery.new(item.collection).find

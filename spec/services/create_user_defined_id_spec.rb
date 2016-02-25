@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe CreateUserDefinedId do
   subject { described_class.new(object) }
-  let(:object) { double(id: 1, class: "Class", user_defined_id: nil, "user_defined_id=" => true, save: true) }
+  let(:object) { double(id: 1, class: "Class", "user_defined_id=" => true, user_defined_id: nil, save: true) }
 
   it "generates a id" do
     expect(object).to receive(:user_defined_id=).with(anything)
@@ -21,7 +21,7 @@ describe CreateUserDefinedId do
 
   it "returns the generated id" do
     allow(SecureRandom).to receive(:uuid).and_return("uuid")
-    expect(subject.create).to eq("uuid")
+    expect(subject.send(:unique_id)).to eq("uuid")
   end
 
   describe "existing unique_id" do

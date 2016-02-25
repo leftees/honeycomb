@@ -9,9 +9,9 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
   let(:collection) { double(Collection, id: 1) }
   let(:items) do
     [
-      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 1), **item_meta_hash_remapped(item_id: 1)),
-      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 2), **item_meta_hash_remapped(item_id: 2)),
-      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 3), **item_meta_hash_remapped(item_id: 3)),
+      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 1)),
+      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 2)),
+      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 3)),
     ]
   end
   let(:item_label_hashes) do

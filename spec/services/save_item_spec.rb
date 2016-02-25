@@ -5,7 +5,8 @@ RSpec.describe SaveItem, type: :model do
   subject { described_class.call(item, params) }
   let(:item) { Item.new }
   let(:page) { Page.new }
-  let(:params) { { name: "name" } }
+  let(:params) { { metadata: { name: "name" } } }
+  let(:collection) { instance_double(Collection, collection_configuration: double) }
 
   before(:each) do
     # stub the call to the external service
@@ -14,6 +15,8 @@ RSpec.describe SaveItem, type: :model do
     allow(Index::Item).to receive(:index!).and_return(true)
     allow(item).to receive(:name).and_return("name")
     allow(item).to receive(:no_image!).and_return(nil)
+    allow(item).to receive(:metadata=).and_return({})
+    allow(CreateUserDefinedId).to receive(:call).and_return(true)
 
     allow_any_instance_of(Metadata::Retrieval).to receive(:valid?).and_return(true)
   end
@@ -165,11 +168,15 @@ RSpec.describe SaveItem, type: :model do
 
   context "no name on a new record" do
     let(:params) { {} }
+    let(:metadata) { double }
+    let(:metadata_result) { double }
 
     it "sets the name to be the uploaded filename when the item is a new record?" do
       allow(item).to receive(:name).and_return("")
+      allow(MetadataInputCleaner).to receive(:call)
       expect(GenerateNameFromFilename).to receive(:call).at_least(:once).and_return("Filename")
-      expect(item).to receive("name=").with("Filename")
+      expect(item).to receive(:metadata).and_return(metadata)
+      expect(metadata).to receive(:[]=).with(:name, "Filename")
 
       subject
     end
