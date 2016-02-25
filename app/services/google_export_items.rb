@@ -27,7 +27,7 @@ class GoogleExportItems
   private
 
   def configuration(collection)
-    @configuration ||= Metadata::Configuration.new(CollectionConfigurationQuery.new(collection).find)
+    @configuration ||= CollectionConfigurationQuery.new(collection).find
   end
 
   def item_hash(item:)

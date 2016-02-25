@@ -24,11 +24,25 @@ RSpec.describe RewriteItemMetadataForExport, helpers: :item_meta_helpers do
     allow(configuration).to receive(:label?).and_return(false)
   end
 
+  it "rewrites non-multiples as a single value" do
+    allow(configuration).to receive(:field).with(:name).and_return(field)
+    allow(configuration).to receive(:field?).with(:name).and_return(true)
+    item[:name] = ["Name"]
+    expect(subject).to eq("Name" => "Name", "Alternate Name" => nil, "Date Created" => nil)
+  end
+
+  it "grabs the first value if its not a multiple" do
+    allow(configuration).to receive(:field).with(:name).and_return(field)
+    allow(configuration).to receive(:field?).with(:name).and_return(true)
+    item[:name] = ["Name1", "Name2"]
+    expect(subject).to eq("Name" => "Name1", "Alternate Name" => nil, "Date Created" => nil)
+  end
+
   it "rewrites all fields from labels to field names" do
     allow(configuration).to receive(:field).with(:name).and_return(field)
     allow(configuration).to receive(:field?).with(:name).and_return(true)
 
-    item[:name] = "the Name"
+    item[:name] = ["the Name"]
 
     expect(subject).to eq("Name" => "the Name", "Alternate Name" => nil, "Date Created" => nil)
   end
@@ -46,7 +60,7 @@ RSpec.describe RewriteItemMetadataForExport, helpers: :item_meta_helpers do
       allow(configuration).to receive(:field).with(:date_created).and_return(date_field)
       allow(configuration).to receive(:field?).with(:date_created).and_return(true)
 
-      item[:date_created] = { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
+      item[:date_created] = [{ "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }]
       expect(subject).to eq("Name" => nil, "Alternate Name" => nil, "Date Created" => "'-2001/01/01")
     end
 
@@ -54,7 +68,7 @@ RSpec.describe RewriteItemMetadataForExport, helpers: :item_meta_helpers do
       allow(configuration).to receive(:field).with(:date_created).and_return(date_field)
       allow(configuration).to receive(:field?).with(:date_created).and_return(true)
 
-      item[:date_created] = { "year" => "", "month" => "", "day" => "", "bc" => false, "display_text" => nil }
+      item[:date_created] = [{ "year" => "", "month" => "", "day" => "", "bc" => false, "display_text" => nil }]
       expect(subject).to eq("Name" => nil, "Alternate Name" => nil, "Date Created" => "'")
     end
   end

@@ -42,6 +42,8 @@ class RewriteItemMetadataForExport
   def rewrite_values(field:, pair:)
     if field.multiple
       pair.value = pair.value.join("||")
+    else
+      pair.value = pair.value.first
     end
 
     if field.type == :date
