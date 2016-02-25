@@ -11,7 +11,7 @@ class CollectionConfigurationQuery
 
   def max_metadata_order
     config = find
-    field = config.fields.max_by { |f| f.order }
+    field = config.fields.max_by(& :order)
     if field.nil?
       0
     else

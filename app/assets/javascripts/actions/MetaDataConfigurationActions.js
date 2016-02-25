@@ -63,7 +63,6 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
         fields: fieldValues,
       },
       success: (function(result) {
-        console.log( result.field, fieldValues );
         AppDispatcher.dispatch({
           actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
           name: result.field.name,

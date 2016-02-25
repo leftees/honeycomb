@@ -12,12 +12,11 @@ describe CollectionConfigurationQuery do
 
   describe "max_metadata_order" do
     let(:fields) { [] }
-    let(:configuration) { instance_double(Metadata::Configuration, fields: fields)}
+    let(:configuration) { instance_double(Metadata::Configuration, fields: fields) }
 
     before (:each) do
       allow(subject).to receive(:find).and_return(configuration)
     end
-
 
     context "when there are no records" do
       let(:fields) { [] }
@@ -89,7 +88,7 @@ describe CollectionConfigurationQuery do
 
       # Order is not based on user input, so we should never have nil
       it "throws an error" do
-        expect{ subject.max_metadata_order }.to raise_error
+        expect { subject.max_metadata_order }.to raise_error
       end
     end
 
@@ -104,7 +103,7 @@ describe CollectionConfigurationQuery do
 
       # Order is not based on user input, so we should never have a non-numeric value
       it "throws an error" do
-        expect{ subject.max_metadata_order }.to raise_error
+        expect { subject.max_metadata_order }.to raise_error
       end
     end
   end

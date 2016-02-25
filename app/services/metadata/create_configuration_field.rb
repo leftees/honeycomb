@@ -21,12 +21,12 @@ module Metadata
     # Populates default values for some fields when there are no values given,
     # since we can't do it at the database layer
     def populate_defaults(values:)
-      if values[:order].nil? || values[:order]  == ""
+      if values[:order].nil? || values[:order] == ""
         max = CollectionConfigurationQuery.new(collection).max_metadata_order
         values[:order] = max + 1
       end
 
-      if values[:active].nil? || values[:active]  == ""
+      if values[:active].nil? || values[:active] == ""
         values[:active] = true
       end
     end
