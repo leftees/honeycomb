@@ -34,10 +34,6 @@ class GoogleExportItems
     item_fields =
       {
         user_defined_id: item.user_defined_id,
-        name: item.name,
-        description: item.description,
-        manuscript_url: item.manuscript_url,
-        transcription: item.transcription
       }
     item_fields.merge(item.metadata)
   end

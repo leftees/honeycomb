@@ -45,7 +45,6 @@ module ItemMetaHelpers
   # Remapped to all field names
   def item_meta_hash_remapped(item_id:)
     {
-      user_defined_id: "id#{item_id}",
       name: "name#{item_id}",
       alternate_name: ["alternateName#{item_id}"],
       creator: ["creator#{item_id}"],
@@ -67,7 +66,6 @@ module ItemMetaHelpers
 
   def item_meta_hash_remapped_to_labels(item_id:)
     {
-      "Identifier" => "id#{item_id}",
       "Name" => "name#{item_id}",
       "Alternate Name" => "alternateName#{item_id}",
       "Creator" => "creator#{item_id}",

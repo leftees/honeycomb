@@ -16,7 +16,7 @@ class RewriteItemMetadata
     result = Hash.new
     item_hash.each do |k, v|
       new_pair = rewrite_pair(key: k, value: v)
-      if Item.method_defined?(new_pair.key)
+      if configuration.field?(new_pair.key)
         result[new_pair.key] = new_pair.value
       else
         errors << "Unknown attribute #{k}"
