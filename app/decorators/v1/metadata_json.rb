@@ -6,11 +6,11 @@ module V1
 
     def metadata
       {}.tap do |hash|
-        object.item_metadata.fields.each do |key, value|
+        object.item_metadata.fields.each do |key, metadata_field|
           field_config = configuration.field(key)
 
-          if field_config.present? && value && field_config.active
-            hash[key] = field_hash(value, field_config)
+          if field_config.present? && metadata_field.present? && field_config.active
+            hash[key] = field_hash(metadata_field, field_config)
           end
         end
       end
