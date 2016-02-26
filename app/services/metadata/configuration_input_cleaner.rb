@@ -22,7 +22,7 @@ module Metadata
     private
 
     def ensure_boolean_values
-      [:required, :default_form_field, :optional_form_field].each do |key|
+      [:required, :default_form_field, :optional_form_field, :active].each do |key|
         data[key] = convert_value_to_bool(data[key]) if data.has_key?(key)
       end
     end

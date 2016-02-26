@@ -56,5 +56,27 @@ RSpec.describe V1::MetadataFieldsController, type: :controller do
       expect_any_instance_of(described_class).to receive(:user_can_edit?).with(collection)
       subject
     end
+
+    it "renders the status in the json response if the save succeeds" do
+      subject
+      expect(JSON.parse(response.body)).to include("status" => "success")
+    end
+
+    it "renders the new field in the json response if the save succeeds" do
+      subject
+      expect(JSON.parse(response.body)).to include("field" => true)
+    end
+
+    it "returns the status in the json response if the save fails" do
+      allow(Metadata::CreateConfigurationField).to receive(:call).with(collection, params).and_return(false)
+      subject
+      expect(JSON.parse(response.body)).to include("status" => "unprocessable_entity")
+    end
+
+    it "returns the field params in the json response if the save fails" do
+      allow(Metadata::CreateConfigurationField).to receive(:call).with(collection, params).and_return(false)
+      subject
+      expect(JSON.parse(response.body)).to include("field" => params.stringify_keys)
+    end
   end
 end

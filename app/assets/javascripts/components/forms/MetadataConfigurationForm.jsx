@@ -112,7 +112,6 @@ var MetaDataConfigurationForm = React.createClass({
       maxWidth: "500px",
       marginTop: "0px",
       marginLeft: "48px",
-      padding: "20px"
     };
   },
 
@@ -122,6 +121,12 @@ var MetaDataConfigurationForm = React.createClass({
       top: "2.5em",
       left: "-16px",
       zIndex: "1"
+    };
+  },
+
+  listStyle: function() {
+    return {
+      paddingBottom: "0px"
     };
   },
 
@@ -180,7 +185,7 @@ var MetaDataConfigurationForm = React.createClass({
   render: function(){
     const { selectedField } = this.state;
     return (
-      <Paper style={ this.backgroundStyle() } zDepth={0}>
+      <Paper style={ this.backgroundStyle() } zDepth={1}>
         <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } baseUpdateUrl={ this.props.baseUpdateUrl }/>
         <Toolbar>
           <ToolbarTitle style={{ paddingLeft: "48px" }} text={ this.getListTitle() } />
@@ -193,7 +198,7 @@ var MetaDataConfigurationForm = React.createClass({
             <Toggle onToggle={ this.handleShowInactive }/>
           </ToolbarGroup>
         </Toolbar>
-        <List>
+        <List style={ this.listStyle() }>
           {this.getFieldItems()}
         </List>
       </Paper>

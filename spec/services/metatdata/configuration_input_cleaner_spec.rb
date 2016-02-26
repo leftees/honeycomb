@@ -25,7 +25,7 @@ RSpec.describe Metadata::ConfigurationInputCleaner do
     expect(subject).to eq(label: "na me", name: "na_me")
   end
 
-  [:required, :default_form_field, :optional_form_field].each do |key|
+  [:required, :default_form_field, :optional_form_field, :active].each do |key|
     it "converts string \"true\" types for #{key} to true" do
       data[key] = "true"
       expect(subject).to eq(key => true)
