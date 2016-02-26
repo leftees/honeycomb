@@ -5,7 +5,8 @@ RSpec.describe SaveItem, type: :model do
   subject { described_class.call(item, params) }
   let(:item) { Item.new }
   let(:page) { Page.new }
-  let(:params) { { metadata: { name: "name" } } }
+  let(:params) { { unique_id: "ad", metadata: metadata } }
+  let(:metadata) { { name: "name" } }
   let(:collection) { instance_double(Collection, collection_configuration: double) }
 
   before(:each) do
@@ -17,6 +18,7 @@ RSpec.describe SaveItem, type: :model do
     allow(item).to receive(:no_image!).and_return(nil)
     allow(item).to receive(:metadata=).and_return({})
     allow(CreateUserDefinedId).to receive(:call).and_return(true)
+    allow(Metadata::Setter).to receive(:call).and_return(true)
 
     allow_any_instance_of(Metadata::Fields).to receive(:valid?).and_return(true)
   end
@@ -33,17 +35,19 @@ RSpec.describe SaveItem, type: :model do
 
   it "uses the param cleaner before setting item attributes" do
     expect(ParamCleaner).to receive(:call).with(hash: params).ordered
-    expect(item).to receive(:attributes=).with(params).ordered
+    expect(item).to receive(:attributes=).with("unique_id" => "ad").ordered
     subject
   end
 
   it "sets the attributes of the item to be the passed in attributes " do
-    expect(item).to receive(:attributes=).with(params)
+    expect(item).to receive(:attributes=).with("unique_id" => "ad")
     subject
   end
 
   it "removes the uploaded image from the params if the param is nil" do
     params[:uploaded_image] = nil
+    allow(params).to receive(:with_indifferent_access).and_return(params)
+    allow(params).to receive(:delete).with(:metadata)
     expect(params).to receive(:delete).with(:uploaded_image)
 
     subject
@@ -54,9 +58,22 @@ RSpec.describe SaveItem, type: :model do
     subject
   end
 
-  describe "metadata cleaning" do
-    it "calls the metadata cleaner" do
-      expect(MetadataInputCleaner).to receive(:call)
+  describe "pre_process_metadata" do
+    it "calls the metadata setter if there is metadata" do
+      expect(Metadata::Setter).to receive(:call).with(item, metadata)
+      subject
+    end
+
+    it "removes the metadata from the params" do
+      allow(params).to receive(:with_indifferent_access).and_return(params)
+      allow(params).to receive(:delete).with(:uploaded_image)
+      expect(params).to receive(:delete).with(:metadata)
+      subject
+    end
+
+    it "does not call the metadata setter if there is no metadata" do
+      params.delete(:metadata)
+      expect(Metadata::Setter).to_not receive(:call)
       subject
     end
   end

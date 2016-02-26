@@ -40,8 +40,8 @@ class Item < ActiveRecord::Base
     @item_metadata ||= Metadata::Fields.new(self)
   end
 
-  def metadata=(values)
-    item_metadata.set_metadata(values)
+  def metadata=(_values)
+    raise "Use Metadata::Setter.call instead see SaveItem"
   end
 
   def valid?(context = nil)

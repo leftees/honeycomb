@@ -149,6 +149,12 @@ RSpec.describe Item do
     end
   end
 
+  describe "metadata=" do
+    it "prevents you from calling this method" do
+      expect{subject.metadata=({})}.to raise_error
+    end
+  end
+
   describe "valid?" do
     before(:each) do
       allow(subject).to receive(:item_metadata).and_return(item_metadata)

@@ -26,7 +26,11 @@ module Metadata
     end
 
     def field?(field)
-      item.item_metadata.field?(field)
+      configuration.field?(field.to_s)
+    end
+
+    def configuration
+      @configuration ||= CollectionConfigurationQuery.new(item.collection).find
     end
   end
 end

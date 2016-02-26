@@ -38,20 +38,7 @@ module Metadata
       configuration.field_names.include?(field.to_s)
     end
 
-    def set_metadata(metadata)
-      metadata.each do |key, value|
-        set(key, value)
-      end
-      MetadataInputCleaner.call(item)
-    end
-
     private
-
-    def set(field, value)
-      if field?(field)
-        item.metadata[field.to_s] = value
-      end
-    end
 
     def configuration
       @configuration ||= CollectionConfigurationQuery.new(item.collection).find
