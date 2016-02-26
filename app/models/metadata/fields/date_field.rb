@@ -77,7 +77,7 @@ module Metadata
 
       def self.parse(string)
         date_and_display = string.split(":")
-        if date_and_display.length > 0
+        if !date_and_display.empty?
           display_text = date_and_display.fetch(1, nil)
           date = parse_date(value: date_and_display[0])
           new(year: date[:year].abs,
@@ -88,12 +88,6 @@ module Metadata
         end
       end
 
-      private
-
-      def parse_value(value)
-        value ? value.to_s.strip : nil
-      end
-
       # Parses a date string into hash. Expects format y/m/d
       def self.parse_date(value:)
         date_array = value.split("/")
@@ -102,6 +96,13 @@ module Metadata
           month: date_array.length > 1 ? date_array[1].to_i : nil,
           day: date_array.length > 2 ? date_array[2].to_i : nil
         }
+      end
+      private_class_method :parse_date
+
+      private
+
+      def parse_value(value)
+        value ? value.to_s.strip : nil
       end
 
       def month_required?

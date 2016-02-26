@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Metadata::Fields::DateField do
-
   describe "#from_hash" do
     let(:hash) { { year: "2015", month: "7", day: "15" } }
 
