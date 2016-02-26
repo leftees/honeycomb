@@ -63,18 +63,9 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
 
     it "calls RewriteItemMetadataForExport with the correct item hashes" do
       allow_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).and_return(true)
-      expect(RewriteItemMetadataForExport).to receive(:call).with(
-        item_hash: item_meta_hash_remapped(item_id: 1).merge(user_defined_id: "id1"),
-        configuration: configuration
-      )
-      expect(RewriteItemMetadataForExport).to receive(:call).with(
-        item_hash: item_meta_hash_remapped(item_id: 2).merge(user_defined_id: "id2"),
-        configuration: configuration
-      )
-      expect(RewriteItemMetadataForExport).to receive(:call).with(
-        item_hash: item_meta_hash_remapped(item_id: 3).merge(user_defined_id: "id3"),
-        configuration: configuration
-      )
+      expect(RewriteItemMetadataForExport).to receive(:call).with(hash_including(item_hash: item_meta_hash_remapped(item_id: 1), configuration: configuration))
+      expect(RewriteItemMetadataForExport).to receive(:call).with(hash_including(item_hash: item_meta_hash_remapped(item_id: 2), configuration: configuration))
+      expect(RewriteItemMetadataForExport).to receive(:call).with(hash_including(item_hash: item_meta_hash_remapped(item_id: 3), configuration: configuration))
       subject
     end
   end
