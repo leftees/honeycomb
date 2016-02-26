@@ -1,5 +1,5 @@
 module Metadata
-  class Retrieval
+  class Fields
     attr_reader :item
 
     include ActiveModel::Validations

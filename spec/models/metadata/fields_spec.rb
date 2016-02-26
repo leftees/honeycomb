@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Metadata::Retrieval do
+RSpec.describe Metadata::Fields do
   let(:item) { instance_double(Item, metadata: metadata) }
   let(:metadata) { { "name" => ["name"] } }
   let(:collection_configuration) { double(Metadata::Configuration, field: metadata_config, field_names: ["name"]) }

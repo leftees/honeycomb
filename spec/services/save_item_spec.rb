@@ -18,7 +18,7 @@ RSpec.describe SaveItem, type: :model do
     allow(item).to receive(:metadata=).and_return({})
     allow(CreateUserDefinedId).to receive(:call).and_return(true)
 
-    allow_any_instance_of(Metadata::Retrieval).to receive(:valid?).and_return(true)
+    allow_any_instance_of(Metadata::Fields).to receive(:valid?).and_return(true)
   end
 
   it "returns when the item save is successful" do

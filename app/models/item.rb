@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
   end
 
   def item_metadata
-    @item_metadata ||= Metadata::Retrieval.new(self)
+    @item_metadata ||= Metadata::Fields.new(self)
   end
 
   def metadata=(values)

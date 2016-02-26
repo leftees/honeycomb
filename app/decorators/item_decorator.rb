@@ -62,7 +62,7 @@ class ItemDecorator < Draper::Decorator
 
   def meta_data
     data = {}
-    Metadata::Retrieval.new(self).fields.each do |key, values|
+    Metadata::Fields.new(self).fields.each do |key, values|
       data[key] = values.map(&:value)
     end
     data

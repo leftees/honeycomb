@@ -4,7 +4,7 @@ RSpec.describe Item do
   let(:image_with_spaces) { File.open(Rails.root.join("spec/fixtures", "test copy.jpg"), "r") }
   let(:item_metadata) do
     double(
-      Metadata::Retrieval,
+      Metadata::Fields,
       valid?: true,
       field: [double(value: "value")],
       name: "name", user_defined_id: "user_defined_id", description: "descriptiom"
@@ -120,7 +120,7 @@ RSpec.describe Item do
 
   context "foreign key constraints" do
     before(:each) do
-      allow_any_instance_of(Metadata::Retrieval).to receive(:valid?).and_return(true)
+      allow_any_instance_of(Metadata::Fields).to receive(:valid?).and_return(true)
     end
 
     describe "#destroy" do
