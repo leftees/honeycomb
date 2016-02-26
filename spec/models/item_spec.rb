@@ -151,7 +151,7 @@ RSpec.describe Item do
 
   describe "metadata=" do
     it "prevents you from calling this method" do
-      expect{subject.metadata=({})}.to raise_error
+      expect { subject.metadata = ({}) }.to raise_error
     end
   end
 
