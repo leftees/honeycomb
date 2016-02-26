@@ -31,10 +31,7 @@ class GoogleExportItems
   end
 
   def item_hash(item:)
-    item_fields =
-      {
-        user_defined_id: item.user_defined_id,
-      }
+    item_fields = { user_defined_id: item.user_defined_id }
     item_fields.merge(item.metadata)
   end
 end
