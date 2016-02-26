@@ -104,7 +104,7 @@ module Metadata
 
     def date_value(value)
       if value.is_a?(Array)
-        value.map { |v| Metadata::Fields::Date.new(v.symbolize_keys) }
+        value.map { |v| Metadata::Fields::DateField.new(v.symbolize_keys) }
       else
         [Metadata::Fields::DateField.new(value.symbolize_keys)]
       end

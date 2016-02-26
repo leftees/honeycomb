@@ -15,6 +15,12 @@ RSpec.describe MetadataInputCleaner do
     expect(item.metadata["hash"]).to eq(["YES"])
   end
 
+  it "converts a regular hash not the special case \"0\" hash" do
+    metadata[:hash] = { "key" => "YES" }
+    subject
+    expect(item.metadata["hash"]).to eq(["key" => "YES"])
+  end
+
   it "does nothing to an existing array" do
     metadata[:array] = ["array"]
     subject

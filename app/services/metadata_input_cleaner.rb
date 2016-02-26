@@ -24,8 +24,16 @@ class MetadataInputCleaner
       if value.nil?
         item.metadata[key] = []
       else
-        item.metadata[key] = value.is_a?(Hash) ? [value["0"]] : [value]
+        item.metadata[key] = value.is_a?(Hash) ? [ensure_hash(value)] : [value]
       end
+    end
+  end
+
+  def ensure_hash(value)
+    if value["0"]
+      value["0"]
+    else
+      value
     end
   end
 end
