@@ -47,7 +47,7 @@ class RewriteItemMetadata
     end
 
     if field.type == :date
-      pair.value = MetadataDate.parse(pair.value).to_params
+      pair.value = Metadata::Fields::DateField.parse(pair.value).to_params
     end
   end
 end

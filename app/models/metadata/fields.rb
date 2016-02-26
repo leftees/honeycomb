@@ -88,25 +88,25 @@ module Metadata
 
     def string_value(value)
       if value.is_a?(Array)
-        value.map { |v| MetadataString.new(v) }
+        value.map { |v| Metadata::Fields::StringField.new(v) }
       else
-        [MetadataString.new(value)]
+        [Metadata::Fields::StringField.new(value)]
       end
     end
 
     def html_value(value)
       if value.is_a?(Array)
-        value.map { |v| MetadataHTML.new(v) }
+        value.map { |v| Metadata::Fields::HTMLField.new(v) }
       else
-        [MetadataHTML.new(value)]
+        [Metadata::Fields::HTMLField.new(value)]
       end
     end
 
     def date_value(value)
       if value.is_a?(Array)
-        value.map { |v| MetadataDate.new(v.symbolize_keys) }
+        value.map { |v| Metadata::Fields::Date.new(v.symbolize_keys) }
       else
-        [MetadataDate.new(value.symbolize_keys)]
+        [Metadata::Fields::DateField.new(value.symbolize_keys)]
       end
     end
 

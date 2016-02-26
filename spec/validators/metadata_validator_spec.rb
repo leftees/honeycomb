@@ -71,7 +71,7 @@ describe MetadataValidator do
 
   context "date field" do
     let(:field) { double(required: false, name: :field, type: :date) }
-    let(:date_field) { double(MetadataDate, valid?: true, to_date: Time.now) }
+    let(:date_field) { double(Metadata::Fields::DateField, valid?: true, to_date: Time.now) }
     let(:date_errors) { double(full_messages: { field: "MESSAGE" }) }
     let(:date_result) { [date_field] }
 
@@ -79,7 +79,7 @@ describe MetadataValidator do
       allow(metadata).to receive(:field).and_return(date_result)
     end
 
-    it "uses the validation on the MetadataDate " do
+    it "uses the validation on the Metadata::Fields::DateField " do
       expect(date_field).to receive(:valid?).and_return(true)
       subject
     end

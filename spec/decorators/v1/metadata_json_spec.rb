@@ -7,7 +7,7 @@ RSpec.describe V1::MetadataJSON do
 
   let(:item_metadata) { double(Metadata::Fields, fields: item_metadata_fields) }
   let(:item_metadata_fields) { { "name" => [metadata_string] } }
-  let(:metadata_string) { double(MetadataString, to_hash: "HASH") }
+  let(:metadata_string) { double(Metadata::Fields::StringField, to_hash: "HASH") }
   let(:metadata_config) { double(name: "Name", label: "Label", type: :string, active: true) }
 
   before(:each) do
