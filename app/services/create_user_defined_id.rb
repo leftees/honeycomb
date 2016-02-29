@@ -15,9 +15,8 @@ class CreateUserDefinedId
   def create
     if object.user_defined_id.nil?
       object.user_defined_id = unique_id
-    else
-      object.user_defined_id
     end
+    object.user_defined_id
   end
 
   private
@@ -27,7 +26,7 @@ class CreateUserDefinedId
   end
 
   def validate_interface!
-    unless object.respond_to?("user_defined_id=") && object.respond_to?(:user_defined_id) && object.respond_to?(:save)
+    unless object.respond_to?("user_defined_id=") && object.respond_to?(:user_defined_id)
       fail "Object passed to CreateUserDefinedId is not valid"
     end
   end

@@ -11,9 +11,29 @@ class MetadataInputCleaner
 
   def clean!
     item.metadata.each do |key, value|
-      if !value.is_a?(Array)
-        item.metadata[key] = value["0"] ? value["0"] : [value]
+      ensure_value_is_array(key, value)
+    end
+
+    item.metadata.stringify_keys!
+  end
+
+  private
+
+  def ensure_value_is_array(key, value)
+    if !value.is_a?(Array)
+      if value.nil?
+        item.metadata[key] = []
+      else
+        item.metadata[key] = value.is_a?(Hash) ? [ensure_hash(value)] : [value]
       end
+    end
+  end
+
+  def ensure_hash(value)
+    if value["0"]
+      value["0"]
+    else
+      value
     end
   end
 end

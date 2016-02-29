@@ -61,7 +61,7 @@ RSpec.describe ItemDecorator do
     end
 
     before(:each) do
-      allow_any_instance_of(Metadata::Retrieval).to receive(:fields).and_return(metadata)
+      allow_any_instance_of(Metadata::Fields).to receive(:fields).and_return(metadata)
     end
 
     it "renders the react component" do

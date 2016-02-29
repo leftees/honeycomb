@@ -12,11 +12,11 @@ class SaveItem
 
   def save
     fix_params
-    item.attributes = params
     pre_process_metadata
-    pre_process_name
-    check_unique_id
+    item.attributes = params
     check_user_defined_id
+    check_unique_id
+    pre_process_name
 
     if item.save && process_uploaded_image
       index_item
@@ -30,17 +30,22 @@ class SaveItem
   private
 
   def fix_params
+    @params = params.with_indifferent_access
     fix_image_param!
     ParamCleaner.call(hash: params)
   end
 
   def pre_process_metadata
-    MetadataInputCleaner.call(item)
+    if params[:metadata].present?
+      metadata = params.delete(:metadata)
+      Metadata::Setter.call(item, metadata)
+    end
   end
 
   def pre_process_name
     if name_should_be_filename?
-      item.name = GenerateNameFromFilename.call(item.uploaded_image_file_name)
+      data = { "name" => GenerateNameFromFilename.call(item.uploaded_image_file_name) }
+      Metadata::Setter.call(item, data)
     end
 
     item.sortable_name = SortableNameConverter.convert(item.name)

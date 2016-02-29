@@ -128,7 +128,7 @@ RSpec.describe V1::ItemsController, type: :controller do
 
   describe "#create" do
     let(:collection) { Collection.new(unique_id: "test", items: []) }
-    let(:item) { Item.new(id: 1, name: "test_item", unique_id: "test", collection: collection) }
+    let(:item) { Item.new(id: 1, unique_id: "test", collection: collection) }
     let(:image) { double(path: Rails.root.join("spec/fixtures/test.jpg").to_s, content_type: "image/jpeg") }
     let(:image_params) { { collection_id: "test", item: { uploaded_image: fixture_file_upload("test.jpg", "image/jpeg", :binary) }, format: :json } }
     subject { post :create, image_params }

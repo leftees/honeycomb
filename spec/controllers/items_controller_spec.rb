@@ -90,7 +90,7 @@ RSpec.describe ItemsController, type: :controller do
 
   describe "POST #create" do
     let(:collection) { double(Collection, id: 1, items: relation) }
-    let(:create_params) { { collection_id: collection.id, item: { name: "name" } } }
+    let(:create_params) { { collection_id: collection.id, item: { metadata: { name: "name" } } } }
     let(:item) { instance_double(Item, id: 1, parent: nil, collection: collection) }
 
     before(:each) do

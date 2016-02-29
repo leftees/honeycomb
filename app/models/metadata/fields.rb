@@ -1,9 +1,25 @@
 module Metadata
-  class Retrieval
+  class Fields
     attr_reader :item
+
+    include ActiveModel::Validations
+
+    validates_with MetadataValidator
 
     def initialize(item)
       @item = item
+    end
+
+    def name
+      if field?(:name) && field(:name)
+        field(:name).first.value
+      end
+    end
+
+    def description
+      if field?(:description) && field(:description)
+        field(:description).first.value
+      end
     end
 
     def fields
@@ -19,7 +35,7 @@ module Metadata
     end
 
     def field?(field)
-      get(field).present?
+      configuration.field_names.include?(field.to_s)
     end
 
     private
@@ -59,25 +75,25 @@ module Metadata
 
     def string_value(value)
       if value.is_a?(Array)
-        value.map { |v| MetadataString.new(v) }
+        value.map { |v| Metadata::Fields::StringField.new(v) }
       else
-        [MetadataString.new(value)]
+        [Metadata::Fields::StringField.new(value)]
       end
     end
 
     def html_value(value)
       if value.is_a?(Array)
-        value.map { |v| MetadataHTML.new(v) }
+        value.map { |v| Metadata::Fields::HTMLField.new(v) }
       else
-        [MetadataHTML.new(value)]
+        [Metadata::Fields::HTMLField.new(value)]
       end
     end
 
     def date_value(value)
       if value.is_a?(Array)
-        value.map { |v| MetadataDate.new(v.symbolize_keys) }
+        value.map { |v| Metadata::Fields::DateField.new(v.symbolize_keys) }
       else
-        [MetadataDate.new(value.symbolize_keys)]
+        [Metadata::Fields::DateField.new(value.symbolize_keys)]
       end
     end
 

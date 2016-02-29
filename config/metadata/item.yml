@@ -1,14 +1,5 @@
 ---
 :fields:
-  - :name: :user_defined_id
-    :active: true
-    :type: :string
-    :label: Identifier
-    :required: true
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 100
-    :immutable: [name, active, type, required, default_form_field, optional_form_field, order]
   - :name: :name
     :active: true
     :type: :string

@@ -33,28 +33,9 @@ module Brood
           end
         end
         if skipped.present?
-          append_skipped_values(hash, skipped)
+          hash[:metadata] = skipped
         end
       end
-    end
-
-    def append_skipped_values(data, values)
-      if record.respond_to?(:description)
-        debug "Appending values to #{record}#description: #{values}"
-        append_values_to_description(data, values)
-      else
-        debug "Discarding values on #{record}: #{values}"
-      end
-    end
-
-    def append_values_to_description(data, values)
-      if data[:description].present?
-        data[:description] += "\n\n"
-      else
-        data[:description] = ""
-      end
-      description_append = values.map { |key, value| "#{key.to_s.titleize}: #{value}" }
-      data[:description] += description_append.join("\n")
     end
 
     def brood_value(value)

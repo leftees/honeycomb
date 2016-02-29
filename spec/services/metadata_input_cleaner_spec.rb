@@ -6,18 +6,36 @@ RSpec.describe MetadataInputCleaner do
   it "convertes a string to an array" do
     metadata[:string] = "string"
     subject
-    expect(item.metadata[:string]).to eq(["string"])
+    expect(item.metadata["string"]).to eq(["string"])
   end
 
-  it "convertes a hash to an array" do
-    metadata[:hash] = { hash: "YES" }
+  it "convertes a javascript array hashs of 0 => { } hash to an array" do
+    metadata[:hash] = { "0" => "YES" }
     subject
-    expect(item.metadata[:hash]).to eq([{ hash: "YES" }])
+    expect(item.metadata["hash"]).to eq(["YES"])
+  end
+
+  it "converts a regular hash not the special case \"0\" hash" do
+    metadata[:hash] = { "key" => "YES" }
+    subject
+    expect(item.metadata["hash"]).to eq(["key" => "YES"])
   end
 
   it "does nothing to an existing array" do
     metadata[:array] = ["array"]
     subject
-    expect(item.metadata[:array]).to eq(["array"])
+    expect(item.metadata["array"]).to eq(["array"])
+  end
+
+  it "converts value of nil to empty array" do
+    metadata[:nil] = nil
+    subject
+    expect(item.metadata["nil"]).to eq([])
+  end
+
+  it "converts symbols to stings" do
+    metadata[:string] = "string"
+    subject
+    expect(item.metadata["string"]).to eq(["string"])
   end
 end

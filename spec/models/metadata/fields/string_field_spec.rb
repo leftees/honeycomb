@@ -1,9 +1,9 @@
 require "rails_helper"
 
-RSpec.describe MetadataHTML do
+RSpec.describe Metadata::Fields::StringField do
   describe "#to_hash" do
     it "generates a hash from the data" do
-      expect(described_class.new("value").to_hash).to eq("@type" => "MetadataHTML", value: "value")
+      expect(described_class.new("value").to_hash).to eq("@type" => "MetadataString", value: "value")
     end
   end
 

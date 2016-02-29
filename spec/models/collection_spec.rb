@@ -61,6 +61,11 @@ RSpec.describe Collection do
   end
 
   context "foreign key constraints" do
+    before(:each) do
+      allow_any_instance_of(Metadata::Fields).to receive(:valid?).and_return(true)
+      allow_any_instance_of(Metadata::Fields).to receive(:set_metadata).and_return(true)
+    end
+
     describe "#destroy" do
       it "fails if a CollectionUser references it" do
         FactoryGirl.create(:user)

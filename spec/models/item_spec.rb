@@ -2,30 +2,30 @@ require "rails_helper"
 
 RSpec.describe Item do
   let(:image_with_spaces) { File.open(Rails.root.join("spec/fixtures", "test copy.jpg"), "r") }
-  let(:item_metadata) { double(Metadata::Retrieval, field: [double(value: "value")]) }
+  let(:item_metadata) do
+    double(
+      Metadata::Fields,
+      valid?: true,
+      field: [double(value: "value")],
+      name: "name", user_defined_id: "user_defined_id", description: "descriptiom"
+    )
+  end
 
   before(:each) do
     allow(subject).to receive(:item_metadata).and_return(item_metadata)
   end
 
+  [:name, :description].each do |field|
+    it "delegates to item_metadata" do
+      expect(subject.item_metadata).to receive(field).and_return(field)
+      subject.send(field)
+    end
+  end
+
   [
-    :transcription,
     :collection,
     :honeypot_image,
     :published,
-    :unique_id,
-    :creator,
-    :contributor,
-    :publisher,
-    :subject,
-    :alternate_name,
-    :rights,
-    :call_number,
-    :provenance,
-    :original_language,
-    :date_created,
-    :date_modified,
-    :date_published,
     :image_status,
     :pages
   ].each do |field|
@@ -56,22 +56,6 @@ RSpec.describe Item do
 
   it "requires the user_defined_id field" do
     expect(subject).to have(1).error_on(:user_defined_id)
-  end
-
-  describe "#name" do
-    let(:field) { double(value: "value1") }
-    let(:field_result) { [field] }
-
-    it "uses the item_metadata field" do
-      expect(item_metadata).to receive(:field).with(:name).and_return(field_result)
-      subject.name
-    end
-
-    it "uses the first value of a multiple name" do
-      allow(item_metadata).to receive(:field).and_return(field_result)
-      expect(field_result).to receive(:first).and_return(double(value: "firstname"))
-      expect(subject.name).to eq("firstname")
-    end
   end
 
   describe "#manuscript_url" do
@@ -135,6 +119,10 @@ RSpec.describe Item do
   end
 
   context "foreign key constraints" do
+    before(:each) do
+      allow_any_instance_of(Metadata::Fields).to receive(:valid?).and_return(true)
+    end
+
     describe "#destroy" do
       it "fails if a section references it" do
         FactoryGirl.create(:collection)
@@ -147,8 +135,8 @@ RSpec.describe Item do
       it "fails if a child item references it" do
         FactoryGirl.create(:collection)
         FactoryGirl.create(:showcase)
-        subject = FactoryGirl.create(:item)
-        FactoryGirl.create(:item, id: 2, parent_id: 1, user_defined_id: "two")
+        subject = FactoryGirl.create(:item, user_defined_id: "two")
+        FactoryGirl.create(:item, id: 2, parent_id: 1)
         expect { subject.destroy }.to raise_error
       end
     end
@@ -158,6 +146,37 @@ RSpec.describe Item do
     it "returns the retreval object" do
       expect(subject).to receive(:item_metadata).and_return(item_metadata)
       expect(subject.item_metadata).to eq(item_metadata)
+    end
+  end
+
+  describe "metadata=" do
+    it "prevents you from calling this method" do
+      expect { subject.metadata = ({}) }.to raise_error
+    end
+  end
+
+  describe "valid?" do
+    before(:each) do
+      allow(subject).to receive(:item_metadata).and_return(item_metadata)
+    end
+
+    it "calls asks the metadata if it is valid" do
+      expect(item_metadata).to receive(:valid?).and_return(true)
+      subject.valid?
+    end
+
+    it "returns false if the item_metadata is false" do
+      allow(item_metadata).to receive(:valid?).and_return(false)
+      allow(item_metadata).to receive(:errors).and_return(name: "is required")
+      expect(subject.valid?).to be(false)
+    end
+
+    it "passes errors from the metadata to the item" do
+      expect(item_metadata).to receive(:valid?).and_return(false)
+      expect(item_metadata).to receive(:errors).and_return(name: "is required")
+      subject.valid?
+
+      expect(subject.errors[:name]).to eq(["is required"])
     end
   end
 end

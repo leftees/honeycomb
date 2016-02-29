@@ -9,9 +9,9 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
   let(:collection) { double(Collection, id: 1) }
   let(:items) do
     [
-      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 1), **item_meta_hash_remapped(item_id: 1)),
-      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 2), **item_meta_hash_remapped(item_id: 2)),
-      instance_double(Item, collection: collection, metadata: item_meta_hash_remapped(item_id: 3), **item_meta_hash_remapped(item_id: 3)),
+      instance_double(Item, user_defined_id: "id1", collection: collection, metadata: item_meta_hash_remapped(item_id: 1)),
+      instance_double(Item, user_defined_id: "id2", collection: collection, metadata: item_meta_hash_remapped(item_id: 2)),
+      instance_double(Item, user_defined_id: "id3", collection: collection, metadata: item_meta_hash_remapped(item_id: 3)),
     ]
   end
   let(:item_label_hashes) do
@@ -63,9 +63,18 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
 
     it "calls RewriteItemMetadataForExport with the correct item hashes" do
       allow_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).and_return(true)
-      expect(RewriteItemMetadataForExport).to receive(:call).with(item_hash: item_meta_hash_remapped(item_id: 1), configuration: configuration)
-      expect(RewriteItemMetadataForExport).to receive(:call).with(item_hash: item_meta_hash_remapped(item_id: 2), configuration: configuration)
-      expect(RewriteItemMetadataForExport).to receive(:call).with(item_hash: item_meta_hash_remapped(item_id: 3), configuration: configuration)
+      expect(RewriteItemMetadataForExport).to receive(:call).with(
+        item_hash: item_meta_hash_remapped(item_id: 1).merge(user_defined_id: "id1"),
+        configuration: configuration
+      )
+      expect(RewriteItemMetadataForExport).to receive(:call).with(
+        item_hash: item_meta_hash_remapped(item_id: 2).merge(user_defined_id: "id2"),
+        configuration: configuration
+      )
+      expect(RewriteItemMetadataForExport).to receive(:call).with(
+        item_hash: item_meta_hash_remapped(item_id: 3).merge(user_defined_id: "id3"),
+        configuration: configuration
+      )
       subject
     end
   end

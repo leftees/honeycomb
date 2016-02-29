@@ -45,7 +45,7 @@ class RewriteItemMetadataForExport
     end
 
     if field.type == :date
-      pair.value = "'" + MetadataDate.from_hash(pair.value).to_string
+      pair.value = "'" + Metadata::Fields::DateField.from_hash(pair.value).to_string
     end
   end
 end

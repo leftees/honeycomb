@@ -1,20 +1,4 @@
 class Item < ActiveRecord::Base
-  store_accessor :metadata,
-                 :name,
-                 :description,
-                 :creator,
-                 :contributor,
-                 :publisher,
-                 :alternate_name,
-                 :rights,
-                 :call_number,
-                 :provenance,
-                 :subject,
-                 :original_language,
-                 :date_created,
-                 :date_published,
-                 :date_modified
-
   has_paper_trail
 
   belongs_to :collection
@@ -45,11 +29,31 @@ class Item < ActiveRecord::Base
   enum image_status: { no_image: 0, image_processing: 1, image_ready: 2, image_unavailable: 3 }
 
   def name
-    item_metadata.field(:name).first.value
+    item_metadata.name
+  end
+
+  def description
+    item_metadata.description
   end
 
   def item_metadata
-    @item_metadata ||= Metadata::Retrieval.new(self)
+    @item_metadata ||= Metadata::Fields.new(self)
+  end
+
+  def metadata=(_values)
+    raise "Use Metadata::Setter.call instead see SaveItem"
+  end
+
+  def valid?(context = nil)
+    valid = super(context)
+
+    if !item_metadata.valid?
+      item_metadata.errors.each do |key, message|
+        errors[key] << message
+      end
+      valid = false
+    end
+    valid
   end
 
   private
