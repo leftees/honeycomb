@@ -1,9 +1,12 @@
 module Migration
+  class Item < ActiveRecord::Base
+  end
+
   class ItemMetadataConverter
     attr_reader :item
 
     def self.call
-      Item.all.each do |item|
+      Migration::Item.all.each do |item|
         puts "processing: #{item.id}"
         new(item).convert!
       end

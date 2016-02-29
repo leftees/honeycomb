@@ -20,9 +20,11 @@ class MetadataInputCleaner
   private
 
   def ensure_value_is_array(key, value)
-    if !value.is_a?(Array)
+    if value.is_a?(Array)
+      item.metadata.delete(key) if value.empty?
+    else
       if value.nil?
-        item.metadata[key] = []
+        item.metadata.delete(key)
       else
         item.metadata[key] = value.is_a?(Hash) ? [ensure_hash(value)] : [value]
       end
