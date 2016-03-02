@@ -1,5 +1,5 @@
 module Metadata
-  module Fields
+  class Fields
     class Date
       class ConvertToIsoDate
         attr_reader :metadata_date

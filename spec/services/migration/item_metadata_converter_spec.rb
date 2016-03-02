@@ -6,12 +6,12 @@ describe Migration::ItemMetadataConverter do
 
   describe "#call" do
     it "gets all the items" do
-      expect(Item).to receive(:all).and_return([item])
+      expect(Migration::Item).to receive(:all).and_return([item])
       described_class.call
     end
 
     it "calls convert on the class with the item" do
-      allow(Item).to receive(:all).and_return([item])
+      allow(Migration::Item).to receive(:all).and_return([item])
       expect_any_instance_of(described_class).to receive(:convert!)
       described_class.call
     end

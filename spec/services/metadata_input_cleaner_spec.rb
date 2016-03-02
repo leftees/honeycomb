@@ -27,10 +27,16 @@ RSpec.describe MetadataInputCleaner do
     expect(item.metadata["array"]).to eq(["array"])
   end
 
-  it "converts value of nil to empty array" do
+  it "removes nil values and their associated key" do
     metadata[:nil] = nil
     subject
-    expect(item.metadata["nil"]).to eq([])
+    expect(item.metadata.has_key?(:nil)).to eq(false)
+  end
+
+  it "removes empty arrays and their associated key" do
+    metadata[:array] = []
+    subject
+    expect(item.metadata.has_key?(:array)).to eq(false)
   end
 
   it "converts symbols to stings" do
