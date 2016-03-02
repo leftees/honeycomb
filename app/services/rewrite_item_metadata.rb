@@ -14,15 +14,21 @@ class RewriteItemMetadata
 
   def rewrite(item_hash:, errors:)
     result = Hash.new
+    metadata = Hash.new
     item_hash.each do |k, v|
-      new_pair = rewrite_pair(key: k, value: v)
-      if configuration.field?(new_pair.key)
-        result[new_pair.key] = new_pair.value
+      if k == "Identifier"
+        result[:user_defined_id] = v
       else
-        errors << "Unknown attribute #{k}"
+        new_pair = rewrite_pair(key: k, value: v)
+        if configuration.field?(new_pair.key) || new_pair.key == "user_defined_id"
+          metadata[new_pair.key] = new_pair.value
+        else
+          errors << "Unknown attribute #{k}"
+        end
       end
     end
-    field_map.merge!(result)
+    result[:metadata] = field_map.merge!(metadata)
+    result
   end
 
   private

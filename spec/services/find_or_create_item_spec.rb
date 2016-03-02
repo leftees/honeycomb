@@ -14,6 +14,7 @@ describe FindOrCreateItem do
   end
 
   before(:each) do
+    allow(Metadata::Setter).to receive(:call).and_return(true)
     allow(Item).to receive(:find_or_create_by).and_return(item)
   end
 
@@ -75,7 +76,7 @@ describe FindOrCreateItem do
     end
   end
 
-  it "assigns the attributes given to the item" do
+  it "assigns the attributes given to the item using the Metadata::Setter" do
     expect(item).to receive(:assign_attributes).with(item_hash)
     subject.find_or_create_by(criteria: {})
   end

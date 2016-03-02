@@ -60,6 +60,10 @@ class FindOrCreateItem
   private
 
   def update_props
+    if props[:metadata].present?
+      metadata = props.delete(:metadata)
+      Metadata::Setter.call(item, metadata)
+    end
     item.assign_attributes(props)
     CreateUniqueId.call(item)
     @is_valid = item.valid?
