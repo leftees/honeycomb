@@ -57,10 +57,10 @@ module Metadata
 
       def to_params
         {
+          bc: bc,
+          day: day,
           year: year,
           month: month,
-          day: day,
-          bc: bc,
           display_text: display_text,
         }.stringify_keys
       end

@@ -21,12 +21,18 @@ class ParamCleaner
   # Similar to built-in Hash.transform_values! except it will transform it recursively
   # for nested hashes
   def self.transform_values_recursively!(hash:)
-    hash.each_pair do |key, value|
-      if value.respond_to?(:each_pair) && value.respond_to?("[]")
-        hash[key] = transform_values_recursively!(hash: value) { |v| yield(v) }
-      else
-        hash[key] = yield(value)
+    if hash.respond_to?(:each_index) && hash.respond_to?("[]")
+      # Transform each item in the array
+      hash = hash.each_index do |i|
+        hash[i] = transform_values_recursively!(hash: hash[i]) { |v| yield(v) }
       end
+    elsif hash.respond_to?(:each_pair) && hash.respond_to?("[]")
+      # Transform each pair in the hash
+      hash.each_pair do |key, value|
+        hash[key] = transform_values_recursively!(hash: value) { |v| yield(v) }
+      end
+    else
+      hash = yield(hash)
     end
   end
 end

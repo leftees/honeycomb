@@ -21,6 +21,7 @@ class MetadataInputCleaner
 
   def ensure_value_is_array(key, value)
     if value.is_a?(Array)
+      value.compact!
       item.metadata.delete(key) if value.empty?
     else
       if value.nil?
