@@ -28,7 +28,7 @@ RSpec.describe ParamCleaner do
     end
 
     it "works with a flat hash" do
-      hash1 = { some_key: "previous value", some_other_key: "previous value"  }
+      hash1 = { some_key: "previous value", some_other_key: "previous value" }
       hash2 = { some_key: "new value", some_other_key: "new value" }
       described_class.transform_values_recursively!(hash: hash1) do |_value|
         "new value"
@@ -37,8 +37,8 @@ RSpec.describe ParamCleaner do
     end
 
     it "works with a flat array" do
-      hash1 = [ "previous value", "previous value" ]
-      hash2 = [ "new value", "new value" ]
+      hash1 = ["previous value", "previous value"]
+      hash2 = ["new value", "new value"]
       described_class.transform_values_recursively!(hash: hash1) do |_value|
         "new value"
       end
