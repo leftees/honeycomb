@@ -69,15 +69,7 @@ RSpec.describe RewriteItemMetadataForExport, helpers: :item_meta_helpers do
       allow(configuration).to receive(:field?).with(:date_created).and_return(true)
 
       item[:date_created] = [{ "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }]
-      expect(subject).to include("Date Created" => "'-2001/01/01")
-    end
-
-    it "adds a string literal indicator" do
-      allow(configuration).to receive(:field).with(:date_created).and_return(date_field)
-      allow(configuration).to receive(:field?).with(:date_created).and_return(true)
-
-      item[:date_created] = [{ "year" => "", "month" => "", "day" => "", "bc" => false, "display_text" => nil }]
-      expect(subject).to include("Date Created" => "'")
+      expect(subject).to include("Date Created" => "-2001/01/01")
     end
   end
 end
