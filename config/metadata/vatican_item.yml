@@ -130,12 +130,21 @@
   - :name: :manuscript_url
     :active: true
     :type: :string
-    :label: Digitized Manuscript
+    :label: PDF Link
     :default_form_field: false
     :optional_form_field: true
     :order: 16
     :placeholder: "http://"
-    :help: Link to externally hosted manuscript viewer.
+    :help: Link to externally hosted pdf of the document.
+  - :name: :type
+    :active: true
+    :type: :string
+    :label: Type
+    :multiple: false
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 17
+    :placeholder: ""    
 :facets:
   - :name: :creator
     :field_name: :creator
