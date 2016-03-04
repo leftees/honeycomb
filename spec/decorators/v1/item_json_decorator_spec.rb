@@ -8,7 +8,7 @@ RSpec.describe V1::ItemJSONDecorator do
   subject { instance }
 
   describe "generic fields" do
-    [:id, :name, :collection, :unique_id, :description, :updated_at].each do |field|
+    [:id, :name, :collection, :unique_id, :user_defined_id, :description, :updated_at].each do |field|
       it "responds to #{field}" do
         expect(subject).to respond_to(field)
       end
@@ -79,6 +79,7 @@ RSpec.describe V1::ItemJSONDecorator do
         image_ready?: true,
         unique_id: "test-item",
         collection: collection,
+        user_defined_id: "udi",
         metadata: {},
         image_status: 0,
         honeypot_image: double(json_response: "json"),
@@ -104,6 +105,7 @@ RSpec.describe V1::ItemJSONDecorator do
         "isPartOf/collection",
         "additionalType",
         "id",
+        "user_defined_id",
         "slug",
         "name",
         "description",

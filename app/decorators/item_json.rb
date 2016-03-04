@@ -31,6 +31,7 @@ class ItemJSON < Draper::Decorator
   def item_data
     {
       id: object.id,
+      userDefinedId: object.user_defined_id,
       name: object.name,
       description: object.description,
       updated_at: object.updated_at,

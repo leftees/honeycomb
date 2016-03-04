@@ -1,6 +1,6 @@
 module V1
   class ItemJSONDecorator < Draper::Decorator
-    delegate :id, :name, :children, :parent, :collection, :unique_id, :updated_at
+    delegate :id, :name, :children, :parent, :user_defined_id, :collection, :unique_id, :updated_at
 
     def self.display(item, json)
       new(item).display(json)
@@ -69,6 +69,7 @@ module V1
       json.set! "isPartOf/collection", collection_url
       json.set! "additionalType", additional_type
       json.id unique_id
+      json.user_defined_id user_defined_id
       json.collection_id collection_id
       json.slug slug
       json.name name

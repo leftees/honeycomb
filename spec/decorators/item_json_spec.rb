@@ -7,6 +7,7 @@ RSpec.describe ItemJSON do
       description: "description",
       manuscript_url: "http://example.com/manuscript",
       updated_at: "2014-11-06 11:45:52 -0500",
+      user_defined_id: "udi",
       id: 1,
       collection: collection,
       honeypot_image: honeypot_image,
