@@ -56,7 +56,8 @@ class SaveItem
   def process_uploaded_image
     if params[:uploaded_image]
       item.image_processing!
-      QueueJob.call(ProcessImageJob, object: item)
+      current_time = DateTime.now.to_s
+      QueueJob.call(ProcessImageJob, object: item, timestamp: current_time)
     else
       true
     end
