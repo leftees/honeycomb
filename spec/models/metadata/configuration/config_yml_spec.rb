@@ -5,7 +5,7 @@ RSpec.describe CreateCollectionConfiguration do
     describe path do
       let(:data) { YAML.load_file(path) }
 
-      subject { described_class.new("").send(:base_config) }
+      subject { described_class.new("", "item.yml").send(:base_config) }
 
       it "is valid" do
         expect(subject[:fields]).to be_kind_of(Array)
