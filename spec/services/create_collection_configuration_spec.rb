@@ -35,4 +35,15 @@ RSpec.describe CreateCollectionConfiguration do
       subject
     end
   end
+
+  context "new base file" do
+    let(:collection) { double(collection_configuration: nil, create_collection_configuration: double) }
+
+    subject { described_class.call(collection, "vatican_item.yml") }
+
+    it "loads a different base file" do
+      expect(YAML).to receive(:load_file).with(Rails.root.join("config/metadata/", "vatican_item.yml")).and_return(fields: [])
+      subject
+    end
+  end
 end

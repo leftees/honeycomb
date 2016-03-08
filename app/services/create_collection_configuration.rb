@@ -1,12 +1,13 @@
 class CreateCollectionConfiguration
-  attr_reader :collection
+  attr_reader :collection, :config_file
 
-  def self.call(collection)
-    new(collection).create
+  def self.call(collection, config_file = "item.yml")
+    new(collection, config_file).create
   end
 
-  def initialize(collection)
+  def initialize(collection, config_file)
     @collection = collection
+    @config_file = config_file
   end
 
   def create
@@ -22,6 +23,6 @@ class CreateCollectionConfiguration
   private
 
   def base_config
-    @base_config ||= YAML.load_file(Rails.root.join("config/metadata/", "item.yml"))
+    @base_config ||= YAML.load_file(Rails.root.join("config/metadata/", config_file))
   end
 end
