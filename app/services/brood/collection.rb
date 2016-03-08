@@ -70,10 +70,24 @@ module Brood
       unless SaveCollection.call(brood_collection.record, brood_collection.data)
         error_saving_record(brood_collection)
       end
+      fix_config_for_vatican!
+    end
+
+    def fix_config_for_vatican!
+      record = brood_collection.record
+      if ["vatican", "humanrights"].include?(record.unique_id)
+        record.collection_configuration.destroy
+        record.reload
+
+        CreateCollectionConfiguration.call(record, "vatican_item.yml")
+        record.reload
+      end
     end
 
     def grow_item!(data)
       brood_record = grow_brood_record(::Item, data)
+      brood_record.record.collection = brood_collection.record
+
       unless SaveItem.call(brood_record.record, brood_record.data)
         error_saving_record(brood_record)
       end
