@@ -10,7 +10,7 @@ module Brood
 
     def grow
       data.each do |key, value|
-        record.send("#{key}=", value)
+        #record.send("#{key}=", value)
       end
     end
 

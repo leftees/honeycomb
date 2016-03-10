@@ -130,7 +130,7 @@
   - :name: :manuscript_url
     :active: true
     :type: :string
-    :label: Digitized Manuscript
+    :label: PDF Link
     :default_form_field: false
     :optional_form_field: true
     :order: 16
