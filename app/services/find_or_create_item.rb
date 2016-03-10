@@ -50,7 +50,7 @@ class FindOrCreateItem
   end
 
   def find_or_create_by(criteria:)
-    @item = Item.find_or_create_by(criteria)
+    @item = Item.find_or_initialize_by(criteria)
     @is_new_record = item.new_record?
     update_props
     @is_changed = !item.new_record? && item.changed?

@@ -15,17 +15,17 @@ describe FindOrCreateItem do
 
   before(:each) do
     allow(Metadata::Setter).to receive(:call).and_return(true)
-    allow(Item).to receive(:find_or_create_by).and_return(item)
+    allow(Item).to receive(:find_or_initialize_by).and_return(item)
   end
 
   context "using method" do
     it "uses both collection id and user defined id to find the item" do
-      expect(Item).to receive(:find_or_create_by).with(collection_id: 1, user_defined_id: "item").and_return(item)
+      expect(Item).to receive(:find_or_initialize_by).with(collection_id: 1, user_defined_id: "item").and_return(item)
       subject.using(prop_keys: [:collection_id, :user_defined_id])
     end
 
     it "uses empty hash to find the item when no prop_keys are given" do
-      expect(Item).to receive(:find_or_create_by).with({}).and_return(item)
+      expect(Item).to receive(:find_or_initialize_by).with({}).and_return(item)
       subject.using(prop_keys: [])
     end
   end
