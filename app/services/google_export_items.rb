@@ -18,7 +18,12 @@ class GoogleExportItems
     worksheet = session.get_worksheet(file: file, sheet: sheet)
     if worksheet.present?
       item_hashes = items.map do |item|
-        RewriteItemMetadataForExport.call(item_hash: item_hash(item: item), configuration: configuration(item.collection))
+        meta_hash = RewriteItemMetadataForExport.call(user_defined_id: item.user_defined_id,
+                                                      item_hash: item.metadata,
+                                                      configuration: configuration(item.collection))
+        # Prefix all values with ' to force google to treat all values as text, otherwise it will reformat things like dates/numbers
+        # and cause problems on import
+        meta_hash.each { |k, v| meta_hash[k] = "'" + v unless v.nil? }
       end
       session.hashes_to_worksheet(worksheet: worksheet, hashes: item_hashes)
     end
@@ -27,14 +32,6 @@ class GoogleExportItems
   private
 
   def configuration(collection)
-    @configuration ||= Metadata::Configuration.new(CollectionConfigurationQuery.new(collection).find)
-  end
-
-  def item_hash(item:)
-    item_fields =
-      {
-        user_defined_id: item.user_defined_id,
-      }
-    item_fields.merge(item.metadata)
+    @configuration ||= CollectionConfigurationQuery.new(collection).find
   end
 end

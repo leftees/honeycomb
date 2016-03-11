@@ -114,6 +114,25 @@ RSpec.describe Metadata::Fields::DateField do
     end
   end
 
+  describe "to_params" do
+    it "stringifys the keys correctly" do
+      date = Metadata::Fields::DateField.new(year: "2010", month: "2", day: "1", bc: true, display_text: "display_text")
+      expect(date.to_params).to eq(
+        "bc" => true,
+        "day" => "1",
+        "year" => "2010",
+        "month" => "2",
+        "display_text" => "display_text"
+      )
+    end
+
+    it "matches Postgres' order for the keys" do
+      date = Metadata::Fields::DateField.new(year: "2010", month: "2", day: "1", bc: true, display_text: "display_text")
+      keys = ["bc", "day", "year", "month", "display_text"]
+      expect(date.to_params.keys).to eq(keys)
+    end
+  end
+
   context "validations" do
     describe "year" do
       it "does not allow nil" do

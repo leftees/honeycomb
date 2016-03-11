@@ -3,13 +3,13 @@ RSpec.describe MetadataInputCleaner do
   let(:item) { instance_double(Item, metadata: metadata) }
   subject { described_class.call(item) }
 
-  it "convertes a string to an array" do
+  it "converts a string to an array" do
     metadata[:string] = "string"
     subject
     expect(item.metadata["string"]).to eq(["string"])
   end
 
-  it "convertes a javascript array hashs of 0 => { } hash to an array" do
+  it "converts a javascript array hashes of 0 => { } hash to an array" do
     metadata[:hash] = { "0" => "YES" }
     subject
     expect(item.metadata["hash"]).to eq(["YES"])
@@ -36,10 +36,16 @@ RSpec.describe MetadataInputCleaner do
   it "removes empty arrays and their associated key" do
     metadata[:array] = []
     subject
-    expect(item.metadata.has_key?(:array)).to eq(false)
+    expect(item.metadata.has_key?("array")).to eq(false)
   end
 
-  it "converts symbols to stings" do
+  it "removes nil arrays and their associated key" do
+    metadata[:array] = [nil, nil, nil]
+    subject
+    expect(item.metadata.has_key?("array")).to eq(false)
+  end
+
+  it "converts symbols to strings" do
     metadata[:string] = "string"
     subject
     expect(item.metadata["string"]).to eq(["string"])

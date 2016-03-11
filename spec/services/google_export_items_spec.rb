@@ -49,9 +49,14 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
   end
 
   context "collection has items" do
-    let(:hashes) { [{ item: "item!" }, { item: "item!" }, { item: "item!" }] }
+    before (:each) do
+      allow(RewriteItemMetadataForExport).to receive(:call) do
+        { item: "item!" }
+      end
+    end
+
     it "uses GoogleSession to populate the worksheet" do
-      expect_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).with(worksheet: worksheet, hashes: hashes)
+      expect_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).with(hash_including(worksheet: worksheet))
       subject
     end
 
@@ -63,18 +68,15 @@ RSpec.describe GoogleExportItems, helpers: :item_meta_helpers do
 
     it "calls RewriteItemMetadataForExport with the correct item hashes" do
       allow_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).and_return(true)
-      expect(RewriteItemMetadataForExport).to receive(:call).with(
-        item_hash: item_meta_hash_remapped(item_id: 1).merge(user_defined_id: "id1"),
-        configuration: configuration
-      )
-      expect(RewriteItemMetadataForExport).to receive(:call).with(
-        item_hash: item_meta_hash_remapped(item_id: 2).merge(user_defined_id: "id2"),
-        configuration: configuration
-      )
-      expect(RewriteItemMetadataForExport).to receive(:call).with(
-        item_hash: item_meta_hash_remapped(item_id: 3).merge(user_defined_id: "id3"),
-        configuration: configuration
-      )
+      expect(RewriteItemMetadataForExport).to receive(:call).with(hash_including(item_hash: item_meta_hash_remapped(item_id: 1), configuration: configuration))
+      expect(RewriteItemMetadataForExport).to receive(:call).with(hash_including(item_hash: item_meta_hash_remapped(item_id: 2), configuration: configuration))
+      expect(RewriteItemMetadataForExport).to receive(:call).with(hash_including(item_hash: item_meta_hash_remapped(item_id: 3), configuration: configuration))
+      subject
+    end
+
+    it "adds a string literal indicator to all values" do
+      rewritten_hashes = [{ item: "'item!" }, { item: "'item!" }, { item: "'item!" }]
+      expect_any_instance_of(GoogleSession).to receive(:hashes_to_worksheet).with(worksheet: worksheet, hashes: rewritten_hashes)
       subject
     end
   end

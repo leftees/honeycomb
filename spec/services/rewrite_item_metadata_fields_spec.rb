@@ -19,13 +19,18 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
     allow(configuration).to receive(:label?).and_return(false)
   end
 
+  it "rewrites the hash to match item property structure" do
+    item["Identifier"] = "identifier"
+    expect(subject).to include(:user_defined_id, :metadata)
+  end
+
   it "rewrites all fields from labels to field names" do
     allow(configuration).to receive(:label).with("Name").and_return(field)
     allow(configuration).to receive(:field?).with("name").and_return(true)
     allow(configuration).to receive(:label?).with("Name").and_return(true)
 
     item["Name"] = "the name"
-    expect(subject).to eq("name" => "the name", "alternate_name" => nil, "date_created" => nil)
+    expect(subject[:metadata]).to eq("name" => "the name", "alternate_name" => nil, "date_created" => nil)
   end
 
   it "rewrites multiples to an array" do
@@ -34,7 +39,7 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
     allow(configuration).to receive(:label?).with("Alternate Name").and_return(true)
 
     item["Alternate Name"] = "name1||name2"
-    expect(subject).to eq("name" => nil, "alternate_name" => ["name1", "name2"], "date_created" => nil)
+    expect(subject[:metadata]).to eq("name" => nil, "alternate_name" => ["name1", "name2"], "date_created" => nil)
   end
 
   context "rewrites dates" do
@@ -44,7 +49,7 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
       allow(configuration).to receive(:label?).with("Date Created").and_return(true)
 
       item["Date Created"] = "-2001/01/01"
-      expect(subject).to eq(
+      expect(subject[:metadata]).to eq(
         "name" => nil,
         "alternate_name" => nil,
         "date_created" => { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
@@ -57,7 +62,7 @@ RSpec.describe RewriteItemMetadata, helpers: :item_meta_helpers do
       allow(configuration).to receive(:label?).with("Date Created").and_return(true)
 
       item["Date Created"] = "'-2001/01/01"
-      expect(subject).to eq(
+      expect(subject[:metadata]).to eq(
         "name" => nil,
         "alternate_name" => nil,
         "date_created" => { "year" => "2001", "month" => "1", "day" => "1", "bc" => true, "display_text" => nil }
