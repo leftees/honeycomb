@@ -238,6 +238,34 @@
     :default_form_field: false
     :optional_form_field: true
     :order: 30
+  - :name: :promulgated_by
+    :active: true
+    :type: :string
+    :label: Promulgated by
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 31
+  - :name: :date_promulgated
+    :active: true
+    :type: :date
+    :label: Date promulgated
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 32
+  - :name: :place_promulgated
+    :active: true
+    :type: :date
+    :label: Place promulgated
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 33
+  - :name: :footnotes
+    :active: true
+    :type: :date
+    :label: Footnotes
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 34
 :facets:
   - :name: :creator
     :field_name: :creator
