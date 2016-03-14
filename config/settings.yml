@@ -23,7 +23,7 @@ pre_production:
   <<: *vm
   cas_base: https://login.nd.edu/cas
   honeypot_url: https://honeypotpprd.library.nd.edu
-  beehive_url: https://beehivepprd.library.nd.edu
+  beehive_url: https://collectionspprd.library.nd.edu
 
 production:
   <<: *vm
