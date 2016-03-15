@@ -135,22 +135,152 @@
     :optional_form_field: true
     :order: 16
     :placeholder: "http://"
-    :help: Link to externally hosted pdf of the document.
-  - :name: :type
+    :help: Link to externally hosted manuscript viewer.
+  - :name: :document_symbol
     :active: true
     :type: :string
-    :label: Type
-    :multiple: false
+    :label: Document Symbol
     :default_form_field: false
     :optional_form_field: true
     :order: 17
-    :placeholder: ""    
+    :placeholder: "A 123"
+    :help: Document symbol
+  - :name: :mtdsg_reference
+    :active: true
+    :type: :string
+    :label: MTDSG Reference
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 18
+    :placeholder: "V-1"
+    :help: MTDSG Reference
+  - :name: :registration_number
+    :active: true
+    :type: :string
+    :label: Registration Number
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 19
+  - :name: :source
+    :active: true
+    :type: :string
+    :label: Source
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 20
+  - :name: :date_ended
+    :active: true
+    :type: :date
+    :label: Date Ended
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 21
+  - :name: :place_of_conclusion
+    :active: true
+    :type: :string
+    :label: Place of conclusion
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 22
+  - :name: :entry_into_force
+    :active: true
+    :type: :string
+    :label: Entry into force
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 23
+  - :name: :registration
+    :active: true
+    :type: :string
+    :label: Registration
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 24
+  - :name: :coverage_spatial
+    :active: true
+    :type: :string
+    :label: Coverage spatial
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 25
+  - :name: :coverage_temporal
+    :active: true
+    :type: :string
+    :label: Coverage temporal
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 26
+  - :name: :document_group
+    :active: true
+    :type: :string
+    :label: Document group
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 27
+  - :name: :document_classification
+    :active: true
+    :type: :string
+    :label: Document classification
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 28
+  - :name: :ctc_url
+    :active: true
+    :type: :string
+    :label: CTC url
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 29
+  - :name: :participants
+    :active: true
+    :type: :string
+    :label: Participants
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 30
+  - :name: :promulgated_by
+    :active: true
+    :type: :string
+    :label: Promulgated by
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 31
+  - :name: :date_promulgated
+    :active: true
+    :type: :date
+    :label: Date promulgated
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 32
+  - :name: :place_promulgated
+    :active: true
+    :type: :date
+    :label: Place promulgated
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 33
+  - :name: :footnotes
+    :active: true
+    :type: :date
+    :label: Footnotes
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 34
 :facets:
   - :name: :creator
     :field_name: :creator
   - :name: :language
     :field_name: :original_language
     :label: Language
+  - :name: :document_group
+    :field_name: :document_group
+    :label: Type
+  - :name: :source
+    :field_name: :source
+    :label: Source
+  - :name: :document_classification
+    :field_name: :document_classification
+    :label: Document classification
 :sorts:
   - :name: :name
     :field_name: :name
