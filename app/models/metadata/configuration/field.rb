@@ -105,7 +105,12 @@ module Metadata
 
       def convert_strings_to_booleans(keys, hash)
         keys.each do |key|
-          hash[key] = hash[key] == "true" ? true : false if hash[key]
+          case hash[key]
+          when "true"
+            hash[key] = true
+          when "false"
+            hash[key] = false
+          end
         end
       end
     end
