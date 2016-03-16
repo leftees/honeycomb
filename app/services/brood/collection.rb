@@ -25,13 +25,15 @@ module Brood
 
     def item_defaults
       @item_defaults ||= {
-        "collection" => { "relationship" => "Collection/#{collection_data['unique_id']}" },
+        "collection" => { "relationship" => "Collection/#{collection_data['unique_id']}" }
       }
     end
 
     def set_item_defaults(original_item_data)
       item_data = item_defaults.merge(original_item_data)
-      item_data["user_defined_id"] = item_data["unique_id"]
+      if item_data["user_defined_id"].blank?
+        item_data["user_defined_id"] = item_data["unique_id"]
+      end
       item_data
     end
 
