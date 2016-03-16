@@ -8,6 +8,7 @@ module Metadata
                     :optional_form_field, :order, :placeholder, :help, :boost, :immutable
 
       validates :name, :type, :label, :order, presence: true
+      validates :order, :boost, numericality: { only_integer: true }
       validates :type, inclusion: TYPES
 
       def initialize(

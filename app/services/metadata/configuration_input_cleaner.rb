@@ -46,7 +46,9 @@ module Metadata
 
     def ensure_int_values
       [:order, :boost].each do |key|
-        data[key] = data[key].to_i if data.has_key?(key)
+        if data.has_key?(key)
+          data[key] = Integer(data[key]) rescue data[key]
+        end
       end
     end
 
