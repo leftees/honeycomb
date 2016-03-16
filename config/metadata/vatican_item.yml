@@ -191,7 +191,7 @@
     :order: 23
   - :name: :registration
     :active: true
-    :type: :string
+    :type: :date
     :label: Registration
     :default_form_field: false
     :optional_form_field: true
