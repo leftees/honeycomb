@@ -254,14 +254,14 @@
     :order: 32
   - :name: :place_promulgated
     :active: true
-    :type: :date
+    :type: :string
     :label: Place promulgated
     :default_form_field: false
     :optional_form_field: true
     :order: 33
   - :name: :footnotes
     :active: true
-    :type: :date
+    :type: :string
     :label: Footnotes
     :default_form_field: false
     :optional_form_field: true
