@@ -23,6 +23,11 @@ RSpec.describe V1::MetadataFieldsController, type: :controller do
       subject
     end
 
+    it "calls Metadata::UpdateConfigurationField with an empty hash even if there are no params in order to perform validation" do
+      expect(Metadata::UpdateConfigurationField).to receive(:call).with(collection, "id", {}).and_return(true)
+      put :update, collection_id: 1, id: "id", format: :json
+    end
+
     it "uses the Metadata::UpdateConfigurationField to update the data" do
       expect(Metadata::UpdateConfigurationField).to receive(:call).with(collection, "id", params)
       subject
@@ -47,6 +52,11 @@ RSpec.describe V1::MetadataFieldsController, type: :controller do
       subject
     end
 
+    it "calls Metadata::CreateConfigurationField with an empty hash even if there are no params in order to perform validation" do
+      expect(Metadata::CreateConfigurationField).to receive(:call).with(collection, {}).and_return(true)
+      post :create, collection_id: 1, id: "id", format: :json
+    end
+
     it "uses the Metadata::CreateConfigurationField to update the data" do
       expect(Metadata::CreateConfigurationField).to receive(:call).with(collection, params)
       subject
@@ -57,9 +67,9 @@ RSpec.describe V1::MetadataFieldsController, type: :controller do
       subject
     end
 
-    it "renders the status in the json response if the save succeeds" do
+    it "renders success if the save succeeds" do
       subject
-      expect(JSON.parse(response.body)).to include("status" => "success")
+      expect(response.status).to eq(200)
     end
 
     it "renders the new field in the json response if the save succeeds" do
@@ -67,10 +77,10 @@ RSpec.describe V1::MetadataFieldsController, type: :controller do
       expect(JSON.parse(response.body)).to include("field" => true)
     end
 
-    it "returns the status in the json response if the save fails" do
+    it "returns unprocessable entity if the save fails" do
       allow(Metadata::CreateConfigurationField).to receive(:call).with(collection, params).and_return(false)
       subject
-      expect(JSON.parse(response.body)).to include("status" => "unprocessable_entity")
+      expect(response.status).to eq(422)
     end
 
     it "returns the field params in the json response if the save fails" do

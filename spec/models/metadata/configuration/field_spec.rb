@@ -60,7 +60,7 @@ RSpec.describe Metadata::Configuration::Field do
 
     it "cannot be an unknown type" do
       data[:type] = :fake_type
-      expect { subject }.to raise_error(ArgumentError)
+      expect(subject.valid?).to eq(false)
     end
   end
 

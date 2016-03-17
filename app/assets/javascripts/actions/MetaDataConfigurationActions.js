@@ -47,18 +47,16 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
     });
   }
 
-  changeField(fieldName, fieldValues, pushToUrl, create) {
+  changeField(fieldName, fieldValues, pushToUrl) {
     // Clone values in order to revert the store if the change fails
     const previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
 
-    if (!create) {
-      pushToUrl += "/" + fieldName;
-    }
+    pushToUrl += "/" + fieldName;
 
     $.ajax({
       url: pushToUrl,
       dataType: "json",
-      method: (create) ? "POST" : "PUT",
+      method: "PUT",
       data: {
         fields: fieldValues,
       },
@@ -72,17 +70,45 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
         AppEventEmitter.emit("MessageCenterDisplay", "info", "Collection updated");
       }).bind(this),
       error: (function(xhr) {
-        if (!create) {
-          // Request to change failed, revert the store to previous values on if it is updated
-          AppDispatcher.dispatch({
-            actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
-            name: fieldName,
-            values: previousValues,
-          });
-        }
+        // Request to change failed, revert the store to previous values on if it is updated
+        AppDispatcher.dispatch({
+          actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
+          name: fieldName,
+          values: previousValues,
+        });
         // Communicate the error to the user
         this.emit("ChangeFieldFinished", false, xhr);
-        AppEventEmitter.emit("MessageCenterDisplay", "error", APIResponseMixin.apiErrorToString(xhr));
+        AppEventEmitter.emit("MessageCenterDisplay", "error", "Save failed. Please ensure to select a label and a type and try again.");
+        //AppEventEmitter.emit("MessageCenterDisplay", "error", APIResponseMixin.apiErrorToString(xhr));
+      }).bind(this)
+    });
+  }
+
+  createField(fieldName, fieldValues, pushToUrl) {
+    var requiredValues = _.pick(fieldValues, 'defaultFormField', 'label', 'multiple', 'optionalFormField', 'required', 'type');
+    var postValues = _.omit(requiredValues, function(value, key, object) { return _.isNull(value) });
+
+    $.ajax({
+      url: pushToUrl,
+      dataType: "json",
+      method: "POST",
+      data: {
+        fields: postValues,
+      },
+      success: (function(result) {
+        AppDispatcher.dispatch({
+          actionType: MetaDataConfigurationActionTypes.MDC_CHANGE_FIELD,
+          name: result.field.name,
+          values: result.field,
+        });
+        this.emit("CreateFieldFinished", true, result.field);
+        AppEventEmitter.emit("MessageCenterDisplay", "info", "Collection updated");
+      }).bind(this),
+      error: (function(xhr) {
+        // Communicate the error to the user
+        this.emit("CreateFieldFinished", false, xhr);
+        AppEventEmitter.emit("MessageCenterDisplay", "error", "Create failed. Please ensure to select a label and a type and try again.");
+        //AppEventEmitter.emit("MessageCenterDisplay", "error", APIResponseMixin.apiErrorToString(xhr));
       }).bind(this)
     });
   }
