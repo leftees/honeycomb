@@ -147,7 +147,7 @@ RSpec.describe Metadata::Configuration::Field do
 
     [:order, :boost].each do |key|
       it "validates #{key} is an integer" do
-        expect(subject.update("#{key}" => nil)).to be(false)
+        expect(subject.update(key => nil)).to be(false)
         expect(subject).to have_at_least(1).errors_on(key)
         expect(subject.errors.messages[key]).to include("is not a number")
       end

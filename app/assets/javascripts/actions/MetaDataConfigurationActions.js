@@ -85,8 +85,8 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
   }
 
   createField(fieldName, fieldValues, pushToUrl) {
-    var requiredValues = _.pick(fieldValues, 'defaultFormField', 'label', 'multiple', 'optionalFormField', 'required', 'type');
-    var postValues = _.omit(requiredValues, function(value, key, object) { return _.isNull(value) });
+    var requiredValues = _.pick(fieldValues, "defaultFormField", "label", "multiple", "optionalFormField", "required", "type");
+    var postValues = _.omit(requiredValues, function(value) { return _.isNull(value); });
 
     $.ajax({
       url: pushToUrl,

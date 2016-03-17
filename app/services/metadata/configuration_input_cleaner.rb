@@ -47,7 +47,11 @@ module Metadata
     def ensure_int_values
       [:order, :boost].each do |key|
         if data.has_key?(key)
-          data[key] = Integer(data[key]) rescue data[key]
+          begin
+            data[key] = Integer(data[key])
+          rescue
+            # Leave the value as is to allow the problem to pass through to field validation
+          end
         end
       end
     end
