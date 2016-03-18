@@ -51,4 +51,31 @@ RSpec.describe Metadata::ConfigurationInputCleaner do
       expect(subject).to eq(key => false)
     end
   end
+
+  [:order, :boost].each do |key|
+    it "retains the value if #{key} is already an integer" do
+      data[key] = 10
+      expect(subject).to eq(key => 10)
+    end
+
+    it "converts string \"integer\" types for #{key} to int" do
+      data[key] = "1"
+      expect(subject).to eq(key => 1)
+    end
+
+    it "does not convert the empty string for #{key}" do
+      data[key] = ""
+      expect(subject).to eq(key => "")
+    end
+
+    it "does not convert a non numeric string for #{key}" do
+      data[key] = "1 - This is not a number"
+      expect(subject).to eq(key => "1 - This is not a number")
+    end
+
+    it "does not convert #{key} if it's not a string" do
+      data[key] = { k: 1 }
+      expect(subject).to eq(key => { k: 1 })
+    end
+  end
 end

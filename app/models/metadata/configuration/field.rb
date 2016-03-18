@@ -8,17 +8,18 @@ module Metadata
                     :optional_form_field, :order, :placeholder, :help, :boost, :immutable
 
       validates :name, :type, :label, :order, presence: true
+      validates :order, :boost, numericality: { only_integer: true }
       validates :type, inclusion: TYPES
 
       def initialize(
-        name:,
+        name: "",
         active: true,
-        type:,
-        label:,
-        default_form_field:,
-        optional_form_field:,
+        type: "",
+        label: "",
+        default_form_field: false,
+        optional_form_field: false,
         boost: 1,
-        order:,
+        order: 0,
         help: "",
         placeholder: "",
         multiple: false,
@@ -38,10 +39,7 @@ module Metadata
         @help = help
         @boost = boost
         @immutable = immutable
-
-        if !valid?
-          raise ArgumentError, errors.full_messages.join(", ")
-        end
+        validate
       end
 
       def as_json(options = {})

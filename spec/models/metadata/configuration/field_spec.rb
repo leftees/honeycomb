@@ -11,7 +11,7 @@ RSpec.describe Metadata::Configuration::Field do
       help: "help",
       default_form_field: true,
       optional_form_field: false,
-      order: true,
+      order: 1,
       immutable: []
     }
   end
@@ -60,7 +60,7 @@ RSpec.describe Metadata::Configuration::Field do
 
     it "cannot be an unknown type" do
       data[:type] = :fake_type
-      expect { subject }.to raise_error(ArgumentError)
+      expect(subject.valid?).to eq(false)
     end
   end
 
@@ -123,7 +123,7 @@ RSpec.describe Metadata::Configuration::Field do
     end
   end
 
-  context "validataions" do
+  context "validations" do
     it "validates the presence of a name" do
       subject.name = nil
       expect(subject).to have(1).errors_on(:name)
@@ -141,7 +141,16 @@ RSpec.describe Metadata::Configuration::Field do
 
     it "validates the presence of order" do
       expect(subject.update(order: nil)).to be(false)
-      expect(subject).to have(1).errors_on(:order)
+      expect(subject).to have_at_least(1).errors_on(:order)
+      expect(subject.errors.messages[:order]).to include("can't be blank")
+    end
+
+    [:order, :boost].each do |key|
+      it "validates #{key} is an integer" do
+        expect(subject.update(key => nil)).to be(false)
+        expect(subject).to have_at_least(1).errors_on(key)
+        expect(subject.errors.messages[key]).to include("is not a number")
+      end
     end
   end
 
@@ -221,7 +230,7 @@ RSpec.describe Metadata::Configuration::Field do
         required: false,
         default_form_field: true,
         optional_form_field: false,
-        order: true,
+        order: 1,
         placeholder: "placeholder",
         help: "help",
         boost: 1,

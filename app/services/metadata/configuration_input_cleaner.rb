@@ -18,6 +18,7 @@ module Metadata
       ensure_json_fields_are_converted
       ensure_name_from_label
       ensure_boolean_values
+      ensure_int_values
 
       data
     end
@@ -40,6 +41,18 @@ module Metadata
         false
       else
         value
+      end
+    end
+
+    def ensure_int_values
+      [:order, :boost].each do |key|
+        if data.has_key?(key)
+          begin
+            data[key] = Integer(data[key])
+          rescue
+            # Leave the value as is to allow the problem to pass through to field validation
+          end
+        end
       end
     end
 

@@ -58,6 +58,7 @@ var MetaDataFieldDialog = React.createClass({
 
   componentWillMount: function() {
     MetaDataConfigurationActions.on("ChangeFieldFinished", this.handleSaved);
+    MetaDataConfigurationActions.on("CreateFieldFinished", this.handleSaved);
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -90,8 +91,12 @@ var MetaDataFieldDialog = React.createClass({
   },
 
   handleSave: function() {
-    MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.baseUpdateUrl, this.state.createForm);
-    this.setState({ saving: true});
+    if(this.state.createForm){
+      MetaDataConfigurationActions.createField(this.state.fieldName, this.state.fieldValues, this.props.baseUpdateUrl);
+    } else {
+      MetaDataConfigurationActions.changeField(this.state.fieldName, this.state.fieldValues, this.props.baseUpdateUrl);
+    }
+    this.setState({ saving: true });
   },
 
   handleSaved: function(success, data) {
