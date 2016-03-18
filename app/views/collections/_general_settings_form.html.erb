@@ -1,9 +1,4 @@
-<%= display_errors(@collection) %>
-
-<%= f.input :name_line_1 %>
-<%= f.input :name_line_2 %>
-<%= render partial: 'search_and_browse_form', locals: { f: f } %>
+<%= render :partial => 'general_settings_subform', locals: { f: f } %>
 
 <%= f.button :submit, value: t('buttons.save'), :class => 'btn-primary' %>
-
 <%= DeletePanel.new(@collection).display  %>
