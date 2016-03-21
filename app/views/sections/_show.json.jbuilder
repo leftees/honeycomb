@@ -1,8 +1,8 @@
 json.id section.id
 json.name section.name
 json.description section.description
-if section.item
-  json.image section.item.image
+if section.item && section.item.honeypot_image
+  json.image section.item.honeypot_image.json_response["thumbnail/medium"]["contentUrl"]
 end
 json.has_spacer section.has_spacer
 json.caption section.caption
