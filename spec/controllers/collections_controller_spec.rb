@@ -2,7 +2,7 @@ require "rails_helper"
 require "cache_spec_helper"
 
 RSpec.describe CollectionsController, type: :controller do
-  let(:collection) { instance_double(Collection, id: 1, name_line_1: "COLLECTION", destroy!: true, collection_users: [], showcases: [], pages: [], items: []) }
+  let(:collection) { instance_double(Collection, id: 1, name_line_1: "COLLECTION", destroy!: true, collection_configuration: nil, collection_users: [], showcases: [], pages: [], items: []) }
 
   let(:create_params) { { collection: { name_line_1: "TITLE!!" } } }
   let(:update_params) { { id: "1", published: true, collection: { name_line_1: "TITLE!!" } } }
