@@ -19,8 +19,8 @@
           <!--label><input type="checkbox" class="show-selected-menu" /></label-->
         </td>
         <td class="image thing">
-          <% if item.image.exists? %>
-            <%= link_to item.thumbnail, item.edit_path %>
+          <% if item.honeypot_image.present? %>
+            <%= HoneypotThumbnail.display(item.honeypot_image) %>
           <% end %>
         </td>
         <td>
