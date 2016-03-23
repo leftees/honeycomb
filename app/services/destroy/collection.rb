@@ -2,7 +2,8 @@ module Destroy
   class Collection
 
     # Allow injecting destroy objects to use when cascading
-    def initialize(destroy_collection_user: nil, destroy_showcase: nil, destroy_item: nil, destroy_page: nil)
+    def initialize(destroy_collection_configuration: nil, destroy_collection_user: nil, destroy_showcase: nil, destroy_item: nil, destroy_page: nil)
+      @destroy_collection_configuration = destroy_collection_configuration || Destroy::CollectionConfiguration.new
       @destroy_collection_user = destroy_collection_user || Destroy::CollectionUser.new
       @destroy_showcase = destroy_showcase || Destroy::Showcase.new
       @destroy_item = destroy_item || Destroy::Item.new
@@ -28,6 +29,9 @@ module Destroy
         end
         collection.pages.each do |child|
           @destroy_page.cascade!(page: child)
+        end
+        if collection.collection_configuration
+          @destroy_collection_configuration.cascade!(collection_configuration: collection.collection_configuration)
         end
         collection.destroy!
       end

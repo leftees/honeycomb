@@ -7,6 +7,7 @@ RSpec.describe Admin::ExternalCollectionsController, type: :controller do
                     id: 1,
                     name_line_1: "COLLECTION",
                     destroy!: true,
+                    collection_configuration: nil,
                     collection_users: [],
                     showcases: [],
                     pages: [],
