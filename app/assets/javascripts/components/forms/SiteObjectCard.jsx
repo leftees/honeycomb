@@ -59,7 +59,7 @@ var SiteObjectCard = React.createClass({
   },
 
   render: function () {
-    const { connectDragSource, connectDragPreview, isDragging } = this.props;
+    var { connectDragSource, connectDragPreview, isDragging } = this.props;
     return connectDragSource(
       <div>
         <mui.Card style={{ cursor: "move" }}>
