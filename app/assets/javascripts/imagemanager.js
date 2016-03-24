@@ -73,7 +73,8 @@
 
         var csrfMeta = document.querySelector('meta[name="csrf-token"]');
         var csrfToken = csrfMeta && csrfMeta.getAttribute('content');
-        var authenticityToken = $('<input type="hidden" id="image_upload_auth_token" name="request_forgery_protection_token" value="' + csrfToken + '" >');
+        var authenticityToken = $('<input type="hidden" id="image_upload_auth_token" name="request_forgery_protection_token" value="' +
+                                  csrfToken + '" >');
         $modal.append(authenticityToken);
 
         $.ajax({
@@ -94,7 +95,12 @@
               var image = val.image;
               if (typeof image == 'object')
               {
-                var img = $('<img src="' + image['thumbnail/small']['contentUrl'] + '" rel="' + image['thumbnail/medium']['contentUrl'] + '" item_id="' + val.id + '"title="' + thumbtitle + '" style="width: 100px; height: 75px; cursor: pointer;" />');
+                var img = $('<img src="' +
+                  image['thumbnail/small']['contentUrl'] +
+                  '" rel="' + image['thumbnail/medium']['contentUrl'] +
+                  '" item_id="' + val.id +
+                  '"title="' + thumbtitle +
+                  '" style="width: 100px; height: 75px; cursor: pointer;" />');
                 $('#redactor-image-manager-box').append(img);
                 $(img).click($.proxy(this.imagemanager.insert, this));
               }
