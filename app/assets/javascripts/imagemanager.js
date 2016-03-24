@@ -96,8 +96,8 @@
               if (typeof image == 'object')
               {
                 var img = $('<img src="' +
-                  image['thumbnail/small']['contentUrl'] +
-                  '" rel="' + image['thumbnail/medium']['contentUrl'] +
+                  image['thumbnail/small'].contentUrl +
+                  '" rel="' + image['thumbnail/medium'].contentUrl +
                   '" item_id="' + val.id +
                   '"title="' + thumbtitle +
                   '" style="width: 100px; height: 75px; cursor: pointer;" />');
