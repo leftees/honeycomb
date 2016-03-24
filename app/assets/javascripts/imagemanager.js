@@ -16,7 +16,7 @@
 					return;
 				}
 
-				this.modal.addCallback('image', this.imagemanager.load);
+				this.modal.addCallback('image', this.imagemanager.loadItemsOnly);
 			},
 			load: function()
 			{
@@ -61,9 +61,47 @@
 						}, this));
 					}, this)
 				});
-
-
 			},
+      // Similar to the load function, except this one only allows selecting existing items.
+      loadItemsOnly: function()
+      {
+        var $modal = this.modal.getModal();
+
+        $('#redactor-modal-image-droparea').remove();
+        var $box = $('<div id="redactor-image-manager-box" style="overflow: auto; height: 300px;" class="redactor-tab redactor-tab2">');
+        $modal.append($box);
+
+        var csrfMeta = document.querySelector('meta[name="csrf-token"]');
+        var csrfToken = csrfMeta && csrfMeta.getAttribute('content');
+        var authenticityToken = $('<input type="hidden" id="image_upload_auth_token" name="request_forgery_protection_token" value="' + csrfToken + '" >');
+        $modal.append(authenticityToken);
+
+        $.ajax({
+          dataType: 'json',
+          cache: false,
+          url: this.opts.imageManagerJson,
+          success: $.proxy(function(collection)
+          {
+            $.each(collection.items, $.proxy(function(key, val)
+            {
+              // title
+              var thumbtitle = '';
+              if (typeof val.name !== 'undefined')
+              {
+                thumbtitle = val.name;
+              }
+
+              var image = val.image;
+              if (typeof image == 'object')
+              {
+                var img = $('<img src="' + image['thumbnail/small']['contentUrl'] + '" rel="' + image['thumbnail/medium']['contentUrl'] + '" item_id="' + val.id + '"title="' + thumbtitle + '" style="width: 100px; height: 75px; cursor: pointer;" />');
+                $('#redactor-image-manager-box').append(img);
+                $(img).click($.proxy(this.imagemanager.insert, this));
+              }
+            }, this));
+          }, this)
+        });
+      },
 			insert: function(e)
 			{
 				var $el = $(e.target);
@@ -80,7 +118,8 @@
 				img.setAttribute('rel', 'width: 300px; height: auto; float: left; margin: 0px 10px 10px 0px;');
 
 				this.insert.node(img);
-				this.observe.images();
+				this.code.sync();
+				this.observe.load();
 				this.modal.close();
 			}
 		};
