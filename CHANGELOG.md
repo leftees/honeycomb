@@ -63,18 +63,18 @@
   - Merge exhibit name into collection name_line_1, name_line_2 ([DEC-615](https://jira.library.nd.edu/browse/DEC-615), [#268](https://github.com/ndlib/honeycomb/pull/268))
   - Merge URL field into collection model ([DEC-616](https://jira.library.nd.edu/browse/DEC-616), [#267](https://github.com/ndlib/honeycomb/pull/267))
   
-**Bug fixes:**
+###Bug fixes:###
 - Images are broken in a few places ([DEC-839](https://jira.library.nd.edu/browse/DEC-839), [#341](https://github.com/ndlib/honeycomb/pull/341))
 - Search and Browse Stretched Images ([DEC-774](https://jira.library.nd.edu/browse/DEC-774), [#314](https://github.com/ndlib/honeycomb/pull/314))
 
 ## [2.0.0](https://github.com/ndlib/honeycomb/tree/v2.0.0)
 
-**New features/enhancements:**
+###New features/enhancements:###
 
-**Bug fixes:**
+###Bug fixes:###
 
 ## [1.0.0](https://github.com/ndlib/honeycomb/tree/v1.0.0)
 
-**New features/enhancements:**
+###New features/enhancements:###
 
-**Bug fixes:**
+###Bug fixes:###
