@@ -3,14 +3,14 @@
 ## [3.0.0](https://github.com/ndlib/honeycomb/tree/v3.0.0) (2016-03-30)
 [Full Changelog](https://github.com/ndlib/honeycomb/compare/v2.0.0...v3.0.0)
 
-**New features/enhancements:**
+###New features/enhancements:###
 
-Now requires Postgres ([DEC-732](https://jira.library.nd.edu/browse/DEC-732))
+**Now requires Postgres ([DEC-732](https://jira.library.nd.edu/browse/DEC-732))**
   - Migrate and test on preprod ([DEC-714](https://jira.library.nd.edu/browse/DEC-714), [#327](https://github.com/ndlib/honeycomb/pull/327))
   - Update Developer Machines to postgres. ([DEC-733](https://jira.library.nd.edu/browse/DEC-733), [#302](https://github.com/ndlib/honeycomb/pull/302))
   - Create database migration ([DEC-738](https://jira.library.nd.edu/browse/DEC-738), [#306](https://github.com/ndlib/honeycomb/pull/306))
 
-Users can now customize what metadata appears on items within a collection ([DEC-477](https://jira.library.nd.edu/browse/DEC-477))
+**Users can now customize what metadata appears on items within a collection ([DEC-477](https://jira.library.nd.edu/browse/DEC-477))**
   - As an admin I want to be able to upload full text items. ([DEC-731](https://jira.library.nd.edu/browse/DEC-731), [#305](https://github.com/ndlib/honeycomb/pull/305))
   - Migrate collection_configuration to the collection table. ([DEC-763](https://jira.library.nd.edu/browse/DEC-763), [#318](https://github.com/ndlib/honeycomb/pull/318))
   - Fix Export/Import ([DEC-801](https://jira.library.nd.edu/browse/DEC-801), [#328](https://github.com/ndlib/honeycomb/pull/328))
@@ -31,7 +31,7 @@ Users can now customize what metadata appears on items within a collection ([DEC
   - Add metadata dropdown doesn't appear ([DEC-773](https://jira.library.nd.edu/browse/DEC-773), [#312](https://github.com/ndlib/honeycomb/pull/312))
   - Unable to save original language meta ([DEC-684](https://jira.library.nd.edu/browse/DEC-684), [#297](https://github.com/ndlib/honeycomb/pull/297))
 
-Users can now create Pages ([DEC-492](https://jira.library.nd.edu/browse/DEC-492))
+**Users can now create Pages ([DEC-492](https://jira.library.nd.edu/browse/DEC-492))**
   - Change redactor to match beehive page ([DEC-787](https://jira.library.nd.edu/browse/DEC-787), [#322](https://github.com/ndlib/honeycomb/pull/322))
   - As a user of beehive, I need to view pages content for a collection ([DEC-662](https://jira.library.nd.edu/browse/DEC-662), [#320](https://github.com/ndlib/honeycomb/pull/320))
   - As a user I would like to be able to choose what pages/showcases appears on MY homepage. ([DEC-655](https://jira.library.nd.edu/browse/DEC-655), [#308](https://github.com/ndlib/honeycomb/pull/308))
@@ -46,7 +46,7 @@ Users can now create Pages ([DEC-492](https://jira.library.nd.edu/browse/DEC-492
   - Cannot insert items into page if collection is not published or preview enabled ([DEC-695](https://jira.library.nd.edu/browse/DEC-695), [#303](https://github.com/ndlib/honeycomb/pull/303))
   - Pages edit does not load if collection.site_objects is nil ([DEC-696](https://jira.library.nd.edu/browse/DEC-696), [#304](https://github.com/ndlib/honeycomb/pull/304))
 
-Removed Exhibits model ([DEC-376](https://jira.library.nd.edu/browse/DEC-376))
+**Removed Exhibits model ([DEC-376](https://jira.library.nd.edu/browse/DEC-376))**
   - Merge collection model with exhibit model ([DEC-376](https://jira.library.nd.edu/browse/DEC-376), [#285](https://github.com/ndlib/honeycomb/pull/285))
   - Merge collection model with exhibit model ([DEC-376](https://jira.library.nd.edu/browse/DEC-376), [#289](https://github.com/ndlib/honeycomb/pull/289))
   - Once done, remove Exhibition and Exhibit ([DEC-627](https://jira.library.nd.edu/browse/DEC-627), [#284](https://github.com/ndlib/honeycomb/pull/284))
