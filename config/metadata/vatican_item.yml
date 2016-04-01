@@ -28,21 +28,77 @@
     :optional_form_field: true
     :order: 3
     :placeholder: "Example: \"French\""
+  - :name: :conclusion
+    :active: true
+    :type: :date
+    :label: Conclusion
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 4
+  - :name: :coverage_spatial
+    :active: true
+    :type: :string
+    :label: Coverage spatial
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 5
+  - :name: :coverage_temporal
+    :active: true
+    :type: :string
+    :label: Coverage temporal
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 6
+  - :name: :ctc_url
+    :active: true
+    :type: :string
+    :label: CTC url
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 7
+  - :name: :date_promulgated
+    :active: true
+    :type: :date
+    :label: Date promulgated
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 8
+  - :name: :document_classification
+    :active: true
+    :type: :string
+    :label: Document Classification
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 9
+  - :name: :document_group
+    :active: true
+    :type: :string
+    :label: Document group
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 10
   - :name: :document_symbol
     :active: true
     :type: :string
     :label: Document Symbol
     :default_form_field: false
     :optional_form_field: true
-    :order: 4
+    :order: 11
     :placeholder: "Example: \"French\""
-  - :name: :transcription
+  - :name: :entry_into_force
     :active: true
-    :type: :html
-    :label: Document Text
+    :type: :string
+    :label: Entry into force
     :default_form_field: false
     :optional_form_field: true
-    :order: 5
+    :order: 12
+  - :name: :footnotes
+    :active: true
+    :type: :string
+    :label: Footnotes
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 13
   - :name: :heading
     :active: true
     :type: :string
@@ -50,7 +106,7 @@
     :multiple: true
     :default_form_field: false
     :optional_form_field: true
-    :order: 4
+    :order: 14
     :placeholder: "Example: \"French\""
   - :name: :manuscript_url
     :active: true
@@ -58,9 +114,18 @@
     :label: PDF Link
     :default_form_field: false
     :optional_form_field: true
-    :order: 10
+    :order: 15
     :placeholder: "http://"
     :help: Link to externally hosted manuscript viewer.
+  - :name: :mtdsg_reference
+    :active: true
+    :type: :string
+    :label: MTDSG Reference
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 16
+    :placeholder: "V-1"
+    :help: MTDSG Reference
   - :name: :name
     :active: true
     :type: :string
@@ -68,7 +133,7 @@
     :required: true
     :default_form_field: true
     :optional_form_field: false
-    :order: 7
+    :order: 17
     :boost: 10
     :immutable: [name, active, type, required, default_form_field, optional_form_field, order]
   - :name: :order
@@ -78,7 +143,7 @@
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 8
+    :order: 18
   - :name: :parent_id
     :active: true
     :type: :string
@@ -86,146 +151,88 @@
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 9
-  - :name: :mtdsg_reference
-    :active: true
-    :type: :string
-    :label: MTDSG Reference
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 12
-    :placeholder: "V-1"
-    :help: MTDSG Reference
-  - :name: :registration_number
-    :active: true
-    :type: :string
-    :label: Registration Number
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 13
-  - :name: :source
-    :active: true
-    :type: :string
-    :label: Source
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 14
-  - :name: :conclusion
-    :active: true
-    :type: :date
-    :label: Conclusion
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 15
-  - :name: :place_of_conclusion
-    :active: true
-    :type: :string
-    :label: Place of conclusion
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 16
-  - :name: :entry_into_force
-    :active: true
-    :type: :string
-    :label: Entry into force
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 17
-  - :name: :registration
-    :active: true
-    :type: :date
-    :label: Registration
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 18
-  - :name: :coverage_spatial
-    :active: true
-    :type: :string
-    :label: Coverage spatial
-    :default_form_field: false
-    :optional_form_field: true
     :order: 19
-  - :name: :type
-    :active: true
-    :type: :string
-    :label: Type
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 20
-  - :name: :coverage_temporal
-    :active: true
-    :type: :string
-    :label: Coverage temporal
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 21
-  - :name: :document_group
-    :active: true
-    :type: :string
-    :label: Document group
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 22
-  - :name: :document_classification
-    :active: true
-    :type: :string
-    :label: Document Classification
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 23
-  - :name: :ctc_url
-    :active: true
-    :type: :string
-    :label: CTC url
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 24
   - :name: :participants
     :active: true
     :type: :string
     :label: Participants
     :default_form_field: false
     :optional_form_field: true
-    :order: 25
-  - :name: :promulgated_by
+    :order: 20
+  - :name: :place_of_conclusion
     :active: true
     :type: :string
-    :label: Promulgated by
+    :label: Place of Conclusion
     :default_form_field: false
     :optional_form_field: true
-    :order: 26
-  - :name: :date_promulgated
-    :active: true
-    :type: :date
-    :label: Date promulgated
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 27
+    :order: 21
   - :name: :place_promulgated
     :active: true
     :type: :string
     :label: Place promulgated
     :default_form_field: false
     :optional_form_field: true
-    :order: 28
-  - :name: :footnotes
+    :order: 22
+  - :name: :promulgated_by
     :active: true
     :type: :string
-    :label: Footnotes
+    :label: Promulgated by
     :default_form_field: false
     :optional_form_field: true
-    :order: 29
+    :order: 23
+  - :name: :registration
+    :active: true
+    :type: :date
+    :label: Registration
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 24
+  - :name: :registration_number
+    :active: true
+    :type: :string
+    :label: Registration Number
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 25
   - :name: :rights_holder
     :active: true
     :type: :string
     :label: Rights Holder
     :default_form_field: false
     :optional_form_field: true
-    :order: 30
+    :order: 26
   - :name: :rights_holder_website
     :active: true
     :type: :string
     :label: Rights Holder Website
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 27
+  - :name: :source
+    :active: true
+    :type: :string
+    :label: Source
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 28
+  - :name: :transcription
+    :active: true
+    :type: :html
+    :label: Document Text
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 29
+  - :name: :type
+    :active: true
+    :type: :string
+    :label: Type
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 30
+  - :name: :type_of_document
+    :active: true
+    :type: :string
+    :label: Type of Document
     :default_form_field: false
     :optional_form_field: true
     :order: 31
