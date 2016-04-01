@@ -28,6 +28,22 @@
     :optional_form_field: true
     :order: 3
     :placeholder: "Example: \"French\""
+  - :name: :document_symbol
+    :active: true
+    :type: :string
+    :label: Document Symbol
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 11
+    :placeholder: "A 123"
+    :help: Document symbol
+  - :name: :document_text
+    :active: true
+    :type: :html
+    :label: Document Text
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 5
   - :name: :heading
     :active: true
     :type: :string
@@ -37,20 +53,15 @@
     :optional_form_field: true
     :order: 4 
     :placeholder: "Example: \"French\""
-  - :name: :document_text
+  - :name: :manuscript_url
     :active: true
-    :type: :html
-    :label: Document Text
+    :type: :string
+    :label: PDF Link
     :default_form_field: false
     :optional_form_field: true
-    :order: 5
-  - :name: :type_of_document
-    :active: true
-    :type: :html
-    :label: Type of Document
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 6
+    :order: 10
+    :placeholder: "http://"
+    :help: Link to externally hosted manuscript viewer.
   - :name: :name
     :active: true
     :type: :string
@@ -77,24 +88,13 @@
     :default_form_field: false
     :optional_form_field: true
     :order: 9 
-  - :name: :manuscript_url
+  - :name: :type_of_document
     :active: true
-    :type: :string
-    :label: PDF Link
+    :type: :html
+    :label: Type of Document
     :default_form_field: false
     :optional_form_field: true
-    :order: 10
-    :placeholder: "http://"
-    :help: Link to externally hosted manuscript viewer.
-  - :name: :document_symbol
-    :active: true
-    :type: :string
-    :label: Document Symbol
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 11
-    :placeholder: "A 123"
-    :help: Document symbol
+    :order: 6
   - :name: :mtdsg_reference
     :active: true
     :type: :string
@@ -245,8 +245,8 @@
     :optional_form_field: true
     :order: 32
 :facets:
-  - :name: :authetic_texts
-    :field_name: :authetic_texts
+  - :name: :authentic_texts
+    :field_name: :authentic_texts
     :label: Authentic Texts
   - :name: :document_group
     :field_name: :document_group
