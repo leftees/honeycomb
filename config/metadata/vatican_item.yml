@@ -185,7 +185,7 @@
   - :name: :document_classification
     :active: true
     :type: :string
-    :label: Document classification
+    :label: Document Classification
     :default_form_field: false
     :optional_form_field: true
     :order: 23
@@ -269,8 +269,4 @@
   - :name: :name
     :field_name: :name
     :direction: :asc
-    :label: Name
-  - :name: :creator
-    :field_name: :creator
-    :direction: :asc
-    :label: Creator
+    :label: Title
