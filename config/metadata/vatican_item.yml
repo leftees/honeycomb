@@ -34,9 +34,8 @@
     :label: Document Symbol
     :default_form_field: false
     :optional_form_field: true
-    :order: 11
-    :placeholder: "A 123"
-    :help: Document symbol
+    :order: 4
+    :placeholder: "Example: \"French\""
   - :name: :document_text
     :active: true
     :type: :html
@@ -79,7 +78,7 @@
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 8 
+    :order: 8
   - :name: :parent_id
     :active: true
     :type: :string
@@ -87,8 +86,17 @@
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 9 
-  - :name: :type_of_document
+    :order: 9
+  - :name: :manuscript_url
+    :active: true
+    :type: :string
+    :label: PDF Link
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 10
+    :placeholder: "http://"
+    :help: Link to externally hosted manuscript viewer.
+  - :name: :document_symbol
     :active: true
     :type: :html
     :label: Type of Document
