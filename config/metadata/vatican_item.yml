@@ -35,7 +35,7 @@
     :multiple: true
     :default_form_field: false
     :optional_form_field: true
-    :order: 4 
+    :order: 4
     :placeholder: "Example: \"French\""
   - :name: :document_text
     :active: true
@@ -68,7 +68,7 @@
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 8 
+    :order: 8
   - :name: :parent_id
     :active: true
     :type: :string
@@ -76,7 +76,7 @@
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 9 
+    :order: 9
   - :name: :manuscript_url
     :active: true
     :type: :string
@@ -245,9 +245,6 @@
     :optional_form_field: true
     :order: 32
 :facets:
-  - :name: :authetic_texts
-    :field_name: :authetic_texts
-    :label: Authentic Texts
   - :name: :document_group
     :field_name: :document_group
     :label: Document Group
