@@ -1,106 +1,76 @@
 ---
 :fields:
-  - :name: :name
+  - :name: :actors
+    :active: true
+    :type: :html
+    :label: Actors
+    :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 1
+    :boost: 3
+  - :name: :alternative_title
     :active: true
     :type: :string
-    :label: Name
+    :label: Alternative Title
     :required: true
     :default_form_field: true
     :optional_form_field: false
-    :order: 1
+    :order: 2
     :boost: 10
     :immutable: [name, active, type, required, default_form_field, optional_form_field, order]
-  - :name: :description
-    :active: true
-    :type: :html
-    :label: Description
-    :default_form_field: true
-    :optional_form_field: false
-    :order: 2
-    :placeholder: "Example: \"Also known as \'La Giaconda\' in Italian, this half-length portrait is one of the most famous paintings in the world. It is thought to depict Lisa Gherardini, the wife of Francesco del Giocondo.\""
-  - :name: :date_created
-    :active: true
-    :type: :date
-    :label: Date Created
-    :default_form_field: true
-    :optional_form_field: false
-    :order: 3
-  - :name: :alternate_name
+  - :name: :authentic_texts
     :active: true
     :type: :string
-    :label: Alternate Name
+    :label: Authentic Texts
     :multiple: true
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 3
+    :placeholder: "Example: \"French\""
+  - :name: :document_symbol
+    :active: true
+    :type: :string
+    :label: Document Symbol
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 4
+    :placeholder: "Example: \"French\""
+  - :name: :document_text
+    :active: true
+    :type: :html
+    :label: Document Text
     :default_form_field: false
     :optional_form_field: true
     :order: 5
-    :boost: 5
-    :placeholder: An additional name this work is known as.
-  - :name: :creator
+  - :name: :heading
     :active: true
     :type: :string
-    :label: Creator
-    :multiple: true
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 8
-    :boost: 2
-    :placeholder: "Example: \"Leonardo da Vinci\""
-  - :name: :contributor
-    :active: true
-    :type: :string
-    :label: Contributor
+    :label: Heading
     :multiple: true
     :default_form_field: false
     :optional_form_field: true
     :order: 4
-  - :name: :subject
+    :placeholder: "Example: \"French\""
+  - :name: :manuscript_url
     :active: true
-    :type: :html
-    :label: Subject
-    :multiple: true
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 6
-    :boost: 3
-  - :name: :transcription
-    :active: true
-    :type: :html
-    :label: Transcription
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 7
-  - :name: :date_published
-    :active: true
-    :type: :date
-    :label: Date Published
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 9
-  - :name: :date_modified
-    :active: true
-    :type: :date
-    :label: Date Modified
+    :type: :string
+    :label: PDF Link
     :default_form_field: false
     :optional_form_field: true
     :order: 10
-  - :name: :original_language
+    :placeholder: "http://"
+    :help: Link to externally hosted manuscript viewer.
+  - :name: :name
     :active: true
     :type: :string
-    :label: Original Language
-    :multiple: true
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 11
-    :placeholder: "Example: \"French\""
-  - :name: :rights
-    :active: true
-    :type: :html
-    :label: Rights
-    :multiple: false
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 12
-    :placeholder: "Example: \"Copyright held by Hesburgh Libraries\""
+    :label: Title
+    :required: true
+    :default_form_field: true
+    :optional_form_field: false
+    :order: 7
+    :boost: 10
+    :immutable: [name, active, type, required, default_form_field, optional_form_field, order]
   - :name: :order
     :active: true
     :type: :string
@@ -108,50 +78,22 @@
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 13
+    :order: 8
   - :name: :parent_id
     :active: true
     :type: :string
-    :label: Document Id
+    :label: Parent id
     :multiple: false
     :default_form_field: false
     :optional_form_field: true
-    :order: 14
-    :placeholder: "Example: \"Received as a gift from John Doe\""
-  - :name: :publisher
-    :active: true
-    :type: :string
-    :label: Publisher
-    :multiple: true
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 15
-    :placeholder: "Example: \"Ballantine Books\""
-  - :name: :manuscript_url
-    :active: true
-    :type: :string
-    :label: PDF Link
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 16
-    :placeholder: "http://"
-    :help: Link to externally hosted manuscript viewer.
-  - :name: :document_symbol
-    :active: true
-    :type: :string
-    :label: Document Symbol
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 17
-    :placeholder: "A 123"
-    :help: Document symbol
+    :order: 9
   - :name: :mtdsg_reference
     :active: true
     :type: :string
     :label: MTDSG Reference
     :default_form_field: false
     :optional_form_field: true
-    :order: 18
+    :order: 12
     :placeholder: "V-1"
     :help: MTDSG Reference
   - :name: :registration_number
@@ -160,133 +102,155 @@
     :label: Registration Number
     :default_form_field: false
     :optional_form_field: true
-    :order: 19
+    :order: 13
   - :name: :source
     :active: true
     :type: :string
     :label: Source
     :default_form_field: false
     :optional_form_field: true
-    :order: 20
-  - :name: :date_ended
+    :order: 14
+  - :name: :conclusion
     :active: true
     :type: :date
-    :label: Date Ended
+    :label: Conclusion
     :default_form_field: false
     :optional_form_field: true
-    :order: 21
+    :order: 15
   - :name: :place_of_conclusion
     :active: true
     :type: :string
     :label: Place of conclusion
     :default_form_field: false
     :optional_form_field: true
-    :order: 22
+    :order: 16
   - :name: :entry_into_force
     :active: true
     :type: :string
     :label: Entry into force
     :default_form_field: false
     :optional_form_field: true
-    :order: 23
+    :order: 17
   - :name: :registration
     :active: true
     :type: :date
     :label: Registration
     :default_form_field: false
     :optional_form_field: true
-    :order: 24
+    :order: 18
   - :name: :coverage_spatial
     :active: true
     :type: :string
     :label: Coverage spatial
     :default_form_field: false
     :optional_form_field: true
-    :order: 25
+    :order: 19
+  - :name: :type
+    :active: true
+    :type: :string
+    :label: Type
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 20
   - :name: :coverage_temporal
     :active: true
     :type: :string
     :label: Coverage temporal
     :default_form_field: false
     :optional_form_field: true
-    :order: 26
+    :order: 21
   - :name: :document_group
     :active: true
     :type: :string
     :label: Document group
     :default_form_field: false
     :optional_form_field: true
-    :order: 27
+    :order: 22
   - :name: :document_classification
     :active: true
     :type: :string
-    :label: Document classification
+    :label: Document Classification
     :default_form_field: false
     :optional_form_field: true
-    :order: 28
+    :order: 23
   - :name: :ctc_url
     :active: true
     :type: :string
     :label: CTC url
     :default_form_field: false
     :optional_form_field: true
-    :order: 29
+    :order: 24
   - :name: :participants
     :active: true
     :type: :string
     :label: Participants
     :default_form_field: false
     :optional_form_field: true
-    :order: 30
+    :order: 25
   - :name: :promulgated_by
     :active: true
     :type: :string
     :label: Promulgated by
     :default_form_field: false
     :optional_form_field: true
-    :order: 31
+    :order: 26
   - :name: :date_promulgated
     :active: true
     :type: :date
     :label: Date promulgated
     :default_form_field: false
     :optional_form_field: true
-    :order: 32
+    :order: 27
   - :name: :place_promulgated
     :active: true
     :type: :string
     :label: Place promulgated
     :default_form_field: false
     :optional_form_field: true
-    :order: 33
+    :order: 28
   - :name: :footnotes
     :active: true
     :type: :string
     :label: Footnotes
     :default_form_field: false
     :optional_form_field: true
-    :order: 34
+    :order: 29
+  - :name: :rights_holder
+    :active: true
+    :type: :string
+    :label: Rights Holder
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 30
+  - :name: :rights_holder_website
+    :active: true
+    :type: :string
+    :label: Rights Holder Website
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 31
+  - :name: :type_of_text
+    :active: true
+    :type: :string
+    :label: Type of Text
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 32
 :facets:
-  - :name: :creator
-    :field_name: :creator
-  - :name: :language
-    :field_name: :original_language
-    :label: Language
+  - :name: :authentic_texts
+    :field_name: :authentic_texts
+    :label: Authentic Texts
   - :name: :document_group
     :field_name: :document_group
-    :label: Type
+    :label: Document Group
   - :name: :source
     :field_name: :source
     :label: Source
   - :name: :document_classification
     :field_name: :document_classification
-    :label: Document classification
+    :label: Document Classification
 :sorts:
   - :name: :name
     :field_name: :name
     :direction: :asc
-    :label: Name
-  - :name: :creator
-    :field_name: :creator
-    :direction: :asc
-    :label: Creator
+    :label: Title

@@ -32,7 +32,7 @@ module Brood
     end
 
     def reset_solr!
-      url = URI.parse("http://localhost:8080/solr/honeycomb/update --data '<delete><query>*:*</query></delete>' -H 'Content-type:text/xml; charset=utf-8'")
+      url = URI.parse("http://localhost:8982/solr/development/update?commit=true --data '<delete><query>*:*</query></delete>' -H 'Content-type:text/xml; charset=utf-8'")
       Net::HTTP::Get.new(url.to_s)
 
       commit_solr!

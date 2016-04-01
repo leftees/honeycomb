@@ -1,4 +1,4 @@
-require "rails_helper"
+ require "rails_helper"
 
 RSpec.describe CreateCollectionConfiguration do
   Dir.glob(Rails.root.join("config/metadata/*.yml")).each do |path|
