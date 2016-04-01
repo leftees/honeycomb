@@ -13,7 +13,7 @@
     :active: true
     :type: :string
     :label: Alternative Title
-    :required: true
+    :required: false
     :default_form_field: true
     :optional_form_field: false
     :order: 2
