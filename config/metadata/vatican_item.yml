@@ -50,7 +50,7 @@
     :multiple: true
     :default_form_field: false
     :optional_form_field: true
-    :order: 4 
+    :order: 4
     :placeholder: "Example: \"French\""
   - :name: :manuscript_url
     :active: true
@@ -87,22 +87,6 @@
     :default_form_field: false
     :optional_form_field: true
     :order: 9
-  - :name: :manuscript_url
-    :active: true
-    :type: :string
-    :label: PDF Link
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 10
-    :placeholder: "http://"
-    :help: Link to externally hosted manuscript viewer.
-  - :name: :document_symbol
-    :active: true
-    :type: :html
-    :label: Type of Document
-    :default_form_field: false
-    :optional_form_field: true
-    :order: 6
   - :name: :mtdsg_reference
     :active: true
     :type: :string
