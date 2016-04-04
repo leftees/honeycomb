@@ -38,14 +38,14 @@
   - :name: :coverage_spatial
     :active: true
     :type: :string
-    :label: Coverage spatial
+    :label: Coverage Spatial
     :default_form_field: false
     :optional_form_field: true
     :order: 5
   - :name: :coverage_temporal
     :active: true
     :type: :string
-    :label: Coverage temporal
+    :label: Coverage Temporal
     :default_form_field: false
     :optional_form_field: true
     :order: 6
@@ -59,7 +59,7 @@
   - :name: :date_promulgated
     :active: true
     :type: :date
-    :label: Date promulgated
+    :label: Date Promulgated
     :default_form_field: false
     :optional_form_field: true
     :order: 8
@@ -73,7 +73,7 @@
   - :name: :document_group
     :active: true
     :type: :string
-    :label: Document group
+    :label: Document Group
     :default_form_field: false
     :optional_form_field: true
     :order: 10
@@ -87,8 +87,8 @@
     :placeholder: "Example: \"French\""
   - :name: :entry_into_force
     :active: true
-    :type: :string
-    :label: Entry into force
+    :type: :date
+    :label: Entry into Force
     :default_form_field: false
     :optional_form_field: true
     :order: 12
@@ -108,10 +108,10 @@
     :optional_form_field: true
     :order: 14
     :placeholder: "Example: \"French\""
-  - :name: :manuscript_url
+  - :name: :url
     :active: true
     :type: :string
-    :label: PDF Link
+    :label: URL
     :default_form_field: false
     :optional_form_field: true
     :order: 15
@@ -169,14 +169,14 @@
   - :name: :place_promulgated
     :active: true
     :type: :string
-    :label: Place promulgated
+    :label: Place Promulgated
     :default_form_field: false
     :optional_form_field: true
     :order: 22
   - :name: :promulgated_by
     :active: true
     :type: :string
-    :label: Promulgated by
+    :label: Promulgated By
     :default_form_field: false
     :optional_form_field: true
     :order: 23
@@ -215,34 +215,41 @@
     :default_form_field: false
     :optional_form_field: true
     :order: 28
+  - :name: :treaty_series
+    :active: true
+    :type: :string
+    :label: Treaty Series
+    :default_form_field: false
+    :optional_form_field: true
+    :order: 29
   - :name: :transcription
     :active: true
     :type: :html
     :label: Document Text
     :default_form_field: false
     :optional_form_field: true
-    :order: 29
+    :order: 30
   - :name: :type
     :active: true
     :type: :string
     :label: Type
     :default_form_field: false
     :optional_form_field: true
-    :order: 30
+    :order: 31
   - :name: :type_of_document
     :active: true
     :type: :string
     :label: Type of Document
     :default_form_field: false
     :optional_form_field: true
-    :order: 31
+    :order: 32
   - :name: :type_of_text
     :active: true
     :type: :string
     :label: Type of Text
     :default_form_field: false
     :optional_form_field: true
-    :order: 32
+    :order: 33
 :facets:
   - :name: :authentic_texts
     :field_name: :authentic_texts
