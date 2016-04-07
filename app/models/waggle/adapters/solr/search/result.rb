@@ -58,6 +58,7 @@ module Waggle
               fq: solr_filters,
               sort: solr_sort,
               facet: true,
+              defType: "edismax",
               :"facet.field" => facet_fields,
             }
           end

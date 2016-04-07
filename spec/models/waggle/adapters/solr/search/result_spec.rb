@@ -80,6 +80,7 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
         pf: "phrase_fields",
         sort: "score desc",
         facet: true,
+        defType: "edismax",
         :"facet.field" => [
           "{!ex=creator_facet}creator_facet",
         ]
