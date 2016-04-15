@@ -54,6 +54,10 @@ module Waggle
             fetch_text(:date_created)
           end
 
+          def score
+            fetch(:score)
+          end
+
           private
 
           def fetch_text(field)

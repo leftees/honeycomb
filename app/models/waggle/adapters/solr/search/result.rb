@@ -60,6 +60,7 @@ module Waggle
               facet: true,
               defType: "edismax",
               :"facet.field" => facet_fields,
+              hl: true,
             }
           end
 
