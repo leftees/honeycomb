@@ -59,6 +59,7 @@ module Waggle
               sort: solr_sort,
               facet: true,
               :"facet.field" => facet_fields,
+              mm: 1,
             }
           end
 

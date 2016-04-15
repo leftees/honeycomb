@@ -76,6 +76,7 @@ RSpec.describe Waggle::Adapters::Solr::Search::Result do
         q: "query",
         fl: "score *",
         fq: [],
+        mm: 1,
         qf: "query_fields",
         pf: "phrase_fields",
         sort: "score desc",
