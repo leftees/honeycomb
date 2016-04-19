@@ -51,9 +51,9 @@ var GoogleCreatorMixin = {
 
   createFile: function(callback) {
     if(this.clientApiLoaded && this.oauthToken){
-      const boundary = 'foo_bar_baz';
-      const delimiter = "\r\n--" + boundary + "\r\n";
-      const close_delim = "\r\n--" + boundary + "--";
+      var boundary = 'foo_bar_baz';
+      var delimiter = "\r\n--" + boundary + "\r\n";
+      var close_delim = "\r\n--" + boundary + "--";
 
       var fileData = this.getFileData();
 

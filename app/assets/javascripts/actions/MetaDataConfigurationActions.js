@@ -8,7 +8,7 @@ var update = require("react-addons-update");
 class MetaDataConfigurationActions extends NodeEventEmitter {
   changeActive(fieldName, activeValue, pushToUrl){
     // Clone values in order to revert the store if the change fails
-    const previousValue = MetaDataConfigurationStore.fields[fieldName].active;
+    var previousValue = MetaDataConfigurationStore.fields[fieldName].active;
     var fieldValues = update(MetaDataConfigurationStore.fields[fieldName], {});
 
     // Optimistically change the store
@@ -49,7 +49,7 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
 
   changeField(fieldName, fieldValues, pushToUrl) {
     // Clone values in order to revert the store if the change fails
-    const previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
+    var previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
 
     pushToUrl += "/" + fieldName;
 

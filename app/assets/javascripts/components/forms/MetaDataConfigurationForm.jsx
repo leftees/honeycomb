@@ -183,7 +183,7 @@ var MetaDataConfigurationForm = React.createClass({
   },
 
   render: function(){
-    const { selectedField } = this.state;
+    var { selectedField } = this.state;
     return (
       <Paper style={ this.backgroundStyle() } zDepth={1}>
         <MetaDataFieldDialog fieldName={ selectedField } open={ selectedField != undefined } baseUpdateUrl={ this.props.baseUpdateUrl }/>

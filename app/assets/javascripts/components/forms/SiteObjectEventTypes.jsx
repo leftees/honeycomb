@@ -1,4 +1,4 @@
-const Types = {
+var Types = {
   AvailableSiteObjectDnD: "AvailableSiteObjectDnDMessage",
   CurrentSiteObjectDnD: "CurrentSiteObjectDnDMessage",
   CardDroppedOnTarget: "SiteObjectCardDroppedOnTarget",

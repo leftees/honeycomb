@@ -159,7 +159,7 @@ var MetaDataFieldDialog = React.createClass({
   },
 
   render: function() {
-    const actions = [
+    var actions = [
       <FlatButton
         label="Save"
         primary={true}

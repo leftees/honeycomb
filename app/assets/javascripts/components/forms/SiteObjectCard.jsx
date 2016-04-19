@@ -17,7 +17,7 @@ var siteObjectSource = {
   },
 
   endDrag: function (props, monitor, component) {
-    const item = monitor.getItem();
+    var item = monitor.getItem();
 
     if(monitor.didDrop()){
       dropResult = monitor.getDropResult();
@@ -54,7 +54,7 @@ var SiteObjectCard = React.createClass({
   },
 
   getDragAvatar: function() {
-    const { connectDragSource } = this.props;
+    var { connectDragSource } = this.props;
     return connectDragSource(<div>{ this.getAvatar() }</div>);
   },
 
