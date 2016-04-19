@@ -1,5 +1,6 @@
 var AppDispatcher = require("../dispatcher/AppDispatcher");
 var MetaDataConfigurationActionTypes = require("../constants/MetaDataConfigurationActionTypes");
+var MetaDataConfigurationStore = require("../stores/MetaDataConfigurationStore");
 var AppEventEmitter = require("../EventEmitter");
 var NodeEventEmitter = require("events").EventEmitter;
 var APIResponseMixin = require("../mixins/APIResponseMixin");
