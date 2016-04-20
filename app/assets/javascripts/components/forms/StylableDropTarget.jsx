@@ -5,7 +5,7 @@
 var React = require('react');
 var DropTarget = require('react-dnd').DropTarget;
 
-const stylableDropTarget = {
+var stylableDropTarget = {
   canDrop(props, monitor) {
     return true;
   },
@@ -37,7 +37,7 @@ var StylableDropTarget = React.createClass({
   },
 
   render: function() {
-    const { isOver, canDrop, connectDropTarget } = this.props;
+    var { isOver, canDrop, connectDropTarget } = this.props;
 
     return connectDropTarget(
       <div>

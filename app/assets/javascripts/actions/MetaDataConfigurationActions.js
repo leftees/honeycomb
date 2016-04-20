@@ -1,5 +1,6 @@
 var AppDispatcher = require("../dispatcher/AppDispatcher");
 var MetaDataConfigurationActionTypes = require("../constants/MetaDataConfigurationActionTypes");
+var MetaDataConfigurationStore = require("../stores/MetaDataConfigurationStore");
 var AppEventEmitter = require("../EventEmitter");
 var NodeEventEmitter = require("events").EventEmitter;
 var APIResponseMixin = require("../mixins/APIResponseMixin");
@@ -8,7 +9,7 @@ var update = require("react-addons-update");
 class MetaDataConfigurationActions extends NodeEventEmitter {
   changeActive(fieldName, activeValue, pushToUrl){
     // Clone values in order to revert the store if the change fails
-    const previousValue = MetaDataConfigurationStore.fields[fieldName].active;
+    var previousValue = MetaDataConfigurationStore.fields[fieldName].active;
     var fieldValues = update(MetaDataConfigurationStore.fields[fieldName], {});
 
     // Optimistically change the store
@@ -49,7 +50,7 @@ class MetaDataConfigurationActions extends NodeEventEmitter {
 
   changeField(fieldName, fieldValues, pushToUrl) {
     // Clone values in order to revert the store if the change fails
-    const previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
+    var previousValues = update(MetaDataConfigurationStore.fields[fieldName], {});
 
     pushToUrl += "/" + fieldName;
 
