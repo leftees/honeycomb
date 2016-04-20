@@ -20,13 +20,15 @@ namespace :adhoc do
   # will create a image_paths.txt.err file with a list of files that were not imported.
   task :upload_images, [:collection_id, :file_path] => :environment do |_t, args|
     paths_file = File.new(args[:file_path], "r")
+    success_file = open("#{args[:file_path]}.success", "a")
+    error_file = open("#{args[:file_path]}.error", "a")
     while (line = paths_file.gets)
       begin
         local_upload(collection_id: args[:collection_id], file_path: line.chomp)
-      rescue
-        open("#{args[:file_path]}.err", "a") do |f|
-          f << "#{line}\n"
-        end
+        success_file << "#{line}"
+      rescue => e
+        print "#{line}: #{e}\n"
+        error_file << "#{line}"
         next
       end
     end
@@ -36,10 +38,12 @@ namespace :adhoc do
   def local_upload(collection_id:, file_path:)
     collection = CollectionQuery.new.find(collection_id)
     item = ItemQuery.new(collection.items).build
-    file = File.open(file_path)
-    save_params = { uploaded_image: file }
-    SaveItem.call(item, save_params)
+    file = open(file_path)
+    file_name = File.basename(file.respond_to?(:base_uri) ? file.base_uri.path : file.path)
+    save_params = { uploaded_image: file, metadata: { name: file_name } }
+    result = SaveItem.call(item, save_params)
     Index::Item.index!(item)
     file.close
+    result
   end
 end
