@@ -7,6 +7,7 @@
     "browserify": "6.3.4",
     "browserify-incremental": "1.5.0",
     "classnames": "2.2.3",
+    "es6-promise": "^3.1.2",
     "eventemitter": "0.3.3",
     "flux": "2.1.1",
     "jquery": "2.2.0",
