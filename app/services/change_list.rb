@@ -23,8 +23,6 @@ class ChangeList
     result
   end
 
-  private
-
   def self.deserialize(version:)
     version.object.present? ? PaperTrail.serializer.load(version.object) : {}
   end
