@@ -39,7 +39,7 @@ namespace :adhoc do
     file = open(file_path)
     file_name = File.basename(file.respond_to?(:base_uri) ? file.base_uri.path : file.path)
 
-    item = find_or_create(collection_id: collection_id, file_name: file_name)
+    item = get_item(collection_id: collection_id, file_name: file_name)
     save_params = { uploaded_image: file, metadata: { name: file_name } }
     result = SaveItem.call(item, save_params)
     Index::Item.index!(item)
@@ -48,7 +48,7 @@ namespace :adhoc do
   end
 
   # Assumes that any previous items in the collection were named based on the file name.
-  def find_or_create(collection_id:, file_name:)
+  def get_item(collection_id:, file_name:)
     item = Item.where("metadata->'name' ? '#{file_name}'").where(collection_id: collection_id).take
     unless item.present?
       item = Item.new(collection_id: collection_id)
