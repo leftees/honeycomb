@@ -36,14 +36,23 @@ namespace :adhoc do
   end
 
   def local_upload(collection_id:, file_path:)
-    collection = CollectionQuery.new.find(collection_id)
-    item = ItemQuery.new(collection.items).build
     file = open(file_path)
     file_name = File.basename(file.respond_to?(:base_uri) ? file.base_uri.path : file.path)
+
+    item = get_item(collection_id: collection_id, file_name: file_name)
     save_params = { uploaded_image: file, metadata: { name: file_name } }
     result = SaveItem.call(item, save_params)
     Index::Item.index!(item)
     file.close
     result
+  end
+
+  # Assumes that any previous items in the collection were named based on the file name.
+  def get_item(collection_id:, file_name:)
+    item = Item.where("metadata->'name' ? '#{file_name}'").where(collection_id: collection_id).take
+    unless item.present?
+      item = Item.new(collection_id: collection_id)
+    end
+    item
   end
 end
