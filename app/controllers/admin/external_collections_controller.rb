@@ -59,7 +59,7 @@ module Admin
     def save_params
       params.require(:external_collection).permit(
         :name_line_1,
-        :description,
+        :about,
         :id,
         :url,
         :uploaded_image,
