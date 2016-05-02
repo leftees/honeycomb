@@ -27,7 +27,7 @@ class ProcessUploadedImage
     begin
       save_object
     ensure
-      delete_processed_image(processed_path)
+      #delete_processed_image(processed_path)
     end
   end
 
