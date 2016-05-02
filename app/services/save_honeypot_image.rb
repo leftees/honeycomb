@@ -11,9 +11,11 @@ class SaveHoneypotImage
   end
 
   def save!
+    pre_save
     response = send_request
 
     if response && update_image_server(response)
+      post_save
       honeypot_image
     else
       false
@@ -29,7 +31,11 @@ class SaveHoneypotImage
   def update_image_server(request)
     body = request.body.with_indifferent_access
     honeypot_image.json_response = body
+    honeypot_image.save && object.save
+  end
 
+  # Anything that needs to be done before saving
+  def pre_save
     # I realize this is ugly, but it's either this or add this image status to
     # all other objects that use honeypot. This will all be resolved whenever we
     # refactor/normalize the other models by pulling out all of the image data into
@@ -38,7 +44,13 @@ class SaveHoneypotImage
     if object.respond_to?(:image_status)
       object.image_status = "image_ready"
     end
-    honeypot_image.save && object.save
+  end
+
+  # Anything that needs to be done after a successful save
+  def post_save
+    if object.respond_to?(:model_name) && object.model_name.to_s == "Item"
+      Index::Item.index!(object)
+    end
   end
 
   def send_request

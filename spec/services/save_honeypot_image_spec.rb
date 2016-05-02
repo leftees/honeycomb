@@ -82,6 +82,18 @@ RSpec.describe SaveHoneypotImage do
         expect(item).not_to receive(:image_status=)
         subject
       end
+
+      it "reindexes the object if it's an Item" do
+        allow(item).to receive(:model_name).and_return("Item")
+        expect(Index::Item).to receive(:index!).with(item)
+        subject
+      end
+
+      it "does not reindex the object if it's not an Item" do
+        allow(item).to receive(:model_name).and_return("Something else")
+        expect(Index::Item).not_to receive(:index!).with(item)
+        subject
+      end
     end
   end
 
