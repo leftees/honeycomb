@@ -22,8 +22,7 @@ RSpec.describe CollectionImage do
     expect(subject.display).to eq("<div " \
       "data-react-class=\"Thumbnail\" " \
       "data-react-props=\"{&quot;image&quot;:{&quot;contentUrl&quot;:&quot;http://example.com/image.jpg&quot;}}\">" \
-      "</div>"
-    )
+      "</div>")
   end
 
   it "displays the collection image even if an item has an image" do
@@ -31,8 +30,7 @@ RSpec.describe CollectionImage do
     expect(subject.display).to eq("<div " \
       "data-react-class=\"Thumbnail\" " \
       "data-react-props=\"{&quot;image&quot;:{&quot;contentUrl&quot;:&quot;http://collection.com/image.jpg&quot;}}\">" \
-      "</div>"
-    )
+      "</div>")
   end
 
   it "displays nothing if there are no images" do
