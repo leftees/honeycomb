@@ -190,7 +190,7 @@ var MetaDataConfigurationForm = React.createClass({
         <Toolbar>
           <ToolbarTitle style={{ paddingLeft: "48px" }} text={ this.getListTitle() } />
           <ToolbarGroup float="left">
-            <FloatingActionButton onClick={ this.handleNewClick } mini={true} style={ this.addButtonStyle() }>
+            <FloatingActionButton onMouseDown={ this.handleNewClick } onTouchStart={ this.handleNewClick } mini={true} style={ this.addButtonStyle() }>
               <ContentAdd />
             </FloatingActionButton>
           </ToolbarGroup>
