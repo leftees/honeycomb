@@ -43,6 +43,7 @@
 		factory( jQuery );
 	}
 }
+// eslint-disable-next-line
 (/** @lends <global> */function( $ ) {
 	"use strict";
 
