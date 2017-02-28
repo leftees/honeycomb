@@ -1,8 +1,7 @@
 engines:
-  eslint:
+  tslint:
     enabled: true
+    channel: beta
 exclude_paths:
-- "app/assets/javascripts/redactor.js"
-- "app/assets/javascripts/openseadragon.js"
-- "app/assets/javascripts/components.js"
-- "app/assets/javascripts/dropzone.js"
+- "**/**"
+- "!app/assets/javascripts/testfile.js"
