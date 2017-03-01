@@ -2,8 +2,19 @@ engines:
   tslint:
     enabled: true
     channel: beta
+    
+ratings:
+   paths:
+   - "app/"
+
 exclude_paths:
-- "**/*"
-- "!app/"
+- "bin/"
+- "config/"
+- "db/"
+- "lib/"
+- "log/"
+- "public/"
+- "solr/"
+- "spec/"
 
 # test commit
