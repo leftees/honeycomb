@@ -4,6 +4,6 @@ engines:
     channel: beta
 exclude_paths:
 - "**/*"
-- "!app/assets/javascripts/testfile.js"
+- "!app/"
 
 # test commit
