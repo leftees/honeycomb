@@ -1,11 +1,10 @@
 engines:
-  tslint:
+  eslint:
     enabled: true
-    channel: beta
 
 ratings:
    paths:
-   - "app/"
+   - ".js"
 
 exclude_paths:
 - "bin/"
